@@ -3004,6 +3004,49 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                 </p>
               </div>
 
+              {liveSynthesis?.benchmarks && Array.isArray(liveSynthesis.benchmarks) && liveSynthesis.benchmarks.length > 0 && (
+                <div style={{ background: t.cardBg, border: '2px solid #38bdf8', padding: '2.5rem', borderRadius: '32px', boxShadow: '0 0 35px rgba(56,189,248,0.15)' }}>
+                  <span style={{ background: '#e0f2fe', color: '#0369a1', padding: '0.4rem 1rem', borderRadius: '100px', fontSize: '0.8rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                    🔍 Live Google Search Grounded Citations
+                  </span>
+                  <h3 style={{ fontSize: '1.65rem', fontWeight: 900, color: t.textMain, margin: '1rem 0 1.5rem 0' }}>
+                    Verified Real-World Market Signals & Working Citations
+                  </h3>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                    {liveSynthesis.benchmarks.map((bm, bIdx) => (
+                      <div key={bIdx} style={{ background: isLight ? '#f8fafc' : 'rgba(255,255,255,0.03)', border: t.cardBorder, padding: '1.75rem', borderRadius: '24px', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
+                          <span style={{ fontSize: '1.15rem', fontWeight: 900, color: '#10b981' }}>{bm.peerName || bm.peerEntity || 'Global Peer Leader'}</span>
+                          <a
+                            href={bm.citationUrl || bm.sourceUrl || '#'}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{
+                              background: '#38bdf8',
+                              color: '#ffffff',
+                              padding: '0.5rem 1.25rem',
+                              borderRadius: '100px',
+                              fontSize: '0.85rem',
+                              fontWeight: 850,
+                              textDecoration: 'none',
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: '0.4rem',
+                              boxShadow: '0 4px 15px rgba(56,189,248,0.3)'
+                            }}
+                          >
+                            Inspect Working Citation ↗
+                          </a>
+                        </div>
+                        <p style={{ fontSize: '1rem', color: t.textMain, margin: '0.25rem 0', fontWeight: 600 }}>{bm.useCase || bm.verifiedWorkflow || bm.title}</p>
+                        <span style={{ fontSize: '0.92rem', color: t.textSub, lineHeight: 1.5 }}>{bm.benefitsRealized || bm.empiricGain || bm.desc}</span>
+                        <span style={{ fontSize: '0.8rem', color: '#94a3b8', fontWeight: 700, marginTop: '0.5rem' }}>Source Citation: {bm.source || bm.citationTitle || 'Curated Market Intelligence'}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               {/* 3 Summary Positioning Cards Row */}
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.75rem' }}>
                 <div style={{ background: t.cardBg, border: t.cardBorder, padding: '2rem', borderRadius: '24px', boxShadow: t.cardShadow }}>
