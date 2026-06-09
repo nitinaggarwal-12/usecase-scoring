@@ -571,6 +571,7 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
     runtime: '',
     connectors: []
   });
+  const [liveSynthesis, setLiveSynthesis] = useState(null);
   const [gateMode, setGateMode] = useState('');
   const isLight = globalTheme === 'light';
 
@@ -954,6 +955,10 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
             logs: [...prev.logs, `[${ts()}] ${lText}`]
           }));
         });
+
+        if (liveGenReport) {
+          setLiveSynthesis(liveGenReport);
+        }
 
         setGeminiStreamingState(prev => ({
           ...prev,
