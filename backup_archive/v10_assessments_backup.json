@@ -1,5 +1,18 @@
 [
   {
+    "id": "tile_1780981983696",
+    "company": "Pfizer Inc. (Global R&D)",
+    "useCase": "Global Pharmacovigilance Quality Inspector",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
     "id": "tile_1780981220250",
     "company": "Roche Diagnostics",
     "useCase": "Regulatory Submission Dossier Drafting Copilot",
@@ -169,58 +182,6 @@
     }
   },
   {
-    "id": "tile_1780971920132",
-    "company": "Sanofi S.A.",
-    "useCase": "Global Pharmacovigilance Quality Inspector",
-    "domain": "R&D / Clinical",
-    "priorityScore": 92,
-    "verdict": "Launch Now",
-    "date": "Jun 9, 2026",
-    "presetKey": "ai_scanned_custom",
-    "scoringVector": {
-      "presetKey": "ai_scanned_custom"
-    }
-  },
-  {
-    "id": "tile_1780971831846",
-    "company": "Novartis Pharma AG",
-    "useCase": "Global Pharmacovigilance Quality Inspector",
-    "domain": "R&D / Clinical",
-    "priorityScore": 92,
-    "verdict": "Launch Now",
-    "date": "Jun 9, 2026",
-    "presetKey": "ai_scanned_custom",
-    "scoringVector": {
-      "presetKey": "ai_scanned_custom"
-    }
-  },
-  {
-    "id": "tile_1780971831446",
-    "company": "Novartis Pharma AG",
-    "useCase": "Global Pharmacovigilance Quality Inspector",
-    "domain": "R&D / Clinical",
-    "priorityScore": 92,
-    "verdict": "Launch Now",
-    "date": "Jun 9, 2026",
-    "presetKey": "ai_scanned_custom",
-    "scoringVector": {
-      "presetKey": "ai_scanned_custom"
-    }
-  },
-  {
-    "id": "tile_1780971830863",
-    "company": "Pfizer Inc. (Global R&D)",
-    "useCase": "Global Pharmacovigilance Quality Inspector",
-    "domain": "R&D / Clinical",
-    "priorityScore": 92,
-    "verdict": "Launch Now",
-    "date": "Jun 9, 2026",
-    "presetKey": "ai_scanned_custom",
-    "scoringVector": {
-      "presetKey": "ai_scanned_custom"
-    }
-  },
-  {
     "id": "tile_1780971830680",
     "company": "Novartis Pharma AG",
     "useCase": "SAP S/4HANA Autonomous Financial Reconciliation",
@@ -234,48 +195,9 @@
     }
   },
   {
-    "id": "tile_1780971830480",
-    "company": "Roche Diagnostics",
-    "useCase": "Global Pharmacovigilance Quality Inspector",
-    "domain": "R&D / Clinical",
-    "priorityScore": 92,
-    "verdict": "Launch Now",
-    "date": "Jun 9, 2026",
-    "presetKey": "ai_scanned_custom",
-    "scoringVector": {
-      "presetKey": "ai_scanned_custom"
-    }
-  },
-  {
-    "id": "tile_1780971830113",
-    "company": "Novartis Pharma AG",
-    "useCase": "Global Pharmacovigilance Quality Inspector",
-    "domain": "R&D / Clinical",
-    "priorityScore": 92,
-    "verdict": "Launch Now",
-    "date": "Jun 9, 2026",
-    "presetKey": "ai_scanned_custom",
-    "scoringVector": {
-      "presetKey": "ai_scanned_custom"
-    }
-  },
-  {
     "id": "tile_1780971829713",
     "company": "Merck & Co. Enterprise",
     "useCase": "SAP S/4HANA Autonomous Financial Reconciliation",
-    "domain": "R&D / Clinical",
-    "priorityScore": 92,
-    "verdict": "Launch Now",
-    "date": "Jun 9, 2026",
-    "presetKey": "ai_scanned_custom",
-    "scoringVector": {
-      "presetKey": "ai_scanned_custom"
-    }
-  },
-  {
-    "id": "tile_1780971829530",
-    "company": "Sanofi S.A.",
-    "useCase": "Global Pharmacovigilance Quality Inspector",
     "domain": "R&D / Clinical",
     "priorityScore": 92,
     "verdict": "Launch Now",
@@ -325,51 +247,12 @@
     }
   },
   {
-    "id": "tile_1780971825947",
-    "company": "Merck & Co. Enterprise",
-    "useCase": "Global Pharmacovigilance Quality Inspector",
-    "domain": "R&D / Clinical",
-    "priorityScore": 92,
-    "verdict": "Launch Now",
-    "date": "Jun 9, 2026",
-    "presetKey": "ai_scanned_custom",
-    "scoringVector": {
-      "presetKey": "ai_scanned_custom"
-    }
-  },
-  {
     "id": "tile_1780971559578",
     "company": "Novartis Pharma AG (Global R&D)",
     "useCase": "Autonomous Radioligand Therapy Dossier Generator",
     "domain": "R&D / Clinical",
     "priorityScore": 20,
     "verdict": "Hold & Re-Architect",
-    "date": "Jun 9, 2026",
-    "presetKey": "ai_scanned_custom",
-    "scoringVector": {
-      "presetKey": "ai_scanned_custom"
-    }
-  },
-  {
-    "id": "tile_1780970317469",
-    "company": "Novartis Pharma AG",
-    "useCase": "Global Pharmacovigilance Quality Inspector",
-    "domain": "R&D / Clinical",
-    "priorityScore": 92,
-    "verdict": "Launch Now",
-    "date": "Jun 9, 2026",
-    "presetKey": "ai_scanned_custom",
-    "scoringVector": {
-      "presetKey": "ai_scanned_custom"
-    }
-  },
-  {
-    "id": "tile_1780970306217",
-    "company": "Novartis Pharma AG",
-    "useCase": "Global Pharmacovigilance Quality Inspector",
-    "domain": "R&D / Clinical",
-    "priorityScore": 92,
-    "verdict": "Launch Now",
     "date": "Jun 9, 2026",
     "presetKey": "ai_scanned_custom",
     "scoringVector": {

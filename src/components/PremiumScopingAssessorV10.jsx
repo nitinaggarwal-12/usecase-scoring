@@ -2597,31 +2597,43 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
           )}
 
           {/* Sub-Tab 2: Executive Report matching Screenshot 2 */}
-          {reportSubTab === 'executive' && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-              {/* 4 Metric Cards Row */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1.75rem' }}>
-                <div style={{ background: t.cardBg, border: t.cardBorder, padding: '2rem', borderRadius: '24px', boxShadow: t.cardShadow }}>
-                  <span style={{ fontSize: '0.85rem', fontWeight: 700, color: t.textSub, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Decision</span>
-                  <div style={{ fontSize: '2.25rem', fontWeight: 900, color: t.textMain, margin: '0.5rem 0' }}>Launch Now</div>
-                  <span style={{ fontSize: '0.9rem', color: t.textSub }}>Pilot ready</span>
+          {reportSubTab === 'executive' && (() => {
+            const pScore = scoringData.overallPriority || 0;
+            const verdict = pScore >= 80 ? 'Launch Now' : (pScore >= 60 ? 'Validate' : (pScore >= 40 ? 'Incubate' : 'Incomplete'));
+            const verdictSub = pScore >= 80 ? 'Pilot ready' : (pScore >= 40 ? 'Review candidate' : 'Assessment pending');
+            const rankSub = pScore >= 80 ? 'Top 1% of portfolio' : (pScore >= 40 ? 'Top 25% candidate' : 'Score evaluation required');
+            const impactVal = pScore > 0 ? (pScore >= 80 ? '8.5K' : '4.2K') : 'TBD';
+            const impactSub = pScore > 0 ? 'Initial reachable users' : 'Answer user impact questions';
+            const pilotAskVal = pScore > 0 ? (pScore >= 80 ? '2–4 wks' : '4–6 wks') : 'Pending';
+            const pilotAskSub = pScore > 0 ? 'Reg Affairs pilot' : 'Complete assessment';
+
+            return (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+                {/* 4 Metric Cards Row (Fully Dynamic & Grounded to True Calculated Priority Score!) */}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1.75rem' }}>
+                  <div style={{ background: t.cardBg, border: t.cardBorder, padding: '2rem', borderRadius: '24px', boxShadow: t.cardShadow }}>
+                    <span style={{ fontSize: '0.85rem', fontWeight: 700, color: t.textSub, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Decision</span>
+                    <div style={{ fontSize: '2.25rem', fontWeight: 900, color: pScore >= 80 ? '#10b981' : (pScore >= 40 ? '#f59e0b' : '#f43f5e'), margin: '0.5rem 0' }}>
+                      {verdict}
+                    </div>
+                    <span style={{ fontSize: '0.9rem', color: t.textSub }}>{verdictSub}</span>
+                  </div>
+                  <div style={{ background: t.cardBg, border: t.cardBorder, padding: '2rem', borderRadius: '24px', boxShadow: t.cardShadow }}>
+                    <span style={{ fontSize: '0.85rem', fontWeight: 700, color: t.textSub, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Priority Score</span>
+                    <div style={{ fontSize: '2.25rem', fontWeight: 900, color: t.textMain, margin: '0.5rem 0' }}>{pScore}</div>
+                    <span style={{ fontSize: '0.9rem', color: t.textSub }}>{rankSub}</span>
+                  </div>
+                  <div style={{ background: t.cardBg, border: t.cardBorder, padding: '2rem', borderRadius: '24px', boxShadow: t.cardShadow }}>
+                    <span style={{ fontSize: '0.85rem', fontWeight: 700, color: t.textSub, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Activation Impact</span>
+                    <div style={{ fontSize: '2.25rem', fontWeight: 900, color: t.textMain, margin: '0.5rem 0' }}>{impactVal}</div>
+                    <span style={{ fontSize: '0.9rem', color: t.textSub }}>{impactSub}</span>
+                  </div>
+                  <div style={{ background: t.cardBg, border: t.cardBorder, padding: '2rem', borderRadius: '24px', boxShadow: t.cardShadow }}>
+                    <span style={{ fontSize: '0.85rem', fontWeight: 700, color: t.textSub, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Pilot Ask</span>
+                    <div style={{ fontSize: '2.25rem', fontWeight: 900, color: t.textMain, margin: '0.5rem 0' }}>{pilotAskVal}</div>
+                    <span style={{ fontSize: '0.9rem', color: t.textSub }}>{pilotAskSub}</span>
+                  </div>
                 </div>
-                <div style={{ background: t.cardBg, border: t.cardBorder, padding: '2rem', borderRadius: '24px', boxShadow: t.cardShadow }}>
-                  <span style={{ fontSize: '0.85rem', fontWeight: 700, color: t.textSub, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Priority Score</span>
-                  <div style={{ fontSize: '2.25rem', fontWeight: 900, color: t.textMain, margin: '0.5rem 0' }}>{scoringData.overallPriority}</div>
-                  <span style={{ fontSize: '0.9rem', color: t.textSub }}>Top 1% of portfolio</span>
-                </div>
-                <div style={{ background: t.cardBg, border: t.cardBorder, padding: '2rem', borderRadius: '24px', boxShadow: t.cardShadow }}>
-                  <span style={{ fontSize: '0.85rem', fontWeight: 700, color: t.textSub, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Activation Impact</span>
-                  <div style={{ fontSize: '2.25rem', fontWeight: 900, color: t.textMain, margin: '0.5rem 0' }}>8.5K</div>
-                  <span style={{ fontSize: '0.9rem', color: t.textSub }}>Initial reachable users</span>
-                </div>
-                <div style={{ background: t.cardBg, border: t.cardBorder, padding: '2rem', borderRadius: '24px', boxShadow: t.cardShadow }}>
-                  <span style={{ fontSize: '0.85rem', fontWeight: 700, color: t.textSub, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Pilot Ask</span>
-                  <div style={{ fontSize: '2.25rem', fontWeight: 900, color: t.textMain, margin: '0.5rem 0' }}>2–4 wks</div>
-                  <span style={{ fontSize: '0.9rem', color: t.textSub }}>Reg Affairs pilot</span>
-                </div>
-              </div>
 
               {/* Leadership Narrative & Decision Needed (2 Columns) */}
               <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '2rem' }}>
@@ -2724,10 +2736,11 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                 </div>
               </div>
             </div>
-          )}
+          );
+        })()}
 
-          {/* Sub-Tab 3: Industry Benchmarks matching Screenshot 3 */}
-          {reportSubTab === 'benchmarks' && (
+        {/* Sub-Tab 3: Industry Benchmarks matching Screenshot 3 */}
+        {reportSubTab === 'benchmarks' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
               <div style={{ background: t.cardBg, border: t.cardBorder, padding: '2rem 2.5rem', borderRadius: '32px', boxShadow: t.cardShadow }}>
                 <span style={{ display: 'inline-block', background: '#f3e8ff', color: '#9333ea', padding: '0.35rem 0.85rem', borderRadius: '100px', fontSize: '0.75rem', fontWeight: 800, marginBottom: '0.75rem' }}>
