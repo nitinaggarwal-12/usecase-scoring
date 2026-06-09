@@ -841,9 +841,7 @@ export default function App() {
     setApiKey(newKey);
     setGcpToken(newToken);
     setIsSuperAdmin(newAdmin);
-    if (!newKey && !newToken) {
-      setIsUserLoggedIn(false);
-    }
+    setIsUserLoggedIn(true);
     try {
       localStorage.setItem('gemini_api_key', newKey || '');
       localStorage.setItem('gemini_gcp_token', newToken || '');
