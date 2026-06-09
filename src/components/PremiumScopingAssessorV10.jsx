@@ -2467,19 +2467,19 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                           </div>
                           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '1.25rem', marginTop: 'auto', fontSize: '0.85rem' }}>
                             {(() => {
-                              const safeMap = (arr, fallback) => (Array.isArray(arr) ? arr : (Array.isArray(dyn.gains) ? dyn.gains : fallback)).map((x, i) => <li key={i}>{x}</li>);
+                              const safeList = (arr, fallback) => (Array.isArray(arr) && arr.length > 0 ? arr : fallback).map((x, i) => <li key={i}>{x}</li>);
                               return (
                                 <>
                                   <div>
                                     <strong style={{ color: t.textMain, display: 'block', marginBottom: '0.4rem' }}>Pros</strong>
                                     <ul style={{ paddingLeft: '1rem', margin: 0, color: t.textSub, display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
-                                      {safeMap(dyn.card1Pros, ['High Operational Acceleration'])}
+                                      {safeList(dyn.card1Pros, ['Immediate OData API context grounding', 'Rapid 2–3 week pilot validation'])}
                                     </ul>
                                   </div>
                                   <div>
                                     <strong style={{ color: t.textMain, display: 'block', marginBottom: '0.4rem' }}>Cons</strong>
                                     <ul style={{ paddingLeft: '1rem', margin: 0, color: t.textSub, display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
-                                      {safeMap(dyn.card1Cons, ['Change Management Oversight'])}
+                                      {safeList(dyn.card1Cons, ['Initial departmental scope restriction', 'Requires manual controller review'])}
                                     </ul>
                                   </div>
                                 </>
@@ -2505,19 +2505,19 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                           </div>
                           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '1.25rem', marginTop: 'auto', fontSize: '0.85rem' }}>
                             {(() => {
-                              const safeMap = (arr, fallback) => (Array.isArray(arr) ? arr : (Array.isArray(dyn.gains) ? dyn.gains : fallback)).map((x, i) => <li key={i}>{x}</li>);
+                              const safeList = (arr, fallback) => (Array.isArray(arr) && arr.length > 0 ? arr : fallback).map((x, i) => <li key={i}>{x}</li>);
                               return (
                                 <>
                                   <div>
                                     <strong style={{ color: t.textMain, display: 'block', marginBottom: '0.4rem' }}>Pros</strong>
                                     <ul style={{ paddingLeft: '1rem', margin: 0, color: t.textSub, display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
-                                      {safeMap(dyn.card2Pros, ['Standard BigQuery Lake Integration'])}
+                                      {safeList(dyn.card2Pros, ['Comprehensive BigQuery lake grounding', 'Automated background sync agent'])}
                                     </ul>
                                   </div>
                                   <div>
                                     <strong style={{ color: t.textMain, display: 'block', marginBottom: '0.4rem' }}>Cons</strong>
                                     <ul style={{ paddingLeft: '1rem', margin: 0, color: t.textSub, display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
-                                      {safeMap(dyn.card2Cons, ['Moderate Departmental Onboarding SLA'])}
+                                      {safeList(dyn.card2Cons, ['Requires 6–10 weeks pipeline sync', 'Moderate enterprise adoption curve'])}
                                     </ul>
                                   </div>
                                 </>
@@ -2543,19 +2543,19 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                           </div>
                           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '1.25rem', marginTop: 'auto', fontSize: '0.85rem' }}>
                             {(() => {
-                              const safeMap = (arr, fallback) => (Array.isArray(arr) ? arr : (Array.isArray(dyn.gains) ? dyn.gains : fallback)).map((x, i) => <li key={i}>{x}</li>);
+                              const safeList = (arr, fallback) => (Array.isArray(arr) && arr.length > 0 ? arr : fallback).map((x, i) => <li key={i}>{x}</li>);
                               return (
                                 <>
                                   <div>
                                     <strong style={{ color: t.textMain, display: 'block', marginBottom: '0.4rem' }}>Pros</strong>
                                     <ul style={{ paddingLeft: '1rem', margin: 0, color: t.textSub, display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
-                                      {safeMap(dyn.card3Pros, ['Full Sovereign BigLake Orchestration'])}
+                                      {safeList(dyn.card3Pros, ['Full autonomous Vertex multi-agent hub', 'Unlocks major operational ROI (>30%)'])}
                                     </ul>
                                   </div>
                                   <div>
                                     <strong style={{ color: t.textMain, display: 'block', marginBottom: '0.4rem' }}>Cons</strong>
                                     <ul style={{ paddingLeft: '1rem', margin: 0, color: t.textSub, display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
-                                      {safeMap(dyn.card3Cons, ['Long-term Capital Allocation Lock'])}
+                                      {safeList(dyn.card3Cons, ['Highest service mesh complexity', 'Extended 3–6 month enterprise rollout'])}
                                     </ul>
                                   </div>
                                 </>
