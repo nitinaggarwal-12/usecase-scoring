@@ -3325,7 +3325,33 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                   </span>
                   <div style={{ display: 'flex', gap: '1rem' }}>
                     <button 
-                      onClick={() => alert("📥 Successfully downloaded Merck_WavePlan_Roadmap.ics to Outlook Calendar")}
+                      onClick={() => {
+                        const cName = customerInfo?.company || 'Enterprise';
+                        const uName = customerInfo?.useCaseName || 'Gemini_AI_Wave';
+                        const startDate = new Date(Date.now() + 86400000 * 7).toISOString().replace(/[-:]/g, '').substring(0, 15) + 'Z';
+                        const endDate = new Date(Date.now() + 86400000 * 7 + 3600000).toISOString().replace(/[-:]/g, '').substring(0, 15) + 'Z';
+                        const icsContent = [
+                          "BEGIN:VCALENDAR",
+                          "VERSION:2.0",
+                          "PRODID:-//Google Cloud//Gemini Enterprise Roadmap//EN",
+                          "CALSCALE:GREGORIAN",
+                          "METHOD:PUBLISH",
+                          "BEGIN:VEVENT",
+                          `SUMMARY:${cName} - ${uName} Implementation Kickoff`,
+                          `DTSTART:${startDate}`,
+                          `DTEND:${endDate}`,
+                          "DESCRIPTION:Verified Google Cloud Gemini Enterprise Deployment Milestone meeting",
+                          "LOCATION:Google Meet / Enterprise Virtual Video Link",
+                          "STATUS:CONFIRMED",
+                          "END:VEVENT",
+                          "END:VCALENDAR"
+                        ].join("\r\n");
+                        const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+                        const link = document.createElement('a');
+                        link.href = URL.createObjectURL(blob);
+                        link.download = `${cName.replace(/\s+/g, '_')}_Roadmap.ics`;
+                        link.click();
+                      }}
                       style={{ background: '#3b82f6', color: '#fff', border: 'none', padding: '0.85rem 1.75rem', borderRadius: '100px', fontSize: '0.95rem', fontWeight: 800, cursor: 'pointer', boxShadow: '0 6px 20px rgba(59,130,246,0.4)' }}
                     >
                       📥 Export Roadmap Schedule (.ics)
