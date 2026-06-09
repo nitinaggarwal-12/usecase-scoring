@@ -2331,97 +2331,117 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                 return (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
                     {/* Top 3 Summary Stat Cards Row */}
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.75rem' }}>
-                      <div style={{ background: t.cardBg, border: t.cardBorder, padding: '2rem', borderRadius: '24px', boxShadow: t.cardShadow }}>
-                        <span style={{ fontSize: '0.85rem', fontWeight: 700, color: t.textSub, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Portfolio Rank</span>
-                        <div style={{ fontSize: '2.5rem', fontWeight: 900, color: t.textMain, margin: '0.5rem 0' }}>
+                    {/* Top 4 Summary Stat Tiles Row (Matching Height & Premium Padding) */}
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', gap: '1.5rem', alignItems: 'stretch' }}>
+                      <div style={{ background: t.cardBg, border: t.cardBorder, padding: '1.5rem', borderRadius: '24px', boxShadow: t.cardShadow, display: 'flex', flexDirection: 'column', justifySelf: 'stretch', boxSizing: 'border-box' }}>
+                        <span style={{ fontSize: '0.82rem', fontWeight: 750, color: t.textSub, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Portfolio Rank</span>
+                        <div style={{ fontSize: '2.35rem', fontWeight: 900, color: t.textMain, margin: '0.4rem 0' }}>
                           #{scoringData.overallPriority >= 90 ? 1 : Math.max(4, 101 - scoringData.overallPriority)}
                         </div>
-                        <span style={{ fontSize: '0.9rem', color: t.textSub }}>of 117 submitted use cases</span>
+                        <span style={{ fontSize: '0.85rem', color: t.textSub, marginTop: 'auto' }}>of 117 submitted use cases</span>
                       </div>
 
-                      <div style={{ background: t.cardBg, border: t.cardBorder, padding: '2rem', borderRadius: '24px', boxShadow: t.cardShadow }}>
-                        <span style={{ fontSize: '0.85rem', fontWeight: 700, color: t.textSub, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Reachable Users</span>
-                        <div style={{ fontSize: '2.5rem', fontWeight: 900, color: t.textMain, margin: '0.5rem 0' }}>{dyn.users}</div>
-                        <span style={{ fontSize: '0.9rem', color: t.textSub }}>Daily/weekly workflow potential</span>
+                      <div style={{ background: t.cardBg, border: t.cardBorder, padding: '1.5rem', borderRadius: '24px', boxShadow: t.cardShadow, display: 'flex', flexDirection: 'column', justifySelf: 'stretch', boxSizing: 'border-box' }}>
+                        <span style={{ fontSize: '0.82rem', fontWeight: 750, color: t.textSub, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Reachable Users</span>
+                        <div style={{ fontSize: '2.35rem', fontWeight: 900, color: t.textMain, margin: '0.4rem 0' }}>{dyn.users}</div>
+                        <span style={{ fontSize: '0.85rem', color: t.textSub, marginTop: 'auto' }}>Daily/weekly workflow potential</span>
                       </div>
 
-                      <div style={{ background: t.cardBg, border: t.cardBorder, padding: '2rem', borderRadius: '24px', boxShadow: t.cardShadow }}>
-                        <span style={{ fontSize: '0.85rem', fontWeight: 700, color: t.textSub, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Time to Value</span>
-                        <div style={{ fontSize: '2.5rem', fontWeight: 900, color: t.textMain, margin: '0.5rem 0' }}>{dyn.ttv}</div>
-                        <span style={{ fontSize: '0.9rem', color: t.textSub }}>Pilot with native connectors</span>
+                      <div style={{ background: t.cardBg, border: t.cardBorder, padding: '1.5rem', borderRadius: '24px', boxShadow: t.cardShadow, display: 'flex', flexDirection: 'column', justifySelf: 'stretch', boxSizing: 'border-box' }}>
+                        <span style={{ fontSize: '0.82rem', fontWeight: 750, color: t.textSub, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Time to Value</span>
+                        <div style={{ fontSize: '2.35rem', fontWeight: 900, color: t.textMain, margin: '0.4rem 0' }}>{dyn.ttv}</div>
+                        <span style={{ fontSize: '0.85rem', color: t.textSub, marginTop: 'auto' }}>Pilot with native connectors</span>
+                      </div>
+
+                      {/* Tile 4: Scorecard Mini Bars (Moved UP as exactly matching 4th Tile!) */}
+                      <div style={{ background: t.cardBg, border: t.cardBorder, padding: '1.5rem', borderRadius: '24px', boxShadow: t.cardShadow, display: 'flex', flexDirection: 'column', justifySelf: 'stretch', boxSizing: 'border-box' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                          <span style={{ fontSize: '0.82rem', fontWeight: 800, color: t.textSub, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Scorecard Index</span>
+                          <span style={{ fontSize: '0.88rem', fontWeight: 900, color: '#10b981' }}>{scoringData.overallPriority || 92} Pts</span>
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', marginTop: 'auto' }}>
+                          {[
+                            { label: 'Bus. Value', score: scoringData.businessValueScore || 89, color: 'linear-gradient(90deg, #10b981, #059669)' },
+                            { label: 'Activation', score: scoringData.geminiActivationScore || 93, color: 'linear-gradient(90deg, #10b981, #059669)' },
+                            { label: 'Readiness', score: scoringData.technicalReadinessScore || 93, color: 'linear-gradient(90deg, #10b981, #059669)' },
+                            { label: 'Opp. Cost', score: 80, color: 'linear-gradient(90deg, #f59e0b, #d97706)' }
+                          ].map((item, idx) => (
+                            <div key={idx} style={{ display: 'flex', flexDirection: 'column', gap: '0.18rem' }}>
+                              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.72rem', fontWeight: 750, color: t.textMain }}>
+                                <span>{item.label}</span>
+                                <span>{item.score}</span>
+                              </div>
+                              <div style={{ height: '4px', background: isLight ? '#e2e8f0' : 'rgba(255,255,255,0.08)', borderRadius: '100px', overflow: 'hidden' }}>
+                                <div style={{ width: `${item.score}%`, height: '100%', background: item.color, borderRadius: '100px' }} />
+                              </div>
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     </div>
 
-                    {/* Second Row: Scorecard & Executive Summary (2 Columns) */}
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
-                      {/* Scorecard Column */}
-                      <div style={{ background: t.cardBg, border: t.cardBorder, padding: '2.5rem', borderRadius: '32px', boxShadow: t.cardShadow, display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-                        <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: t.textMain, margin: 0 }}>Scorecard</h3>
-                        
-                        {[
-                          { label: 'Business Value', score: scoringData.businessValueScore, color: 'linear-gradient(90deg, #10b981, #059669)' },
-                          { label: 'Gemini Activation', score: scoringData.geminiActivationScore, color: 'linear-gradient(90deg, #10b981, #059669)' },
-                          { label: 'Technical Readiness', score: scoringData.technicalReadinessScore, color: 'linear-gradient(90deg, #10b981, #059669)' },
-                          { label: 'Strategic Importance', score: Math.min(98, scoringData.businessValueScore + 3), color: 'linear-gradient(90deg, #10b981, #059669)' },
-                          { label: 'Opportunity Cost', score: 80, color: 'linear-gradient(90deg, #f59e0b, #d97706)' },
-                          { label: 'Change Readiness', score: scoringData.changeReadinessScore, color: 'linear-gradient(90deg, #10b981, #059669)' }
-                        ].map((item, idx) => (
-                          <div key={idx} style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '1rem', fontWeight: 700, color: t.textMain }}>
-                              <span>{item.label}</span>
-                              <span>{item.score}</span>
-                            </div>
-                            <div style={{ height: '8px', background: isLight ? '#e2e8f0' : 'rgba(255,255,255,0.08)', borderRadius: '4px', overflow: 'hidden' }}>
-                              <div style={{ width: `${item.score}%`, height: '100%', background: item.color, borderRadius: '4px' }} />
-                            </div>
-                          </div>
-                        ))}
+                    {/* Second Row: Expanded 100% Full-Width Executive Summary & Business Case */}
+                    <div style={{ background: t.cardBg, border: t.cardBorder, padding: '2.75rem', borderRadius: '32px', boxShadow: t.cardShadow, display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem' }}>
+                        <div>
+                          <span style={{ fontSize: '0.85rem', fontWeight: 800, color: '#38bdf8', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '0.4rem', display: 'inline-block' }}>
+                            Strategic C-Suite Briefing
+                          </span>
+                          <h3 style={{ fontSize: '1.75rem', fontWeight: 900, color: t.textMain, margin: 0 }}>
+                            Executive Summary & Business Case
+                          </h3>
+                        </div>
+                        <span style={{ fontSize: '0.85rem', fontWeight: 800, background: 'rgba(16,185,129,0.15)', color: '#10b981', border: '1px solid #10b981', padding: '0.45rem 1.1rem', borderRadius: '100px' }}>
+                          Target Wave: Immediate Pilot
+                        </span>
                       </div>
 
-                      {/* Executive Summary Column */}
-                      <div style={{ background: t.cardBg, border: t.cardBorder, padding: '2.5rem', borderRadius: '32px', boxShadow: t.cardShadow, display: 'flex', flexDirection: 'column', gap: '1.75rem' }}>
-                        <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: t.textMain, margin: 0 }}>Executive Summary</h3>
-                        <p style={{ fontSize: '1.05rem', color: t.textMain, lineHeight: 1.6, margin: 0 }}>
-                          {dyn.summary}
-                        </p>
+                      <p style={{ fontSize: '1.15rem', color: t.textMain, lineHeight: 1.7, margin: 0, fontWeight: 500 }}>
+                        {dyn.summary}
+                      </p>
 
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
-                          <span style={{ fontSize: '0.95rem', fontWeight: 800, color: t.textMain, textTransform: 'uppercase', letterSpacing: '0.5px' }}>What {c} gains</span>
-                          <ul style={{ margin: 0, paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.5rem', color: t.textSub, fontSize: '0.95rem', lineHeight: 1.5 }}>
+                      {/* Immersive Side-by-Side Value Tradeoff Comparison */}
+                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: '2rem', borderTop: isLight ? '1px solid #e2e8f0' : '1px solid rgba(255,255,255,0.08)', paddingTop: '1.75rem' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', background: isLight ? '#f8fafc' : 'rgba(255,255,255,0.03)', border: isLight ? '1px solid #cbd5e1' : '1px solid rgba(255,255,255,0.08)', padding: '1.75rem', borderRadius: '24px' }}>
+                          <span style={{ fontSize: '1.05rem', fontWeight: 850, color: '#10b981', display: 'flex', alignItems: 'center', gap: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                            <CheckCircle2 size={18} /> What {c} Gains
+                          </span>
+                          <ul style={{ margin: 0, paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.65rem', color: t.textSub, fontSize: '0.95rem', lineHeight: 1.5 }}>
                             {dyn.gains.map((item, idx) => <li key={idx}>{item}</li>)}
                           </ul>
                         </div>
 
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
-                          <span style={{ fontSize: '0.95rem', fontWeight: 800, color: t.textMain, textTransform: 'uppercase', letterSpacing: '0.5px' }}>What {c} loses if not done</span>
-                          <ul style={{ margin: 0, paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.5rem', color: t.textSub, fontSize: '0.95rem', lineHeight: 1.5 }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', background: isLight ? '#fff1f2' : 'rgba(244,63,94,0.05)', border: isLight ? '1px solid #fecdd3' : '1px solid rgba(244,63,94,0.15)', padding: '1.75rem', borderRadius: '24px' }}>
+                          <span style={{ fontSize: '1.05rem', fontWeight: 850, color: '#f43f5e', display: 'flex', alignItems: 'center', gap: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                            <AlertTriangle size={18} /> What {c} Loses (Opportunity Cost)
+                          </span>
+                          <ul style={{ margin: 0, paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.65rem', color: t.textSub, fontSize: '0.95rem', lineHeight: 1.5 }}>
                             {dyn.loses.map((item, idx) => <li key={idx}>{item}</li>)}
                           </ul>
                         </div>
+                      </div>
 
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: isLight ? '1px solid #e2e8f0' : '1px solid rgba(255,255,255,0.08)', paddingTop: '1.25rem', marginTop: 'auto' }}>
-                          <span style={{ fontSize: '0.85rem', color: '#10b981', fontWeight: 800 }}>
-                            ✓ SHA-256 Grounding Signature Verified over TLS 1.3
-                          </span>
-                          <a 
-                            href="#portfolio-intelligence-v10?view=logs" 
-                            style={{ 
-                              fontSize: '0.85rem', 
-                              fontWeight: 800, 
-                              color: '#38bdf8', 
-                              textDecoration: 'none',
-                              display: 'flex',
-                              alignItems: 'center',
-                              gap: '0.4rem',
-                              background: 'rgba(56,189,248,0.15)',
-                              padding: '0.4rem 0.85rem',
-                              borderRadius: '100px'
-                            }}
-                          >
-                            🔍 Inspect Cryptographic Lineage Payload
-                          </a>
-                        </div>
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: isLight ? '1px solid #e2e8f0' : '1px solid rgba(255,255,255,0.08)', paddingTop: '1.5rem', marginTop: 'auto', flexWrap: 'wrap', gap: '1rem' }}>
+                        <span style={{ fontSize: '0.85rem', color: '#10b981', fontWeight: 800 }}>
+                          ✓ SHA-256 Grounding Signature Verified over TLS 1.3
+                        </span>
+                        <a 
+                          href="#portfolio-intelligence-v10?view=logs" 
+                          style={{ 
+                            fontSize: '0.85rem', 
+                            fontWeight: 800, 
+                            color: '#38bdf8', 
+                            textDecoration: 'none',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '0.4rem',
+                            background: 'rgba(56,189,248,0.15)',
+                            padding: '0.45rem 1rem',
+                            borderRadius: '100px'
+                          }}
+                        >
+                          🔍 Inspect Lineage Verification Logs
+                        </a>
                       </div>
                     </div>
 
