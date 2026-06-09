@@ -225,6 +225,90 @@ export const V10_PILLARS = [
     ]
   },
   {
+    id: 'CM',
+    name: 'Change Management',
+    weight: 5,
+    persona: 'Business',
+    purpose: 'Training, process change, champions, rollout, success measurement.',
+    questions: [
+      {
+        id: 'Q13',
+        dimension: 'Training Effort',
+        title: 'User training effort?',
+        notes: 'Lower effort improves rollout readiness.',
+        weightInPillar: 20,
+        type: 'single',
+        options: [
+          { label: '1. Massive organization retraining required', score: 0, blocker: 'High friction', mitigation: 'Develop guided walkthrough' },
+          { label: '2. Substantial workflow re-education', score: 40 },
+          { label: '3. Moderate briefing / 1-hour workshop', score: 70 },
+          { label: '4. Quick 5-minute video intro', score: 85 },
+          { label: '5. Entirely intuitive zero-training adoption', score: 100 }
+        ]
+      },
+      {
+        id: 'Q14',
+        dimension: 'Process Change',
+        title: 'Process change required?',
+        notes: 'Lower change burden improves adoption.',
+        weightInPillar: 20,
+        type: 'single',
+        options: [
+          { label: '1. Complete overhaul of operating procedures', score: 0, blocker: 'High barrier', mitigation: 'Align QA leadership' },
+          { label: '2. Significant departmental workflow adjustments', score: 40 },
+          { label: '3. Minor step elimination', score: 70 },
+          { label: '4. Seamless drop-in copilot addition', score: 85 },
+          { label: '5. Zero workflow disruption', score: 100 }
+        ]
+      },
+      {
+        id: 'Q15',
+        dimension: 'Champion Network',
+        title: 'Champion network available?',
+        notes: 'Department AI champions / super users.',
+        weightInPillar: 20,
+        type: 'single',
+        options: [
+          { label: '1. No champions / Skeptical user base', score: 0, blocker: 'No advocates', mitigation: 'Recruit super-users' },
+          { label: '2. Single isolated advocate', score: 40 },
+          { label: '3. Informal enthusiastic peer group', score: 70 },
+          { label: '4. Recruited super-user cohort', score: 85 },
+          { label: '5. Established active departmental super-champion network', score: 100 }
+        ]
+      },
+      {
+        id: 'Q16',
+        dimension: 'Rollout Strategy',
+        title: 'Rollout strategy defined?',
+        notes: 'Pilot, phased rollout, comms.',
+        weightInPillar: 20,
+        type: 'single',
+        options: [
+          { label: '1. No rollout strategy or release plan', score: 0, blocker: 'No rollout plan', mitigation: 'Formulate timeline' },
+          { label: '2. Vague pilot discussion only', score: 40 },
+          { label: '3. Draft phased rollout roadmap', score: 70 },
+          { label: '4. Documented pilot with clear success criteria', score: 85 },
+          { label: '5. Fully funded scheduled production rollout schedule', score: 100 }
+        ]
+      },
+      {
+        id: 'Q17',
+        dimension: 'Success Measurement',
+        title: 'Success measurement plan defined?',
+        notes: 'KPIs, telemetry, survey, adoption metrics.',
+        weightInPillar: 20,
+        type: 'single',
+        options: [
+          { label: '1. No measurement plan or telemetry tracking', score: 0, blocker: 'No telemetry defined', mitigation: 'Implement logging' },
+          { label: '2. Informal anecdotal feedback only', score: 40 },
+          { label: '3. Periodic user satisfaction surveys', score: 65 },
+          { label: '4. Automated usage telemetry & activity logs', score: 85 },
+          { label: '5. Real-time adoption & business KPI dashboard integration', score: 100 }
+        ]
+      }
+    ]
+  },
+  {
     id: 'DK',
     name: 'Data & Knowledge Sources',
     weight: 10,
@@ -232,7 +316,7 @@ export const V10_PILLARS = [
     purpose: 'Source availability, connector readiness, data quality, ownership.',
     questions: [
       {
-        id: 'Q13',
+        id: 'Q18',
         dimension: 'Source Systems',
         title: 'Primary knowledge/data sources?',
         notes: 'Score is system-calculated from connector readiness.',
@@ -247,7 +331,7 @@ export const V10_PILLARS = [
         ]
       },
       {
-        id: 'Q14',
+        id: 'Q19',
         dimension: 'Data Quality',
         title: 'Data quality level?',
         notes: 'Quality and reliability of source content.',
@@ -262,7 +346,7 @@ export const V10_PILLARS = [
         ]
       },
       {
-        id: 'Q15',
+        id: 'Q20',
         dimension: 'Source Ownership',
         title: 'Knowledge source ownership?',
         notes: 'Who owns source content and access approvals?',
@@ -286,7 +370,7 @@ export const V10_PILLARS = [
     purpose: 'Data sensitivity, regulatory impact, human review needs.',
     questions: [
       {
-        id: 'Q16',
+        id: 'Q21',
         dimension: 'Data Classification',
         title: 'Data classification?',
         notes: 'Used for readiness and complexity. Lower score means more controls required.',
@@ -301,7 +385,7 @@ export const V10_PILLARS = [
         ]
       },
       {
-        id: 'Q17',
+        id: 'Q22',
         dimension: 'Regulatory Clarity',
         title: 'Regulatory / compliance requirements understood?',
         notes: 'GxP, audit, legal, retention, validation needs.',
@@ -316,7 +400,7 @@ export const V10_PILLARS = [
         ]
       },
       {
-        id: 'Q18',
+        id: 'Q23',
         dimension: 'Human Review',
         title: 'Human review requirements defined?',
         notes: 'Human-in-the-loop clarity.',
@@ -340,7 +424,7 @@ export const V10_PILLARS = [
     purpose: 'Fit of use-case pattern, accuracy, integration complexity.',
     questions: [
       {
-        id: 'Q19',
+        id: 'Q24',
         dimension: 'Use Case Pattern',
         title: 'Primary use case pattern?',
         notes: 'Used to infer architecture.',
@@ -355,7 +439,7 @@ export const V10_PILLARS = [
         ]
       },
       {
-        id: 'Q20',
+        id: 'Q25',
         dimension: 'Accuracy Requirement',
         title: 'Expected accuracy / consequence level?',
         notes: 'High consequence requires more controls and evaluation.',
@@ -370,7 +454,7 @@ export const V10_PILLARS = [
         ]
       },
       {
-        id: 'Q21',
+        id: 'Q26',
         dimension: 'Integration Complexity',
         title: 'Integration complexity?',
         notes: 'Number of systems / tools involved.',
@@ -394,7 +478,7 @@ export const V10_PILLARS = [
     purpose: 'Complexity of orchestration, agents, latency.',
     questions: [
       {
-        id: 'Q22',
+        id: 'Q27',
         dimension: 'Workflow Complexity',
         title: 'Workflow / orchestration complexity?',
         notes: 'Prompt -> RAG -> agent -> multi-agent.',
@@ -409,7 +493,7 @@ export const V10_PILLARS = [
         ]
       },
       {
-        id: 'Q23',
+        id: 'Q28',
         dimension: 'Latency Requirement',
         title: 'Latency / response-time requirement?',
         notes: 'Sub-second indicates potential mismatch.',
@@ -433,7 +517,7 @@ export const V10_PILLARS = [
     purpose: 'Auto-calculated from connector catalog and architecture patterns.',
     questions: [
       {
-        id: 'Q24',
+        id: 'Q29',
         dimension: 'Connector Availability',
         title: 'Connector availability?',
         notes: 'Calculated from Connector Catalog and selected sources.',
@@ -448,7 +532,7 @@ export const V10_PILLARS = [
         ]
       },
       {
-        id: 'Q25',
+        id: 'Q30',
         dimension: 'Pattern Availability',
         title: 'Existing architecture pattern exists?',
         notes: 'Calculated from Architecture Rules.',
@@ -460,90 +544,6 @@ export const V10_PILLARS = [
           { label: '3. Documented third-party pattern', score: 70 },
           { label: '4. Verified internal reference architecture', score: 85 },
           { label: '5. Standard out-of-the-box Gemini enterprise pattern', score: 100 }
-        ]
-      }
-    ]
-  },
-  {
-    id: 'CM',
-    name: 'Change Management',
-    weight: 5,
-    persona: 'Business',
-    purpose: 'Training, process change, champions, rollout, success measurement.',
-    questions: [
-      {
-        id: 'Q26',
-        dimension: 'Training Effort',
-        title: 'User training effort?',
-        notes: 'Lower effort improves rollout readiness.',
-        weightInPillar: 20,
-        type: 'single',
-        options: [
-          { label: '1. Massive organization retraining required', score: 0, blocker: 'High friction', mitigation: 'Develop guided walkthrough' },
-          { label: '2. Substantial workflow re-education', score: 40 },
-          { label: '3. Moderate briefing / 1-hour workshop', score: 70 },
-          { label: '4. Quick 5-minute video intro', score: 85 },
-          { label: '5. Entirely intuitive zero-training adoption', score: 100 }
-        ]
-      },
-      {
-        id: 'Q27',
-        dimension: 'Process Change',
-        title: 'Process change required?',
-        notes: 'Lower change burden improves adoption.',
-        weightInPillar: 20,
-        type: 'single',
-        options: [
-          { label: '1. Complete overhaul of operating procedures', score: 0, blocker: 'High barrier', mitigation: 'Align QA leadership' },
-          { label: '2. Significant departmental workflow adjustments', score: 40 },
-          { label: '3. Minor step elimination', score: 70 },
-          { label: '4. Seamless drop-in copilot addition', score: 85 },
-          { label: '5. Zero workflow disruption', score: 100 }
-        ]
-      },
-      {
-        id: 'Q28',
-        dimension: 'Champion Network',
-        title: 'Champion network available?',
-        notes: 'Department AI champions / super users.',
-        weightInPillar: 20,
-        type: 'single',
-        options: [
-          { label: '1. No champions / Skeptical user base', score: 0, blocker: 'No advocates', mitigation: 'Recruit super-users' },
-          { label: '2. Single isolated advocate', score: 40 },
-          { label: '3. Informal enthusiastic peer group', score: 70 },
-          { label: '4. Recruited super-user cohort', score: 85 },
-          { label: '5. Established active departmental super-champion network', score: 100 }
-        ]
-      },
-      {
-        id: 'Q29',
-        dimension: 'Rollout Strategy',
-        title: 'Rollout strategy defined?',
-        notes: 'Pilot, phased rollout, comms.',
-        weightInPillar: 20,
-        type: 'single',
-        options: [
-          { label: '1. No rollout strategy or release plan', score: 0, blocker: 'No rollout plan', mitigation: 'Formulate timeline' },
-          { label: '2. Vague pilot discussion only', score: 40 },
-          { label: '3. Draft phased rollout roadmap', score: 70 },
-          { label: '4. Documented pilot with clear success criteria', score: 85 },
-          { label: '5. Fully funded scheduled production rollout schedule', score: 100 }
-        ]
-      },
-      {
-        id: 'Q30',
-        dimension: 'Success Measurement',
-        title: 'Success measurement plan defined?',
-        notes: 'KPIs, telemetry, survey, adoption metrics.',
-        weightInPillar: 20,
-        type: 'single',
-        options: [
-          { label: '1. No measurement plan or telemetry tracking', score: 0, blocker: 'No telemetry defined', mitigation: 'Implement logging' },
-          { label: '2. Informal anecdotal feedback only', score: 40 },
-          { label: '3. Periodic user satisfaction surveys', score: 65 },
-          { label: '4. Automated usage telemetry & activity logs', score: 85 },
-          { label: '5. Real-time adoption & business KPI dashboard integration', score: 100 }
         ]
       }
     ]
