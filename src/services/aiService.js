@@ -471,11 +471,12 @@ Return a JSON object with the following exact keys:
   "roi": { "tcoSavings": "X% - Y%", "paybackPeriod": "X months", "summary": "Detailed ROI outlook paragraph." },
   "benchmarks": [
     {
-      "peerName": "Peer/Competitor Identifier (e.g. Global Oncology Research Leader)",
+      "peerName": "Peer/Competitor Identifier",
       "useCase": "What they built",
       "benefitsRealized": "Quantified speedups, savings, or regulatory approvals realized",
-      "techStack": "GCP features used (e.g. Gemini 1.5 Pro + Vertex AI Search)",
-      "source": "Credible source citation (e.g. Gartner HCLS Case Brief 2026, or Forrester TEI of Vertex AI 2025)"
+      "techStack": "GCP features used",
+      "source": "Credible source citation",
+      "citationUrl": "https://www.google.com/search?q=GCP+GenAI+case+study"
     }
   ]
 }
@@ -486,8 +487,18 @@ Ensure the output is pure valid JSON without markdown formatting tags or backtic
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       contents: [{ parts: [{ text: prompt }] }],
+      tools: [
+        {
+          googleSearchRetrieval: {
+            dynamicRetrievalConfig: {
+              mode: "MODE_DYNAMIC",
+              dynamicThreshold: 0.3
+            }
+          }
+        }
+      ],
       generationConfig: {
-        temperature: 0.2,
+        temperature: 0.15,
         responseMimeType: "application/json"
       }
     })

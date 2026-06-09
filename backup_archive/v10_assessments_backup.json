@@ -1,10 +1,10 @@
 [
   {
-    "id": "tile_1780982623196",
-    "company": "Pfizer Inc. (Global R&D)",
+    "id": "tile_1780982885828",
+    "company": "Novartis Pharma AG",
     "useCase": "Next-Gen GxP Compliant Manufacturing SOP Assistant",
     "domain": "R&D / Clinical",
-    "priorityScore": 94,
+    "priorityScore": 93,
     "verdict": "Launch Now",
     "date": "Jun 9, 2026",
     "presetKey": "ai_scanned_custom",

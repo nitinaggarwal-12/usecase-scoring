@@ -37,55 +37,14 @@ export default function PremiumLandingPageV10({ onStartAssessment, onSelectPrese
   const [showSourcesModal, setShowSourcesModal] = useState(null);
   const [selectedPreviewFile, setSelectedPreviewFile] = useState(null);
   const [isWorkerParsing, setIsWorkerParsing] = useState(false);
-  const DEFAULT_V10_PORTFOLIO = [
-    {
-      id: 'merck_sop',
-      company: 'Merck & Co.',
-      useCase: 'Regulatory SOP Assistant',
-      domain: 'Quality & Regulatory',
-      priorityScore: 92,
-      verdict: 'Launch Now',
-      date: 'June 2, 2026',
-      presetKey: 'sop_assistant'
-    },
-    {
-      id: 'merck_gma',
-      company: 'Merck & Co.',
-      useCase: 'GMAX Pricing Agent (AccessIQ)',
-      domain: 'Commercial Ops',
-      priorityScore: 88,
-      verdict: 'Launch Now',
-      date: 'June 7, 2026',
-      presetKey: 'ai_scanned_custom'
-    },
-    {
-      id: 'pfizer_copilot',
-      company: 'Pfizer Inc.',
-      useCase: 'Submission Drafting Copilot',
-      domain: 'R&D / Clinical',
-      priorityScore: 78,
-      verdict: 'Incubate & Validate',
-      date: 'May 28, 2026',
-      presetKey: 'submission_copilot'
-    },
-    {
-      id: 'roche_inv',
-      company: 'Roche AG',
-      useCase: 'Quality Event Investigator',
-      domain: 'Quality & Regulatory',
-      priorityScore: 64,
-      verdict: 'Hold & Re-Architect',
-      date: 'June 5, 2026',
-      presetKey: 'quality_investigator'
-    }
-  ];
+  const DEFAULT_V10_PORTFOLIO = [];
 
   const [savedAssessments, setSavedAssessments] = useState(() => {
     try {
       const stored = localStorage.getItem('v10_saved_tiles');
-      if (stored) return JSON.parse(stored);
+      if (stored && stored !== '[]') return JSON.parse(stored);
     } catch (e) {}
-    return DEFAULT_V10_PORTFOLIO;
+    return [];
   });
 
   useEffect(() => {
@@ -1637,13 +1596,7 @@ export default function PremiumLandingPageV10({ onStartAssessment, onSelectPrese
 
       {/* Executive CFO Portfolio Dashboard Page View (V10) */}
       {showPortfolioDashboard && (() => {
-        const baseList = savedAssessments.length > 0 ? savedAssessments : [
-          { id: 'merck_sop', company: 'Merck & Co.', useCase: 'Regulatory SOP Assistant', domain: 'Quality & Regulatory', priorityScore: 92, verdict: 'Launch Now', date: 'June 2, 2026', presetKey: 'sop_assistant' },
-          { id: 'merck_gmax', company: 'Merck & Co.', useCase: 'GMAX Pricing Agent (AccessIQ)', domain: 'Commercial & Access', priorityScore: 88, verdict: 'Launch Now', date: 'June 1, 2026', presetKey: 'clinical_protocol' },
-          { id: 'novartis_rt', company: 'Novartis AG', useCase: 'Radioligand Trial Feasibility Matcher', domain: 'R&D / Oncology', priorityScore: 94, verdict: 'Launch Now', date: 'June 4, 2026', presetKey: 'ai_scanned_custom' },
-          { id: 'roche_sub', company: 'Roche Diagnostics', useCase: 'Clinical Submission Verifier', domain: 'R&D / Clinical', priorityScore: 85, verdict: 'Launch Now', date: 'May 30, 2026', presetKey: 'sop_assistant' },
-          { id: 'pfizer_draft', company: 'Pfizer Inc.', useCase: 'Automated Medical Protocol Drafter', domain: 'Quality & Regulatory', priorityScore: 78, verdict: 'Validate', date: 'May 28, 2026', presetKey: 'clinical_protocol' }
-        ];
+        const baseList = savedAssessments;
 
         const accounts = ['ALL', ...new Set(baseList.map(x => x.company || 'Merck & Co.'))];
 
