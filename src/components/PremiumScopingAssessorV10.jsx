@@ -551,7 +551,7 @@ export const V10_PILLARS = [
   }
 ];
 
-export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme = 'dark', apiKey = '' }) {
+export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme = 'dark', apiKey = '', gcpToken = '' }) {
   const [activeTab, setActiveTab] = useState('intake');
   const [activeDimensionId, setActiveDimensionId] = useState('BV');
   const handleTabSwitch = (targetTab) => {
@@ -926,10 +926,18 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
     }
     const ts = () => new Date().toISOString().replace('T', ' ').substring(11, 23);
 
-    let activeKey = apiKey;
-    if (!activeKey || activeKey === 'demo_key' || activeKey.trim() === '') {
+    let activeKey = apiKey || gcpToken;
+    if (!activeKey || activeKey === 'demo_key' || activeKey === 'demo_token' || activeKey.trim() === '') {
       activeKey = prompt("🔑 Connect Live to Google Cloud Gemini API: Enter your actual Gemini API Key (or GCP ADC Token) to stream 100% authentic live intelligence directly from Google Cloud models:");
     }
+
+    if (!activeKey || activeKey.trim() === '') {
+      alert("🔑 Connection Cancelled: Live Google Cloud Gemini API key or GCP ADC Token is required to stream real-world RAG intelligence and verified citations.");
+      return;
+    }
+
+    const cleanCred = activeKey.trim();
+    const isAdc = cleanCred.startsWith('ya29.') || cleanCred.startsWith('ey');
 
     setGeminiStreamingState({
       active: true,
@@ -940,21 +948,25 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
       ]
     });
 
-    if (activeKey && activeKey.trim() !== '') {
-      try {
-        setGeminiStreamingState(prev => ({
-          ...prev,
-          currentStep: 3,
-          logs: [...prev.logs, `[${ts()}] [POST] Dispatching secure streaming payload to https://generativelanguage.googleapis.com/v1beta... [STREAMING LIVE]`]
-        }));
+    try {
+      setGeminiStreamingState(prev => ({
+        ...prev,
+        currentStep: 3,
+        logs: [...prev.logs, `[${ts()}] [POST] Dispatching secure streaming payload... [STREAMING LIVE]`]
+      }));
 
-        const liveGenReport = await generateReportData({ ...customerInfo, ...scoringData }, activeKey.trim(), null, (st, lText) => {
+      const liveGenReport = await generateReportData(
+        { ...customerInfo, ...scoringData },
+        isAdc ? null : cleanCred,
+        isAdc ? cleanCred : null,
+        (st, lText) => {
           setGeminiStreamingState(prev => ({
             ...prev,
             currentStep: st,
             logs: [...prev.logs, `[${ts()}] ${lText}`]
           }));
-        });
+        }
+      );
 
         if (liveGenReport) {
           setLiveSynthesis(liveGenReport);
@@ -990,15 +1002,6 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
         });
         return;
       }
-    } else {
-      alert("🔑 Connection Cancelled: Live Google Cloud Gemini API key is required to stream real-world RAG intelligence and verified citations.");
-      setGeminiStreamingState({
-        active: false,
-        currentStep: 0,
-        logs: []
-      });
-      return;
-    }
   };
 
   const handleAutoFillRandom = () => {

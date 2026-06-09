@@ -1590,6 +1590,7 @@ export default function App() {
             <PremiumScopingAssessorV10 
               globalTheme={globalTheme}
               apiKey={apiKey}
+              gcpToken={gcpToken}
               onBackToLanding={() => {
                 setViewMode('landing');
                 if (!window.location.hash.includes('view=')) {

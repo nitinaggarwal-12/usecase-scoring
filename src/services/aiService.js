@@ -120,7 +120,7 @@ export function calculateScoring(formData) {
 }
 
 async function callReasoningEngine(formData, gcpToken) {
-  const endpoint = `/v1/projects/528479452485/locations/us-central1/reasoningEngines/2251197831069040640:streamQuery`;
+  const endpoint = `https://us-central1-aiplatform.googleapis.com/v1/projects/528479452485/locations/us-central1/reasoningEngines/2251197831069040640:streamQuery`;
   
   const prompt = `Generate a structured Use Case Scoring & Feasibility Assessment Report for the following customer intake details:
 ${JSON.stringify(formData, null, 2)}`;
