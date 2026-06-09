@@ -562,6 +562,7 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
     }
   };
   const [reportSubTab, setReportSubTab] = useState('executive');
+  const [activeRoadmapPhase, setActiveRoadmapPhase] = useState(1);
   const [customerInfo, setCustomerInfo] = useState({
     company: '',
     useCaseName: '',
@@ -2463,10 +2464,29 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
 
                       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.75rem' }}>
                         {/* Card 1: Phase 1 */}
-                        <div style={{ background: isLight ? '#f8fafc' : 'rgba(16,185,129,0.05)', border: '2px solid #10b981', padding: '2rem', borderRadius: '24px', display: 'flex', flexDirection: 'column', justifySelf: 'stretch' }}>
-                          <span style={{ display: 'inline-block', background: '#dcfce7', color: '#15803d', fontSize: '0.78rem', fontWeight: 900, padding: '0.35rem 0.95rem', borderRadius: '100px', alignSelf: 'flex-start', marginBottom: '1.25rem', border: '1px solid #bbf7d0', boxShadow: '0 2px 8px rgba(21,128,61,0.15)' }}>
-                            Phase 1
-                          </span>
+                        <div 
+                          onClick={() => setActiveRoadmapPhase(1)}
+                          style={{ 
+                            background: activeRoadmapPhase === 1 ? (isLight ? '#f0fdf4' : 'rgba(16,185,129,0.12)') : (isLight ? '#f8fafc' : 'rgba(16,185,129,0.03)'), 
+                            border: activeRoadmapPhase === 1 ? '2px solid #10b981' : (isLight ? '1px solid #cbd5e1' : '1px solid rgba(255,255,255,0.08)'), 
+                            padding: '2rem', 
+                            borderRadius: '24px', 
+                            display: 'flex', 
+                            flexDirection: 'column', 
+                            justifySelf: 'stretch',
+                            cursor: 'pointer',
+                            transition: 'all 0.2s ease',
+                            boxShadow: activeRoadmapPhase === 1 ? '0 0 25px rgba(16,185,129,0.25)' : 'none'
+                          }}
+                        >
+                          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
+                            <span style={{ display: 'inline-block', background: '#dcfce7', color: '#15803d', fontSize: '0.78rem', fontWeight: 900, padding: '0.35rem 0.95rem', borderRadius: '100px', border: '1px solid #bbf7d0', boxShadow: '0 2px 8px rgba(21,128,61,0.15)' }}>
+                              Phase 1
+                            </span>
+                            <span style={{ fontSize: '0.75rem', fontWeight: 800, color: activeRoadmapPhase === 1 ? '#10b981' : t.textSub, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                              {activeRoadmapPhase === 1 ? '● Selected' : 'Click to inspect'}
+                            </span>
+                          </div>
                           <h4 style={{ fontSize: '1.15rem', fontWeight: 800, color: t.textMain, margin: '0 0 0.75rem 0' }}>
                             {dyn.card1Title}
                           </h4>
@@ -2501,15 +2521,34 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                         </div>
 
                         {/* Card 2: Phase 2 */}
-                        <div style={{ background: isLight ? '#f8fafc' : 'rgba(245,158,11,0.05)', border: isLight ? '1px solid #cbd5e1' : '1px solid rgba(245,158,11,0.3)', padding: '2rem', borderRadius: '24px', display: 'flex', flexDirection: 'column', justifySelf: 'stretch' }}>
-                          <span style={{ display: 'inline-block', background: '#fef3c7', color: '#b45309', fontSize: '0.78rem', fontWeight: 900, padding: '0.35rem 0.95rem', borderRadius: '100px', alignSelf: 'flex-start', marginBottom: '1.25rem', border: '1px solid #fde68a', boxShadow: '0 2px 8px rgba(180,83,9,0.12)' }}>
-                            Phase 2
-                          </span>
+                        <div 
+                          onClick={() => setActiveRoadmapPhase(2)}
+                          style={{ 
+                            background: activeRoadmapPhase === 2 ? (isLight ? '#fffbeb' : 'rgba(245,158,11,0.12)') : (isLight ? '#f8fafc' : 'rgba(245,158,11,0.03)'), 
+                            border: activeRoadmapPhase === 2 ? '2px solid #f59e0b' : (isLight ? '1px solid #cbd5e1' : '1px solid rgba(255,255,255,0.08)'), 
+                            padding: '2rem', 
+                            borderRadius: '24px', 
+                            display: 'flex', 
+                            flexDirection: 'column', 
+                            justifySelf: 'stretch',
+                            cursor: 'pointer',
+                            transition: 'all 0.2s ease',
+                            boxShadow: activeRoadmapPhase === 2 ? '0 0 25px rgba(245,158,11,0.25)' : 'none'
+                          }}
+                        >
+                          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
+                            <span style={{ display: 'inline-block', background: '#fef3c7', color: '#b45309', fontSize: '0.78rem', fontWeight: 900, padding: '0.35rem 0.95rem', borderRadius: '100px', border: '1px solid #fde68a', boxShadow: '0 2px 8px rgba(180,83,9,0.12)' }}>
+                              Phase 2
+                            </span>
+                            <span style={{ fontSize: '0.75rem', fontWeight: 800, color: activeRoadmapPhase === 2 ? '#f59e0b' : t.textSub, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                              {activeRoadmapPhase === 2 ? '● Selected' : 'Click to inspect'}
+                            </span>
+                          </div>
                           <h4 style={{ fontSize: '1.15rem', fontWeight: 800, color: t.textMain, margin: '0 0 0.75rem 0' }}>
-                            {dyn.card2Title}
+                            {dyn.card2Title || 'Enterprise BigQuery Lake Grounding'}
                           </h4>
                           <p style={{ fontSize: '0.95rem', color: t.textSub, lineHeight: 1.5, margin: '0 0 1.5rem 0' }}>
-                            {dyn.card2Desc}
+                            {dyn.card2Desc || 'Scale out multi-modal BigQuery unstructured embeddings across commercial and R&D tables.'}
                           </p>
                           <div style={{ fontSize: '0.9rem', fontWeight: 600, color: t.textMain, marginBottom: '1.5rem' }}>
                             <div>Complexity: Medium</div>
@@ -2539,15 +2578,34 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                         </div>
 
                         {/* Card 3: Phase 3 */}
-                        <div style={{ background: isLight ? '#f8fafc' : 'rgba(168,85,247,0.05)', border: isLight ? '1px solid #cbd5e1' : '1px solid rgba(168,85,247,0.3)', padding: '2rem', borderRadius: '24px', display: 'flex', flexDirection: 'column', justifySelf: 'stretch' }}>
-                          <span style={{ display: 'inline-block', background: '#f3e8ff', color: '#7e22ce', fontSize: '0.78rem', fontWeight: 900, padding: '0.35rem 0.95rem', borderRadius: '100px', alignSelf: 'flex-start', marginBottom: '1.25rem', border: '1px solid #e9d5ff', boxShadow: '0 2px 8px rgba(126,34,206,0.12)' }}>
-                            Phase 3
-                          </span>
+                        <div 
+                          onClick={() => setActiveRoadmapPhase(3)}
+                          style={{ 
+                            background: activeRoadmapPhase === 3 ? (isLight ? '#faf5ff' : 'rgba(168,85,247,0.12)') : (isLight ? '#f8fafc' : 'rgba(168,85,247,0.03)'), 
+                            border: activeRoadmapPhase === 3 ? '2px solid #a855f7' : (isLight ? '1px solid #cbd5e1' : '1px solid rgba(255,255,255,0.08)'), 
+                            padding: '2rem', 
+                            borderRadius: '24px', 
+                            display: 'flex', 
+                            flexDirection: 'column', 
+                            justifySelf: 'stretch',
+                            cursor: 'pointer',
+                            transition: 'all 0.2s ease',
+                            boxShadow: activeRoadmapPhase === 3 ? '0 0 25px rgba(168,85,247,0.25)' : 'none'
+                          }}
+                        >
+                          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
+                            <span style={{ display: 'inline-block', background: '#f3e8ff', color: '#7e22ce', fontSize: '0.78rem', fontWeight: 900, padding: '0.35rem 0.95rem', borderRadius: '100px', border: '1px solid #e9d5ff', boxShadow: '0 2px 8px rgba(126,34,206,0.12)' }}>
+                              Phase 3
+                            </span>
+                            <span style={{ fontSize: '0.75rem', fontWeight: 800, color: activeRoadmapPhase === 3 ? '#a855f7' : t.textSub, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                              {activeRoadmapPhase === 3 ? '● Selected' : 'Click to inspect'}
+                            </span>
+                          </div>
                           <h4 style={{ fontSize: '1.15rem', fontWeight: 800, color: t.textMain, margin: '0 0 0.75rem 0' }}>
-                            {dyn.card3Title}
+                            {dyn.card3Title || 'Sovereign Multi-Agent Execution Hub'}
                           </h4>
                           <p style={{ fontSize: '0.95rem', color: t.textSub, lineHeight: 1.5, margin: '0 0 1.5rem 0' }}>
-                            {dyn.card3Desc}
+                            {dyn.card3Desc || 'Deploy fully autonomous multi-agent reasoning networks over Vertex AI private service mesh.'}
                           </p>
                           <div style={{ fontSize: '0.9rem', fontWeight: 600, color: t.textMain, marginBottom: '1.5rem' }}>
                             <div>Complexity: High</div>
@@ -2578,30 +2636,83 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                       </div>
                     </div>
 
-                    {/* Fourth Row: Blockers & Risks vs Next Steps (2 Columns) */}
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
-                      <div style={{ background: t.cardBg, border: t.cardBorder, padding: '2.5rem', borderRadius: '32px', boxShadow: t.cardShadow, display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-                        <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: t.textMain, margin: 0 }}>Blockers & Risks</h3>
-                        <span style={{ background: '#dcfce7', color: '#15803d', padding: '0.35rem 0.85rem', borderRadius: '100px', fontSize: '0.8rem', fontWeight: 800, alignSelf: 'flex-start' }}>
-                          No launch blocking issues
-                        </span>
-                        <ul style={{ margin: 0, paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.75rem', color: t.textSub, fontSize: '0.95rem', lineHeight: 1.5 }}>
-                          {(Array.isArray(dyn.blockers) ? dyn.blockers : (Array.isArray(dyn.loses) ? dyn.loses : ['No critical launch blocking issues'])).map((item, idx) => (
-                            <li key={idx}>
-                              <strong>{item.includes(':') ? item.split(':')[0] + ':' : 'Observation:'}</strong>
-                              {item.includes(':') ? item.substring(item.indexOf(':') + 1) : item}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
+                    {/* Fourth Row: Blockers & Risks vs Next Steps (Fully Grounded to Interactive Active Roadmap Phase!) */}
+                    {(() => {
+                      const phaseBlockers = activeRoadmapPhase === 1 ? (dyn.blockers || [
+                        'Medium risk: Document quality and metadata tagging variance across legacy repositories.',
+                        'Medium risk: User adoption rate reliant on departmental super-user advocacy.',
+                        'Watch item: Strict regulatory disclaimer attributions and human-in-the-loop audit gates.'
+                      ]) : (activeRoadmapPhase === 2 ? [
+                        'Medium risk: BigQuery federated connection latency during peak ETL sync spikes.',
+                        'Medium risk: Departmental RBAC security mapping across distributed enterprise tables.',
+                        'Watch item: Multi-modal embedding vector storage and index synchronization drift.'
+                      ] : [
+                        'High risk: Vertex AI Service Mesh ingress policy compliance and sovereign data sign-off.',
+                        'High risk: Multi-agent recursive loop hallucination guardrails and budget constraints required.',
+                        'Watch item: Long-term compute SLA and inference quota balancing across organizational units.'
+                      ]);
 
-                      <div style={{ background: t.cardBg, border: t.cardBorder, padding: '2.5rem', borderRadius: '32px', boxShadow: t.cardShadow, display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-                        <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: t.textMain, margin: 0 }}>Recommended Next Steps</h3>
-                        <ol style={{ margin: 0, paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.75rem', color: t.textSub, fontSize: '0.95rem', lineHeight: 1.5 }}>
-                          {(Array.isArray(dyn.nextSteps) ? dyn.nextSteps : (Array.isArray(dyn.gains) ? dyn.gains : ['Establish validation metrics'])).map((item, idx) => <li key={idx}>{item}</li>)}
-                        </ol>
-                      </div>
-                    </div>
+                      const phaseNextSteps = activeRoadmapPhase === 1 ? (dyn.nextSteps || [
+                        'Confirm pilot operational group with primary compliance oversight.',
+                        'Validate zero-data-retention sandbox boundaries and VPC Service Controls.',
+                        'Establish quantifiable success metrics: weekly active workflows and hours saved.',
+                        'Execute targeted 3-to-4 week production validation pilot.'
+                      ]) : (activeRoadmapPhase === 2 ? [
+                        'Provision dedicated BigQuery multimodal embedding dataset pipelines.',
+                        'Instantiate background sync agents connecting commercial and R&D tables.',
+                        'Run targeted 6-week cross-functional user acceptance testing (UAT).',
+                        'Verify cost reduction SLA metrics (~20%) across automated workflows.'
+                      ] : [
+                        'Architect private Vertex AI multi-agent service mesh deployment.',
+                        'Deploy automated tool-calling compliance interceptors over TLS 1.3.',
+                        'Conduct comprehensive 3-month global red-team security verification.',
+                        'Authorize fully autonomous production wave across global subsidiaries.'
+                      ]);
+
+                      const phaseBadgeColor = activeRoadmapPhase === 1 ? '#15803d' : (activeRoadmapPhase === 2 ? '#b45309' : '#7e22ce');
+                      const phaseBadgeBg = activeRoadmapPhase === 1 ? '#dcfce7' : (activeRoadmapPhase === 2 ? '#fef3c7' : '#f3e8ff');
+
+                      return (
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
+                          <div style={{ background: t.cardBg, border: t.cardBorder, padding: '2.5rem', borderRadius: '32px', boxShadow: t.cardShadow, display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
+                              <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: t.textMain, margin: 0 }}>
+                                Blockers & Risks (Phase {activeRoadmapPhase})
+                              </h3>
+                              <span style={{ background: phaseBadgeBg, color: phaseBadgeColor, padding: '0.35rem 0.85rem', borderRadius: '100px', fontSize: '0.8rem', fontWeight: 800 }}>
+                                {activeRoadmapPhase === 1 ? 'No launch blocking issues' : (activeRoadmapPhase === 2 ? 'Standard ETL SLA verification' : 'High complexity mesh evaluation')}
+                              </span>
+                            </div>
+                            <ul style={{ margin: 0, paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.75rem', color: t.textSub, fontSize: '0.95rem', lineHeight: 1.5 }}>
+                              {phaseBlockers.map((item, idx) => (
+                                <li key={idx}>
+                                  <strong>{item.includes(':') ? item.split(':')[0] + ':' : 'Observation:'}</strong>
+                                  {item.includes(':') ? item.substring(item.indexOf(':') + 1) : item}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+
+                          <div style={{ background: t.cardBg, border: t.cardBorder, padding: '2.5rem', borderRadius: '32px', boxShadow: t.cardShadow, display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
+                              <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: t.textMain, margin: 0 }}>
+                                Recommended Next Steps (Phase {activeRoadmapPhase})
+                              </h3>
+                              <span style={{ background: phaseBadgeBg, color: phaseBadgeColor, padding: '0.35rem 0.85rem', borderRadius: '100px', fontSize: '0.8rem', fontWeight: 800 }}>
+                                Wave {activeRoadmapPhase} Milestones
+                              </span>
+                            </div>
+                            <ol style={{ margin: 0, paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.85rem', color: t.textSub, fontSize: '0.95rem', lineHeight: 1.5 }}>
+                              {phaseNextSteps.map((step, sIdx) => (
+                                <li key={sIdx}>
+                                  <span style={{ color: t.textMain, fontWeight: 600 }}>{step}</span>
+                                </li>
+                              ))}
+                            </ol>
+                          </div>
+                        </div>
+                      );
+                    })()}
                   </div>
                 );
               })()}
