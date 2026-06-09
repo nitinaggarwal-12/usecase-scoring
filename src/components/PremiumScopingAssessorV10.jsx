@@ -656,11 +656,11 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
         Q19: 3, Q20: 3, Q21: 3, Q22: 3, Q23: 2, Q24: 3, Q25: 3, Q26: 3, Q27: 2, Q28: 3, Q29: 3, Q30: 3
       });
       setCustomerInfo({
-        company: comp ? decodeURIComponent(comp) : 'Novartis Oncology',
-        useCaseName: uCase ? decodeURIComponent(uCase) : 'GMAX Pricing Agent',
-        domain: 'R&D / Clinical',
-        runtime: 'GCP Vertex AI',
-        connectors: ['Microsoft 365 / SharePoint', 'Veeva Vault GxP Docs']
+        company: comp ? decodeURIComponent(comp) : '',
+        useCaseName: uCase ? decodeURIComponent(uCase) : '',
+        domain: 'Enterprise Operations',
+        runtime: 'Google Cloud Vertex AI',
+        connectors: ['Cloud Data Warehouse']
       });
       return;
     }
@@ -671,21 +671,21 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
         Q11: 4, Q12: 4, Q13: 4, Q14: 4, Q15: 3, Q16: 4, Q17: 4, Q18: 3,
         Q19: 4, Q20: 4, Q21: 3, Q22: 4, Q23: 3, Q24: 4, Q25: 4, Q26: 3, Q27: 4, Q28: 3, Q29: 4, Q30: 4
       });
-      setCustomerInfo({ company: 'Pfizer Inc.', useCaseName: 'Submission Drafting Copilot', domain: 'R&D / Clinical', runtime: 'GCP Vertex AI', connectors: ['Microsoft 365 / SharePoint'] });
+      setCustomerInfo({ company: '', useCaseName: '', domain: 'Enterprise Operations', runtime: 'Google Cloud Vertex AI', connectors: ['Corporate Lake'] });
     } else if (presetKey === 'quality_investigator') {
       setAnswers({
         Q1: 3, Q2: 4, Q3: 3, Q4: 3, Q5: 4, Q6: 4, Q7: 3, Q8: 4, Q9: 3, Q10: 3,
         Q11: 4, Q12: 3, Q13: 3, Q14: 4, Q15: 4, Q16: 3, Q17: 4, Q18: 3,
         Q19: 4, Q20: 3, Q21: 4, Q22: 3, Q23: 4, Q24: 4, Q25: 4, Q26: 3, Q27: 3, Q28: 4, Q29: 3, Q30: 4
       });
-      setCustomerInfo({ company: 'Roche AG', useCaseName: 'Quality Event Investigator', domain: 'Quality & Regulatory', runtime: 'GCP Vertex AI', connectors: ['Veeva Vault GxP Docs'] });
+      setCustomerInfo({ company: '', useCaseName: '', domain: 'Quality & Compliance', runtime: 'Google Cloud Vertex AI', connectors: ['Verified GxP Docs'] });
     } else {
       setAnswers({
         Q1: 4, Q2: 4, Q3: 4, Q4: 4, Q5: 4, Q6: 4, Q7: 4, Q8: 4, Q9: 4, Q10: 4,
         Q11: 4, Q12: 4, Q13: 4, Q14: 4, Q15: 4, Q16: 4, Q17: 4, Q18: 4,
         Q19: 4, Q20: 4, Q21: 4, Q22: 4, Q23: 4, Q24: 4, Q25: 4, Q26: 4, Q27: 4, Q28: 4, Q29: 4, Q30: 4
       });
-      setCustomerInfo({ company: 'Merck & Co.', useCaseName: 'Regulatory SOP Assistant', domain: 'Quality & Regulatory', runtime: 'GCP Vertex AI', connectors: ['Microsoft 365 / SharePoint'] });
+      setCustomerInfo({ company: '', useCaseName: '', domain: 'Quality & Compliance', runtime: 'Google Cloud Vertex AI', connectors: ['Corporate Storage'] });
     }
   };
 
@@ -814,8 +814,8 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
   }, [answers]);
 
   const persistToSavedAssessments = async (cName, uName, pScore) => {
-    const targetCompany = cName || 'Novartis Pharma AG';
-    const targetUseCase = uName || 'Autonomous Clinical Trial Protocol Generator';
+    const targetCompany = cName || customerInfo?.company || 'Enterprise Assessment';
+    const targetUseCase = uName || customerInfo?.useCaseName || 'Dynamic GenAI Evaluation';
     const targetScore = pScore || 92;
     const verdict = targetScore >= 90 ? 'Launch Now' : (targetScore >= 75 ? 'Incubate & Validate' : 'Hold & Re-Architect');
     const newEntry = {
@@ -831,13 +831,8 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
 
     try {
       // 1. Zero-Latency Local Cache Sync First
-      const defaultPortfolio = [
-        { id: 'merck_sop', company: 'Merck & Co.', useCase: 'Regulatory SOP Assistant', domain: 'Quality & Regulatory', priorityScore: 92, verdict: 'Launch Now', date: 'June 2, 2026', presetKey: 'sop_assistant' },
-        { id: 'merck_gma', company: 'Merck & Co.', useCase: 'GMAX Pricing Agent (AccessIQ)', domain: 'Commercial Ops', priorityScore: 88, verdict: 'Launch Now', date: 'June 7, 2026', presetKey: 'ai_scanned_custom' },
-        { id: 'pfizer_copilot', company: 'Pfizer Inc.', useCase: 'Submission Drafting Copilot', domain: 'R&D / Clinical', priorityScore: 78, verdict: 'Incubate & Validate', date: 'May 28, 2026', presetKey: 'submission_copilot' },
-        { id: 'roche_inv', company: 'Roche AG', useCase: 'Quality Event Investigator', domain: 'Quality & Regulatory', priorityScore: 64, verdict: 'Hold & Re-Architect', date: 'June 5, 2026', presetKey: 'quality_investigator' }
-      ];
-      const existing = JSON.parse(localStorage.getItem('v10_saved_tiles') || JSON.stringify(defaultPortfolio));
+      const defaultPortfolio = [];
+      const existing = JSON.parse(localStorage.getItem('v10_saved_tiles') || '[]');
       const filtered = existing.filter(x => x.useCase !== targetUseCase);
       const nextArr = [newEntry, ...filtered];
       localStorage.setItem('v10_saved_tiles', JSON.stringify(nextArr));
@@ -929,30 +924,13 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
   };
 
   const handleAutoFillRandom = () => {
-    const sampleTitles = [
-      "Global Pharmacovigilance Quality Inspector",
-      "Autonomous Clinical Trial Protocol Generator",
-      "Regulatory Submission Dossier Drafting Copilot",
-      "SAP S/4HANA Autonomous Financial Reconciliation",
-      "Next-Gen GxP Compliant Manufacturing SOP Assistant"
-    ];
-    const sampleAccounts = [
-      "Pfizer Inc. (Global R&D)",
-      "Novartis Pharma AG",
-      "Roche Diagnostics",
-      "Sanofi S.A.",
-      "Merck & Co. Enterprise"
-    ];
-    const randomTitle = sampleTitles[Math.floor(Math.random() * sampleTitles.length)];
-    const randomAccount = sampleAccounts[Math.floor(Math.random() * sampleAccounts.length)];
-
     setCustomerInfo(prev => ({
       ...prev,
-      company: randomAccount,
-      useCaseName: randomTitle,
-      domain: 'R&D / Clinical',
-      connectors: ['Microsoft 365 / SharePoint', 'OneDrive Shared Workspaces', 'Google BigQuery Lake'],
-      runtime: 'GCP Vertex AI',
+      company: 'Customer Enterprise',
+      useCaseName: 'Enterprise Generative AI Assistant',
+      domain: 'Enterprise Operations',
+      connectors: ['Corporate Data Warehouse'],
+      runtime: 'Google Cloud Vertex AI',
       evidenceMode: 'funding_gate'
     }));
     setGateMode('funding_gate');
@@ -1035,15 +1013,15 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
             {/* Top Line: Customer Name + Department Name */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <span style={{ fontSize: '0.75rem', fontWeight: 900, color: '#10b981', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                {(!scoringData.overallPriority || scoringData.overallPriority === 0) ? 'New Candidate Intake' : (customerInfo?.company || 'Novartis AG')}
+                {(!scoringData.overallPriority || scoringData.overallPriority === 0) ? 'New Candidate Intake' : (customerInfo?.company || 'Enterprise Candidate')}
               </span>
               <span style={{ fontSize: '0.68rem', color: '#38bdf8', fontWeight: 850, background: 'rgba(56,189,248,0.12)', padding: '0.15rem 0.5rem', borderRadius: '100px' }}>
-                {(!scoringData.overallPriority || scoringData.overallPriority === 0) ? 'Discovery Assessment' : (customerInfo?.domain || 'R&D / Clinical')}
+                {(!scoringData.overallPriority || scoringData.overallPriority === 0) ? 'Discovery Assessment' : (customerInfo?.domain || 'Enterprise Operations')}
               </span>
             </div>
             {/* Bottom Line: Use Case Title */}
             <span style={{ fontSize: '0.9rem', fontWeight: 900, color: t.textMain }}>
-              {(!scoringData.overallPriority || scoringData.overallPriority === 0) ? 'Evaluation Incomplete (Priority Score: 0)' : (customerInfo?.useCaseName || 'Autonomous Radioligand Therapy Matcher')}
+              {(!scoringData.overallPriority || scoringData.overallPriority === 0) ? 'Evaluation Incomplete (Priority Score: 0)' : (customerInfo?.useCaseName || 'Dynamic Evaluated Workload')}
             </span>
           </div>
         </div>

@@ -61,12 +61,7 @@ if (!fs.existsSync(BACKUP_DIR)) {
 }
 
 // Ensure default backup file exists
-const DEFAULT_PORTFOLIO = [
-  { id: 'merck_sop', company: 'Merck & Co.', useCase: 'Regulatory SOP Assistant', domain: 'Quality & Regulatory', priorityScore: 92, verdict: 'Launch Now', date: 'June 2, 2026', presetKey: 'sop_assistant' },
-  { id: 'merck_gma', company: 'Merck & Co.', useCase: 'GMAX Pricing Agent (AccessIQ)', domain: 'Commercial Ops', priorityScore: 88, verdict: 'Launch Now', date: 'June 7, 2026', presetKey: 'ai_scanned_custom' },
-  { id: 'pfizer_copilot', company: 'Pfizer Inc.', useCase: 'Submission Drafting Copilot', domain: 'R&D / Clinical', priorityScore: 78, verdict: 'Incubate & Validate', date: 'May 28, 2026', presetKey: 'submission_copilot' },
-  { id: 'roche_inv', company: 'Roche AG', useCase: 'Quality Event Investigator', domain: 'Quality & Regulatory', priorityScore: 64, verdict: 'Hold & Re-Architect', date: 'June 5, 2026', presetKey: 'quality_investigator' }
-];
+const DEFAULT_PORTFOLIO = [];
 
 if (!fs.existsSync(BACKUP_FILE)) {
   fs.writeFileSync(BACKUP_FILE, JSON.stringify(DEFAULT_PORTFOLIO, null, 2), 'utf8');
