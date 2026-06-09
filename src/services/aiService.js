@@ -367,50 +367,27 @@ export async function generateReportData(formData, apiKey = null, gcpToken = nul
   
   const hasRealGcp = gcpToken && gcpToken !== 'demo_token' && gcpToken !== '';
   const hasRealApi = apiKey && apiKey !== 'demo_key' && apiKey !== '';
+  const activeCred = apiKey || gcpToken;
 
-  // If secure GCP token is provided (ADC), query the deployed serverless Reasoning Engine
-  if (hasRealGcp) {
+  if (hasRealApi || hasRealGcp) {
     try {
       onStep(2, "[security] VPC boundaries active, inlining prompt filters... Done");
       await new Promise(resolve => setTimeout(resolve, 450));
 
-      onStep(3, "[gRPC] Dispatching secure access token to us-central1 Reasoning Engine [PENDING]");
+      onStep(3, "[POST] Dispatching grounded streaming payload over HTTPS... [PENDING]");
       await new Promise(resolve => setTimeout(resolve, 450));
 
-      onStep(4, "[ReasoningEngine] Fetching serverless engine stream chunks... [PENDING]");
-      const newReport = await callReasoningEngine(formData, gcpToken);
+      onStep(4, "[JSON] Synthesizing verified Gemini C-Suite Briefing & Citations... [PENDING]");
+      const newReport = await callGeminiReportLogic(formData, scoring, activeCred);
 
-      onStep(5, "[Diagnostics] Grounded indices validated. Compiling Objection dossiers...");
-      await new Promise(resolve => setTimeout(resolve, 450));
-
-      return newReport;
-    } catch (error) {
-      console.error("Vertex AI Reasoning Engine query failed:", error);
-      onStep(4, `[ERROR] Reasoning Engine query failed: ${error.message || 'Status 401'}`);
-      throw new Error(`Vertex AI Reasoning Engine (ADC) Query Failure: ${error.message || "Unknown project access or authorization token exception"}. Ensure your access token is active and valid.`, { cause: error });
-    }
-  }
-  
-  // If live API key provided (Super Admin sandbox bypass)
-  if (hasRealApi) {
-    try {
-      onStep(2, "[security] VPC boundaries active, inlining prompt filters... Done");
-      await new Promise(resolve => setTimeout(resolve, 450));
-
-      onStep(3, "[POST] Dispatching payload to https://generativelanguage.googleapis.com/v1beta... [PENDING]");
-      await new Promise(resolve => setTimeout(resolve, 450));
-
-      onStep(4, "[JSON] Fetching and parsing Generative API JSON response... [PENDING]");
-      const newReport = await callGeminiReportLogic(formData, scoring, apiKey);
-
-      onStep(5, "[Diagnostics] Grounded indices validated. Compiling Objection dossiers...");
+      onStep(5, "[Diagnostics] Grounded indices validated. Compiling ROI & positioning models...");
       await new Promise(resolve => setTimeout(resolve, 450));
 
       return newReport;
     } catch (error) {
       console.error("Strict GenAI compilation failed:", error);
-      onStep(4, `[ERROR] Gemini API query failed: ${error.message || 'Billing/Key restriction'}`);
-      throw new Error(`Gemini API Query Failure: ${error.message || "Unknown API billing/CORS restriction error"}`, { cause: error });
+      onStep(4, `[ERROR] Live AI Engine query failed: ${error.message || 'Key restriction'}`);
+      throw new Error(`Live Evaluation Engine Query Failure: ${error.message || "Unknown API verification error"}`, { cause: error });
     }
   }
 
@@ -432,10 +409,20 @@ export async function generateReportData(formData, apiKey = null, gcpToken = nul
 }
 
 // Live Gemini API Integration
-async function callGeminiReportLogic(formData, scoringContext, apiKey) {
+async function callGeminiReportLogic(formData, scoringContext, apiKeyOrToken) {
   const activeModel = localStorage.getItem('gemini_selected_model') || 'gemini-3.5-pro';
   const wireModel = activeModel.includes('3.5') || activeModel.includes('3.0') ? 'gemini-2.5-flash' : activeModel;
-  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${wireModel}:generateContent?key=${apiKey}`;
+  
+  const cleanCred = (apiKeyOrToken || '').trim();
+  const isAdc = cleanCred.startsWith('ya29.') || cleanCred.startsWith('ey');
+  
+  const endpoint = isAdc 
+    ? `https://generativelanguage.googleapis.com/v1beta/models/${wireModel}:generateContent`
+    : `https://generativelanguage.googleapis.com/v1beta/models/${wireModel}:generateContent?key=${cleanCred}`;
+
+  const reqHeaders = isAdc 
+    ? { 'Content-Type': 'application/json', 'Authorization': `Bearer ${cleanCred}` }
+    : { 'Content-Type': 'application/json' };
   
   const prompt = `You are an expert Google Cloud Generative AI Customer Engineer and Solution Architect.
 Analyze the following customer use case transformation intake and generate a professional, structured assessment report matching our JSON schema exactly.
@@ -484,7 +471,7 @@ Ensure the output is pure valid JSON without markdown formatting tags or backtic
 
   const response = await fetch(endpoint, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: reqHeaders,
     body: JSON.stringify({
       contents: [{ parts: [{ text: prompt }] }],
       tools: [
