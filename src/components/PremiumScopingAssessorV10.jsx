@@ -3005,7 +3005,7 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
                           <span style={{ fontSize: '1.15rem', fontWeight: 900, color: '#10b981' }}>{bm.peerName || bm.peerEntity || 'Global Peer Leader'}</span>
                           <a
-                            href={bm.citationUrl || bm.sourceUrl || '#'}
+                            href={bm.citationUrl && bm.citationUrl.includes('search') ? bm.citationUrl : `https://www.google.com/search?q=${encodeURIComponent('Google Cloud Generative AI case study ' + (bm.peerName || bm.useCase || 'Customer'))}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             style={{
