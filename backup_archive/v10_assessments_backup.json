@@ -1,8 +1,8 @@
 [
   {
-    "id": "tile_1780984690824",
-    "company": "Pfizer Inc. (Global R&D)",
-    "useCase": "Autonomous Clinical Trial Protocol Generator",
+    "id": "tile_1780984916375",
+    "company": "Roche Diagnostics",
+    "useCase": "Regulatory Submission Dossier Drafting Copilot",
     "domain": "R&D / Clinical",
     "priorityScore": 92,
     "verdict": "Launch Now",
@@ -13,9 +13,9 @@
     }
   },
   {
-    "id": "tile_1780984453023",
-    "company": "Novartis Pharma AG",
-    "useCase": "Regulatory Submission Dossier Drafting Copilot",
+    "id": "tile_1780984690824",
+    "company": "Pfizer Inc. (Global R&D)",
+    "useCase": "Autonomous Clinical Trial Protocol Generator",
     "domain": "R&D / Clinical",
     "priorityScore": 92,
     "verdict": "Launch Now",

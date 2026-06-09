@@ -4,6 +4,7 @@ import { Key, Shield, Sparkles, Check, X, ShieldAlert, Fingerprint, RefreshCw, A
 export default function SettingsModal({ isOpen, onClose, apiKey, gcpToken, isSuperAdmin: propSuperAdmin, onSaveSettings }) {
   const [inputKey, setInputKey] = useState(apiKey || '');
   const [inputToken, setInputToken] = useState(gcpToken || '');
+  const [gcpProject, setGcpProject] = useState(() => localStorage.getItem('gemini_gcp_project') || 'nitinagga-ge');
   const [isSuperAdmin, setIsSuperAdmin] = useState(propSuperAdmin);
 
   const [selectedModel, setSelectedModel] = useState(() => localStorage.getItem('gemini_selected_model') || 'gemini-3.5-pro');
@@ -79,9 +80,11 @@ export default function SettingsModal({ isOpen, onClose, apiKey, gcpToken, isSup
   const handleSave = (e) => {
     e.preventDefault();
     localStorage.setItem('gemini_selected_model', selectedModel);
+    localStorage.setItem('gemini_gcp_project', gcpProject.trim());
     onSaveSettings({
       apiKey: inputKey.trim(),
       gcpToken: inputToken.trim(),
+      gcpProject: gcpProject.trim(),
       isSuperAdmin: isSuperAdmin,
       selectedModel: selectedModel
     });
@@ -144,6 +147,25 @@ export default function SettingsModal({ isOpen, onClose, apiKey, gcpToken, isSup
             </select>
             <p style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', marginTop: '0.4rem', lineHeight: 1.4 }}>
               Select the flagship model utilized across all discovery reports, RAG analytical extractions, and automated code porting endpoints.
+            </p>
+          </div>
+
+          {/* Target Quota Project ID */}
+          <div className="form-group" style={{ marginBottom: 0 }}>
+            <label className="form-label" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <Shield size={16} style={{ color: 'var(--google-blue)' }} />
+              <span>GCP Quota / Target Project ID</span>
+            </label>
+            <input
+              type="text"
+              className="form-input"
+              value={gcpProject}
+              onChange={e => setGcpProject(e.target.value)}
+              placeholder="nitinagga-ge"
+              style={{ fontWeight: 700, fontFamily: 'monospace' }}
+            />
+            <p style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', marginTop: '0.4rem', lineHeight: 1.4 }}>
+              Target project utilized for Vertex AI ADC quota authentication.
             </p>
           </div>
 

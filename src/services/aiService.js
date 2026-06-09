@@ -416,8 +416,9 @@ async function callGeminiReportLogic(formData, scoringContext, apiKeyOrToken) {
   const cleanCred = (apiKeyOrToken || '').trim();
   const isAdc = cleanCred.startsWith('ya29.') || cleanCred.startsWith('ey');
   
+  const gcpProject = localStorage.getItem('gemini_gcp_project') || 'nitinagga-ge';
   const endpoint = isAdc 
-    ? `https://generativelanguage.googleapis.com/v1beta/models/${wireModel}:generateContent`
+    ? `https://us-central1-aiplatform.googleapis.com/v1/projects/${gcpProject}/locations/us-central1/publishers/google/models/${wireModel}:generateContent`
     : `https://generativelanguage.googleapis.com/v1beta/models/${wireModel}:generateContent?key=${cleanCred}`;
 
   const reqHeaders = isAdc 
