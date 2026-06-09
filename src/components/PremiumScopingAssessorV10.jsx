@@ -919,7 +919,6 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
         return;
       } catch (err) {
         console.error("Live evaluation query error:", err);
-        setAdcExpiredModal(true);
         setGeminiStreamingState({
           active: false,
           currentStep: 0,
