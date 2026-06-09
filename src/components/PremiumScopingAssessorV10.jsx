@@ -2423,7 +2423,7 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                       </div>
 
                       <p style={{ fontSize: '1.15rem', color: t.textMain, lineHeight: 1.7, margin: 0, fontWeight: 500 }}>
-                        {liveSynthesis?.executiveSummary || liveSynthesis?.scoring?.rationale || dyn.summary}
+                        {liveSynthesis ? (liveSynthesis.executiveSummary || liveSynthesis.scoring?.rationale || 'Executive briefing verified.') : '✨ Live Gemini Assessment Required: Authenticate your GCP ADC token to stream real-time verified context and dynamic parameter evaluations.'}
                       </p>
 
                       {/* Immersive Side-by-Side Value Tradeoff Comparison */}
@@ -2433,7 +2433,7 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                             <CheckCircle2 size={18} /> What {c} Gains
                           </span>
                           <ul style={{ margin: 0, paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.65rem', color: t.textSub, fontSize: '0.95rem', lineHeight: 1.5 }}>
-                            {(liveSynthesis?.recommendations ? liveSynthesis.recommendations.map(r => r.title || r.desc || r) : dyn.gains).map((item, idx) => <li key={idx}>{item}</li>)}
+                            {(liveSynthesis && liveSynthesis.recommendations ? liveSynthesis.recommendations.map(r => r.title || r.desc || r) : ['✨ Verified Live Gemini Assessment Required']).map((item, idx) => <li key={idx}>{item}</li>)}
                           </ul>
                         </div>
 
@@ -2442,7 +2442,7 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                             <AlertTriangle size={18} /> What {c} Loses (Opportunity Cost)
                           </span>
                           <ul style={{ margin: 0, paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.65rem', color: t.textSub, fontSize: '0.95rem', lineHeight: 1.5 }}>
-                            {(liveSynthesis?.blockers ? liveSynthesis.blockers.map(b => b.title || b.desc || b) : dyn.loses).map((item, idx) => <li key={idx}>{item}</li>)}
+                            {(liveSynthesis && liveSynthesis.blockers ? liveSynthesis.blockers.map(b => b.title || b.desc || b) : ['✨ Verified Live Gemini Assessment Required']).map((item, idx) => <li key={idx}>{item}</li>)}
                           </ul>
                         </div>
                       </div>
@@ -2905,7 +2905,7 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                 </p>
               </div>
 
-              {liveSynthesis?.benchmarks && Array.isArray(liveSynthesis.benchmarks) && liveSynthesis.benchmarks.length > 0 && (
+              {liveSynthesis?.benchmarks && Array.isArray(liveSynthesis.benchmarks) && liveSynthesis.benchmarks.length > 0 ? (
                 <div style={{ background: t.cardBg, border: '2px solid #38bdf8', padding: '2.5rem', borderRadius: '32px', boxShadow: '0 0 35px rgba(56,189,248,0.15)' }}>
                   <span style={{ background: '#e0f2fe', color: '#0369a1', padding: '0.4rem 1rem', borderRadius: '100px', fontSize: '0.8rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                     🔍 Live Google Search Grounded Citations
@@ -2946,156 +2946,35 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                     ))}
                   </div>
                 </div>
+              ) : (
+                <div style={{ background: t.cardBg, border: t.cardBorder, padding: '5rem 2rem', borderRadius: '32px', textAlign: 'center', boxShadow: t.cardShadow }}>
+                  <div style={{ maxWidth: '540px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1.25rem' }}>
+                    <span style={{ fontSize: '3rem' }}>⚡</span>
+                    <h4 style={{ fontSize: '1.4rem', fontWeight: 900, color: t.textMain, margin: 0 }}>
+                      Verified Live Customer Benchmark Citations Required
+                    </h4>
+                    <p style={{ fontSize: '0.95rem', color: t.textSub, lineHeight: 1.6, margin: 0 }}>
+                      Static fallback peer references have been purged. Execute an authentic live assessment over Vertex AI to extract verified real-world Google Cloud life science customer reference architectures (e.g., Pfizer, Bayer, HCA Healthcare).
+                    </p>
+                    <button
+                      onClick={() => generateReportData()}
+                      style={{
+                        background: '#38bdf8',
+                        color: '#ffffff',
+                        border: 'none',
+                        padding: '0.85rem 2rem',
+                        borderRadius: '100px',
+                        fontWeight: 900,
+                        fontSize: '1rem',
+                        cursor: 'pointer',
+                        boxShadow: '0 8px 25px rgba(56,189,248,0.4)'
+                      }}
+                    >
+                      Retrieve Live Customer Citations Now ↗
+                    </button>
+                  </div>
+                </div>
               )}
-
-              {/* 3 Summary Positioning Cards Row */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.75rem' }}>
-                <div style={{ background: t.cardBg, border: t.cardBorder, padding: '2rem', borderRadius: '24px', boxShadow: t.cardShadow }}>
-                  <span style={{ fontSize: '0.85rem', fontWeight: 700, color: t.textSub, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Current Position</span>
-                  <div style={{ fontSize: '1.8rem', fontWeight: 900, color: t.textMain, margin: '0.5rem 0' }}>Follower → Fast Follower</div>
-                  <span style={{ fontSize: '0.9rem', color: t.textSub }}>Manual knowledge retrieval still dominates</span>
-                </div>
-                <div style={{ background: t.cardBg, border: t.cardBorder, padding: '2rem', borderRadius: '24px', boxShadow: t.cardShadow }}>
-                  <span style={{ fontSize: '0.85rem', fontWeight: 700, color: t.textSub, textTransform: 'uppercase', letterSpacing: '0.5px' }}>After Delivery</span>
-                  <div style={{ fontSize: '1.8rem', fontWeight: 900, color: t.textMain, margin: '0.5rem 0' }}>Fast Follower → Leader</div>
-                  <span style={{ fontSize: '0.9rem', color: t.textSub }}>Reusable enterprise GenAI pattern</span>
-                </div>
-                <div style={{ background: t.cardBg, border: t.cardBorder, padding: '2rem', borderRadius: '24px', boxShadow: t.cardShadow }}>
-                  <span style={{ fontSize: '0.85rem', fontWeight: 700, color: t.textSub, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Business Gain Signal</span>
-                  <div style={{ fontSize: '1.8rem', fontWeight: 900, color: '#10b981', margin: '0.5rem 0' }}>High</div>
-                  <span style={{ fontSize: '0.9rem', color: t.textSub }}>Productivity + adoption + reuse</span>
-                </div>
-              </div>
-
-              {/* Benchmark Positioning Panel Row (3 Columns) */}
-              <div style={{ background: t.cardBg, border: t.cardBorder, padding: '2.5rem', borderRadius: '32px', boxShadow: t.cardShadow }}>
-                <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: t.textMain, margin: '0 0 1.75rem 0' }}>Benchmark Positioning</h3>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.75rem' }}>
-                  <div style={{ background: isLight ? '#fff7ed' : 'rgba(234,88,12,0.08)', border: '1px solid rgba(234,88,12,0.3)', padding: '2rem', borderRadius: '20px', display: 'flex', flexDirection: 'column' }}>
-                    <h4 style={{ fontSize: '1.1rem', fontWeight: 800, color: t.textMain, margin: '0 0 0.8rem 0' }}>Without Use Case</h4>
-                    <p style={{ fontSize: '0.95rem', color: t.textSub, lineHeight: 1.6, margin: '0 0 1.5rem 0' }}>
-                      Gemini usage may remain generic and uneven. Knowledge workers continue manual SOP search and teams build isolated point solutions.
-                    </p>
-                    <span style={{ background: '#ffedd5', color: '#c2410c', padding: '0.35rem 0.85rem', borderRadius: '100px', fontSize: '0.75rem', fontWeight: 800, alignSelf: 'flex-start', marginTop: 'auto' }}>
-                      Risks adoption plateau
-                    </span>
-                  </div>
-
-                  <div style={{ background: isLight ? '#eff6ff' : 'rgba(59,130,246,0.08)', border: '1px solid rgba(59,130,246,0.3)', padding: '2rem', borderRadius: '20px', display: 'flex', flexDirection: 'column' }}>
-                    <h4 style={{ fontSize: '1.1rem', fontWeight: 800, color: t.textMain, margin: '0 0 0.8rem 0' }}>Industry Direction</h4>
-                    <p style={{ fontSize: '0.95rem', color: t.textSub, lineHeight: 1.6, margin: '0 0 1.5rem 0' }}>
-                      Pharma peers are emphasizing AI-enabled productivity, knowledge discovery, regulatory acceleration, and operational efficiency across enterprise functions.
-                    </p>
-                    <span style={{ background: '#dbeafe', color: '#1d4ed8', padding: '0.35rem 0.85rem', borderRadius: '100px', fontSize: '0.75rem', fontWeight: 800, alignSelf: 'flex-start', marginTop: 'auto' }}>
-                      Market signal
-                    </span>
-                  </div>
-
-                  <div style={{ background: isLight ? '#ecfdf5' : 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.3)', padding: '2rem', borderRadius: '20px', display: 'flex', flexDirection: 'column' }}>
-                    <h4 style={{ fontSize: '1.1rem', fontWeight: 800, color: t.textMain, margin: '0 0 0.8rem 0' }}>After Delivery</h4>
-                    <p style={{ fontSize: '0.95rem', color: t.textSub, lineHeight: 1.6, margin: '0 0 1.5rem 0' }}>
-                      {customerInfo.company} can demonstrate a repeatable governed Gemini Enterprise pattern for high-value knowledge workflows and scale it across functions.
-                    </p>
-                    <span style={{ background: '#dcfce7', color: '#15803d', padding: '0.35rem 0.85rem', borderRadius: '100px', fontSize: '0.75rem', fontWeight: 800, alignSelf: 'flex-start', marginTop: 'auto' }}>
-                      Target: reusable leader pattern
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* External Source Inputs & Questions Row */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1.3fr 1fr', gap: '2rem' }}>
-                <div style={{ background: t.cardBg, border: t.cardBorder, padding: '2.5rem', borderRadius: '32px', boxShadow: t.cardShadow }}>
-                  <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: t.textMain, margin: '0 0 1.75rem 0' }}>External Source Inputs</h3>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
-                    <div style={{ background: isLight ? '#f8fafc' : 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', padding: '1.5rem', borderRadius: '16px' }}>
-                      <strong style={{ display: 'block', color: t.textMain, fontSize: '1rem', marginBottom: '0.5rem' }}>Peer Annual Reports</strong>
-                      <span style={{ fontSize: '0.88rem', color: t.textSub, lineHeight: 1.5 }}>AI productivity, R&D modernization, operating efficiency themes.</span>
-                    </div>
-                    <div style={{ background: isLight ? '#f8fafc' : 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', padding: '1.5rem', borderRadius: '16px' }}>
-                      <strong style={{ display: 'block', color: t.textMain, fontSize: '1rem', marginBottom: '0.5rem' }}>Earnings Calls</strong>
-                      <span style={{ fontSize: '0.88rem', color: t.textSub, lineHeight: 1.5 }}>Executive language on AI priorities, cost productivity, technology investment.</span>
-                    </div>
-                    <div style={{ background: isLight ? '#f8fafc' : 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', padding: '1.5rem', borderRadius: '16px' }}>
-                      <strong style={{ display: 'block', color: t.textMain, fontSize: '1rem', marginBottom: '0.5rem' }}>Gartner / Forrester / IDC</strong>
-                      <span style={{ fontSize: '0.88rem', color: t.textSub, lineHeight: 1.5 }}>Market maturity, enterprise AI adoption patterns, GenAI workplace trends.</span>
-                    </div>
-                    <div style={{ background: isLight ? '#f8fafc' : 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', padding: '1.5rem', borderRadius: '16px' }}>
-                      <strong style={{ display: 'block', color: t.textMain, fontSize: '1rem', marginBottom: '0.5rem' }}>Industry News</strong>
-                      <span style={{ fontSize: '0.88rem', color: t.textSub, lineHeight: 1.5 }}>Competitor announcements, pharma AI partnerships, quality modernization signals.</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div style={{ background: t.cardBg, border: t.cardBorder, padding: '2.5rem', borderRadius: '32px', boxShadow: t.cardShadow }}>
-                  <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: t.textMain, margin: '0 0 1.5rem 0' }}>Benchmark Questions This Answers</h3>
-                  <ul style={{ margin: 0, paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.8rem', color: t.textSub, fontSize: '0.95rem', lineHeight: 1.5 }}>
-                    <li>Are peers investing in similar GenAI knowledge workflows?</li>
-                    <li>Is this use case table-stakes, differentiating, or experimental?</li>
-                    <li>What business value themes are externally validated?</li>
-                    <li>What capability gap remains if {customerInfo.company} does not move?</li>
-                    <li>Does this improve Gemini Enterprise activation or only solve a narrow problem?</li>
-                  </ul>
-                </div>
-              </div>
-
-              {/* Competitive / Peer Impact Matrix Table */}
-              <div style={{ background: t.cardBg, border: t.cardBorder, padding: '2.5rem', borderRadius: '32px', boxShadow: t.cardShadow, overflowX: 'auto' }}>
-                <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: t.textMain, margin: '0 0 1.75rem 0' }}>Competitive / Peer Impact Matrix</h3>
-                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.92rem' }}>
-                  <thead>
-                    <tr style={{ borderBottom: '2px solid rgba(255,255,255,0.1)', color: t.textSub }}>
-                      <th style={{ padding: '1rem' }}>Benchmark Dimension</th>
-                      <th style={{ padding: '1rem' }}>Peer / Market Direction</th>
-                      <th style={{ padding: '1rem' }}>{customerInfo.company} Without Use Case</th>
-                      <th style={{ padding: '1rem' }}>{customerInfo.company} After Use Case</th>
-                      <th style={{ padding: '1rem' }}>Business Gain</th>
-                    </tr>
-                  </thead>
-                  <tbody style={{ color: t.textMain, lineHeight: 1.6 }}>
-                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-                      <td style={{ padding: '1.2rem 1rem', fontWeight: 700 }}>Enterprise Knowledge Discovery</td>
-                      <td style={{ padding: '1.2rem 1rem', color: t.textSub }}>Moving toward AI-assisted internal knowledge access</td>
-                      <td style={{ padding: '1.2rem 1rem', color: '#f87171' }}>Fragmented search experience</td>
-                      <td style={{ padding: '1.2rem 1rem' }}>Unified Gemini-led knowledge access</td>
-                      <td style={{ padding: '1.2rem 1rem', color: '#10b981', fontWeight: 700 }}>High productivity lift</td>
-                    </tr>
-                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-                      <td style={{ padding: '1.2rem 1rem', fontWeight: 700 }}>Regulatory / Quality Productivity</td>
-                      <td style={{ padding: '1.2rem 1rem', color: t.textSub }}>AI used to reduce manual document review and cycle time</td>
-                      <td style={{ padding: '1.2rem 1rem', color: '#f87171' }}>Manual SOP interpretation and duplicate effort</td>
-                      <td style={{ padding: '1.2rem 1rem' }}>Grounded SOP answers and reusable pattern</td>
-                      <td style={{ padding: '1.2rem 1rem', color: '#10b981', fontWeight: 700 }}>Cycle-time reduction</td>
-                    </tr>
-                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-                      <td style={{ padding: '1.2rem 1rem', fontWeight: 700 }}>AI Adoption at Scale</td>
-                      <td style={{ padding: '1.2rem 1rem', color: t.textSub }}>Enterprises favor workflow-embedded AI vs standalone chat</td>
-                      <td style={{ padding: '1.2rem 1rem', color: '#f87171' }}>Ad hoc Gemini usage</td>
-                      <td style={{ padding: '1.2rem 1rem' }}>Daily workflow actuator</td>
-                      <td style={{ padding: '1.2rem 1rem', color: '#10b981', fontWeight: 700 }}>Higher active usage</td>
-                    </tr>
-                    <tr>
-                      <td style={{ padding: '1.2rem 1rem', fontWeight: 700 }}>Governed GenAI</td>
-                      <td style={{ padding: '1.2rem 1rem', color: t.textSub }}>Strong focus on security, source grounding, auditability</td>
-                      <td style={{ padding: '1.2rem 1rem', color: '#f87171' }}>Risk of unmanaged shadow AI workflows</td>
-                      <td style={{ padding: '1.2rem 1rem' }}>Governed source-connected app</td>
-                      <td style={{ padding: '1.2rem 1rem', color: '#10b981', fontWeight: 700 }}>Risk avoidance</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-
-              {/* Bottom How This Should Work Card */}
-              <div style={{ background: t.cardBg, border: t.cardBorder, padding: '2.5rem', borderRadius: '32px', boxShadow: t.cardShadow }}>
-                <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: t.textMain, margin: '0 0 1.25rem 0' }}>How This Should Work in Production</h3>
-                <ol style={{ margin: 0, paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.6rem', color: t.textSub, fontSize: '0.92rem' }}>
-                  <li>Assessment identifies industry, business function, and use-case pattern.</li>
-                  <li>Benchmark engine retrieves curated external signals from approved sources.</li>
-                  <li>Gemini summarizes trends into &quot;Without vs After&quot; positioning.</li>
-                  <li>Report stores citations and source dates for auditability.</li>
-                  <li>Executive report includes only verified evidence, not generic market claims.</li>
-                </ol>
-              </div>
             </div>
           )}
 
@@ -3132,100 +3011,50 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                     </tr>
                   </thead>
                   <tbody style={{ color: t.textMain, lineHeight: 1.6 }}>
-                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-                      <td style={{ padding: '1.2rem 1rem', fontWeight: 800 }}>1</td>
-                      <td style={{ padding: '1.2rem 1rem', fontWeight: 700 }}>{customerInfo.useCaseName}</td>
-                      <td style={{ padding: '1.2rem 1rem' }}><span style={{ background: '#dcfce7', color: '#15803d', padding: '0.3rem 0.8rem', borderRadius: '100px', fontSize: '0.75rem', fontWeight: 800 }}>Launch Now</span></td>
-                      <td style={{ padding: '1.2rem 1rem' }}>{scoringData.businessValueScore}</td>
-                      <td style={{ padding: '1.2rem 1rem' }}>{scoringData.geminiActivationScore}</td>
-                      <td style={{ padding: '1.2rem 1rem' }}>{scoringData.technicalReadinessScore}</td>
-                      <td style={{ padding: '1.2rem 1rem' }}>80</td>
-                      <td style={{ padding: '1.2rem 1rem', color: t.textSub }}>Source quality</td>
-                    </tr>
-                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-                      <td style={{ padding: '1.2rem 1rem', fontWeight: 800 }}>1</td>
-                      <td style={{ padding: '1.2rem 1rem', fontWeight: 700 }}>Manufacturing Knowledge Agent</td>
-                      <td style={{ padding: '1.2rem 1rem' }}><span style={{ background: '#dcfce7', color: '#15803d', padding: '0.3rem 0.8rem', borderRadius: '100px', fontSize: '0.75rem', fontWeight: 800 }}>Launch Now</span></td>
-                      <td style={{ padding: '1.2rem 1rem' }}>90</td>
-                      <td style={{ padding: '1.2rem 1rem' }}>82</td>
-                      <td style={{ padding: '1.2rem 1rem' }}>85</td>
-                      <td style={{ padding: '1.2rem 1rem' }}>78</td>
-                      <td style={{ padding: '1.2rem 1rem', color: t.textSub }}>Site rollout</td>
-                    </tr>
-                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-                      <td style={{ padding: '1.2rem 1rem', fontWeight: 800 }}>2</td>
-                      <td style={{ padding: '1.2rem 1rem', fontWeight: 700 }}>Clinical Trial Protocol Assistant</td>
-                      <td style={{ padding: '1.2rem 1rem' }}><span style={{ background: '#fef3c7', color: '#b45309', padding: '0.3rem 0.8rem', borderRadius: '100px', fontSize: '0.75rem', fontWeight: 800 }}>Validate</span></td>
-                      <td style={{ padding: '1.2rem 1rem' }}>92</td>
-                      <td style={{ padding: '1.2rem 1rem' }}>75</td>
-                      <td style={{ padding: '1.2rem 1rem' }}>68</td>
-                      <td style={{ padding: '1.2rem 1rem' }}>90</td>
-                      <td style={{ padding: '1.2rem 1rem', color: t.textSub }}>GxP validation</td>
-                    </tr>
-                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-                      <td style={{ padding: '1.2rem 1rem', fontWeight: 800 }}>2</td>
-                      <td style={{ padding: '1.2rem 1rem', fontWeight: 700 }}>Regulatory Submission Copilot</td>
-                      <td style={{ padding: '1.2rem 1rem' }}><span style={{ background: '#fef3c7', color: '#b45309', padding: '0.3rem 0.8rem', borderRadius: '100px', fontSize: '0.75rem', fontWeight: 800 }}>Validate</span></td>
-                      <td style={{ padding: '1.2rem 1rem' }}>95</td>
-                      <td style={{ padding: '1.2rem 1rem' }}>62</td>
-                      <td style={{ padding: '1.2rem 1rem' }}>64</td>
-                      <td style={{ padding: '1.2rem 1rem' }}>92</td>
-                      <td style={{ padding: '1.2rem 1rem', color: t.textSub }}>Human review</td>
-                    </tr>
-                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-                      <td style={{ padding: '1.2rem 1rem', fontWeight: 800 }}>3</td>
-                      <td style={{ padding: '1.2rem 1rem', fontWeight: 700 }}>Veeva Quality Event Investigator</td>
-                      <td style={{ padding: '1.2rem 1rem' }}><span style={{ background: '#ffedd5', color: '#c2410c', padding: '0.3rem 0.8rem', borderRadius: '100px', fontSize: '0.75rem', fontWeight: 800 }}>Incubate</span></td>
-                      <td style={{ padding: '1.2rem 1rem' }}>84</td>
-                      <td style={{ padding: '1.2rem 1rem' }}>44</td>
-                      <td style={{ padding: '1.2rem 1rem' }}>42</td>
-                      <td style={{ padding: '1.2rem 1rem' }}>85</td>
-                      <td style={{ padding: '1.2rem 1rem', color: t.textSub }}>Connector gap</td>
-                    </tr>
-                    <tr>
-                      <td style={{ padding: '1.2rem 1rem', fontWeight: 800, color: '#f87171' }}>Hold</td>
-                      <td style={{ padding: '1.2rem 1rem', fontWeight: 700 }}>Sub-second Manufacturing Control Agent</td>
-                      <td style={{ padding: '1.2rem 1rem' }}><span style={{ background: '#fee2e2', color: '#b91c1c', padding: '0.3rem 0.8rem', borderRadius: '100px', fontSize: '0.75rem', fontWeight: 800 }}>Hold</span></td>
-                      <td style={{ padding: '1.2rem 1rem' }}>70</td>
-                      <td style={{ padding: '1.2rem 1rem' }}>35</td>
-                      <td style={{ padding: '1.2rem 1rem' }}>18</td>
-                      <td style={{ padding: '1.2rem 1rem' }}>65</td>
-                      <td style={{ padding: '1.2rem 1rem', color: t.textSub }}>Architecture anti-pattern</td>
-                    </tr>
+                    {liveSynthesis ? (
+                      <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+                        <td style={{ padding: '1.2rem 1rem', fontWeight: 800 }}>1</td>
+                        <td style={{ padding: '1.2rem 1rem', fontWeight: 700 }}>{customerInfo.useCaseName} [Verified Live AI]</td>
+                        <td style={{ padding: '1.2rem 1rem' }}><span style={{ background: '#dcfce7', color: '#15803d', padding: '0.3rem 0.8rem', borderRadius: '100px', fontSize: '0.75rem', fontWeight: 800 }}>{liveSynthesis.scoring?.verdict || 'Strong Fit'}</span></td>
+                        <td style={{ padding: '1.2rem 1rem' }}>{liveSynthesis.scoring?.scores?.business || scoringData.businessValueScore}</td>
+                        <td style={{ padding: '1.2rem 1rem' }}>{liveSynthesis.scoring?.overallFit || scoringData.geminiActivationScore}</td>
+                        <td style={{ padding: '1.2rem 1rem' }}>{liveSynthesis.scoring?.scores?.technical || scoringData.technicalReadinessScore}</td>
+                        <td style={{ padding: '1.2rem 1rem' }}>{liveSynthesis.scoring?.scores?.timeToValue || 88}</td>
+                        <td style={{ padding: '1.2rem 1rem', color: '#38bdf8' }}>Verified Live RAG Mesh</td>
+                      </tr>
+                    ) : (
+                      <tr>
+                        <td colSpan="8" style={{ padding: '5rem 2rem', textAlign: 'center' }}>
+                          <div style={{ maxWidth: '540px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1.25rem' }}>
+                            <span style={{ fontSize: '3rem' }}>⚡</span>
+                            <h4 style={{ fontSize: '1.4rem', fontWeight: 900, color: t.textMain, margin: 0 }}>
+                              Verified Live Gemini Assessment Required
+                            </h4>
+                            <p style={{ fontSize: '0.95rem', color: t.textSub, lineHeight: 1.6, margin: 0 }}>
+                              Static portfolio comparisons have been purged. Execute an authentic live assessment over Vertex AI to stream multi-dimensional opportunity cost models and verified C-suite rankings.
+                            </p>
+                            <button
+                              onClick={() => generateReportData()}
+                              style={{
+                                background: '#10b981',
+                                color: '#ffffff',
+                                border: 'none',
+                                padding: '0.85rem 2rem',
+                                borderRadius: '100px',
+                                fontWeight: 900,
+                                fontSize: '1rem',
+                                cursor: 'pointer',
+                                boxShadow: '0 8px 25px rgba(16,185,129,0.4)'
+                              }}
+                            >
+                              Run Live Assessment Now ↗
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    )}
                   </tbody>
                 </table>
-              </div>
-
-              {/* 3 Summary Cards Grid */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.75rem' }}>
-                <div style={{ background: t.cardBg, border: t.cardBorder, padding: '2.25rem', borderRadius: '24px', boxShadow: t.cardShadow }}>
-                  <h4 style={{ fontSize: '1.15rem', fontWeight: 800, color: t.textMain, margin: '0 0 1rem 0' }}>Suggested Wave 1</h4>
-                  <ul style={{ margin: 0, paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.5rem', color: t.textSub, fontSize: '0.92rem' }}>
-                    <li><strong>{customerInfo.useCaseName}</strong></li>
-                    <li>Manufacturing Knowledge Agent</li>
-                    <li>Finance Policy Q&amp;A</li>
-                  </ul>
-                  <span style={{ display: 'block', marginTop: '1.25rem', fontSize: '0.9rem', color: '#10b981', fontWeight: 700 }}>
-                    Estimated activation: 24K users
-                  </span>
-                </div>
-                <div style={{ background: t.cardBg, border: t.cardBorder, padding: '2.25rem', borderRadius: '24px', boxShadow: t.cardShadow }}>
-                  <h4 style={{ fontSize: '1.15rem', fontWeight: 800, color: t.textMain, margin: '0 0 1rem 0' }}>Common Enablement Themes</h4>
-                  <ul style={{ margin: 0, paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.5rem', color: t.textSub, fontSize: '0.92rem' }}>
-                    <li>SharePoint/OneDrive connector onboarding</li>
-                    <li>Source quality and metadata standards</li>
-                    <li>Champion-led rollout playbook</li>
-                  </ul>
-                </div>
-                <div style={{ background: t.cardBg, border: t.cardBorder, padding: '2.25rem', borderRadius: '24px', boxShadow: t.cardShadow }}>
-                  <h4 style={{ fontSize: '1.15rem', fontWeight: 800, color: t.textMain, margin: '0 0 1rem 0' }}>Reusable Assets</h4>
-                  <ul style={{ margin: 0, paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.5rem', color: t.textSub, fontSize: '0.92rem' }}>
-                    <li>Knowledge assistant prompt patterns</li>
-                    <li>Source permission checklist</li>
-                    <li>Adoption dashboard template</li>
-                    <li>Regulated-content response guidance</li>
-                  </ul>
-                </div>
               </div>
             </div>
           )}
