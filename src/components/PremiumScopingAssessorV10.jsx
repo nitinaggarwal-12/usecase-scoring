@@ -1163,54 +1163,56 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
             </button>
           )}
 
-          <div style={{ display: 'flex', alignItems: 'center', background: t.tabsBg, padding: '0.2rem', borderRadius: '100px', border: t.tabsBorder, gap: '0.35rem' }}>
-            <button
-              onClick={() => handleTabSwitch('intake')}
-              style={{
-                background: activeTab === 'intake' ? 'linear-gradient(135deg, #3b82f6, #10b981)' : 'transparent',
-                color: activeTab === 'intake' ? '#ffffff' : t.tabText,
-                border: 'none', padding: '0.4rem 1.1rem', borderRadius: '100px',
-                fontSize: '0.78rem', fontWeight: 800, cursor: 'pointer'
-              }}
-            >
-              Intake
-            </button>
-            <button
-              onClick={() => handleTabSwitch('business')}
-              style={{
-                background: activeTab === 'business' ? 'linear-gradient(135deg, #3b82f6, #10b981)' : 'transparent',
-                color: activeTab === 'business' ? '#ffffff' : t.tabText,
-                border: 'none', padding: '0.4rem 1.1rem', borderRadius: '100px',
-                fontSize: '0.78rem', fontWeight: 800, cursor: 'pointer',
-                boxShadow: activeTab === 'business' ? '0 2px 10px rgba(59,130,246,0.3)' : 'none'
-              }}
-            >
-              Business
-            </button>
-            <button
-              onClick={() => handleTabSwitch('technical')}
-              style={{
-                background: activeTab === 'technical' ? 'linear-gradient(135deg, #3b82f6, #10b981)' : 'transparent',
-                color: activeTab === 'technical' ? '#ffffff' : t.tabText,
-                border: 'none', padding: '0.4rem 1.1rem', borderRadius: '100px',
-                fontSize: '0.78rem', fontWeight: 800, cursor: 'pointer',
-                boxShadow: activeTab === 'technical' ? '0 2px 10px rgba(59,130,246,0.3)' : 'none'
-              }}
-            >
-              Technical
-            </button>
-            <button
-              onClick={() => handleRunLiveGeminiAssessment()}
-              style={{
-                background: activeTab === 'scorecard' ? 'linear-gradient(135deg, #10b981, #06b6d4)' : 'linear-gradient(135deg, rgba(16,185,129,0.8), rgba(6,182,212,0.8))',
-                color: '#ffffff', border: 'none', padding: '0.4rem 1.1rem',
-                borderRadius: '100px', fontSize: '0.78rem', fontWeight: 850,
-                cursor: 'pointer', boxShadow: '0 2px 10px rgba(16,185,129,0.3)'
-              }}
-            >
-              ✨ Scorecard
-            </button>
-          </div>
+          {activeTab !== 'scorecard' && (
+            <div style={{ display: 'flex', alignItems: 'center', background: t.tabsBg, padding: '0.2rem', borderRadius: '100px', border: t.tabsBorder, gap: '0.35rem' }}>
+              <button
+                onClick={() => handleTabSwitch('intake')}
+                style={{
+                  background: activeTab === 'intake' ? 'linear-gradient(135deg, #3b82f6, #10b981)' : 'transparent',
+                  color: activeTab === 'intake' ? '#ffffff' : t.tabText,
+                  border: 'none', padding: '0.4rem 1.1rem', borderRadius: '100px',
+                  fontSize: '0.78rem', fontWeight: 800, cursor: 'pointer'
+                }}
+              >
+                Intake
+              </button>
+              <button
+                onClick={() => handleTabSwitch('business')}
+                style={{
+                  background: activeTab === 'business' ? 'linear-gradient(135deg, #3b82f6, #10b981)' : 'transparent',
+                  color: activeTab === 'business' ? '#ffffff' : t.tabText,
+                  border: 'none', padding: '0.4rem 1.1rem', borderRadius: '100px',
+                  fontSize: '0.78rem', fontWeight: 800, cursor: 'pointer',
+                  boxShadow: activeTab === 'business' ? '0 2px 10px rgba(59,130,246,0.3)' : 'none'
+                }}
+              >
+                Business
+              </button>
+              <button
+                onClick={() => handleTabSwitch('technical')}
+                style={{
+                  background: activeTab === 'technical' ? 'linear-gradient(135deg, #3b82f6, #10b981)' : 'transparent',
+                  color: activeTab === 'technical' ? '#ffffff' : t.tabText,
+                  border: 'none', padding: '0.4rem 1.1rem', borderRadius: '100px',
+                  fontSize: '0.78rem', fontWeight: 800, cursor: 'pointer',
+                  boxShadow: activeTab === 'technical' ? '0 2px 10px rgba(59,130,246,0.3)' : 'none'
+                }}
+              >
+                Technical
+              </button>
+              <button
+                onClick={() => handleRunLiveGeminiAssessment()}
+                style={{
+                  background: activeTab === 'scorecard' ? 'linear-gradient(135deg, #10b981, #06b6d4)' : 'linear-gradient(135deg, rgba(16,185,129,0.8), rgba(6,182,212,0.8))',
+                  color: '#ffffff', border: 'none', padding: '0.4rem 1.1rem',
+                  borderRadius: '100px', fontSize: '0.78rem', fontWeight: 850,
+                  cursor: 'pointer', boxShadow: '0 2px 10px rgba(16,185,129,0.3)'
+                }}
+              >
+                ✨ Scorecard
+              </button>
+            </div>
+          )}
 
           {activeTab === 'scorecard' && (
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
