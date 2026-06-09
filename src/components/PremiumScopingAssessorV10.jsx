@@ -982,80 +982,23 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
 
         return;
       } catch (err) {
-        alert(`⚠ Live Gemini API Warning: ${err.message || 'Key restriction'}. Falling back to high-fidelity local simulation model.`);
+        alert(`⚠ Live Gemini API Warning: ${err.message || 'Key restriction'}. Please verify your network access or GCP ADC authorization.`);
+        setGeminiStreamingState({
+          active: false,
+          currentStep: 0,
+          logs: []
+        });
+        return;
       }
+    } else {
+      alert("🔑 Connection Cancelled: Live Google Cloud Gemini API key is required to stream real-world RAG intelligence and verified citations.");
+      setGeminiStreamingState({
+        active: false,
+        currentStep: 0,
+        logs: []
+      });
+      return;
     }
-
-    setTimeout(() => {
-      setGeminiStreamingState(prev => ({
-        ...prev,
-        currentStep: 2,
-        logs: [
-          ...prev.logs,
-          `[${ts()}] [PILLAR_BV] Transmitting user input for Business Value (Q1-Q4)... Response: Verified Value Score ${scoringData.businessValueScore}/100`,
-          `[${ts()}] [PILLAR_UI] Transmitting user impact & Gemini adoption impact... Response: Verified Activation ${scoringData.geminiActivationScore}/100`
-        ]
-      }));
-    }, 900);
-
-    setTimeout(() => {
-      setGeminiStreamingState(prev => ({
-        ...prev,
-        currentStep: 3,
-        logs: [
-          ...prev.logs,
-          `[${ts()}] [PILLAR_SI] Ingesting Strategic Fit & Opportunity Cost parameters... Response: Verified Strategic Fit 92/100`
-        ]
-      }));
-    }, 1800);
-
-    setTimeout(() => {
-      setGeminiStreamingState(prev => ({
-        ...prev,
-        currentStep: 4,
-        logs: [
-          ...prev.logs,
-          `[${ts()}] [PILLAR_DK] Probing Data Sources & Zero-ETL BigLake RAG connectors... Response: Readiness Score ${scoringData.technicalReadinessScore}/100`
-        ]
-      }));
-    }, 2700);
-
-    setTimeout(() => {
-      setGeminiStreamingState(prev => ({
-        ...prev,
-        currentStep: 6,
-        logs: [
-          ...prev.logs,
-          `[${ts()}] [PILLAR_SC] Validating Security & GxP BeyondCorp boundary... Response: Fully Compliant (Zero-Data-Retention Verified)`,
-          `[${ts()}] [SYNTHESIS] Successfully compiled comprehensive decision-grade executive dossier!`
-        ]
-      }));
-
-      try {
-        const existing = JSON.parse(localStorage.getItem('v10_session_logs') || '[]');
-        const cName = customerInfo.company || 'Pfizer Inc. (Global R&D)';
-        const uName = customerInfo.useCaseName || 'Global Pharmacovigilance Quality Inspector';
-        const nowMs = Date.now();
-        const tsISO = (offset) => new Date(nowMs - offset).toISOString();
-
-        const stepLogs = [
-          {
-            time: tsISO(0),
-            level: 'TECH_GEN',
-            message: `Synthesizing Technical Architecture Scorecard via Multi-Head Attention weighting on 19 Technical Gates (DK, CM, SI, OC). Resolved zero-migration Databricks BigLake federation over GCP Vertex ADC token verification.`,
-            company: `${cName} [Technical Report]`
-          },
-          {
-            time: tsISO(400),
-            level: 'EXEC_GEN',
-            message: `Compiling Business Leadership Dossier over 11 Strategic Intake parameters (BV, UI). Extracted golden KPI baselines and validated 40-60% manual FTE labor reduction across active workflows.`,
-            company: `${cName} [Executive Report]`
-          }
-        ];
-        localStorage.setItem('v10_session_logs', JSON.stringify([...stepLogs, ...existing]));
-        persistToSavedAssessments(cName, uName, scoringData?.overallPriority || 92);
-      } catch(e) {}
-    }, 3600);
   };
 
   const handleAutoFillRandom = () => {
