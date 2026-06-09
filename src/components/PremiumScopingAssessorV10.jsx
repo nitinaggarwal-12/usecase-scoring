@@ -3005,13 +3005,7 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
                           <span style={{ fontSize: '1.15rem', fontWeight: 900, color: '#10b981' }}>{bm.peerName || bm.peerEntity || 'Global Peer Leader'}</span>
                           <a
-                            href={
-                              (bm?.peerName || '').toLowerCase().includes('pfizer') ? 'https://cloud.google.com/customers/pfizer' :
-                              (bm?.peerName || '').toLowerCase().includes('bayer') ? 'https://cloud.google.com/customers/bayer' :
-                              (bm?.peerName || '').toLowerCase().includes('health') ? 'https://cloud.google.com/customers/hca-healthcare' :
-                              (bm?.citationUrl && bm.citationUrl.startsWith('https://cloud.google.com') && !bm.citationUrl.includes('pharma')) ? bm.citationUrl :
-                              'https://cloud.google.com/customers/bayer'
-                            }
+                            href="https://cloud.google.com/customers"
                             target="_blank"
                             rel="noopener noreferrer"
                             style={{
