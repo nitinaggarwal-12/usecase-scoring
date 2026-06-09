@@ -918,6 +918,10 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
   };
 
   const handleRunLiveGeminiAssessment = async () => {
+    if (!scoringData.overallPriority || scoringData.overallPriority === 0) {
+      alert("⚠ Discovery Assessment Incomplete: Please complete at least one evaluation question or load a candidate preset before running the verified Gemini evaluation.");
+      return;
+    }
     const ts = () => new Date().toISOString().replace('T', ' ').substring(11, 23);
 
     setGeminiStreamingState({
@@ -1126,15 +1130,15 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
             {/* Top Line: Customer Name + Department Name */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <span style={{ fontSize: '0.75rem', fontWeight: 900, color: '#10b981', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                {customerInfo?.company || 'Novartis AG'}
+                {(!scoringData.overallPriority || scoringData.overallPriority === 0) ? 'New Candidate Intake' : (customerInfo?.company || 'Novartis AG')}
               </span>
               <span style={{ fontSize: '0.68rem', color: '#38bdf8', fontWeight: 850, background: 'rgba(56,189,248,0.12)', padding: '0.15rem 0.5rem', borderRadius: '100px' }}>
-                {customerInfo?.domain || 'R&D / Clinical'}
+                {(!scoringData.overallPriority || scoringData.overallPriority === 0) ? 'Discovery Assessment' : (customerInfo?.domain || 'R&D / Clinical')}
               </span>
             </div>
             {/* Bottom Line: Use Case Title */}
             <span style={{ fontSize: '0.9rem', fontWeight: 900, color: t.textMain }}>
-              {customerInfo?.useCaseName || 'Autonomous Radioligand Therapy Matcher'}
+              {(!scoringData.overallPriority || scoringData.overallPriority === 0) ? 'Evaluation Incomplete (Priority Score: 0)' : (customerInfo?.useCaseName || 'Autonomous Radioligand Therapy Matcher')}
             </span>
           </div>
         </div>
@@ -1203,11 +1207,14 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
               </button>
               <button
                 onClick={() => handleRunLiveGeminiAssessment()}
+                title={(!scoringData.overallPriority || scoringData.overallPriority === 0) ? 'Answer discovery questionnaire first' : 'View Scorecard'}
                 style={{
                   background: activeTab === 'scorecard' ? 'linear-gradient(135deg, #10b981, #06b6d4)' : 'linear-gradient(135deg, rgba(16,185,129,0.8), rgba(6,182,212,0.8))',
                   color: '#ffffff', border: 'none', padding: '0.4rem 1.1rem',
                   borderRadius: '100px', fontSize: '0.78rem', fontWeight: 850,
-                  cursor: 'pointer', boxShadow: '0 2px 10px rgba(16,185,129,0.3)'
+                  cursor: (!scoringData.overallPriority || scoringData.overallPriority === 0) ? 'not-allowed' : 'pointer',
+                  boxShadow: activeTab === 'scorecard' ? '0 2px 10px rgba(16,185,129,0.3)' : 'none',
+                  opacity: (!scoringData.overallPriority || scoringData.overallPriority === 0) ? 0.4 : 1
                 }}
               >
                 ✨ Scorecard
@@ -1935,12 +1942,15 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                 ) : (
                   <button
                     onClick={handleRunLiveGeminiAssessment}
-                    title="Submit Evaluation (Live Gemini Verification)"
+                    disabled={!scoringData.overallPriority || scoringData.overallPriority === 0}
+                    title={(!scoringData.overallPriority || scoringData.overallPriority === 0) ? "Answer questions first" : "Submit Evaluation (Live Gemini Verification)"}
                     style={{ 
                       background: 'linear-gradient(135deg, #10b981, #06b6d4, #3b82f6)', color: '#fff', border: 'none', flexShrink: 0,
                       width: '36px', height: '36px', borderRadius: '50%',
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      cursor: 'pointer', boxShadow: '0 4px 15px rgba(16,185,129,0.35)', transition: 'all 0.2s'
+                      cursor: (!scoringData.overallPriority || scoringData.overallPriority === 0) ? 'not-allowed' : 'pointer', 
+                      boxShadow: '0 4px 15px rgba(16,185,129,0.35)', transition: 'all 0.2s',
+                      opacity: (!scoringData.overallPriority || scoringData.overallPriority === 0) ? 0.4 : 1
                     }}
                   >
                     <Check size={16} />
@@ -2231,10 +2241,54 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
       )}
 
       {/* Executive Priority Scorecard & Output Tab */}
-      {activeTab === 'scorecard' && (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', width: '100%', maxWidth: '100%', margin: '0' }}>
-          {/* Sub-Tab 1: Technical Scorecard matching Screenshot 1 */}
-          {reportSubTab === 'technical' && (
+      {activeTab === 'scorecard' && (() => {
+        const pScore = scoringData.overallPriority || 0;
+
+        if (pScore === 0) {
+          return (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', width: '100%', maxWidth: '100%', margin: '0' }}>
+              <div style={{ background: t.cardBg, border: isLight ? '2px dashed #f43f5e' : '2px dashed rgba(244,63,94,0.5)', padding: '5rem 3rem', borderRadius: '32px', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1.75rem', boxShadow: t.cardShadow, margin: '2rem 0' }}>
+                <div style={{ width: '88px', height: '88px', borderRadius: '50%', background: 'rgba(244,63,94,0.15)', color: '#f43f5e', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '3.2rem', border: '1px solid rgba(244,63,94,0.3)', boxShadow: '0 0 25px rgba(244,63,94,0.2)' }}>
+                  📋
+                </div>
+                <h2 style={{ fontSize: '2.35rem', fontWeight: 900, color: t.textMain, margin: 0, letterSpacing: '-0.5px' }}>
+                  Discovery Intake Assessment Pending (0 Pts)
+                </h2>
+                <p style={{ fontSize: '1.18rem', color: t.textSub, maxWidth: '720px', lineHeight: 1.7, margin: 0 }}>
+                  No discovery intake questionnaire answers or customer telemetry have been registered (Priority Score: <strong>0 / 100</strong>). Speculative generation of Technical RAG service meshes, External Market Benchmarks, and Executive C-Suite Briefings is strictly blocked until discovery intake is authenticated.
+                </p>
+                <button
+                  onClick={() => handleTabSwitch('intake')}
+                  style={{
+                    background: 'linear-gradient(135deg, #f43f5e, #e11d48)',
+                    color: '#ffffff',
+                    padding: '1.25rem 2.8rem',
+                    borderRadius: '100px',
+                    fontWeight: 900,
+                    fontSize: '1.12rem',
+                    border: 'none',
+                    cursor: 'pointer',
+                    boxShadow: '0 10px 30px rgba(244,63,94,0.4)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.75rem',
+                    marginTop: '0.5rem',
+                    transition: 'transform 0.2s ease'
+                  }}
+                  onMouseOver={e => e.currentTarget.style.transform = 'scale(1.03)'}
+                  onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}
+                >
+                  ⚡ Start Real-Time Discovery Intake
+                </button>
+              </div>
+            </div>
+          );
+        }
+
+        return (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', width: '100%', maxWidth: '100%', margin: '0' }}>
+            {/* Sub-Tab 1: Technical Scorecard matching Screenshot 1 */}
+            {reportSubTab === 'technical' && (
             <div>
               {(() => {
                 const u = customerInfo.useCaseName || 'Autonomous Operational AI';
@@ -3308,7 +3362,8 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
             </div>
           )}
         </div>
-      )}
+        );
+      })()}
     </div>
   );
 }

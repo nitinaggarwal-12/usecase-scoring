@@ -1,10 +1,10 @@
 [
   {
-    "id": "tile_1780982122578",
-    "company": "Pfizer Inc. (Global R&D)",
+    "id": "tile_1780982483295",
+    "company": "Sanofi S.A.",
     "useCase": "Global Pharmacovigilance Quality Inspector",
     "domain": "R&D / Clinical",
-    "priorityScore": 92,
+    "priorityScore": 94,
     "verdict": "Launch Now",
     "date": "Jun 9, 2026",
     "presetKey": "ai_scanned_custom",
