@@ -572,6 +572,7 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
     connectors: []
   });
   const [liveSynthesis, setLiveSynthesis] = useState(null);
+  const [adcExpiredModal, setAdcExpiredModal] = useState(false);
   const [gateMode, setGateMode] = useState('');
   const isLight = globalTheme === 'light';
 
@@ -926,7 +927,11 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
 
         return;
       } catch (err) {
-        alert(`⚠ Live Gemini API Warning: ${err.message || 'Key restriction'}. Please verify your network access or GCP ADC authorization.`);
+        if ((err.message || '').includes('401') || (err.message || '').includes('invalid authentication credentials')) {
+          setAdcExpiredModal(true);
+        } else {
+          alert(`⚠ Live Gemini API Warning: ${err.message || 'Key restriction'}. Please verify your network access or GCP ADC authorization.`);
+        }
         setGeminiStreamingState({
           active: false,
           currentStep: 0,
@@ -3364,6 +3369,78 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
         </div>
         );
       })()}
+
+      {adcExpiredModal && (
+        <div style={{
+          position: 'fixed',
+          top: 0, left: 0, right: 0, bottom: 0,
+          background: 'rgba(15,23,42,0.85)',
+          backdropFilter: 'blur(16px)',
+          zIndex: 999999,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '1.5rem',
+          animation: 'fadeIn 0.25s ease'
+        }}>
+          <div style={{
+            background: '#1e293b',
+            border: '2px solid #ef4444',
+            borderRadius: '28px',
+            padding: '2.5rem',
+            maxWidth: '620px',
+            width: '100%',
+            color: '#f8fafc',
+            boxShadow: '0 20px 60px rgba(239,68,68,0.25)',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '1.5rem'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                <span style={{ fontSize: '2rem' }}>🔑</span>
+                <h3 style={{ fontSize: '1.5rem', fontWeight: 900, margin: 0, color: '#fca5a5' }}>
+                  GCP ADC Token Expired (401)
+                </h3>
+              </div>
+              <button 
+                onClick={() => setAdcExpiredModal(false)}
+                style={{ background: 'rgba(255,255,255,0.1)', border: 'none', color: '#fff', width: '36px', height: '36px', borderRadius: '100px', cursor: 'pointer', fontWeight: 900 }}
+              >✕</button>
+            </div>
+            <p style={{ fontSize: '1rem', color: '#cbd5e1', lineHeight: 1.6, margin: 0 }}>
+              Your Google Cloud <strong>Application Default Credentials (ADC)</strong> OAuth access token (`ya29...`) has exceeded its 1-hour active lifespan.
+            </p>
+            <div style={{ background: '#0f172a', padding: '1.25rem', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.1)' }}>
+              <span style={{ display: 'block', fontSize: '0.8rem', fontWeight: 800, color: '#38bdf8', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
+                Run in your terminal to refresh:
+              </span>
+              <code style={{ color: '#a7f3d0', fontSize: '0.95rem', fontFamily: 'monospace', userSelect: 'all' }}>
+                gcloud auth application-default print-access-token
+              </code>
+            </div>
+            <p style={{ fontSize: '0.9rem', color: '#94a3b8', margin: 0 }}>
+              Copy the refreshed `ya29...` token, click <strong>Settings / GCP ADC Token</strong> in the top nav, and paste it to instantly renew your live assessment session!
+            </p>
+            <button
+              onClick={() => setAdcExpiredModal(false)}
+              style={{
+                background: '#ef4444',
+                color: '#ffffff',
+                border: 'none',
+                padding: '1rem',
+                borderRadius: '100px',
+                fontWeight: 900,
+                fontSize: '1rem',
+                cursor: 'pointer',
+                boxShadow: '0 8px 25px rgba(239,68,68,0.4)'
+              }}
+            >
+              Acknowledge & Paste New Token
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
