@@ -2450,10 +2450,10 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                       <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: t.textMain, margin: '0 0 1.75rem 0' }}>Architecture Recommendations</h3>
 
                       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.75rem' }}>
-                        {/* Card 1: Recommended */}
+                        {/* Card 1: Phase 1 */}
                         <div style={{ background: isLight ? '#f8fafc' : 'rgba(16,185,129,0.05)', border: '2px solid #10b981', padding: '2rem', borderRadius: '24px', display: 'flex', flexDirection: 'column', justifySelf: 'stretch' }}>
-                          <span style={{ display: 'inline-block', background: '#dcfce7', color: '#15803d', fontSize: '0.75rem', fontWeight: 800, padding: '0.35rem 0.85rem', borderRadius: '100px', alignSelf: 'flex-start', marginBottom: '1.25rem' }}>
-                            Recommended
+                          <span style={{ display: 'inline-block', background: '#dcfce7', color: '#15803d', fontSize: '0.78rem', fontWeight: 900, padding: '0.35rem 0.95rem', borderRadius: '100px', alignSelf: 'flex-start', marginBottom: '1.25rem', border: '1px solid #bbf7d0', boxShadow: '0 2px 8px rgba(21,128,61,0.15)' }}>
+                            Phase 1
                           </span>
                           <h4 style={{ fontSize: '1.15rem', fontWeight: 800, color: t.textMain, margin: '0 0 0.75rem 0' }}>
                             {dyn.card1Title}
@@ -2488,10 +2488,10 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                           </div>
                         </div>
 
-                        {/* Card 2: Option 2 */}
+                        {/* Card 2: Phase 2 */}
                         <div style={{ background: isLight ? '#f8fafc' : 'rgba(245,158,11,0.05)', border: isLight ? '1px solid #cbd5e1' : '1px solid rgba(245,158,11,0.3)', padding: '2rem', borderRadius: '24px', display: 'flex', flexDirection: 'column', justifySelf: 'stretch' }}>
-                          <span style={{ display: 'inline-block', background: '#fef3c7', color: '#b45309', fontSize: '0.75rem', fontWeight: 800, padding: '0.35rem 0.85rem', borderRadius: '100px', alignSelf: 'flex-start', marginBottom: '1.25rem' }}>
-                            Option 2
+                          <span style={{ display: 'inline-block', background: '#fef3c7', color: '#b45309', fontSize: '0.78rem', fontWeight: 900, padding: '0.35rem 0.95rem', borderRadius: '100px', alignSelf: 'flex-start', marginBottom: '1.25rem', border: '1px solid #fde68a', boxShadow: '0 2px 8px rgba(180,83,9,0.12)' }}>
+                            Phase 2
                           </span>
                           <h4 style={{ fontSize: '1.15rem', fontWeight: 800, color: t.textMain, margin: '0 0 0.75rem 0' }}>
                             {dyn.card2Title}
@@ -2526,10 +2526,10 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                           </div>
                         </div>
 
-                        {/* Card 3: Future */}
+                        {/* Card 3: Phase 3 */}
                         <div style={{ background: isLight ? '#f8fafc' : 'rgba(168,85,247,0.05)', border: isLight ? '1px solid #cbd5e1' : '1px solid rgba(168,85,247,0.3)', padding: '2rem', borderRadius: '24px', display: 'flex', flexDirection: 'column', justifySelf: 'stretch' }}>
-                          <span style={{ display: 'inline-block', background: '#f3e8ff', color: '#7e22ce', fontSize: '0.75rem', fontWeight: 800, padding: '0.35rem 0.85rem', borderRadius: '100px', alignSelf: 'flex-start', marginBottom: '1.25rem' }}>
-                            Future
+                          <span style={{ display: 'inline-block', background: '#f3e8ff', color: '#7e22ce', fontSize: '0.78rem', fontWeight: 900, padding: '0.35rem 0.95rem', borderRadius: '100px', alignSelf: 'flex-start', marginBottom: '1.25rem', border: '1px solid #e9d5ff', boxShadow: '0 2px 8px rgba(126,34,206,0.12)' }}>
+                            Phase 3
                           </span>
                           <h4 style={{ fontSize: '1.15rem', fontWeight: 800, color: t.textMain, margin: '0 0 0.75rem 0' }}>
                             {dyn.card3Title}
