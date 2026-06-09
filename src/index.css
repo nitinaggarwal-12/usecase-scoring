@@ -139,7 +139,7 @@ body {
 
 .btn-danger {
   background-color: var(--google-red);
-  color: #white;
+  color: white;
 }
 
 .btn-danger:hover {
@@ -398,8 +398,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 100;
-  padding: 1rem;
+  z-index: 999999;
+  padding: 1.5rem;
+  overflow-y: auto;
 }
 
 .modal-box {
@@ -409,9 +410,12 @@ body {
   padding: 2rem;
   width: 100%;
   max-width: 600px;
+  max-height: 88vh;
+  overflow-y: auto;
   box-shadow: var(--shadow-lg);
   position: relative;
   animation: modalIn 0.25s ease-out;
+  margin: auto;
 }
 
 @keyframes modalIn {
@@ -751,7 +755,7 @@ body {
 }
 
 .pulse-node:hover {
-  filter: drop-shadow(0 0 8px rgba(0, 171, 153, 0.7) !important);
+  filter: drop-shadow(0 0 8px rgba(0, 171, 153, 0.7)) !important;
   stroke-width: 2.5px !important;
 }
 

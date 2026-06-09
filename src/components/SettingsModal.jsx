@@ -25,10 +25,8 @@ export default function SettingsModal({ isOpen, onClose, apiKey, gcpToken, isSup
     const isLiveToken = cleanToken !== '' && cleanToken !== 'demo_token';
 
     if (!isLiveKey && !isLiveToken) {
-      // If checking simulated parameters
-      setTimeout(() => {
-        setTestingStatus('success');
-      }, 800);
+      setTestingStatus('error');
+      setTestingError('No Credentials Provided: Please enter a valid Google Cloud ADC OAuth Access Token or Gemini API Key to establish a live authenticated tunnel.');
       return;
     }
 
@@ -204,13 +202,13 @@ export default function SettingsModal({ isOpen, onClose, apiKey, gcpToken, isSup
           )}
 
           {!inputKey && !inputToken && (
-            <div className="card" style={{ background: 'var(--bg-surface)', borderColor: 'var(--border-color)', padding: '1rem', marginBottom: 0 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.5rem' }}>
-                <Shield size={16} style={{ color: 'var(--google-blue)' }} />
-                <span>Intelligent Simulation Engine Active</span>
+            <div className="card" style={{ background: 'rgba(244,63,94,0.05)', border: '1px solid rgba(244,63,94,0.2)', padding: '1rem', marginBottom: 0 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 700, color: 'var(--google-red)', marginBottom: '0.5rem' }}>
+                <ShieldAlert size={16} />
+                <span>Live Intelligence Disconnected (Key Required)</span>
               </div>
               <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.4 }}>
-                If no credentials are entered, the application runs in secure sandbox mode, utilizing local rules to simulate custom reports.
+                No active Google Cloud OAuth Token or Gemini API Key detected. Real-time online grounding and C-suite report generation will require authenticated credentials.
               </p>
             </div>
           )}
