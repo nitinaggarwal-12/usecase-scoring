@@ -3005,7 +3005,7 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
                           <span style={{ fontSize: '1.15rem', fontWeight: 900, color: '#10b981' }}>{bm.peerName || bm.peerEntity || 'Global Peer Leader'}</span>
                           <a
-                            href="https://cloud.google.com/customers"
+                            href="https://cloud.google.com/blog/topics/healthcare-life-sciences"
                             target="_blank"
                             rel="noopener noreferrer"
                             style={{
@@ -3022,7 +3022,7 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                               boxShadow: '0 4px 15px rgba(56,189,248,0.3)'
                             }}
                           >
-                            View Official GCP Case Study ↗
+                            Read Official Medical GenAI Publication & Source ↗
                           </a>
                         </div>
                         <p style={{ fontSize: '1rem', color: t.textMain, margin: '0.25rem 0', fontWeight: 600 }}>{bm.useCase || bm.verifiedWorkflow || bm.title}</p>
