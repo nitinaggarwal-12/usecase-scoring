@@ -1,10 +1,10 @@
 [
   {
-    "id": "tile_1780985568482",
+    "id": "tile_1780985884860",
     "company": "Novartis Pharma AG",
-    "useCase": "SAP S/4HANA Autonomous Financial Reconciliation",
+    "useCase": "Next-Gen GxP Compliant Manufacturing SOP Assistant",
     "domain": "R&D / Clinical",
-    "priorityScore": 92,
+    "priorityScore": 91,
     "verdict": "Launch Now",
     "date": "Jun 9, 2026",
     "presetKey": "ai_scanned_custom",
@@ -13,9 +13,9 @@
     }
   },
   {
-    "id": "tile_1780985417357",
-    "company": "Roche Diagnostics",
-    "useCase": "Next-Gen GxP Compliant Manufacturing SOP Assistant",
+    "id": "tile_1780985568482",
+    "company": "Novartis Pharma AG",
+    "useCase": "SAP S/4HANA Autonomous Financial Reconciliation",
     "domain": "R&D / Clinical",
     "priorityScore": 92,
     "verdict": "Launch Now",
