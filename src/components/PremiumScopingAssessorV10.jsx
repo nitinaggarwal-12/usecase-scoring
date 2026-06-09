@@ -637,78 +637,10 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
   const activeDocName = activeUploadedFiles[0]?.name || customerInfo?.useCaseName || 'Clinical_Trial_Protocol_Draft.pdf';
 
   const getDynamicGroundingSnippet = (qId, dimension) => {
-    const activeDoc = (window.location.hash || '').toLowerCase();
-    const isGMA = activeDoc.includes('gma') || activeDoc.includes('architecture') || (customerInfo?.useCaseName || '').toLowerCase().includes('gma') || activeDocName.toLowerCase().includes('gma') || activeDocName.toLowerCase().includes('architecture');
-
-    if (isGMA) {
-      const gmaSnippets = {
-        Q1: "GMA Pricing Architecture (Slide 7): Scaling AccessIQ into a unified hub for competitor launch data, regional pricing trends, and reimbursement landscapes to drive global market strategy.",
-        Q2: "GMA Pricing Architecture (Slide 5): Best-in-class price/performance via single unified management system over unstructured BigLake RAG caching tier.",
-        Q3: "GMA Pricing Architecture (Slide 6): Hybrid Approach Option 3 replicating the Gold Layer onto Google Cloud for balanced corporate agility across GCP models.",
-        Q4: "GMA Pricing Architecture (Slide 8): Pricing Analyst workflow synchronizing real-time simulation requests across GMAX pricing copilot user interfaces.",
-        Q5: "GMA Pricing Architecture (Slide 4): Eliminates data migration efforts and duplicate storage costs via zero-migration Databricks BigLake federation.",
-        Q6: "GMA Pricing Architecture (Slide 5): Deep GCP integration enabling GraphRAG and unstructured data parsing within secure BigLake boundary.",
-        Q7: "GMA Pricing Architecture (Slide 2): Overall GMAX Execution Roadmap synchronizing hybrid platform deployment and automated GraphRAG vector indexing.",
-        Q8: "GMA Pricing Architecture (Slide 7): Project AHEAD Dossier Automation saving critical time and resources while maintaining rigorous clinical accuracy.",
-        Q9: "GMA Pricing Architecture (Slide 5): Google funds the migration via attached PSO funding to migrate pricing models at no upfront cost.",
-        Q10: "GMA Pricing Architecture (Slide 2): Migration to BigLake slated for Q2 hybrid deployment across primary pricing data pipelines.",
-        Q11: "GMA Pricing Architecture (Slide 8): Ingests multi-format pricing adjustments, historical drug dossiers, and vector PDF competitor charts.",
-        Q12: "GMA Pricing Architecture (Slide 6): Replicate Gold Layer on Google Cloud maintaining native GCP integrations and optimized cross-cloud performance.",
-        Q13: "GMA Pricing Architecture (Slide 4): Zero-Migration access via direct BigLake Iceberg catalog federation across distributed data warehouses.",
-        Q14: "GMA Pricing Architecture (Slide 5): PSO-funded GCP integration enabling high-fidelity GraphRAG and zero-trust unstructured data processing at no upfront cost.",
-        Q15: "GMA Pricing Architecture (Slide 2): Centralized GMAX Pricing Agent authorization enforcing enterprise Role-Based Access controls.",
-        Q16: "GMA Chapter 16.4 (Data Pipeline): Automated scheduled ingestion parsing MSL briefing packets and clinical trial readouts into 2M token caching tier.",
-        Q17: "GMA Chapter 17.1 (Encryption CMEK): Enforces strict VPC Service Controls (VPC-SC) with customer-managed encryption keys (CMEK) across vector endpoints.",
-        Q18: "GMA Chapter 18.3 (Data Residency): Guaranteed localized execution within US-Central and Europe-West multi-region cloud clusters conforming to GDPR.",
-        Q19: "GMA Chapter 19.2 (Latency SLA): Sub-second vector retrieval and generative synthesis validated under 1,150ms across complex 40-page briefing packages.",
-        Q20: "GMA Chapter 20.4 (Grounding Verifiability): Mandatory exact span attribution requiring paragraph-level citations alongside candidate answers to eliminate hallucination risk.",
-        Q21: "GMA Chapter 21.1 (Model Grounding Mesh): Flagship Gemini 3.5 Pro medical reasoning engine fine-tuned for high-fidelity clinical trial and medical affairs extraction.",
-        Q22: "GMA Chapter 22.3 (Context Allocation): Utilizes 1.5M tokens of active contextual memory to evaluate comprehensive medical dossiers in a single zero-shot pass.",
-        Q23: "GMA Chapter 23.2 (Integration Interface): Standardized REST / FastAPI integration interface running asynchronously over HTTP with automatic retry mechanics.",
-        Q24: "GMA Chapter 24.5 (Audit Logging): 100% immutable cryptographic audit trail recording user identity, prompt tokens, and cited medical document SHA-256 hashes.",
-        Q25: "GMA Chapter 25.1 (Enablement Strategy): Supported by dedicated internal Medical Affairs champion cohort, interactive walkthroughs, and bi-weekly MSL office hours.",
-        Q26: "GMA Chapter 26.2 (User Acceptance): Validated 96% positive usability score during initial dry run across 45 senior Medical Science Liaisons.",
-        Q27: "GMA Chapter 27.4 (Governance Gate): Formal Stage-Gate review completed by Medical Legal Regulatory (MLR) and IT Security steering committees.",
-        Q28: "GMA Chapter 28.1 (Disaster Recovery): Fully redundant failover with automatic daily snapshotting of primary PostgreSQL metadata tables.",
-        Q29: "GMA Chapter 29.3 (Scalability Pods): Horizontally scalable serverless pods capable of absorbing concurrent inquiry surges during major medical congresses (ASCO/ESMO).",
-        Q30: "GMA Chapter 30.5 (Continuous Delivery): Automated CI/CD deployment pipeline running static AST security scans prior to production MSL release."
-      };
-      return gmaSnippets[qId] || `GMA Chapter 4.1 (${dimension}): Verified extraction clause grounding Medical Affairs inquiry resolution over enterprise document mesh.`;
+    if (liveSynthesis && liveSynthesis.scoring && liveSynthesis.scoring.rationale) {
+      return `[Live Verified AI Rationale (${dimension})]: ${liveSynthesis.scoring.rationale}`;
     }
-
-    const snippets = {
-      Q1: "Section 1.2 (Scope): Identified 420 regulatory clinical trial submissions per quarter requiring mandatory compliance verification and multi-language alignment across global health authorities.",
-      Q2: "Section 2.4 (Current Labor Friction): Medical writers spend an average of 36 to 40 hours per submission assembling primary source citations and verifying GxP reference accuracy.",
-      Q3: "Section 3.1 (Strategic Alignment): Priority Tier-1 initiative sponsored by VP of Regulatory Affairs to eliminate manual documentation bottlenecks prior to Q4 product rollout.",
-      Q4: "Section 4.2 (User Cohort): Reachable audience includes 8,500 active regulatory affairs specialists, medical writers, and clinical research directors across US, EU, and APAC.",
-      Q5: "Section 5.5 (Frequency of Execution): Daily workflow executed 4 to 6 times per week per knowledge worker across concurrent multi-phase trial submissions.",
-      Q6: "Section 6.3 (Cognitive Complexity): Workflow requires synthesis of complex multi-document clinical study reports (CSRs), patient safety narratives, and tabular GxP statistical data.",
-      Q7: "Section 7.1 (Repeatability): Highly repeatable operational pattern with standardized document chapter structure conforming to ICH E3 regulatory submission templates.",
-      Q8: "Section 8.2 (Downstream Value): Direct mitigation of $150K compliance review delay risks per submission by automating upfront reference verification.",
-      Q9: "Section 9.4 (Executive Sponsorship): Fully budgeted under Q3 R&D Digital Innovation roadmap with active oversight from Global Head of Regulatory Operations.",
-      Q10: "Section 10.1 (Value Timeframe): First measurable pilot ROI expected within 6 to 8 weeks post-connector instantiation across Phase III oncology submissions.",
-      Q11: "Section 11.2 (Multimodal Requirements): Ingests mixed-format source documents including native Word (.docx) protocols, vector PDFs, and scanned TIFF laboratory charts.",
-      Q12: "Section 12.5 (Cloud Infrastructure): Hosted entirely within dedicated Google Cloud VPC utilizing serverless Vertex AI Reasoning Engine on project nitinagga-ge.",
-      Q13: "Section 13.3 (Data Connector Strategy): Real-time synchronization enforced across enterprise Microsoft SharePoint sites, Veeva Vault GxP document stores, and local OneDrive.",
-      Q14: "Section 14.1 (Authentication Mesh): Zero-trust security perimeter utilizing Google Cloud Application Default Credentials (ADC) via OAuth access token verification.",
-      Q15: "Section 15.2 (Access Permissions): Strict RBAC authorization mirroring underlying SharePoint GxP ACLs to prevent unauthorized cross-protocol data leakage.",
-      Q16: "Section 16.4 (Ingestion Pipeline): Automated scheduled RAG ingestion pipeline parsing document headers, dynamic tables, and inline OCR images into 2M context cache.",
-      Q17: "Section 17.1 (DLP & Encryption): Enforces strict VPC Service Controls (VPC-SC) with customer-managed encryption keys (CMEK) across all active vector indexes.",
-      Q18: "Section 18.3 (Data Residency): Guaranteed localized processing within US-Central and Europe-West multi-region cloud clusters conforming to GDPR and HIPAA.",
-      Q19: "Section 19.2 (Latency SLAs): Sub-second vector retrieval and generative synthesis validated under 1,200ms across 50-page complex protocol extractions.",
-      Q20: "Section 20.4 (Grounding Verifiability): Mandatory exact span attribution requiring paragraph-level citations alongside candidate answers to eliminate hallucination risk.",
-      Q21: "Section 21.1 (Model Grounding Mesh): Flagship Gemini 3.5 Pro medical and code reasoning engine fine-tuned for high-fidelity clinical trial extraction.",
-      Q22: "Section 22.3 (Context Window Allocation): Utilizes 1.5M tokens of active contextual memory to evaluate comprehensive regulatory submissions in a single zero-shot pass.",
-      Q23: "Section 23.2 (Integration API): Standardized REST / FastAPI integration interface running asynchronously over HTTP with automatic connection retry and caching.",
-      Q24: "Section 24.5 (Audit Logging): 100% immutable cryptographic audit trail recording user identity, prompt tokens, and cited document SHA-256 hashes.",
-      Q25: "Section 25.1 (Change Management): Supported by dedicated internal champion enablement cohort, modular video walkthroughs, and weekly office hours.",
-      Q26: "Section 26.2 (User Acceptance): Validated 94% positive usability score during initial 14-day dry run across 50 senior clinical documentation specialists.",
-      Q27: "Section 27.4 (Governance Gate): Formal Stage-Gate review completed on June 2, 2026 by Enterprise Architecture and Quality Assurance steering committees.",
-      Q28: "Section 28.1 (Disaster Recovery): Fully redundant multi-zone failover with automatic daily snapshotting of primary PostgreSQL opportunity metadata tables.",
-      Q29: "Section 29.3 (Scalability Mesh): Horizontally scalable serverless pods capable of absorbing 10x concurrent trial submission surges during peak FDA filing windows.",
-      Q30: "Section 30.5 (Continuous Delivery): Automated CI/CD deployment pipeline running static AST security scans and dependency vulnerability validation prior to production release."
-    };
-    return snippets[qId] || `Section 4.1 (${dimension}): Explicit document verification clause confirming automated cognitive extraction across regulated GxP workflows with zero custom fine-tuning drag.`;
+    return `✨ Live Gemini Assessment Required: Authenticate your GCP ADC token to stream real-time verified context and dynamic parameter evaluations for ${dimension}.`;
   };
 
   const handleLoadPreset = (presetKey) => {
@@ -2581,13 +2513,13 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                                   <div>
                                     <strong style={{ color: t.textMain, display: 'block', marginBottom: '0.4rem' }}>Pros</strong>
                                     <ul style={{ paddingLeft: '1rem', margin: 0, color: t.textSub, display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
-                                      {safeList(dyn.card1Pros, ['Immediate OData API context grounding', 'Rapid 2–3 week pilot validation'])}
+                                      {safeList(dyn.card1Pros, liveSynthesis ? ['Real-time Vertex AI streaming RAG instantiation verified'] : ['✨ Verified Live Gemini Briefing Required'])}
                                     </ul>
                                   </div>
                                   <div>
                                     <strong style={{ color: t.textMain, display: 'block', marginBottom: '0.4rem' }}>Cons</strong>
                                     <ul style={{ paddingLeft: '1rem', margin: 0, color: t.textSub, display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
-                                      {safeList(dyn.card1Cons, ['Initial departmental scope restriction', 'Requires manual controller review'])}
+                                      {safeList(dyn.card1Cons, liveSynthesis ? ['Initial pilot scoping restricted to active intake workers'] : ['✨ Verified Live Gemini Briefing Required'])}
                                     </ul>
                                   </div>
                                 </>
@@ -2638,13 +2570,13 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                                   <div>
                                     <strong style={{ color: t.textMain, display: 'block', marginBottom: '0.4rem' }}>Pros</strong>
                                     <ul style={{ paddingLeft: '1rem', margin: 0, color: t.textSub, display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
-                                      {safeList(dyn.card2Pros, ['Comprehensive BigQuery lake grounding', 'Automated background sync agent'])}
+                                      {safeList(dyn.card2Pros, liveSynthesis ? ['Comprehensive BigQuery lake grounding verified'] : ['✨ Verified Live Gemini Briefing Required'])}
                                     </ul>
                                   </div>
                                   <div>
                                     <strong style={{ color: t.textMain, display: 'block', marginBottom: '0.4rem' }}>Cons</strong>
                                     <ul style={{ paddingLeft: '1rem', margin: 0, color: t.textSub, display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
-                                      {safeList(dyn.card2Cons, ['Requires 6–10 weeks pipeline sync', 'Moderate enterprise adoption curve'])}
+                                      {safeList(dyn.card2Cons, liveSynthesis ? ['Requires pipeline sync architecture confirmation'] : ['✨ Verified Live Gemini Briefing Required'])}
                                     </ul>
                                   </div>
                                 </>
@@ -2695,13 +2627,13 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                                   <div>
                                     <strong style={{ color: t.textMain, display: 'block', marginBottom: '0.4rem' }}>Pros</strong>
                                     <ul style={{ paddingLeft: '1rem', margin: 0, color: t.textSub, display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
-                                      {safeList(dyn.card3Pros, ['Full autonomous Vertex multi-agent hub', 'Unlocks major operational ROI (>30%)'])}
+                                      {safeList(dyn.card3Pros, liveSynthesis ? ['Full autonomous Vertex multi-agent hub'] : ['✨ Verified Live Gemini Briefing Required'])}
                                     </ul>
                                   </div>
                                   <div>
                                     <strong style={{ color: t.textMain, display: 'block', marginBottom: '0.4rem' }}>Cons</strong>
                                     <ul style={{ paddingLeft: '1rem', margin: 0, color: t.textSub, display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
-                                      {safeList(dyn.card3Cons, ['Highest service mesh complexity', 'Extended 3–6 month enterprise rollout'])}
+                                      {safeList(dyn.card3Cons, liveSynthesis ? ['Highest service mesh governance complexity'] : ['✨ Verified Live Gemini Briefing Required'])}
                                     </ul>
                                   </div>
                                 </>
@@ -2714,36 +2646,13 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
 
                     {/* Fourth Row: Blockers & Risks vs Next Steps (Fully Grounded to Interactive Active Roadmap Phase!) */}
                     {(() => {
-                      const phaseBlockers = activeRoadmapPhase === 1 ? (dyn.blockers || [
-                        'Medium risk: Document quality and metadata tagging variance across legacy repositories.',
-                        'Medium risk: User adoption rate reliant on departmental super-user advocacy.',
-                        'Watch item: Strict regulatory disclaimer attributions and human-in-the-loop audit gates.'
-                      ]) : (activeRoadmapPhase === 2 ? [
-                        'Medium risk: BigQuery federated connection latency during peak ETL sync spikes.',
-                        'Medium risk: Departmental RBAC security mapping across distributed enterprise tables.',
-                        'Watch item: Multi-modal embedding vector storage and index synchronization drift.'
-                      ] : [
-                        'High risk: Vertex AI Service Mesh ingress policy compliance and sovereign data sign-off.',
-                        'High risk: Multi-agent recursive loop hallucination guardrails and budget constraints required.',
-                        'Watch item: Long-term compute SLA and inference quota balancing across organizational units.'
-                      ]);
+                      const phaseBlockers = liveSynthesis && Array.isArray(liveSynthesis.blockers) && liveSynthesis.blockers.length > 0
+                        ? liveSynthesis.blockers.map(b => `${b.severity || 'Medium'} risk: ${b.title} - ${b.desc}`)
+                        : ['✨ Verified Live Gemini Briefing Required: Run an authentic live assessment to unlock dynamic multi-wave blocker extractions and strategic mitigation blueprints.'];
 
-                      const phaseNextSteps = activeRoadmapPhase === 1 ? (dyn.nextSteps || [
-                        'Confirm pilot operational group with primary compliance oversight.',
-                        'Validate zero-data-retention sandbox boundaries and VPC Service Controls.',
-                        'Establish quantifiable success metrics: weekly active workflows and hours saved.',
-                        'Execute targeted 3-to-4 week production validation pilot.'
-                      ]) : (activeRoadmapPhase === 2 ? [
-                        'Provision dedicated BigQuery multimodal embedding dataset pipelines.',
-                        'Instantiate background sync agents connecting commercial and R&D tables.',
-                        'Run targeted 6-week cross-functional user acceptance testing (UAT).',
-                        'Verify cost reduction SLA metrics (~20%) across automated workflows.'
-                      ] : [
-                        'Architect private Vertex AI multi-agent service mesh deployment.',
-                        'Deploy automated tool-calling compliance interceptors over TLS 1.3.',
-                        'Conduct comprehensive 3-month global red-team security verification.',
-                        'Authorize fully autonomous production wave across global subsidiaries.'
-                      ]);
+                      const phaseNextSteps = liveSynthesis && Array.isArray(liveSynthesis.nextSteps) && liveSynthesis.nextSteps.length > 0
+                        ? liveSynthesis.nextSteps.map(ns => `[${ns.timeframe || 'Immediate'} - Owner: ${ns.owner || 'Joint'}]: ${ns.title} - ${ns.desc}`)
+                        : ['✨ Verified Live Gemini Briefing Required: Run an authentic live assessment to unlock dynamic roadmap schedules and verified milestones.'];
 
                       const phaseBadgeColor = activeRoadmapPhase === 1 ? '#15803d' : (activeRoadmapPhase === 2 ? '#b45309' : '#7e22ce');
                       const phaseBadgeBg = activeRoadmapPhase === 1 ? '#dcfce7' : (activeRoadmapPhase === 2 ? '#fef3c7' : '#f3e8ff');
