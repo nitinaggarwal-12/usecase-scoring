@@ -29,7 +29,7 @@ app.post('/api/v10/synthesize', async (req, res) => {
     const location = 'us-central1';
     const model = 'gemini-1.5-pro';
 
-    const url = `https://${location}-aiplatform.googleapis.com/v1/projects/${projectId}/locations/${location}/publishers/google/models/${model}:streamGenerateContent`;
+    const url = `https://${location}-aiplatform.googleapis.com/v1/projects/${projectId}/locations/${location}/publishers/google/models/${model}:generateContent`;
     
     const response = await client.request({
       method: 'POST',

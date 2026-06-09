@@ -1,11 +1,11 @@
 [
   {
-    "id": "tile_1781044918175",
-    "company": "Pfizer Inc. (Global R&D)",
+    "id": "tile_1781045041364",
+    "company": "Merck & Co. Enterprise",
     "useCase": "Regulatory Submission Dossier Drafting Copilot",
     "domain": "R&D / Clinical",
-    "priorityScore": 92,
-    "verdict": "Launch Now",
+    "priorityScore": 79,
+    "verdict": "Incubate & Validate",
     "date": "Jun 9, 2026",
     "presetKey": "ai_scanned_custom",
     "scoringVector": {
@@ -52,6 +52,45 @@
     }
   },
   {
+    "id": "tile_1781042301791",
+    "company": "Pfizer Inc. (Global R&D)",
+    "useCase": "Next-Gen GxP Compliant Manufacturing SOP Assistant",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1781040478067",
+    "company": "Pfizer Inc. (Global R&D)",
+    "useCase": "Next-Gen GxP Compliant Manufacturing SOP Assistant",
+    "domain": "R&D / Clinical",
+    "priorityScore": 89,
+    "verdict": "Incubate & Validate",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1781040395962",
+    "company": "Pfizer Inc. (Global R&D)",
+    "useCase": "Next-Gen GxP Compliant Manufacturing SOP Assistant",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
     "id": "tile_1780986186990",
     "company": "Novartis Pharma AG",
     "useCase": "Global Pharmacovigilance Quality Inspector",
@@ -78,6 +117,58 @@
     }
   },
   {
+    "id": "tile_1780986049530",
+    "company": "Merck & Co. Enterprise",
+    "useCase": "Next-Gen GxP Compliant Manufacturing SOP Assistant",
+    "domain": "R&D / Clinical",
+    "priorityScore": 91,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780986016650",
+    "company": "Merck & Co. Enterprise",
+    "useCase": "Next-Gen GxP Compliant Manufacturing SOP Assistant",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780985884860",
+    "company": "Novartis Pharma AG",
+    "useCase": "Next-Gen GxP Compliant Manufacturing SOP Assistant",
+    "domain": "R&D / Clinical",
+    "priorityScore": 91,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780985854535",
+    "company": "Novartis Pharma AG",
+    "useCase": "Next-Gen GxP Compliant Manufacturing SOP Assistant",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
     "id": "tile_1780985568482",
     "company": "Novartis Pharma AG",
     "useCase": "SAP S/4HANA Autonomous Financial Reconciliation",
@@ -94,6 +185,32 @@
     "id": "tile_1780985534704",
     "company": "Novartis Pharma AG",
     "useCase": "SAP S/4HANA Autonomous Financial Reconciliation",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780985417357",
+    "company": "Roche Diagnostics",
+    "useCase": "Next-Gen GxP Compliant Manufacturing SOP Assistant",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780985391155",
+    "company": "Roche Diagnostics",
+    "useCase": "Next-Gen GxP Compliant Manufacturing SOP Assistant",
     "domain": "R&D / Clinical",
     "priorityScore": 92,
     "verdict": "Launch Now",
@@ -221,6 +338,58 @@
     }
   },
   {
+    "id": "tile_1780982885828",
+    "company": "Novartis Pharma AG",
+    "useCase": "Next-Gen GxP Compliant Manufacturing SOP Assistant",
+    "domain": "R&D / Clinical",
+    "priorityScore": 93,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780982873394",
+    "company": "Novartis Pharma AG",
+    "useCase": "Next-Gen GxP Compliant Manufacturing SOP Assistant",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780982623196",
+    "company": "Pfizer Inc. (Global R&D)",
+    "useCase": "Next-Gen GxP Compliant Manufacturing SOP Assistant",
+    "domain": "R&D / Clinical",
+    "priorityScore": 94,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780982618411",
+    "company": "Pfizer Inc. (Global R&D)",
+    "useCase": "Next-Gen GxP Compliant Manufacturing SOP Assistant",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
     "id": "tile_1780982483295",
     "company": "Sanofi S.A.",
     "useCase": "Global Pharmacovigilance Quality Inspector",
@@ -328,6 +497,19 @@
     "id": "tile_1780979401424",
     "company": "Sanofi S.A.",
     "useCase": "Autonomous Clinical Trial Protocol Generator",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780979245423",
+    "company": "Roche Diagnostics",
+    "useCase": "Next-Gen GxP Compliant Manufacturing SOP Assistant",
     "domain": "R&D / Clinical",
     "priorityScore": 92,
     "verdict": "Launch Now",
@@ -546,6 +728,19 @@
     }
   },
   {
+    "id": "tile_1780971832829",
+    "company": "Merck & Co. Enterprise",
+    "useCase": "Next-Gen GxP Compliant Manufacturing SOP Assistant",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
     "id": "tile_1780971832246",
     "company": "Merck & Co. Enterprise",
     "useCase": "Autonomous Clinical Trial Protocol Generator",
@@ -559,9 +754,35 @@
     }
   },
   {
+    "id": "tile_1780971832046",
+    "company": "Pfizer Inc. (Global R&D)",
+    "useCase": "Next-Gen GxP Compliant Manufacturing SOP Assistant",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
     "id": "tile_1780971831846",
     "company": "Novartis Pharma AG",
     "useCase": "Global Pharmacovigilance Quality Inspector",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780971831629",
+    "company": "Novartis Pharma AG",
+    "useCase": "Next-Gen GxP Compliant Manufacturing SOP Assistant",
     "domain": "R&D / Clinical",
     "priorityScore": 92,
     "verdict": "Launch Now",
