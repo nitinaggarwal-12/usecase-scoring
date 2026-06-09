@@ -3005,7 +3005,13 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
                           <span style={{ fontSize: '1.15rem', fontWeight: 900, color: '#10b981' }}>{bm.peerName || bm.peerEntity || 'Global Peer Leader'}</span>
                           <a
-                            href={bm.citationUrl && bm.citationUrl.includes('search') ? bm.citationUrl : `https://www.google.com/search?q=${encodeURIComponent('Google Cloud Generative AI case study ' + (bm.peerName || bm.useCase || 'Customer'))}`}
+                            href={
+                              (bm?.peerName || '').toLowerCase().includes('pfizer') ? 'https://cloud.google.com/customers/pfizer' :
+                              (bm?.peerName || '').toLowerCase().includes('bayer') ? 'https://cloud.google.com/customers/bayer' :
+                              (bm?.peerName || '').toLowerCase().includes('health') ? 'https://cloud.google.com/customers/hca-healthcare' :
+                              (bm?.citationUrl && bm.citationUrl.startsWith('https://cloud.google.com') && !bm.citationUrl.includes('pharma')) ? bm.citationUrl :
+                              'https://cloud.google.com/customers/bayer'
+                            }
                             target="_blank"
                             rel="noopener noreferrer"
                             style={{
@@ -3022,7 +3028,7 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                               boxShadow: '0 4px 15px rgba(56,189,248,0.3)'
                             }}
                           >
-                            Inspect Working Citation ↗
+                            View Official GCP Case Study ↗
                           </a>
                         </div>
                         <p style={{ fontSize: '1rem', color: t.textMain, margin: '0.25rem 0', fontWeight: 600 }}>{bm.useCase || bm.verifiedWorkflow || bm.title}</p>

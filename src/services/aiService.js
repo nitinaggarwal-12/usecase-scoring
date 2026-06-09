@@ -464,7 +464,7 @@ Return a JSON object with the following exact keys:
       "benefitsRealized": "Quantified speedups, savings, or regulatory approvals realized",
       "techStack": "GCP features used",
       "source": "Credible source citation",
-      "citationUrl": "https://www.google.com/search?q=GCP+GenAI+case+study"
+      "citationUrl": "https://cloud.google.com/customers/bayer"
     }
   ]
 }
