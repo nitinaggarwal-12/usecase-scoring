@@ -2207,6 +2207,7 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                 onClick={() => {
                   setGeminiStreamingState(prev => ({ ...prev, active: false }));
                   setActiveTab('scorecard');
+                  setReportSubTab('executive');
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
                 style={{
