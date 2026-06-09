@@ -1655,25 +1655,23 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                 boxSizing: 'border-box'
               }}
             >
-              {/* Elegant Dimension Navigation Controls (MOVED TO TOP) */}
+              {/* Elegant Ultra-Compact Dimension Navigation Ribbon */}
               <div style={{ 
                 position: 'sticky', top: '74px', zIndex: 90,
-                background: isLight ? 'rgba(255, 255, 255, 0.85)' : 'rgba(10, 15, 29, 0.88)',
-                backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)',
+                background: isLight ? 'rgba(255, 255, 255, 0.9)' : 'rgba(10, 15, 29, 0.92)',
+                backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)',
                 display: 'flex', alignItems: 'center', justifyContent: 'space-between', 
-                marginBottom: '1.75rem', padding: '0.75rem 1.5rem', borderRadius: '100px',
-                border: t.cardBorder, boxShadow: isLight ? '0 8px 25px rgba(0,0,0,0.06)' : '0 12px 35px rgba(0,0,0,0.5)',
-                flexWrap: 'wrap', gap: '1rem'
+                marginBottom: '1.25rem', padding: '0.45rem 1rem', borderRadius: '100px',
+                border: t.cardBorder, boxShadow: isLight ? '0 6px 20px rgba(0,0,0,0.05)' : '0 10px 30px rgba(0,0,0,0.6)',
+                gap: '0.5rem', overflowX: 'auto', whiteSpace: 'nowrap'
               }}>
                 {prevPillar ? (
                   <button
-                    onClick={() => {
-                      setActiveDimensionId(prevPillar.id);
-                    }}
+                    onClick={() => setActiveDimensionId(prevPillar.id)}
                     style={{
-                      background: t.tabsBg, color: t.textMain, border: t.tabsBorder,
-                      padding: '0.75rem 1.4rem', borderRadius: '100px', fontSize: '0.88rem',
-                      fontWeight: 800, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem'
+                      background: t.tabsBg, color: t.textMain, border: t.tabsBorder, flexShrink: 0,
+                      padding: '0.4rem 0.85rem', borderRadius: '100px', fontSize: '0.78rem',
+                      fontWeight: 800, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.3rem'
                     }}
                   >
                     ← {prevPillar.name}
@@ -1685,9 +1683,9 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                       window.scrollTo({ top: 0, behavior: 'smooth' });
                     }}
                     style={{
-                      background: t.tabsBg, color: t.textMain, border: t.tabsBorder,
-                      padding: '0.75rem 1.4rem', borderRadius: '100px', fontSize: '0.88rem',
-                      fontWeight: 800, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem'
+                      background: t.tabsBg, color: t.textMain, border: t.tabsBorder, flexShrink: 0,
+                      padding: '0.4rem 0.85rem', borderRadius: '100px', fontSize: '0.78rem',
+                      fontWeight: 800, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.3rem'
                     }}
                   >
                     ← Intake
@@ -1695,39 +1693,35 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                 )}
 
                 {/* 2. CENTER: Dimension Pillar Navigation Tabs (Moved DOWN inside Card!) */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', flexWrap: 'wrap', justifyContent: 'center' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', background: t.tabsBg, padding: '0.25rem', borderRadius: '100px', border: t.tabsBorder }}>
-                    {busPillars.map(p => {
-                      const isDimActive = p.id === activeDimensionId;
-                      return (
-                        <button
-                          key={p.id}
-                          onClick={() => setActiveDimensionId(p.id)}
-                          style={{
-                            background: isDimActive ? 'linear-gradient(135deg, #3b82f6, #10b981)' : 'transparent',
-                            color: isDimActive ? '#ffffff' : t.tabText,
-                            border: 'none', padding: '0.45rem 1.1rem', borderRadius: '100px',
-                            fontSize: '0.8rem', fontWeight: isDimActive ? 850 : 650, cursor: 'pointer',
-                            transition: 'all 0.2s ease', boxShadow: isDimActive ? '0 4px 15px rgba(59,130,246,0.3)' : 'none'
-                          }}
-                        >
-                          {p.name}
-                        </button>
-                      );
-                    })}
-                  </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', background: t.tabsBg, padding: '0.2rem', borderRadius: '100px', border: t.tabsBorder, flexShrink: 0 }}>
+                  {busPillars.map(p => {
+                    const isDimActive = p.id === activeDimensionId;
+                    return (
+                      <button
+                        key={p.id}
+                        onClick={() => setActiveDimensionId(p.id)}
+                        style={{
+                          background: isDimActive ? 'linear-gradient(135deg, #3b82f6, #10b981)' : 'transparent',
+                          color: isDimActive ? '#ffffff' : t.tabText, flexShrink: 0,
+                          border: 'none', padding: '0.35rem 0.85rem', borderRadius: '100px',
+                          fontSize: '0.75rem', fontWeight: isDimActive ? 850 : 650, cursor: 'pointer',
+                          transition: 'all 0.2s ease', boxShadow: isDimActive ? '0 2px 10px rgba(59,130,246,0.3)' : 'none'
+                        }}
+                      >
+                        {p.name}
+                      </button>
+                    );
+                  })}
                 </div>
 
                 {nextPillar ? (
                   <button
-                    onClick={() => {
-                      setActiveDimensionId(nextPillar.id);
-                    }}
+                    onClick={() => setActiveDimensionId(nextPillar.id)}
                     style={{
-                      background: 'linear-gradient(135deg, #3b82f6, #10b981)', color: '#ffffff', border: 'none',
-                      padding: '0.75rem 1.6rem', borderRadius: '100px', fontSize: '0.9rem',
-                      fontWeight: 850, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem',
-                      boxShadow: '0 6px 20px rgba(16,185,129,0.3)'
+                      background: 'linear-gradient(135deg, #3b82f6, #10b981)', color: '#ffffff', border: 'none', flexShrink: 0,
+                      padding: '0.45rem 1.1rem', borderRadius: '100px', fontSize: '0.78rem',
+                      fontWeight: 850, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.3rem',
+                      boxShadow: '0 4px 15px rgba(16,185,129,0.3)'
                     }}
                   >
                     {nextPillar.name} →
@@ -1739,12 +1733,12 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                       window.scrollTo({ top: 0, behavior: 'smooth' });
                     }}
                     style={{ 
-                      background: 'linear-gradient(135deg, #3b82f6, #10b981)', color: '#ffffff', border: 'none', 
-                      padding: '0.85rem 2rem', borderRadius: '100px', fontSize: '0.95rem', 
-                      fontWeight: 900, cursor: 'pointer', boxShadow: '0 8px 25px rgba(16,185,129,0.35)' 
+                      background: 'linear-gradient(135deg, #3b82f6, #10b981)', color: '#ffffff', border: 'none', flexShrink: 0,
+                      padding: '0.45rem 1.25rem', borderRadius: '100px', fontSize: '0.78rem', 
+                      fontWeight: 850, cursor: 'pointer', boxShadow: '0 4px 15px rgba(16,185,129,0.35)' 
                     }}
                   >
-                    Data & Knowledge Sources →
+                    Technical Gate →
                   </button>
                 )}
               </div>
@@ -1851,24 +1845,23 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
               }}
             >
               {/* Elegant Dimension Navigation Controls (MOVED TO TOP) */}
+              {/* Elegant Ultra-Compact Technical Dimension Navigation Ribbon */}
               <div style={{ 
                 position: 'sticky', top: '74px', zIndex: 90,
-                background: isLight ? 'rgba(255, 255, 255, 0.85)' : 'rgba(10, 15, 29, 0.88)',
-                backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)',
+                background: isLight ? 'rgba(255, 255, 255, 0.9)' : 'rgba(10, 15, 29, 0.92)',
+                backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)',
                 display: 'flex', alignItems: 'center', justifyContent: 'space-between', 
-                marginBottom: '1.75rem', padding: '0.75rem 1.5rem', borderRadius: '100px',
-                border: t.cardBorder, boxShadow: isLight ? '0 8px 25px rgba(0,0,0,0.06)' : '0 12px 35px rgba(0,0,0,0.5)',
-                flexWrap: 'wrap', gap: '1rem'
+                marginBottom: '1.25rem', padding: '0.45rem 1rem', borderRadius: '100px',
+                border: t.cardBorder, boxShadow: isLight ? '0 6px 20px rgba(0,0,0,0.05)' : '0 10px 30px rgba(0,0,0,0.6)',
+                gap: '0.5rem', overflowX: 'auto', whiteSpace: 'nowrap'
               }}>
                 {prevPillar ? (
                   <button
-                    onClick={() => {
-                      setActiveDimensionId(prevPillar.id);
-                    }}
+                    onClick={() => setActiveDimensionId(prevPillar.id)}
                     style={{
-                      background: t.tabsBg, color: t.textMain, border: t.tabsBorder,
-                      padding: '0.75rem 1.4rem', borderRadius: '100px', fontSize: '0.88rem',
-                      fontWeight: 800, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem'
+                      background: t.tabsBg, color: t.textMain, border: t.tabsBorder, flexShrink: 0,
+                      padding: '0.4rem 0.85rem', borderRadius: '100px', fontSize: '0.78rem',
+                      fontWeight: 800, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.3rem'
                     }}
                   >
                     ← {prevPillar.name}
@@ -1877,53 +1870,49 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                   <button
                     onClick={() => {
                       setActiveTab('business');
-                      setActiveDimensionId('OC');
+                      setActiveDimensionId('CM');
                       window.scrollTo({ top: 0, behavior: 'smooth' });
                     }}
                     style={{
-                      background: t.tabsBg, color: t.textMain, border: t.tabsBorder,
-                      padding: '0.75rem 1.4rem', borderRadius: '100px', fontSize: '0.88rem',
-                      fontWeight: 800, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem'
+                      background: t.tabsBg, color: t.textMain, border: t.tabsBorder, flexShrink: 0,
+                      padding: '0.4rem 0.85rem', borderRadius: '100px', fontSize: '0.78rem',
+                      fontWeight: 800, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.3rem'
                     }}
                   >
-                    ← Opportunity Cost
+                    ← Change Mgmt
                   </button>
                 )}
 
                 {/* 2. CENTER: Dimension Pillar Navigation Tabs (Moved DOWN inside Card!) */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', flexWrap: 'wrap', justifyContent: 'center' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', background: t.tabsBg, padding: '0.25rem', borderRadius: '100px', border: t.tabsBorder }}>
-                    {techPillars.map(p => {
-                      const isDimActive = p.id === activeDimensionId;
-                      return (
-                        <button
-                          key={p.id}
-                          onClick={() => setActiveDimensionId(p.id)}
-                          style={{
-                            background: isDimActive ? 'linear-gradient(135deg, #a855f7, #3b82f6)' : 'transparent',
-                            color: isDimActive ? '#ffffff' : t.tabText,
-                            border: 'none', padding: '0.45rem 1.1rem', borderRadius: '100px',
-                            fontSize: '0.8rem', fontWeight: isDimActive ? 850 : 650, cursor: 'pointer',
-                            transition: 'all 0.2s ease', boxShadow: isDimActive ? '0 4px 15px rgba(168,85,247,0.3)' : 'none'
-                          }}
-                        >
-                          {p.name}
-                        </button>
-                      );
-                    })}
-                  </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', background: t.tabsBg, padding: '0.2rem', borderRadius: '100px', border: t.tabsBorder, flexShrink: 0 }}>
+                  {techPillars.map(p => {
+                    const isDimActive = p.id === activeDimensionId;
+                    return (
+                      <button
+                        key={p.id}
+                        onClick={() => setActiveDimensionId(p.id)}
+                        style={{
+                          background: isDimActive ? 'linear-gradient(135deg, #a855f7, #3b82f6)' : 'transparent',
+                          color: isDimActive ? '#ffffff' : t.tabText, flexShrink: 0,
+                          border: 'none', padding: '0.35rem 0.85rem', borderRadius: '100px',
+                          fontSize: '0.75rem', fontWeight: isDimActive ? 850 : 650, cursor: 'pointer',
+                          transition: 'all 0.2s ease', boxShadow: isDimActive ? '0 2px 10px rgba(168,85,247,0.3)' : 'none'
+                        }}
+                      >
+                        {p.name}
+                      </button>
+                    );
+                  })}
                 </div>
 
                 {nextPillar ? (
                   <button
-                    onClick={() => {
-                      setActiveDimensionId(nextPillar.id);
-                    }}
+                    onClick={() => setActiveDimensionId(nextPillar.id)}
                     style={{
-                      background: 'linear-gradient(135deg, #a855f7, #3b82f6)', color: '#ffffff', border: 'none',
-                      padding: '0.75rem 1.6rem', borderRadius: '100px', fontSize: '0.9rem',
-                      fontWeight: 850, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem',
-                      boxShadow: '0 6px 20px rgba(168,85,247,0.3)'
+                      background: 'linear-gradient(135deg, #a855f7, #3b82f6)', color: '#ffffff', border: 'none', flexShrink: 0,
+                      padding: '0.45rem 1.1rem', borderRadius: '100px', fontSize: '0.78rem',
+                      fontWeight: 850, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.3rem',
+                      boxShadow: '0 4px 15px rgba(168,85,247,0.3)'
                     }}
                   >
                     {nextPillar.name} →
@@ -1932,14 +1921,13 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                   <button
                     onClick={handleRunLiveGeminiAssessment}
                     style={{ 
-                      background: 'linear-gradient(135deg, #10b981, #06b6d4, #3b82f6)', color: '#fff', border: 'none', 
-                      padding: '0.85rem 2rem', borderRadius: '100px', fontSize: '0.95rem', 
-                      fontWeight: 900, cursor: 'pointer', boxShadow: '0 8px 30px rgba(16,185,129,0.4)',
-                      display: 'flex', alignItems: 'center', gap: '0.5rem',
-                      animation: 'pulse 2s infinite'
+                      background: 'linear-gradient(135deg, #10b981, #06b6d4, #3b82f6)', color: '#fff', border: 'none', flexShrink: 0,
+                      padding: '0.45rem 1.25rem', borderRadius: '100px', fontSize: '0.78rem', 
+                      fontWeight: 850, cursor: 'pointer', boxShadow: '0 4px 15px rgba(16,185,129,0.35)',
+                      display: 'flex', alignItems: 'center', gap: '0.4rem'
                     }}
                   >
-                    <Sparkles size={18} /> Submit Assessment (Live Gemini Verification) →
+                    <Sparkles size={13} /> Submit Evaluation →
                   </button>
                 )}
               </div>
