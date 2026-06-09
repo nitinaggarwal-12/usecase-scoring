@@ -2758,106 +2758,144 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                   </div>
                 </div>
 
-              {/* Leadership Narrative & Decision Needed (2 Columns) */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '2rem' }}>
-                <div style={{ background: t.cardBg, border: t.cardBorder, padding: '2.5rem', borderRadius: '32px', boxShadow: t.cardShadow, display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                  <span style={{ background: 'rgba(16,185,129,0.18)', color: '#10b981', border: '1px solid #10b981', padding: '0.25rem 0.75rem', borderRadius: '100px', fontSize: '0.75rem', fontWeight: 850, alignSelf: 'flex-start' }}>
-                    ⚡ {liveReportPayload ? `PHYSICAL GENERATIVE BRIEFING (${liveReportPayload.inferenceModel || 'GEMINI-3.5-PRO'})` : 'PARAMETRIC CONSULTING TEMPLATE'}
-                  </span>
-                  <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: t.textMain, margin: 0 }}>Leadership Narrative</h3>
-                  <p style={{ fontSize: '1.05rem', color: t.textMain, lineHeight: 1.65, margin: 0 }}>
-                    {liveReportPayload?.executiveSummary || `The ${customerInfo.useCaseName} is recommended as an early Gemini Enterprise activation use case because it combines broad knowledge-worker relevance, low connector risk, high repeat usage, and a reusable pattern for additional functions.`}
+              {pScore === 0 ? (
+                <div style={{ background: t.cardBg, border: isLight ? '2px dashed #f43f5e' : '2px dashed rgba(244,63,94,0.4)', padding: '4.5rem 3rem', borderRadius: '32px', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1.75rem', boxShadow: t.cardShadow, marginTop: '1rem' }}>
+                  <div style={{ width: '84px', height: '84px', borderRadius: '50%', background: 'rgba(244,63,94,0.15)', color: '#f43f5e', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '3rem', border: '1px solid rgba(244,63,94,0.3)' }}>
+                    📋
+                  </div>
+                  <h2 style={{ fontSize: '2.15rem', fontWeight: 900, color: t.textMain, margin: 0, letterSpacing: '-0.5px' }}>
+                    Discovery Intake Assessment Pending
+                  </h2>
+                  <p style={{ fontSize: '1.15rem', color: t.textSub, maxWidth: '680px', lineHeight: 1.65, margin: 0 }}>
+                    No discovery intake questions have been completed (Priority Score: <strong>0</strong>). Please answer the evaluation questionnaire to dynamically synthesize authenticated C-suite narratives, risk/reward trade-offs, and multi-agent implementation roadmaps.
                   </p>
-                  {!liveReportPayload && (
-                    <p style={{ fontSize: '1.05rem', color: t.textSub, lineHeight: 1.65, margin: 0 }}>
-                      Unlike a niche automation, this creates a visible daily workflow where employees experience Gemini Enterprise as the front door to trusted {customerInfo.company} knowledge.
-                    </p>
-                  )}
+                  <button
+                    onClick={() => handleTabSwitch('intake')}
+                    style={{
+                      background: '#f43f5e',
+                      color: '#ffffff',
+                      padding: '1.1rem 2.5rem',
+                      borderRadius: '100px',
+                      fontWeight: 850,
+                      fontSize: '1.08rem',
+                      border: 'none',
+                      cursor: 'pointer',
+                      boxShadow: '0 10px 30px rgba(244,63,94,0.35)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.6rem',
+                      transition: 'transform 0.2s ease'
+                    }}
+                    onMouseOver={e => e.currentTarget.style.transform = 'scale(1.03)'}
+                    onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}
+                  >
+                    ⚡ Start Discovery Assessment Now
+                  </button>
                 </div>
+              ) : (
+                <>
+                  {/* Leadership Narrative & Decision Needed (2 Columns) */}
+                  <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '2rem' }}>
+                    <div style={{ background: t.cardBg, border: t.cardBorder, padding: '2.5rem', borderRadius: '32px', boxShadow: t.cardShadow, display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                      <span style={{ background: 'rgba(16,185,129,0.18)', color: '#10b981', border: '1px solid #10b981', padding: '0.25rem 0.75rem', borderRadius: '100px', fontSize: '0.75rem', fontWeight: 850, alignSelf: 'flex-start' }}>
+                        ⚡ {liveReportPayload ? `PHYSICAL GENERATIVE BRIEFING (${liveReportPayload.inferenceModel || 'GEMINI-3.5-PRO'})` : 'PARAMETRIC CONSULTING TEMPLATE'}
+                      </span>
+                      <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: t.textMain, margin: 0 }}>Leadership Narrative</h3>
+                      <p style={{ fontSize: '1.05rem', color: t.textMain, lineHeight: 1.65, margin: 0 }}>
+                        {liveReportPayload?.executiveSummary || `The ${customerInfo.useCaseName} is recommended as an early Gemini Enterprise activation use case because it combines broad knowledge-worker relevance, low connector risk, high repeat usage, and a reusable pattern for additional functions.`}
+                      </p>
+                      {!liveReportPayload && (
+                        <p style={{ fontSize: '1.05rem', color: t.textSub, lineHeight: 1.65, margin: 0 }}>
+                          Unlike a niche automation, this creates a visible daily workflow where employees experience Gemini Enterprise as the front door to trusted {customerInfo.company} knowledge.
+                        </p>
+                      )}
+                    </div>
 
-                <div style={{ background: t.cardBg, border: t.cardBorder, padding: '2.5rem', borderRadius: '32px', boxShadow: t.cardShadow, display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                  <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: t.textMain, margin: 0 }}>What You Gain ({customerInfo.company})</h3>
-                  <ul style={{ margin: 0, paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.75rem', color: t.textSub, fontSize: '1rem', lineHeight: 1.5 }}>
-                    {(liveReportPayload?.whatYouGain || [
-                      'Approve pilot scope for Regulatory Affairs.',
-                      'Assign business sponsor and champion cohort.',
-                      'Authorize SharePoint/OneDrive source validation.',
-                      'Agree on adoption and productivity success metrics.'
-                    ]).map((gn, idx) => (
-                      <li key={idx}><strong>{gn}</strong></li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
+                    <div style={{ background: t.cardBg, border: t.cardBorder, padding: '2.5rem', borderRadius: '32px', boxShadow: t.cardShadow, display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                      <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: t.textMain, margin: 0 }}>What You Gain ({customerInfo.company})</h3>
+                      <ul style={{ margin: 0, paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.75rem', color: t.textSub, fontSize: '1rem', lineHeight: 1.5 }}>
+                        {(liveReportPayload?.whatYouGain || [
+                          'Approve pilot scope for Regulatory Affairs.',
+                          'Assign business sponsor and champion cohort.',
+                          'Authorize SharePoint/OneDrive source validation.',
+                          'Agree on adoption and productivity success metrics.'
+                        ]).map((gn, idx) => (
+                          <li key={idx}><strong>{gn}</strong></li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
 
-              {/* Executive Risk / Reward View Table */}
-              <div style={{ background: t.cardBg, border: t.cardBorder, padding: '2.5rem', borderRadius: '32px', boxShadow: t.cardShadow, overflowX: 'auto' }}>
-                <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: t.textMain, margin: '0 0 1.75rem 0' }}>Executive Risk / Reward View</h3>
-                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.95rem' }}>
-                  <thead>
-                    <tr style={{ borderBottom: '2px solid rgba(255,255,255,0.1)', color: t.textSub }}>
-                      <th style={{ padding: '1rem' }}>Dimension</th>
-                      <th style={{ padding: '1rem' }}>Current Without Use Case</th>
-                      <th style={{ padding: '1rem' }}>After Delivery</th>
-                      <th style={{ padding: '1rem' }}>Business Gain</th>
-                    </tr>
-                  </thead>
-                  <tbody style={{ color: t.textMain, lineHeight: 1.6 }}>
-                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-                      <td style={{ padding: '1.2rem 1rem', fontWeight: 700 }}>Knowledge Access</td>
-                      <td style={{ padding: '1.2rem 1rem', color: t.textSub }}>Manual search across SOP repositories</td>
-                      <td style={{ padding: '1.2rem 1rem' }}>Grounded answers from approved sources</td>
-                      <td style={{ padding: '1.2rem 1rem', color: '#10b981', fontWeight: 700 }}>Faster task completion and better consistency</td>
-                    </tr>
-                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-                      <td style={{ padding: '1.2rem 1rem', fontWeight: 700 }}>Gemini Adoption</td>
-                      <td style={{ padding: '1.2rem 1rem', color: t.textSub }}>Generic usage, uneven value perception</td>
-                      <td style={{ padding: '1.2rem 1rem' }}>Daily workflow embedded in regulated function</td>
-                      <td style={{ padding: '1.2rem 1rem', color: '#10b981', fontWeight: 700 }}>Higher active usage and executive proof point</td>
-                    </tr>
-                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-                      <td style={{ padding: '1.2rem 1rem', fontWeight: 700 }}>Operating Model</td>
-                      <td style={{ padding: '1.2rem 1rem', color: t.textSub }}>Repeated one-off requests</td>
-                      <td style={{ padding: '1.2rem 1rem' }}>Reusable knowledge assistant pattern</td>
-                      <td style={{ padding: '1.2rem 1rem', color: '#10b981', fontWeight: 700 }}>Accelerates Quality, Manufacturing, Finance assistants</td>
-                    </tr>
-                    <tr>
-                      <td style={{ padding: '1.2rem 1rem', fontWeight: 700 }}>Risk</td>
-                      <td style={{ padding: '1.2rem 1rem', color: t.textSub }}>Inconsistent interpretation of documents</td>
-                      <td style={{ padding: '1.2rem 1rem' }}>Human-reviewed grounded responses with disclaimers</td>
-                      <td style={{ padding: '1.2rem 1rem', color: '#10b981', fontWeight: 700 }}>Reduced knowledge-friction risk</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+                  {/* Executive Risk / Reward View Table */}
+                  <div style={{ background: t.cardBg, border: t.cardBorder, padding: '2.5rem', borderRadius: '32px', boxShadow: t.cardShadow, overflowX: 'auto' }}>
+                    <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: t.textMain, margin: '0 0 1.75rem 0' }}>Executive Risk / Reward View</h3>
+                    <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.95rem' }}>
+                      <thead>
+                        <tr style={{ borderBottom: '2px solid rgba(255,255,255,0.1)', color: t.textSub }}>
+                          <th style={{ padding: '1rem' }}>Dimension</th>
+                          <th style={{ padding: '1rem' }}>Current Without Use Case</th>
+                          <th style={{ padding: '1rem' }}>After Delivery</th>
+                          <th style={{ padding: '1rem' }}>Business Gain</th>
+                        </tr>
+                      </thead>
+                      <tbody style={{ color: t.textMain, lineHeight: 1.6 }}>
+                        <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+                          <td style={{ padding: '1.2rem 1rem', fontWeight: 700 }}>Knowledge Access</td>
+                          <td style={{ padding: '1.2rem 1rem', color: t.textSub }}>Manual search across SOP repositories</td>
+                          <td style={{ padding: '1.2rem 1rem' }}>Grounded answers from approved sources</td>
+                          <td style={{ padding: '1.2rem 1rem', color: '#10b981', fontWeight: 700 }}>Faster task completion and better consistency</td>
+                        </tr>
+                        <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+                          <td style={{ padding: '1.2rem 1rem', fontWeight: 700 }}>Gemini Adoption</td>
+                          <td style={{ padding: '1.2rem 1rem', color: t.textSub }}>Generic usage, uneven value perception</td>
+                          <td style={{ padding: '1.2rem 1rem' }}>Daily workflow embedded in regulated function</td>
+                          <td style={{ padding: '1.2rem 1rem', color: '#10b981', fontWeight: 700 }}>Higher active usage and executive proof point</td>
+                        </tr>
+                        <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+                          <td style={{ padding: '1.2rem 1rem', fontWeight: 700 }}>Operating Model</td>
+                          <td style={{ padding: '1.2rem 1rem', color: t.textSub }}>Repeated one-off requests</td>
+                          <td style={{ padding: '1.2rem 1rem' }}>Reusable knowledge assistant pattern</td>
+                          <td style={{ padding: '1.2rem 1rem', color: '#10b981', fontWeight: 700 }}>Accelerates Quality, Manufacturing, Finance assistants</td>
+                        </tr>
+                        <tr>
+                          <td style={{ padding: '1.2rem 1rem', fontWeight: 700 }}>Risk</td>
+                          <td style={{ padding: '1.2rem 1rem', color: t.textSub }}>Inconsistent interpretation of documents</td>
+                          <td style={{ padding: '1.2rem 1rem' }}>Human-reviewed grounded responses with disclaimers</td>
+                          <td style={{ padding: '1.2rem 1rem', color: '#10b981', fontWeight: 700 }}>Reduced knowledge-friction risk</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
 
-              {/* 3 Roadmap Horizon Cards */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.75rem' }}>
-                <div style={{ background: t.cardBg, border: t.cardBorder, padding: '2.25rem', borderRadius: '24px', boxShadow: t.cardShadow }}>
-                  <h4 style={{ fontSize: '1.15rem', fontWeight: 800, color: t.textMain, margin: '0 0 1rem 0' }}>0–30 Days</h4>
-                  <ul style={{ margin: 0, paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.6rem', color: t.textSub, fontSize: '0.92rem' }}>
-                    <li>Confirm pilot cohort</li>
-                    <li>Validate source permissions</li>
-                    <li>Define adoption KPIs</li>
-                  </ul>
-                </div>
-                <div style={{ background: t.cardBg, border: t.cardBorder, padding: '2.25rem', borderRadius: '24px', boxShadow: t.cardShadow }}>
-                  <h4 style={{ fontSize: '1.15rem', fontWeight: 800, color: t.textMain, margin: '0 0 1rem 0' }}>30–60 Days</h4>
-                  <ul style={{ margin: 0, paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.6rem', color: t.textSub, fontSize: '0.92rem' }}>
-                    <li>Launch pilot</li>
-                    <li>Measure weekly active usage</li>
-                    <li>Capture qualitative feedback</li>
-                  </ul>
-                </div>
-                <div style={{ background: t.cardBg, border: t.cardBorder, padding: '2.25rem', borderRadius: '24px', boxShadow: t.cardShadow }}>
-                  <h4 style={{ fontSize: '1.15rem', fontWeight: 800, color: t.textMain, margin: '0 0 1rem 0' }}>60–90 Days</h4>
-                  <ul style={{ margin: 0, paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.6rem', color: t.textSub, fontSize: '0.92rem' }}>
-                    <li>Expand to adjacent teams</li>
-                    <li>Package reusable pattern</li>
-                    <li>Prioritize next wave</li>
-                  </ul>
-                </div>
-              </div>
+                  {/* 3 Roadmap Horizon Cards */}
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.75rem' }}>
+                    <div style={{ background: t.cardBg, border: t.cardBorder, padding: '2.25rem', borderRadius: '24px', boxShadow: t.cardShadow }}>
+                      <h4 style={{ fontSize: '1.15rem', fontWeight: 800, color: t.textMain, margin: '0 0 1rem 0' }}>0–30 Days</h4>
+                      <ul style={{ margin: 0, paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.6rem', color: t.textSub, fontSize: '0.92rem' }}>
+                        <li>Confirm pilot cohort</li>
+                        <li>Validate source permissions</li>
+                        <li>Define adoption KPIs</li>
+                      </ul>
+                    </div>
+                    <div style={{ background: t.cardBg, border: t.cardBorder, padding: '2.25rem', borderRadius: '24px', boxShadow: t.cardShadow }}>
+                      <h4 style={{ fontSize: '1.15rem', fontWeight: 800, color: t.textMain, margin: '0 0 1rem 0' }}>30–60 Days</h4>
+                      <ul style={{ margin: 0, paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.6rem', color: t.textSub, fontSize: '0.92rem' }}>
+                        <li>Launch pilot</li>
+                        <li>Measure weekly active usage</li>
+                        <li>Capture qualitative feedback</li>
+                      </ul>
+                    </div>
+                    <div style={{ background: t.cardBg, border: t.cardBorder, padding: '2.25rem', borderRadius: '24px', boxShadow: t.cardShadow }}>
+                      <h4 style={{ fontSize: '1.15rem', fontWeight: 800, color: t.textMain, margin: '0 0 1rem 0' }}>60–90 Days</h4>
+                      <ul style={{ margin: 0, paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.6rem', color: t.textSub, fontSize: '0.92rem' }}>
+                        <li>Expand to adjacent teams</li>
+                        <li>Package reusable pattern</li>
+                        <li>Prioritize next wave</li>
+                      </ul>
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
           );
         })()}
