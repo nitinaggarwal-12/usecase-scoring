@@ -14,6 +14,35 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 
+import { GoogleAuth } from 'google-auth-library';
+
+// Permanent GCE Metadata Auto-Refresh Ingestion Endpoint (Zero Client Credentials!)
+const gceAuth = new GoogleAuth({
+  scopes: ['https://www.googleapis.com/auth/cloud-platform']
+});
+
+app.post('/api/v10/synthesize', async (req, res) => {
+  try {
+    const client = await gceAuth.getClient();
+    const projectId = await gceAuth.getProjectId() || 'nitinagga-ge';
+    const location = 'us-central1';
+    const model = 'gemini-1.5-pro';
+
+    const url = `https://${location}-aiplatform.googleapis.com/v1/projects/${projectId}/locations/${location}/publishers/google/models/${model}:streamGenerateContent`;
+    
+    const response = await client.request({
+      method: 'POST',
+      url,
+      data: req.body
+    });
+
+    return res.json(response.data);
+  } catch (err) {
+    console.error('[GCE_SYNTHESIZE_ERROR]', err.message);
+    return res.status(500).json({ error: err.message });
+  }
+});
+
 // Native PostgreSQL Pool (Peer Unix Domain Socket Auth)
 const pool = new pg.Pool({
   host: '/var/run/postgresql'

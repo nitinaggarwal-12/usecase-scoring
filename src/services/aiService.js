@@ -364,48 +364,27 @@ export function generateSimulatedReport(formData) {
 // Generate structured report data
 export async function generateReportData(formData, apiKey = null, gcpToken = null, onStep = () => {}) {
   const scoring = calculateScoring(formData);
-  
-  const hasRealGcp = gcpToken && gcpToken !== 'demo_token' && gcpToken !== '';
-  const hasRealApi = apiKey && apiKey !== 'demo_key' && apiKey !== '';
-  const activeCred = apiKey || gcpToken;
+  const activeCred = (apiKey || gcpToken || '').trim();
 
-  if (hasRealApi || hasRealGcp) {
-    try {
-      onStep(2, "[security] VPC boundaries active, inlining prompt filters... Done");
-      await new Promise(resolve => setTimeout(resolve, 450));
+  try {
+    onStep(2, "[security] VPC boundaries active, inlining prompt filters... Done");
+    await new Promise(resolve => setTimeout(resolve, 450));
 
-      onStep(3, "[POST] Dispatching grounded streaming payload over HTTPS... [PENDING]");
-      await new Promise(resolve => setTimeout(resolve, 450));
+    onStep(3, "[POST] Dispatching grounded streaming payload over HTTPS... [PENDING]");
+    await new Promise(resolve => setTimeout(resolve, 450));
 
-      onStep(4, "[JSON] Synthesizing verified Gemini C-Suite Briefing & Citations... [PENDING]");
-      const newReport = await callGeminiReportLogic(formData, scoring, activeCred);
+    onStep(4, "[JSON] Synthesizing verified Gemini C-Suite Briefing & Citations... [PENDING]");
+    const newReport = await callGeminiReportLogic(formData, scoring, activeCred);
 
-      onStep(5, "[Diagnostics] Grounded indices validated. Compiling ROI & positioning models...");
-      await new Promise(resolve => setTimeout(resolve, 450));
+    onStep(5, "[Diagnostics] Grounded indices validated. Compiling ROI & positioning models...");
+    await new Promise(resolve => setTimeout(resolve, 450));
 
-      return newReport;
-    } catch (error) {
-      console.error("Strict GenAI compilation failed:", error);
-      onStep(4, `[ERROR] Live AI Engine query failed: ${error.message || 'Key restriction'}`);
-      throw new Error(`Live Evaluation Engine Query Failure: ${error.message || "Unknown API verification error"}`, { cause: error });
-    }
+    return newReport;
+  } catch (error) {
+    console.error("Strict GenAI compilation failed:", error);
+    onStep(4, `[ERROR] Live AI Engine query failed: ${error.message || 'Key restriction'}`);
+    throw new Error(`Live Evaluation Engine Query Failure: ${error.message || "Unknown API verification error"}`, { cause: error });
   }
-
-  // HIGH-FIDELITY LOCAL SIMULATION FALLBACK ENGINE (Ensures 100% out-of-the-box demo capabilities!)
-  onStep(2, "[security] Live credentials absent or in simulation mode. Launching local sandbox engine... Done");
-  await new Promise(resolve => setTimeout(resolve, 300));
-
-  onStep(3, "[Simulator] Accessing Merck local discovery scoring weights matrix... Done");
-  await new Promise(resolve => setTimeout(resolve, 300));
-
-  onStep(4, "[Simulator] Compiling dynamic Objections, blockers & recommendations dossiers... Done");
-  await new Promise(resolve => setTimeout(resolve, 300));
-
-  onStep(5, "[Diagnostics] Validating local grounded suitability indices... Done");
-  await new Promise(resolve => setTimeout(resolve, 300));
-
-  const simulatedReport = generateSimulatedReport(formData);
-  return simulatedReport;
 }
 
 // Live Gemini API Integration
@@ -470,6 +449,31 @@ Return a JSON object with the following exact keys:
   ]
 }
 Ensure the output is pure valid JSON without markdown formatting tags or backticks.`;
+
+  if (!cleanCred || cleanCred === 'demo_token' || cleanCred === 'demo_key') {
+    const proxyRes = await fetch('/api/v10/synthesize', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{ role: "user", parts: [{ text: prompt }] }],
+        generationConfig: {
+          temperature: 0.15
+        }
+      })
+    });
+    if (!proxyRes.ok) {
+      const errText = await proxyRes.text();
+      throw new Error(`GCE Sovereign Engine Proxy failed (${proxyRes.status}): ${errText}`);
+    }
+    const data = await proxyRes.json();
+    const text = data.candidates?.[0]?.content?.parts?.[0]?.text || data.candidates?.[0]?.content;
+    if (!text) throw new Error("Empty candidate payload returned from GCE proxy");
+    let sanitized = (typeof text === 'string' ? text : JSON.stringify(text)).trim();
+    if (sanitized.startsWith("```")) {
+      sanitized = sanitized.replace(/^```(json)?/, "").replace(/```$/, "").trim();
+    }
+    return JSON.parse(sanitized);
+  }
 
   const response = await fetch(endpoint, {
     method: 'POST',
