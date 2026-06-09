@@ -859,17 +859,8 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
     }
     const ts = () => new Date().toISOString().replace('T', ' ').substring(11, 23);
 
-    let activeKey = apiKey || gcpToken;
-    if (!activeKey || activeKey === 'demo_key' || activeKey === 'demo_token' || activeKey.trim() === '') {
-      activeKey = prompt("🔑 Connect Live to Google Cloud Gemini API: Enter your actual Gemini API Key (or GCP ADC Token) to stream 100% authentic live intelligence directly from Google Cloud models:");
-    }
-
-    if (!activeKey || activeKey.trim() === '') {
-      alert("🔑 Connection Cancelled: Live Google Cloud Gemini API key or GCP ADC Token is required to stream real-world RAG intelligence and verified citations.");
-      return;
-    }
-
-    const cleanCred = activeKey.trim();
+    const activeKey = (apiKey || gcpToken || 'gce_metadata_proxy').trim();
+    const cleanCred = activeKey === 'gce_metadata_proxy' ? '' : activeKey;
     const isAdc = cleanCred.startsWith('ya29.') || cleanCred.startsWith('ey');
 
     setGeminiStreamingState({
