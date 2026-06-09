@@ -2320,6 +2320,47 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
           );
         }
 
+        if (!liveSynthesis && !geminiStreamingState.active) {
+          return (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', width: '100%', maxWidth: '100%', margin: '0' }}>
+              <div style={{ background: t.cardBg, border: '2px solid #38bdf8', padding: '5rem 3rem', borderRadius: '32px', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1.75rem', boxShadow: '0 0 45px rgba(56,189,248,0.15)', margin: '2rem 0' }}>
+                <div style={{ width: '88px', height: '88px', borderRadius: '50%', background: '#e0f2fe', color: '#0284c7', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '3.2rem', border: '1px solid #bae6fd', boxShadow: '0 0 25px rgba(2,132,199,0.2)' }}>
+                  ✨
+                </div>
+                <h2 style={{ fontSize: '2.35rem', fontWeight: 900, color: t.textMain, margin: 0, letterSpacing: '-0.5px' }}>
+                  Verified Live Gemini Assessment Required ({pScore} Pts)
+                </h2>
+                <p style={{ fontSize: '1.18rem', color: t.textSub, maxWidth: '720px', lineHeight: 1.7, margin: 0 }}>
+                  Candidate telemetry registered (Priority Score: <strong>{pScore} / 100</strong>). To eliminate speculative simulation and formulate your verified C-Suite Dossier, Private Service Connect RAG architecture, and Clickable External Market Citations, initiate the Live Google Cloud Gemini API ingestion engine.
+                </p>
+                <button
+                  onClick={handleRunLiveGeminiAssessment}
+                  style={{
+                    background: 'linear-gradient(135deg, #0284c7, #0369a1)',
+                    color: '#ffffff',
+                    padding: '1.25rem 2.8rem',
+                    borderRadius: '100px',
+                    fontWeight: 900,
+                    fontSize: '1.12rem',
+                    border: 'none',
+                    cursor: 'pointer',
+                    boxShadow: '0 10px 30px rgba(2,132,199,0.4)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.75rem',
+                    marginTop: '0.5rem',
+                    transition: 'transform 0.2s ease'
+                  }}
+                  onMouseOver={e => e.currentTarget.style.transform = 'scale(1.03)'}
+                  onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}
+                >
+                  🚀 Run Live Grounded Gemini API Assessment
+                </button>
+              </div>
+            </div>
+          );
+        }
+
         return (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', width: '100%', maxWidth: '100%', margin: '0' }}>
             {/* Sub-Tab 1: Technical Scorecard matching Screenshot 1 */}
@@ -2445,13 +2486,13 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
 
                       <div style={{ background: t.cardBg, border: t.cardBorder, padding: '1.5rem', borderRadius: '24px', boxShadow: t.cardShadow, display: 'flex', flexDirection: 'column', justifySelf: 'stretch', boxSizing: 'border-box' }}>
                         <span style={{ fontSize: '0.82rem', fontWeight: 750, color: t.textSub, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Reachable Users</span>
-                        <div style={{ fontSize: '2.35rem', fontWeight: 900, color: t.textMain, margin: '0.4rem 0' }}>{dyn.users}</div>
+                        <div style={{ fontSize: '2.35rem', fontWeight: 900, color: t.textMain, margin: '0.4rem 0' }}>{liveSynthesis?.roi?.reachableUsers || dyn.users}</div>
                         <span style={{ fontSize: '0.85rem', color: t.textSub, marginTop: 'auto' }}>Daily/weekly workflow potential</span>
                       </div>
 
                       <div style={{ background: t.cardBg, border: t.cardBorder, padding: '1.5rem', borderRadius: '24px', boxShadow: t.cardShadow, display: 'flex', flexDirection: 'column', justifySelf: 'stretch', boxSizing: 'border-box' }}>
                         <span style={{ fontSize: '0.82rem', fontWeight: 750, color: t.textSub, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Time to Value</span>
-                        <div style={{ fontSize: '2.35rem', fontWeight: 900, color: t.textMain, margin: '0.4rem 0' }}>{dyn.ttv}</div>
+                        <div style={{ fontSize: '2.35rem', fontWeight: 900, color: t.textMain, margin: '0.4rem 0' }}>{liveSynthesis?.roi?.paybackPeriod || dyn.ttv}</div>
                         <span style={{ fontSize: '0.85rem', color: t.textSub, marginTop: 'auto' }}>Pilot with native connectors</span>
                       </div>
 
@@ -2499,7 +2540,7 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                       </div>
 
                       <p style={{ fontSize: '1.15rem', color: t.textMain, lineHeight: 1.7, margin: 0, fontWeight: 500 }}>
-                        {dyn.summary}
+                        {liveSynthesis?.executiveSummary || liveSynthesis?.scoring?.rationale || dyn.summary}
                       </p>
 
                       {/* Immersive Side-by-Side Value Tradeoff Comparison */}
@@ -2509,7 +2550,7 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                             <CheckCircle2 size={18} /> What {c} Gains
                           </span>
                           <ul style={{ margin: 0, paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.65rem', color: t.textSub, fontSize: '0.95rem', lineHeight: 1.5 }}>
-                            {dyn.gains.map((item, idx) => <li key={idx}>{item}</li>)}
+                            {(liveSynthesis?.recommendations ? liveSynthesis.recommendations.map(r => r.title || r.desc || r) : dyn.gains).map((item, idx) => <li key={idx}>{item}</li>)}
                           </ul>
                         </div>
 
@@ -2518,7 +2559,7 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                             <AlertTriangle size={18} /> What {c} Loses (Opportunity Cost)
                           </span>
                           <ul style={{ margin: 0, paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.65rem', color: t.textSub, fontSize: '0.95rem', lineHeight: 1.5 }}>
-                            {dyn.loses.map((item, idx) => <li key={idx}>{item}</li>)}
+                            {(liveSynthesis?.blockers ? liveSynthesis.blockers.map(b => b.title || b.desc || b) : dyn.loses).map((item, idx) => <li key={idx}>{item}</li>)}
                           </ul>
                         </div>
                       </div>

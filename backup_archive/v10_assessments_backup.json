@@ -1,5 +1,18 @@
 [
   {
+    "id": "tile_1780983468505",
+    "company": "Sanofi S.A.",
+    "useCase": "Autonomous Clinical Trial Protocol Generator",
+    "domain": "R&D / Clinical",
+    "priorityScore": 91,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
     "id": "tile_1780983341419",
     "company": "Novartis Pharma AG",
     "useCase": "Global Pharmacovigilance Quality Inspector",
@@ -29,19 +42,6 @@
     "id": "tile_1780981220250",
     "company": "Roche Diagnostics",
     "useCase": "Regulatory Submission Dossier Drafting Copilot",
-    "domain": "R&D / Clinical",
-    "priorityScore": 92,
-    "verdict": "Launch Now",
-    "date": "Jun 9, 2026",
-    "presetKey": "ai_scanned_custom",
-    "scoringVector": {
-      "presetKey": "ai_scanned_custom"
-    }
-  },
-  {
-    "id": "tile_1780979401424",
-    "company": "Sanofi S.A.",
-    "useCase": "Autonomous Clinical Trial Protocol Generator",
     "domain": "R&D / Clinical",
     "priorityScore": 92,
     "verdict": "Launch Now",
