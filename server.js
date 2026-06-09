@@ -27,7 +27,7 @@ app.post('/api/v10/synthesize', async (req, res) => {
     const client = await gceAuth.getClient();
     const projectId = 'nitinagga-ge';
     const location = 'us-central1';
-    const model = 'gemini-1.5-pro';
+    const model = 'gemini-1.5-pro-002';
 
     const url = `https://${location}-aiplatform.googleapis.com/v1/projects/${projectId}/locations/${location}/publishers/google/models/${model}:generateContent`;
     
