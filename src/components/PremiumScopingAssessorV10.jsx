@@ -927,11 +927,8 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
 
         return;
       } catch (err) {
-        if ((err.message || '').includes('401') || (err.message || '').includes('invalid authentication credentials')) {
-          setAdcExpiredModal(true);
-        } else {
-          alert(`⚠ Live Gemini API Warning: ${err.message || 'Key restriction'}. Please verify your network access or GCP ADC authorization.`);
-        }
+        console.error("Live evaluation query error:", err);
+        setAdcExpiredModal(true);
         setGeminiStreamingState({
           active: false,
           currentStep: 0,
