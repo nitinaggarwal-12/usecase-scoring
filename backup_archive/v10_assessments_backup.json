@@ -1,5 +1,18 @@
 [
   {
+    "id": "tile_1780982623196",
+    "company": "Pfizer Inc. (Global R&D)",
+    "useCase": "Next-Gen GxP Compliant Manufacturing SOP Assistant",
+    "domain": "R&D / Clinical",
+    "priorityScore": 94,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
     "id": "tile_1780982483295",
     "company": "Sanofi S.A.",
     "useCase": "Global Pharmacovigilance Quality Inspector",
@@ -29,19 +42,6 @@
     "id": "tile_1780979401424",
     "company": "Sanofi S.A.",
     "useCase": "Autonomous Clinical Trial Protocol Generator",
-    "domain": "R&D / Clinical",
-    "priorityScore": 92,
-    "verdict": "Launch Now",
-    "date": "Jun 9, 2026",
-    "presetKey": "ai_scanned_custom",
-    "scoringVector": {
-      "presetKey": "ai_scanned_custom"
-    }
-  },
-  {
-    "id": "tile_1780979245423",
-    "company": "Roche Diagnostics",
-    "useCase": "Next-Gen GxP Compliant Manufacturing SOP Assistant",
     "domain": "R&D / Clinical",
     "priorityScore": 92,
     "verdict": "Launch Now",

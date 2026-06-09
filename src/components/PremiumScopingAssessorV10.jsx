@@ -6,6 +6,7 @@ import {
   UserCheck, Download, RefreshCw, Terminal, ShieldCheck, Cpu, 
   Database, Zap, ArrowLeft, ArrowRight, ChevronRight, Wand2, Play
 } from 'lucide-react';
+import { generateReportData } from '../services/aiService';
 
 export const V10_PILLARS = [
   {
@@ -924,14 +925,61 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
     }
     const ts = () => new Date().toISOString().replace('T', ' ').substring(11, 23);
 
+    let activeKey = apiKey;
+    if (!activeKey || activeKey === 'demo_key' || activeKey.trim() === '') {
+      activeKey = prompt("🔑 Connect Live to Google Cloud Gemini API: Enter your actual Gemini API Key (or GCP ADC Token) to stream 100% authentic live intelligence directly from Google Cloud models:");
+    }
+
     setGeminiStreamingState({
       active: true,
       currentStep: 1,
       logs: [
-        `[${ts()}] [SYS_INIT] Establishing encrypted TLS 1.3 tunnel with Gemini 3.5 Live Engine...`,
+        `[${ts()}] [SYS_INIT] Establishing encrypted TLS 1.3 tunnel with Gemini Live Engine...`,
         `[${ts()}] [VECTOR_ASSEMBLY] Serializing 30-Dimension QA answers & user commentary...`
       ]
     });
+
+    if (activeKey && activeKey.trim() !== '') {
+      try {
+        setGeminiStreamingState(prev => ({
+          ...prev,
+          currentStep: 3,
+          logs: [...prev.logs, `[${ts()}] [POST] Dispatching secure streaming payload to https://generativelanguage.googleapis.com/v1beta... [STREAMING LIVE]`]
+        }));
+
+        const liveGenReport = await generateReportData({ ...customerInfo, ...scoringData }, activeKey.trim(), null, (st, lText) => {
+          setGeminiStreamingState(prev => ({
+            ...prev,
+            currentStep: st,
+            logs: [...prev.logs, `[${ts()}] ${lText}`]
+          }));
+        });
+
+        setGeminiStreamingState(prev => ({
+          ...prev,
+          currentStep: 6,
+          logs: [...prev.logs, `[${ts()}] [SUCCESS] Real-Time Gemini Intelligence Generated & Grounded over Live HTTPS Tunnel!`]
+        }));
+
+        try {
+          const existing = JSON.parse(localStorage.getItem('v10_session_logs') || '[]');
+          const cName = customerInfo.company || 'Enterprise';
+          const uName = customerInfo.useCaseName || 'Live Use Case';
+          const stepLogs = [{
+            time: new Date().toISOString(),
+            level: 'API_STREAM',
+            message: `POST /v1beta/models/gemini-2.5-flash:generateContent [200 OK] - Authentic Live Report Generated Successfully`,
+            company: `${cName} [Live API]`
+          }];
+          localStorage.setItem('v10_session_logs', JSON.stringify([...stepLogs, ...existing]));
+          persistToSavedAssessments(cName, uName, scoringData?.overallPriority || 92);
+        } catch(ex) {}
+
+        return;
+      } catch (err) {
+        alert(`⚠ Live Gemini API Warning: ${err.message || 'Key restriction'}. Falling back to high-fidelity local simulation model.`);
+      }
+    }
 
     setTimeout(() => {
       setGeminiStreamingState(prev => ({
@@ -997,24 +1045,6 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
             level: 'EXEC_GEN',
             message: `Compiling Business Leadership Dossier over 11 Strategic Intake parameters (BV, UI). Extracted golden KPI baselines and validated 40-60% manual FTE labor reduction across active workflows.`,
             company: `${cName} [Executive Report]`
-          },
-          {
-            time: tsISO(800),
-            level: 'FIN_GEN',
-            message: `Executing 5-Year Financial ROI & Token Optimization Math. Calculated $150K direct compliance review savings per submission while leveraging BigLake context caching to eliminate cross-cloud egress billing.`,
-            company: `${cName} [Financial Report]`
-          },
-          {
-            time: tsISO(1200),
-            level: 'ADOPT_GEN',
-            message: `Generating Enterprise Change & FDE Adoption Playbook. Formulated 3-Phase structured rollouts, assigned champion cohorts, and instantiated automated validation CI/CD stage gates.`,
-            company: `${cName} [Adoption Report]`
-          },
-          {
-            time: tsISO(1600),
-            level: 'API_STREAM',
-            message: `POST /v1beta/models/gemini-3.5-pro:streamGenerateContent [200 OK] - Multi-Report Synthesis complete (4.2 kB payload)`,
-            company: cName
           }
         ];
         localStorage.setItem('v10_session_logs', JSON.stringify([...stepLogs, ...existing]));
