@@ -25,7 +25,7 @@ const gceAuth = new GoogleAuth({
 app.post('/api/v10/synthesize', async (req, res) => {
   try {
     const client = await gceAuth.getClient();
-    const projectId = await gceAuth.getProjectId() || 'nitinagga-ge';
+    const projectId = 'nitinagga-ge';
     const location = 'us-central1';
     const model = 'gemini-1.5-pro';
 
@@ -34,6 +34,9 @@ app.post('/api/v10/synthesize', async (req, res) => {
     const response = await client.request({
       method: 'POST',
       url,
+      headers: {
+        'x-goog-user-project': projectId
+      },
       data: req.body
     });
 
