@@ -476,7 +476,7 @@ Ensure the output is pure valid JSON without markdown formatting tags or backtic
     body: JSON.stringify({
       contents: [{ role: "user", parts: [{ text: prompt }] }],
       tools: [
-        {
+        isAdc ? { googleSearch: {} } : {
           googleSearchRetrieval: {
             dynamicRetrievalConfig: {
               mode: "MODE_DYNAMIC",
