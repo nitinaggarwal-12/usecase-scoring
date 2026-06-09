@@ -1,5 +1,18 @@
 [
   {
+    "id": "tile_1781046228594",
+    "company": "Pfizer Inc. (Global R&D)",
+    "useCase": "SAP S/4HANA Autonomous Financial Reconciliation",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
     "id": "tile_1781045981912",
     "company": "Sanofi S.A.",
     "useCase": "Autonomous Clinical Trial Protocol Generator",
@@ -29,19 +42,6 @@
     "id": "tile_1781045327857",
     "company": "Roche Diagnostics",
     "useCase": "Next-Gen GxP Compliant Manufacturing SOP Assistant",
-    "domain": "R&D / Clinical",
-    "priorityScore": 92,
-    "verdict": "Launch Now",
-    "date": "Jun 9, 2026",
-    "presetKey": "ai_scanned_custom",
-    "scoringVector": {
-      "presetKey": "ai_scanned_custom"
-    }
-  },
-  {
-    "id": "tile_1781045310690",
-    "company": "Novartis Pharma AG",
-    "useCase": "SAP S/4HANA Autonomous Financial Reconciliation",
     "domain": "R&D / Clinical",
     "priorityScore": 92,
     "verdict": "Launch Now",
@@ -234,32 +234,6 @@
     }
   },
   {
-    "id": "tile_1780985568482",
-    "company": "Novartis Pharma AG",
-    "useCase": "SAP S/4HANA Autonomous Financial Reconciliation",
-    "domain": "R&D / Clinical",
-    "priorityScore": 92,
-    "verdict": "Launch Now",
-    "date": "Jun 9, 2026",
-    "presetKey": "ai_scanned_custom",
-    "scoringVector": {
-      "presetKey": "ai_scanned_custom"
-    }
-  },
-  {
-    "id": "tile_1780985534704",
-    "company": "Novartis Pharma AG",
-    "useCase": "SAP S/4HANA Autonomous Financial Reconciliation",
-    "domain": "R&D / Clinical",
-    "priorityScore": 92,
-    "verdict": "Launch Now",
-    "date": "Jun 9, 2026",
-    "presetKey": "ai_scanned_custom",
-    "scoringVector": {
-      "presetKey": "ai_scanned_custom"
-    }
-  },
-  {
     "id": "tile_1780985417357",
     "company": "Roche Diagnostics",
     "useCase": "Next-Gen GxP Compliant Manufacturing SOP Assistant",
@@ -302,19 +276,6 @@
     "id": "tile_1780984453023",
     "company": "Novartis Pharma AG",
     "useCase": "Regulatory Submission Dossier Drafting Copilot",
-    "domain": "R&D / Clinical",
-    "priorityScore": 92,
-    "verdict": "Launch Now",
-    "date": "Jun 9, 2026",
-    "presetKey": "ai_scanned_custom",
-    "scoringVector": {
-      "presetKey": "ai_scanned_custom"
-    }
-  },
-  {
-    "id": "tile_1780984078172",
-    "company": "Pfizer Inc. (Global R&D)",
-    "useCase": "SAP S/4HANA Autonomous Financial Reconciliation",
     "domain": "R&D / Clinical",
     "priorityScore": 92,
     "verdict": "Launch Now",
@@ -754,19 +715,6 @@
     }
   },
   {
-    "id": "tile_1780971830680",
-    "company": "Novartis Pharma AG",
-    "useCase": "SAP S/4HANA Autonomous Financial Reconciliation",
-    "domain": "R&D / Clinical",
-    "priorityScore": 92,
-    "verdict": "Launch Now",
-    "date": "Jun 9, 2026",
-    "presetKey": "ai_scanned_custom",
-    "scoringVector": {
-      "presetKey": "ai_scanned_custom"
-    }
-  },
-  {
     "id": "tile_1780971829913",
     "company": "Pfizer Inc. (Global R&D)",
     "useCase": "Regulatory Submission Dossier Drafting Copilot",
@@ -780,61 +728,9 @@
     }
   },
   {
-    "id": "tile_1780971829713",
-    "company": "Merck & Co. Enterprise",
-    "useCase": "SAP S/4HANA Autonomous Financial Reconciliation",
-    "domain": "R&D / Clinical",
-    "priorityScore": 92,
-    "verdict": "Launch Now",
-    "date": "Jun 9, 2026",
-    "presetKey": "ai_scanned_custom",
-    "scoringVector": {
-      "presetKey": "ai_scanned_custom"
-    }
-  },
-  {
-    "id": "tile_1780971829346",
-    "company": "Sanofi S.A.",
-    "useCase": "SAP S/4HANA Autonomous Financial Reconciliation",
-    "domain": "R&D / Clinical",
-    "priorityScore": 92,
-    "verdict": "Launch Now",
-    "date": "Jun 9, 2026",
-    "presetKey": "ai_scanned_custom",
-    "scoringVector": {
-      "presetKey": "ai_scanned_custom"
-    }
-  },
-  {
     "id": "tile_1780971829146",
     "company": "Roche Diagnostics",
     "useCase": "Regulatory Submission Dossier Drafting Copilot",
-    "domain": "R&D / Clinical",
-    "priorityScore": 92,
-    "verdict": "Launch Now",
-    "date": "Jun 9, 2026",
-    "presetKey": "ai_scanned_custom",
-    "scoringVector": {
-      "presetKey": "ai_scanned_custom"
-    }
-  },
-  {
-    "id": "tile_1780971828930",
-    "company": "Roche Diagnostics",
-    "useCase": "SAP S/4HANA Autonomous Financial Reconciliation",
-    "domain": "R&D / Clinical",
-    "priorityScore": 92,
-    "verdict": "Launch Now",
-    "date": "Jun 9, 2026",
-    "presetKey": "ai_scanned_custom",
-    "scoringVector": {
-      "presetKey": "ai_scanned_custom"
-    }
-  },
-  {
-    "id": "tile_1780971828447",
-    "company": "Merck & Co. Enterprise",
-    "useCase": "SAP S/4HANA Autonomous Financial Reconciliation",
     "domain": "R&D / Clinical",
     "priorityScore": 92,
     "verdict": "Launch Now",

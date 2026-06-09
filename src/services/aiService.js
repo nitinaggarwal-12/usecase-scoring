@@ -266,7 +266,7 @@ export async function generateReportData(formData, apiKey = null, gcpToken = nul
 // Live Gemini API Integration
 async function callGeminiReportLogic(formData, scoringContext, apiKeyOrToken) {
   const activeModel = localStorage.getItem('gemini_selected_model') || 'gemini-3.5-pro';
-  const wireModel = activeModel.includes('3.5') || activeModel.includes('3.0') ? 'gemini-2.5-flash' : activeModel;
+  const wireModel = activeModel.includes('3.5') || activeModel.includes('3.0') ? 'gemini-1.5-pro' : activeModel;
   
   const cleanCred = (apiKeyOrToken || '').trim();
   const isAdc = cleanCred.startsWith('ya29.') || cleanCred.startsWith('ey');
