@@ -474,7 +474,7 @@ Ensure the output is pure valid JSON without markdown formatting tags or backtic
     method: 'POST',
     headers: reqHeaders,
     body: JSON.stringify({
-      contents: [{ parts: [{ text: prompt }] }],
+      contents: [{ role: "user", parts: [{ text: prompt }] }],
       tools: [
         {
           googleSearchRetrieval: {
