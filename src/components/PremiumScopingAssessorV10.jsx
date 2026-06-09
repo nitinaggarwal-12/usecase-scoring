@@ -1668,13 +1668,15 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                 {prevPillar ? (
                   <button
                     onClick={() => setActiveDimensionId(prevPillar.id)}
+                    title={`Previous: ${prevPillar.name}`}
                     style={{
                       background: t.tabsBg, color: t.textMain, border: t.tabsBorder, flexShrink: 0,
-                      padding: '0.4rem 0.85rem', borderRadius: '100px', fontSize: '0.78rem',
-                      fontWeight: 800, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.3rem'
+                      width: '36px', height: '36px', borderRadius: '50%',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      cursor: 'pointer', transition: 'all 0.2s'
                     }}
                   >
-                    ← {prevPillar.name}
+                    <ArrowLeft size={16} />
                   </button>
                 ) : (
                   <button
@@ -1682,13 +1684,15 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                       handleTabSwitch('intake');
                       window.scrollTo({ top: 0, behavior: 'smooth' });
                     }}
+                    title="Previous: Intake Stage"
                     style={{
                       background: t.tabsBg, color: t.textMain, border: t.tabsBorder, flexShrink: 0,
-                      padding: '0.4rem 0.85rem', borderRadius: '100px', fontSize: '0.78rem',
-                      fontWeight: 800, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.3rem'
+                      width: '36px', height: '36px', borderRadius: '50%',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      cursor: 'pointer', transition: 'all 0.2s'
                     }}
                   >
-                    ← Intake
+                    <ArrowLeft size={16} />
                   </button>
                 )}
 
@@ -1717,14 +1721,15 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                 {nextPillar ? (
                   <button
                     onClick={() => setActiveDimensionId(nextPillar.id)}
+                    title={`Next: ${nextPillar.name}`}
                     style={{
                       background: 'linear-gradient(135deg, #3b82f6, #10b981)', color: '#ffffff', border: 'none', flexShrink: 0,
-                      padding: '0.45rem 1.1rem', borderRadius: '100px', fontSize: '0.78rem',
-                      fontWeight: 850, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.3rem',
-                      boxShadow: '0 4px 15px rgba(16,185,129,0.3)'
+                      width: '36px', height: '36px', borderRadius: '50%',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      cursor: 'pointer', boxShadow: '0 4px 15px rgba(16,185,129,0.3)', transition: 'all 0.2s'
                     }}
                   >
-                    {nextPillar.name} →
+                    <ArrowRight size={16} />
                   </button>
                 ) : (
                   <button
@@ -1732,13 +1737,15 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                       handleTabSwitch('technical');
                       window.scrollTo({ top: 0, behavior: 'smooth' });
                     }}
-                    style={{ 
+                    title="Next: Technical Stage"
+                    style={{
                       background: 'linear-gradient(135deg, #3b82f6, #10b981)', color: '#ffffff', border: 'none', flexShrink: 0,
-                      padding: '0.45rem 1.25rem', borderRadius: '100px', fontSize: '0.78rem', 
-                      fontWeight: 850, cursor: 'pointer', boxShadow: '0 4px 15px rgba(16,185,129,0.35)' 
+                      width: '36px', height: '36px', borderRadius: '50%',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      cursor: 'pointer', boxShadow: '0 4px 15px rgba(16,185,129,0.35)', transition: 'all 0.2s'
                     }}
                   >
-                    Technical Gate →
+                    <ArrowRight size={16} />
                   </button>
                 )}
               </div>
@@ -1858,13 +1865,15 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                 {prevPillar ? (
                   <button
                     onClick={() => setActiveDimensionId(prevPillar.id)}
+                    title={`Previous: ${prevPillar.name}`}
                     style={{
                       background: t.tabsBg, color: t.textMain, border: t.tabsBorder, flexShrink: 0,
-                      padding: '0.4rem 0.85rem', borderRadius: '100px', fontSize: '0.78rem',
-                      fontWeight: 800, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.3rem'
+                      width: '36px', height: '36px', borderRadius: '50%',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      cursor: 'pointer', transition: 'all 0.2s'
                     }}
                   >
-                    ← {prevPillar.name}
+                    <ArrowLeft size={16} />
                   </button>
                 ) : (
                   <button
@@ -1873,13 +1882,15 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                       setActiveDimensionId('CM');
                       window.scrollTo({ top: 0, behavior: 'smooth' });
                     }}
+                    title="Previous: Change Management"
                     style={{
                       background: t.tabsBg, color: t.textMain, border: t.tabsBorder, flexShrink: 0,
-                      padding: '0.4rem 0.85rem', borderRadius: '100px', fontSize: '0.78rem',
-                      fontWeight: 800, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.3rem'
+                      width: '36px', height: '36px', borderRadius: '50%',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      cursor: 'pointer', transition: 'all 0.2s'
                     }}
                   >
-                    ← Change Mgmt
+                    <ArrowLeft size={16} />
                   </button>
                 )}
 
@@ -1908,26 +1919,28 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                 {nextPillar ? (
                   <button
                     onClick={() => setActiveDimensionId(nextPillar.id)}
+                    title={`Next: ${nextPillar.name}`}
                     style={{
                       background: 'linear-gradient(135deg, #a855f7, #3b82f6)', color: '#ffffff', border: 'none', flexShrink: 0,
-                      padding: '0.45rem 1.1rem', borderRadius: '100px', fontSize: '0.78rem',
-                      fontWeight: 850, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.3rem',
-                      boxShadow: '0 4px 15px rgba(168,85,247,0.3)'
+                      width: '36px', height: '36px', borderRadius: '50%',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      cursor: 'pointer', boxShadow: '0 4px 15px rgba(168,85,247,0.3)', transition: 'all 0.2s'
                     }}
                   >
-                    {nextPillar.name} →
+                    <ArrowRight size={16} />
                   </button>
                 ) : (
                   <button
                     onClick={handleRunLiveGeminiAssessment}
+                    title="Submit Evaluation (Live Gemini Verification)"
                     style={{ 
                       background: 'linear-gradient(135deg, #10b981, #06b6d4, #3b82f6)', color: '#fff', border: 'none', flexShrink: 0,
-                      padding: '0.45rem 1.25rem', borderRadius: '100px', fontSize: '0.78rem', 
-                      fontWeight: 850, cursor: 'pointer', boxShadow: '0 4px 15px rgba(16,185,129,0.35)',
-                      display: 'flex', alignItems: 'center', gap: '0.4rem'
+                      width: '36px', height: '36px', borderRadius: '50%',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      cursor: 'pointer', boxShadow: '0 4px 15px rgba(16,185,129,0.35)', transition: 'all 0.2s'
                     }}
                   >
-                    <Sparkles size={13} /> Submit Evaluation →
+                    <Check size={16} />
                   </button>
                 )}
               </div>
