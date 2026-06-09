@@ -475,16 +475,6 @@ Ensure the output is pure valid JSON without markdown formatting tags or backtic
     headers: reqHeaders,
     body: JSON.stringify({
       contents: [{ role: "user", parts: [{ text: prompt }] }],
-      tools: [
-        isAdc ? { googleSearch: {} } : {
-          googleSearchRetrieval: {
-            dynamicRetrievalConfig: {
-              mode: "MODE_DYNAMIC",
-              dynamicThreshold: 0.3
-            }
-          }
-        }
-      ],
       generationConfig: {
         temperature: 0.15,
         responseMimeType: "application/json"
