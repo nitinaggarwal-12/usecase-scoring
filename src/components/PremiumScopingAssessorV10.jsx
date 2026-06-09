@@ -2259,6 +2259,10 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                   ],
                   card1Title: 'Gemini Enterprise ERP + SAP OData RAG',
                   card1Desc: 'Directly federate secure SAP financial tables and real-time ledger updates using Vertex AI Service Mesh.',
+                  card2Title: 'Cross-Ledger BigQuery Lakehouse Grounding',
+                  card2Desc: 'Scale multi-modal embedding indices across historical audit reconciliations and BigQuery journal logs.',
+                  card3Title: 'Autonomous Financial Closing Hub',
+                  card3Desc: 'Instantiate continuous multi-agent reconciliation networks operating autonomously across cloud ERP instances.',
                   blockers: [
                     'Medium risk: Inconsistent journal entry description formatting across regional subsidiaries.',
                     'Medium risk: Financial controller sign-off required for automated exception clearing.',
@@ -2287,6 +2291,10 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                   ],
                   card1Title: 'Gemini Multi-Agent Retail Supply Hub',
                   card1Desc: 'Deploy BigLake unstructured data federation and dedicated retail inventory API connectors.',
+                  card2Title: 'Omnichannel Inventory Knowledge Lake',
+                  card2Desc: 'Synthesize real-time ERP telemetry with warehouse point-of-sale unstructured demand vectors.',
+                  card3Title: 'Autonomous Replenishment & Pricing Hub',
+                  card3Desc: 'Deploy sovereign multi-agent execution loops driving real-time automated fulfillment dispatching.',
                   blockers: [
                     'Medium risk: Legacy WMS webhook latency spikes.',
                     'Medium risk: Store manager adoption curve across distributed retail locations.',
@@ -2315,6 +2323,10 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                   ],
                   card1Title: 'Gemini Enterprise RAG + Enterprise Service Mesh',
                   card1Desc: 'Connect internal unstructured document stores and knowledge graphs with automated grounding verification.',
+                  card2Title: 'Enterprise BigQuery Knowledge Graph',
+                  card2Desc: 'Scale out multi-modal BigQuery unstructured embeddings across commercial, clinical, and R&D repositories.',
+                  card3Title: 'Sovereign Multi-Agent Execution Hub',
+                  card3Desc: 'Deploy fully autonomous multi-agent reasoning networks over Vertex AI private service mesh.',
                   blockers: [
                     'Medium risk: Document quality and metadata tagging variance across legacy repositories.',
                     'Medium risk: User adoption rate reliant on departmental super-user advocacy.',
