@@ -1,15 +1,67 @@
 [
   {
-    "id": "tile_1781132090176355",
-    "company": "AstraZeneca Global",
-    "useCase": "Oncology Clinical Protocol QA Agent [#976]",
-    "domain": "Regulatory Affairs",
-    "priorityScore": 83,
+    "id": "tile_1781132258359775",
+    "company": "Sanofi S.A.",
+    "useCase": "Supply Chain Autonomous Demand Forecasting [#174]",
+    "domain": "R&D / Clinical",
+    "priorityScore": 84,
     "verdict": "Incubate & Validate",
     "date": "Jun 10, 2026",
     "presetKey": "ai_scanned_custom",
     "scoringVector": {
       "presetKey": "ai_scanned_custom",
+      "answers": {
+        "Q1": 4,
+        "Q2": 4,
+        "Q3": 2,
+        "Q4": 2,
+        "Q5": 4,
+        "Q6": 4,
+        "Q7": 3,
+        "Q8": 4,
+        "Q9": 4,
+        "Q10": 2,
+        "Q11": 4,
+        "Q12": 3,
+        "Q13": 2,
+        "Q14": 2,
+        "Q15": 4,
+        "Q16": 3,
+        "Q17": 4,
+        "Q18": 2,
+        "Q19": 4,
+        "Q20": 2,
+        "Q21": 4,
+        "Q22": 4,
+        "Q23": 2,
+        "Q24": 3,
+        "Q25": 4,
+        "Q26": 3,
+        "Q27": 3,
+        "Q28": 2,
+        "Q29": 2,
+        "Q30": 3
+      },
+      "customerInfo": {
+        "company": "",
+        "useCaseName": "",
+        "domain": "",
+        "runtime": "",
+        "connectors": []
+      },
+      "liveSynthesis": null
+    }
+  },
+  {
+    "id": "tile_1781132140473334",
+    "company": "AstraZeneca Global",
+    "useCase": "Oncology Clinical Protocol QA Agent [#976]",
+    "domain": "Clinical R&D",
+    "priorityScore": 83,
+    "verdict": "Incubate & Validate",
+    "date": "Jun 10, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
       "answers": {
         "Q1": 4,
         "Q2": 3,
@@ -42,15 +94,73 @@
         "Q29": 3,
         "Q30": 4
       },
+      "presetKey": "ai_scanned_custom",
       "customerInfo": {
-        "company": "Roche Diagnostics",
-        "useCaseName": "Regulatory Submission Dossier Generation Mesh [#251]",
-        "domain": "Regulatory Affairs",
+        "domain": "Clinical R&D",
+        "company": "AstraZeneca Global",
         "runtime": "Google Cloud Vertex AI",
         "connectors": [
           "Corporate Data Warehouse",
           "Private Interconnect Tunnel"
         ],
+        "useCaseName": "Oncology Clinical Protocol QA Agent [#976]",
+        "evidenceMode": "funding_gate"
+      },
+      "liveSynthesis": null
+    }
+  },
+  {
+    "id": "tile_1781132090176355",
+    "company": "AstraZeneca Global",
+    "useCase": "Oncology Clinical Protocol QA Agent [#976]",
+    "domain": "Regulatory Affairs",
+    "priorityScore": 83,
+    "verdict": "Incubate & Validate",
+    "date": "Jun 10, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "answers": {
+        "Q1": 4,
+        "Q2": 3,
+        "Q3": 4,
+        "Q4": 2,
+        "Q5": 2,
+        "Q6": 2,
+        "Q7": 3,
+        "Q8": 3,
+        "Q9": 4,
+        "Q10": 4,
+        "Q11": 3,
+        "Q12": 2,
+        "Q13": 3,
+        "Q14": 3,
+        "Q15": 4,
+        "Q16": 2,
+        "Q17": 2,
+        "Q18": 4,
+        "Q19": 4,
+        "Q20": 2,
+        "Q21": 3,
+        "Q22": 3,
+        "Q23": 4,
+        "Q24": 2,
+        "Q25": 2,
+        "Q26": 4,
+        "Q27": 2,
+        "Q28": 2,
+        "Q29": 3,
+        "Q30": 4
+      },
+      "presetKey": "ai_scanned_custom",
+      "customerInfo": {
+        "domain": "Regulatory Affairs",
+        "company": "Roche Diagnostics",
+        "runtime": "Google Cloud Vertex AI",
+        "connectors": [
+          "Corporate Data Warehouse",
+          "Private Interconnect Tunnel"
+        ],
+        "useCaseName": "Regulatory Submission Dossier Generation Mesh [#251]",
         "evidenceMode": "funding_gate"
       },
       "liveSynthesis": null
@@ -66,7 +176,6 @@
     "date": "Jun 10, 2026",
     "presetKey": "ai_scanned_custom",
     "scoringVector": {
-      "presetKey": "ai_scanned_custom",
       "answers": {
         "Q1": 4,
         "Q2": 4,
@@ -99,15 +208,16 @@
         "Q29": 3,
         "Q30": 3
       },
+      "presetKey": "ai_scanned_custom",
       "customerInfo": {
-        "company": "AstraZeneca Global",
-        "useCaseName": "Oncology Clinical Protocol QA Agent [#519]",
         "domain": "Clinical R&D",
+        "company": "AstraZeneca Global",
         "runtime": "Google Cloud Vertex AI",
         "connectors": [
           "Corporate Data Warehouse",
           "Private Interconnect Tunnel"
         ],
+        "useCaseName": "Oncology Clinical Protocol QA Agent [#519]",
         "evidenceMode": "funding_gate"
       },
       "liveSynthesis": null
@@ -123,7 +233,6 @@
     "date": "Jun 10, 2026",
     "presetKey": "ai_scanned_custom",
     "scoringVector": {
-      "presetKey": "ai_scanned_custom",
       "answers": {
         "Q1": 2,
         "Q2": 4,
@@ -156,15 +265,16 @@
         "Q29": 2,
         "Q30": 4
       },
+      "presetKey": "ai_scanned_custom",
       "customerInfo": {
-        "company": "Roche Diagnostics",
-        "useCaseName": "Regulatory Submission Dossier Generation Mesh [#249]",
         "domain": "Regulatory Affairs",
+        "company": "Roche Diagnostics",
         "runtime": "Google Cloud Vertex AI",
         "connectors": [
           "Corporate Data Warehouse",
           "Private Interconnect Tunnel"
         ],
+        "useCaseName": "Regulatory Submission Dossier Generation Mesh [#249]",
         "evidenceMode": "funding_gate"
       },
       "liveSynthesis": null
@@ -180,7 +290,6 @@
     "date": "Jun 10, 2026",
     "presetKey": "ai_scanned_custom",
     "scoringVector": {
-      "presetKey": "ai_scanned_custom",
       "answers": {
         "Q1": 2,
         "Q2": 3,
@@ -213,15 +322,16 @@
         "Q29": 3,
         "Q30": 3
       },
+      "presetKey": "ai_scanned_custom",
       "customerInfo": {
-        "company": "Merck & Co. Enterprise",
-        "useCaseName": "BeyondCorp OData Clinical Search Federation [#931]",
         "domain": "Data Architecture",
+        "company": "Merck & Co. Enterprise",
         "runtime": "Google Cloud Vertex AI",
         "connectors": [
           "Corporate Data Warehouse",
           "Private Interconnect Tunnel"
         ],
+        "useCaseName": "BeyondCorp OData Clinical Search Federation [#931]",
         "evidenceMode": "funding_gate"
       },
       "liveSynthesis": null
@@ -237,7 +347,6 @@
     "date": "Jun 10, 2026",
     "presetKey": "ai_scanned_custom",
     "scoringVector": {
-      "presetKey": "ai_scanned_custom",
       "answers": {
         "Q1": 4,
         "Q2": 4,
@@ -270,12 +379,13 @@
         "Q29": 3,
         "Q30": 2
       },
+      "presetKey": "ai_scanned_custom",
       "customerInfo": {
-        "company": "",
-        "useCaseName": "",
         "domain": "",
+        "company": "",
         "runtime": "",
-        "connectors": []
+        "connectors": [],
+        "useCaseName": ""
       },
       "liveSynthesis": null
     }
