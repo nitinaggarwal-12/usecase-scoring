@@ -1,9 +1,9 @@
 [
   {
-    "id": "tile_1781132258359775",
+    "id": "tile_1781132305001193",
     "company": "Sanofi S.A.",
     "useCase": "Supply Chain Autonomous Demand Forecasting [#174]",
-    "domain": "R&D / Clinical",
+    "domain": "Supply Chain Operations",
     "priorityScore": 84,
     "verdict": "Incubate & Validate",
     "date": "Jun 10, 2026",
@@ -43,11 +43,15 @@
         "Q30": 3
       },
       "customerInfo": {
-        "company": "",
-        "useCaseName": "",
-        "domain": "",
-        "runtime": "",
-        "connectors": []
+        "company": "Sanofi S.A.",
+        "useCaseName": "Supply Chain Autonomous Demand Forecasting [#174]",
+        "domain": "Supply Chain Operations",
+        "runtime": "Google Cloud Vertex AI",
+        "connectors": [
+          "Corporate Data Warehouse",
+          "Private Interconnect Tunnel"
+        ],
+        "evidenceMode": "funding_gate"
       },
       "liveSynthesis": null
     }

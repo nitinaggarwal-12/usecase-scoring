@@ -1,5 +1,69 @@
 [
   {
+    "audit_id": "gxp_9ad9fba6-4a9d-4266-bd44-3d8bff83af73",
+    "timestamp": "2026-06-10T22:58:25.184Z",
+    "candidate_id": "tile_1781132305001193",
+    "execution_user": "nitinagga",
+    "sha256_lineage_hash": "8dc2a6c005e69dc676b1bda2248651031a12fbc8b926c4469b48f60eec0b858f",
+    "payload": {
+      "id": "tile_1781132305001193",
+      "company": "Sanofi S.A.",
+      "useCase": "Supply Chain Autonomous Demand Forecasting [#174]",
+      "domain": "Supply Chain Operations",
+      "priorityScore": 84,
+      "verdict": "Incubate & Validate",
+      "date": "Jun 10, 2026",
+      "presetKey": "ai_scanned_custom",
+      "scoringVector": {
+        "presetKey": "ai_scanned_custom",
+        "answers": {
+          "Q1": 4,
+          "Q2": 4,
+          "Q3": 2,
+          "Q4": 2,
+          "Q5": 4,
+          "Q6": 4,
+          "Q7": 3,
+          "Q8": 4,
+          "Q9": 4,
+          "Q10": 2,
+          "Q11": 4,
+          "Q12": 3,
+          "Q13": 2,
+          "Q14": 2,
+          "Q15": 4,
+          "Q16": 3,
+          "Q17": 4,
+          "Q18": 2,
+          "Q19": 4,
+          "Q20": 2,
+          "Q21": 4,
+          "Q22": 4,
+          "Q23": 2,
+          "Q24": 3,
+          "Q25": 4,
+          "Q26": 3,
+          "Q27": 3,
+          "Q28": 2,
+          "Q29": 2,
+          "Q30": 3
+        },
+        "customerInfo": {
+          "company": "Sanofi S.A.",
+          "useCaseName": "Supply Chain Autonomous Demand Forecasting [#174]",
+          "domain": "Supply Chain Operations",
+          "runtime": "Google Cloud Vertex AI",
+          "connectors": [
+            "Corporate Data Warehouse",
+            "Private Interconnect Tunnel"
+          ],
+          "evidenceMode": "funding_gate"
+        },
+        "liveSynthesis": null
+      }
+    }
+  },
+  {
     "audit_id": "gxp_2c9cf436-f4b9-45e7-b4a8-aa471d3db0e4",
     "timestamp": "2026-06-10T22:57:38.508Z",
     "candidate_id": "tile_1781132258359775",
