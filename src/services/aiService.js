@@ -266,10 +266,13 @@ export async function generateReportData(formData, apiKey = null, gcpToken = nul
 // Live Gemini API Integration
 async function callGeminiReportLogic(formData, scoringContext, apiKeyOrToken) {
   const activeModel = localStorage.getItem('gemini_selected_model') || 'gemini-3.5-pro';
-  const wireModel = activeModel.includes('3.5') || activeModel.includes('3.0') ? 'gemini-1.5-pro' : activeModel;
-  
   const cleanCred = (apiKeyOrToken || '').trim();
   const isAdc = cleanCred.startsWith('ya29.') || cleanCred.startsWith('ey');
+  
+  let wireModel = activeModel;
+  if (activeModel.includes('3.5') || activeModel.includes('3.0') || activeModel.includes('1.5')) {
+    wireModel = isAdc ? 'gemini-1.5-pro-002' : 'gemini-2.5-pro';
+  }
   
   const gcpProject = localStorage.getItem('gemini_gcp_project') || 'nitinagga-ge';
   const endpoint = isAdc 
@@ -289,6 +292,10 @@ CRITICAL SYSTEM GROUNDING DIRECTIVES:
 3. **Existing Workload transition Roadmap:** If "isCurrentUseCase" is "Yes", you MUST structure specific migration recommendations and next steps detailing the transition of their existing workload from their legacy platform ("currentPlatform" and "currentPlatformNotes") and legacy database ("currentDataSource" and "currentDataSourceNotes") to Google Cloud. Formulate explicit database migration scripts, schema adapters, and Private Service Connect (PSC) gateway rules mapped exactly to their data sources (e.g., Teradata-to-BigQuery pipelines or AWS-to-GCP tunnels).
 4. **Organization Context:** Address R&D/Corporate context per their "division" name, and assign clear responsibilities for the Business User ("businessOwner") and Technical User ("technicalOwner") within the next steps!
 5. **Enforce Verified Real Customer Benchmark Citations:** Under NO circumstances should you output generic placeholders like "Global Pharma Co. X" or "Pharma Corp". You MUST extract verified, real-world Google Cloud enterprise reference customers (e.g., "Bayer", "Pfizer", "HCA Healthcare", "Highmark Health", "Moderna", or "Ginkgo Bioworks") and link their exact public Google Cloud case study URL in "citationUrl"!
+6. **Dynamic Technical Introspection History:** You MUST generate an "introspectionHistory" array of 2-4 concrete, dynamic execution log entries detailing specific GCP data federations, API connections, schema parsings, or database socket handshakes mapped exactly to the customer's use case ("useCaseName"), company ("company"), and existing platforms/data stacks ("dataStack", "currentPlatform", "currentDataSource"). Each item must have a realistic "timestamp" (e.g., "14:32:10"), a logging "level" ("INFO", "SUCCESS", "EXEC", or "WARNING"), and a highly specific technical "message". Do not output generic or static logs.
+7. **Executive Summary & What You Gain:** You MUST return an "executiveSummary" string providing a powerful, C-Suite ready leadership narrative explaining exactly why this use case should be funded. You MUST also return a "whatYouGain" array of 3-5 concrete business, regulatory, or operational achievements the enterprise gains.
+8. **Executive Risk / Reward Trade-off Table:** You MUST return a "riskRewardMatrix" array of 4 distinct dimension objects (Knowledge Access, Gemini Adoption, Operating Model, and Risk) comparing their baseline state ("without") against the validated target state ("with") and quantified business gains ("gain").
+9. **30-60-90 Day Roadmap Horizons:** You MUST return a "roadmapHorizons" object containing three key arrays ("day30", "day60", and "day90"), each with 3-4 highly concrete, actionable implementation milestones mapped exactly to the customer's technical environment, security sign-offs, and pilot scope.
 
 Customer Data (with Custom Annotations):
 ${JSON.stringify(formData, null, 2)}
@@ -301,6 +308,21 @@ Return a JSON object with the following exact keys:
   "company": "Company Name (default: Merck)",
   "industry": "Industry Name",
   "timestamp": "ISO date string",
+  "executiveSummary": "Powerful C-Suite leadership narrative explaining why this use case should be activated immediately.",
+  "whatYouGain": ["Concrete business gain 1", "Concrete operational gain 2", "Concrete regulatory gain 3"],
+  "riskRewardMatrix": [
+    {
+      "dimension": "Knowledge Access",
+      "without": "Manual SOP file lookups across siloed systems",
+      "with": "Unified BeyondCorp RAG search mesh",
+      "gain": "Faster task completion and 40% cycle time reduction"
+    }
+  ],
+  "roadmapHorizons": {
+    "day30": ["Confirm accounting/pilot cohort", "Establish BeyondCorp private perimeters", "Define concrete adoption KPIs"],
+    "day60": ["Deploy shadow validation pilot", "Integrate BigQuery zero-ETL feature store", "Measure weekly active usage"],
+    "day90": ["Expand to global adjacent divisions", "Enforce production GCP model pinning", "Compute quantifiable TCO payback benchmarks"]
+  },
   "scoring": {
     "overallFit": number (0-100),
     "verdict": "Strong Fit" | "Good Fit" | "Moderate Fit" | "Low Fit",
@@ -312,6 +334,13 @@ Return a JSON object with the following exact keys:
   "recommendations": [ { "title": "Recommendation title", "desc": "Detailed strategic guidance" } ],
   "features": [ "Gemini 1.5 Pro", "Google Cloud Healthcare API", ... ],
   "nextSteps": [ { "id": number, "owner": "CE"|"Customer"|"Joint", "timeframe": "Week X", "title": "Step title", "desc": "Step details, assigning owners where appropriate" } ],
+  "introspectionHistory": [
+    {
+      "timestamp": "14:32:10",
+      "level": "INFO",
+      "message": "Established encrypted Private Service Connect tunnel with legacy Teradata tables."
+    }
+  ],
   "roi": { "tcoSavings": "X% - Y%", "paybackPeriod": "X months", "summary": "Detailed ROI outlook paragraph." },
   "benchmarks": [
     {

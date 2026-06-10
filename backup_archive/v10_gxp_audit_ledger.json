@@ -1,0 +1,126 @@
+[
+  {
+    "audit_id": "gxp_bf8b5a24-6839-4051-a53c-eb16c5c23f22",
+    "timestamp": "2026-06-10T18:23:15.784Z",
+    "candidate_id": "tile_1781115795635976",
+    "execution_user": "nitinagga",
+    "sha256_lineage_hash": "d44f80e440e005dc3e48cb8c09bceba21107602f575e4a09ae50b325d65984f4",
+    "payload": {
+      "id": "tile_1781115795635976",
+      "company": "AstraZeneca Global",
+      "useCase": "Oncology Clinical Protocol QA Agent [#876]",
+      "domain": "Clinical R&D",
+      "priorityScore": 81,
+      "verdict": "Incubate & Validate",
+      "date": "Jun 10, 2026",
+      "presetKey": "ai_scanned_custom",
+      "scoringVector": {
+        "presetKey": "ai_scanned_custom",
+        "answers": {
+          "Q1": 3,
+          "Q2": 3,
+          "Q3": 2,
+          "Q4": 4,
+          "Q5": 3,
+          "Q6": 4,
+          "Q7": 3,
+          "Q8": 3,
+          "Q9": 4,
+          "Q10": 2,
+          "Q11": 3,
+          "Q12": 3,
+          "Q13": 4,
+          "Q14": 2,
+          "Q15": 4,
+          "Q16": 3,
+          "Q17": 3,
+          "Q18": 3,
+          "Q19": 3,
+          "Q20": 4,
+          "Q21": 2,
+          "Q22": 3,
+          "Q23": 2,
+          "Q24": 2,
+          "Q25": 2,
+          "Q26": 4,
+          "Q27": 2,
+          "Q28": 2,
+          "Q29": 3,
+          "Q30": 2
+        },
+        "customerInfo": {
+          "company": "AstraZeneca Global",
+          "useCaseName": "Oncology Clinical Protocol QA Agent [#876]",
+          "domain": "Clinical R&D",
+          "runtime": "Google Cloud Vertex AI",
+          "connectors": [
+            "Corporate Data Warehouse",
+            "Private Interconnect Tunnel"
+          ],
+          "evidenceMode": "funding_gate"
+        },
+        "liveSynthesis": null
+      }
+    }
+  },
+  {
+    "audit_id": "gxp_e2548b89-9fd1-40d6-a9b7-66c864e8baac",
+    "timestamp": "2026-06-10T18:22:33.597Z",
+    "candidate_id": "tile_1781115753323396",
+    "execution_user": "nitinagga",
+    "sha256_lineage_hash": "919e341117c3683345fcb4f2aee5eaa1564ea1deee9a754fc68245bd47aa75b9",
+    "payload": {
+      "id": "tile_1781115753323396",
+      "company": "AstraZeneca Global",
+      "useCase": "Oncology Clinical Protocol QA Agent [#876]",
+      "domain": "R&D / Clinical",
+      "priorityScore": 80,
+      "verdict": "Incubate & Validate",
+      "date": "Jun 10, 2026",
+      "presetKey": "ai_scanned_custom",
+      "scoringVector": {
+        "presetKey": "ai_scanned_custom",
+        "answers": {
+          "Q1": 3,
+          "Q2": 3,
+          "Q3": 2,
+          "Q4": 4,
+          "Q5": 3,
+          "Q6": 4,
+          "Q7": 3,
+          "Q8": 3,
+          "Q9": 4,
+          "Q10": 2,
+          "Q11": 3,
+          "Q12": 3,
+          "Q13": 4,
+          "Q14": 2,
+          "Q15": 4,
+          "Q16": 3,
+          "Q17": 3,
+          "Q18": 3,
+          "Q19": 3,
+          "Q20": 4,
+          "Q21": 2,
+          "Q22": 3,
+          "Q23": 2,
+          "Q24": 2,
+          "Q25": 2,
+          "Q26": 4,
+          "Q27": 2,
+          "Q28": 2,
+          "Q29": 3,
+          "Q30": 2
+        },
+        "customerInfo": {
+          "company": "",
+          "useCaseName": "",
+          "domain": "",
+          "runtime": "",
+          "connectors": []
+        },
+        "liveSynthesis": null
+      }
+    }
+  }
+]

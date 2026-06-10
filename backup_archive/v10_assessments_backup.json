@@ -1,1 +1,1765 @@
-[]
+[
+  {
+    "id": "tile_1781115795635976",
+    "company": "AstraZeneca Global",
+    "useCase": "Oncology Clinical Protocol QA Agent [#876]",
+    "domain": "Clinical R&D",
+    "priorityScore": 81,
+    "verdict": "Incubate & Validate",
+    "date": "Jun 10, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "answers": {
+        "Q1": 3,
+        "Q2": 3,
+        "Q3": 2,
+        "Q4": 4,
+        "Q5": 3,
+        "Q6": 4,
+        "Q7": 3,
+        "Q8": 3,
+        "Q9": 4,
+        "Q10": 2,
+        "Q11": 3,
+        "Q12": 3,
+        "Q13": 4,
+        "Q14": 2,
+        "Q15": 4,
+        "Q16": 3,
+        "Q17": 3,
+        "Q18": 3,
+        "Q19": 3,
+        "Q20": 4,
+        "Q21": 2,
+        "Q22": 3,
+        "Q23": 2,
+        "Q24": 2,
+        "Q25": 2,
+        "Q26": 4,
+        "Q27": 2,
+        "Q28": 2,
+        "Q29": 3,
+        "Q30": 2
+      },
+      "presetKey": "ai_scanned_custom",
+      "customerInfo": {
+        "domain": "Clinical R&D",
+        "company": "AstraZeneca Global",
+        "runtime": "Google Cloud Vertex AI",
+        "connectors": [
+          "Corporate Data Warehouse",
+          "Private Interconnect Tunnel"
+        ],
+        "useCaseName": "Oncology Clinical Protocol QA Agent [#876]",
+        "evidenceMode": "funding_gate"
+      },
+      "liveSynthesis": null
+    }
+  },
+  {
+    "id": "tile_1781115753323396",
+    "company": "AstraZeneca Global",
+    "useCase": "Oncology Clinical Protocol QA Agent [#876]",
+    "domain": "R&D / Clinical",
+    "priorityScore": 80,
+    "verdict": "Incubate & Validate",
+    "date": "Jun 10, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "answers": {
+        "Q1": 3,
+        "Q2": 3,
+        "Q3": 2,
+        "Q4": 4,
+        "Q5": 3,
+        "Q6": 4,
+        "Q7": 3,
+        "Q8": 3,
+        "Q9": 4,
+        "Q10": 2,
+        "Q11": 3,
+        "Q12": 3,
+        "Q13": 4,
+        "Q14": 2,
+        "Q15": 4,
+        "Q16": 3,
+        "Q17": 3,
+        "Q18": 3,
+        "Q19": 3,
+        "Q20": 4,
+        "Q21": 2,
+        "Q22": 3,
+        "Q23": 2,
+        "Q24": 2,
+        "Q25": 2,
+        "Q26": 4,
+        "Q27": 2,
+        "Q28": 2,
+        "Q29": 3,
+        "Q30": 2
+      },
+      "presetKey": "ai_scanned_custom",
+      "customerInfo": {
+        "domain": "",
+        "company": "",
+        "runtime": "",
+        "connectors": [],
+        "useCaseName": ""
+      },
+      "liveSynthesis": null
+    }
+  },
+  {
+    "id": "tile_1781114184631",
+    "company": "Customer Enterprise",
+    "useCase": "Enterprise Generative AI Assistant",
+    "domain": "Enterprise Operations",
+    "priorityScore": 90,
+    "verdict": "Launch Now",
+    "date": "Jun 10, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1781114135842",
+    "company": "Customer Enterprise",
+    "useCase": "Enterprise Generative AI Assistant",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 10, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1781114093741",
+    "company": "Customer Enterprise",
+    "useCase": "Enterprise Generative AI Assistant",
+    "domain": "Enterprise Operations",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 10, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1781114041925",
+    "company": "Customer Enterprise",
+    "useCase": "Enterprise Generative AI Assistant",
+    "domain": "Enterprise Operations",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 10, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1781114041258",
+    "company": "Customer Enterprise",
+    "useCase": "Enterprise Generative AI Assistant",
+    "domain": "Enterprise Operations",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 10, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1781114038464",
+    "company": "Customer Enterprise",
+    "useCase": "Enterprise Generative AI Assistant",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 10, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1781111297932",
+    "company": "Customer Enterprise",
+    "useCase": "Enterprise Generative AI Assistant",
+    "domain": "Enterprise Operations",
+    "priorityScore": 90,
+    "verdict": "Launch Now",
+    "date": "Jun 10, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1781111216121",
+    "company": "Customer Enterprise",
+    "useCase": "Enterprise Generative AI Assistant",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 10, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1781110021374",
+    "company": "Customer Enterprise",
+    "useCase": "Enterprise Generative AI Assistant",
+    "domain": "Enterprise Operations",
+    "priorityScore": 95,
+    "verdict": "Launch Now",
+    "date": "Jun 10, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1781109976812",
+    "company": "Customer Enterprise",
+    "useCase": "Enterprise Generative AI Assistant",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 10, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1781098183189",
+    "company": "Customer Enterprise",
+    "useCase": "Enterprise Generative AI Assistant",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 10, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1781097136790",
+    "company": "Customer Enterprise",
+    "useCase": "Enterprise Generative AI Assistant",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 10, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1781062822229",
+    "company": "Customer Enterprise",
+    "useCase": "Enterprise Generative AI Assistant",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 10, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1781058836397",
+    "company": "Customer Enterprise",
+    "useCase": "Enterprise Generative AI Assistant",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 10, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1781046259699",
+    "company": "Pfizer Inc. (Global R&D)",
+    "useCase": "SAP S/4HANA Autonomous Financial Reconciliation",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1781046228594",
+    "company": "Pfizer Inc. (Global R&D)",
+    "useCase": "SAP S/4HANA Autonomous Financial Reconciliation",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1781046127295",
+    "company": "Merck & Co. Enterprise",
+    "useCase": "SAP S/4HANA Autonomous Financial Reconciliation",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1781045981912",
+    "company": "Sanofi S.A.",
+    "useCase": "Autonomous Clinical Trial Protocol Generator",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1781045846472",
+    "company": "Merck & Co. Enterprise",
+    "useCase": "Global Pharmacovigilance Quality Inspector",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1781045327857",
+    "company": "Roche Diagnostics",
+    "useCase": "Next-Gen GxP Compliant Manufacturing SOP Assistant",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1781045310690",
+    "company": "Novartis Pharma AG",
+    "useCase": "SAP S/4HANA Autonomous Financial Reconciliation",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1781045041364",
+    "company": "Merck & Co. Enterprise",
+    "useCase": "Regulatory Submission Dossier Drafting Copilot",
+    "domain": "R&D / Clinical",
+    "priorityScore": 79,
+    "verdict": "Incubate & Validate",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1781044998063",
+    "company": "Merck & Co. Enterprise",
+    "useCase": "Regulatory Submission Dossier Drafting Copilot",
+    "domain": "R&D / Clinical",
+    "priorityScore": 91,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1781044996024",
+    "company": "Merck & Co. Enterprise",
+    "useCase": "Regulatory Submission Dossier Drafting Copilot",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1781044918175",
+    "company": "Pfizer Inc. (Global R&D)",
+    "useCase": "Regulatory Submission Dossier Drafting Copilot",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1781044830624",
+    "company": "Merck & Co. Enterprise",
+    "useCase": "Next-Gen GxP Compliant Manufacturing SOP Assistant",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1781044753875",
+    "company": "Sanofi S.A.",
+    "useCase": "Regulatory Submission Dossier Drafting Copilot",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1781044673925",
+    "company": "Novartis Pharma AG",
+    "useCase": "Global Pharmacovigilance Quality Inspector",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1781044539075",
+    "company": "Pfizer Inc. (Global R&D)",
+    "useCase": "Autonomous Clinical Trial Protocol Generator",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1781043749988",
+    "company": "Novartis Pharma AG",
+    "useCase": "Regulatory Submission Dossier Drafting Copilot",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1781042301791",
+    "company": "Pfizer Inc. (Global R&D)",
+    "useCase": "Next-Gen GxP Compliant Manufacturing SOP Assistant",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1781040478067",
+    "company": "Pfizer Inc. (Global R&D)",
+    "useCase": "Next-Gen GxP Compliant Manufacturing SOP Assistant",
+    "domain": "R&D / Clinical",
+    "priorityScore": 89,
+    "verdict": "Incubate & Validate",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1781040395962",
+    "company": "Pfizer Inc. (Global R&D)",
+    "useCase": "Next-Gen GxP Compliant Manufacturing SOP Assistant",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780986186990",
+    "company": "Novartis Pharma AG",
+    "useCase": "Global Pharmacovigilance Quality Inspector",
+    "domain": "R&D / Clinical",
+    "priorityScore": 91,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780986158882",
+    "company": "Novartis Pharma AG",
+    "useCase": "Global Pharmacovigilance Quality Inspector",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780986049530",
+    "company": "Merck & Co. Enterprise",
+    "useCase": "Next-Gen GxP Compliant Manufacturing SOP Assistant",
+    "domain": "R&D / Clinical",
+    "priorityScore": 91,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780986016650",
+    "company": "Merck & Co. Enterprise",
+    "useCase": "Next-Gen GxP Compliant Manufacturing SOP Assistant",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780985884860",
+    "company": "Novartis Pharma AG",
+    "useCase": "Next-Gen GxP Compliant Manufacturing SOP Assistant",
+    "domain": "R&D / Clinical",
+    "priorityScore": 91,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780985854535",
+    "company": "Novartis Pharma AG",
+    "useCase": "Next-Gen GxP Compliant Manufacturing SOP Assistant",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780985568482",
+    "company": "Novartis Pharma AG",
+    "useCase": "SAP S/4HANA Autonomous Financial Reconciliation",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780985534704",
+    "company": "Novartis Pharma AG",
+    "useCase": "SAP S/4HANA Autonomous Financial Reconciliation",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780985417357",
+    "company": "Roche Diagnostics",
+    "useCase": "Next-Gen GxP Compliant Manufacturing SOP Assistant",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780985391155",
+    "company": "Roche Diagnostics",
+    "useCase": "Next-Gen GxP Compliant Manufacturing SOP Assistant",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780985249773",
+    "company": "Merck & Co. Enterprise",
+    "useCase": "Autonomous Clinical Trial Protocol Generator",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780985159974",
+    "company": "Merck & Co. Enterprise",
+    "useCase": "Global Pharmacovigilance Quality Inspector",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780985046292",
+    "company": "Novartis Pharma AG",
+    "useCase": "Autonomous Clinical Trial Protocol Generator",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780984916375",
+    "company": "Roche Diagnostics",
+    "useCase": "Regulatory Submission Dossier Drafting Copilot",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780984690824",
+    "company": "Pfizer Inc. (Global R&D)",
+    "useCase": "Autonomous Clinical Trial Protocol Generator",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780984453023",
+    "company": "Novartis Pharma AG",
+    "useCase": "Regulatory Submission Dossier Drafting Copilot",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780984078172",
+    "company": "Pfizer Inc. (Global R&D)",
+    "useCase": "SAP S/4HANA Autonomous Financial Reconciliation",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780983468505",
+    "company": "Sanofi S.A.",
+    "useCase": "Autonomous Clinical Trial Protocol Generator",
+    "domain": "R&D / Clinical",
+    "priorityScore": 91,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780983462753",
+    "company": "Sanofi S.A.",
+    "useCase": "Autonomous Clinical Trial Protocol Generator",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780983341419",
+    "company": "Novartis Pharma AG",
+    "useCase": "Global Pharmacovigilance Quality Inspector",
+    "domain": "R&D / Clinical",
+    "priorityScore": 90,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780983333916",
+    "company": "Novartis Pharma AG",
+    "useCase": "Global Pharmacovigilance Quality Inspector",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780982885828",
+    "company": "Novartis Pharma AG",
+    "useCase": "Next-Gen GxP Compliant Manufacturing SOP Assistant",
+    "domain": "R&D / Clinical",
+    "priorityScore": 93,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780982873394",
+    "company": "Novartis Pharma AG",
+    "useCase": "Next-Gen GxP Compliant Manufacturing SOP Assistant",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780982623196",
+    "company": "Pfizer Inc. (Global R&D)",
+    "useCase": "Next-Gen GxP Compliant Manufacturing SOP Assistant",
+    "domain": "R&D / Clinical",
+    "priorityScore": 94,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780982618411",
+    "company": "Pfizer Inc. (Global R&D)",
+    "useCase": "Next-Gen GxP Compliant Manufacturing SOP Assistant",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780982483295",
+    "company": "Sanofi S.A.",
+    "useCase": "Global Pharmacovigilance Quality Inspector",
+    "domain": "R&D / Clinical",
+    "priorityScore": 94,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780982471011",
+    "company": "Sanofi S.A.",
+    "useCase": "Global Pharmacovigilance Quality Inspector",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780982370695",
+    "company": "Pfizer Inc. (Global R&D)",
+    "useCase": "Global Pharmacovigilance Quality Inspector",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780982323796",
+    "company": "Pfizer Inc. (Global R&D)",
+    "useCase": "Global Pharmacovigilance Quality Inspector",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780982262296",
+    "company": "Pfizer Inc. (Global R&D)",
+    "useCase": "Global Pharmacovigilance Quality Inspector",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780982122578",
+    "company": "Pfizer Inc. (Global R&D)",
+    "useCase": "Global Pharmacovigilance Quality Inspector",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780981983696",
+    "company": "Pfizer Inc. (Global R&D)",
+    "useCase": "Global Pharmacovigilance Quality Inspector",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780981913845",
+    "company": "Pfizer Inc. (Global R&D)",
+    "useCase": "Global Pharmacovigilance Quality Inspector",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780981220250",
+    "company": "Roche Diagnostics",
+    "useCase": "Regulatory Submission Dossier Drafting Copilot",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780981179002",
+    "company": "Roche Diagnostics",
+    "useCase": "Regulatory Submission Dossier Drafting Copilot",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780981158900",
+    "company": "Roche Diagnostics",
+    "useCase": "Regulatory Submission Dossier Drafting Copilot",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780981151951",
+    "company": "Roche Diagnostics",
+    "useCase": "Regulatory Submission Dossier Drafting Copilot",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780981118319",
+    "company": "Roche Diagnostics",
+    "useCase": "Regulatory Submission Dossier Drafting Copilot",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780981088836",
+    "company": "Roche Diagnostics",
+    "useCase": "Regulatory Submission Dossier Drafting Copilot",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780981000870",
+    "company": "Roche Diagnostics",
+    "useCase": "Regulatory Submission Dossier Drafting Copilot",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780980919004",
+    "company": "Roche Diagnostics",
+    "useCase": "Regulatory Submission Dossier Drafting Copilot",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780980897569",
+    "company": "Roche Diagnostics",
+    "useCase": "Regulatory Submission Dossier Drafting Copilot",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780980649621",
+    "company": "Sanofi S.A.",
+    "useCase": "Regulatory Submission Dossier Drafting Copilot",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780979401424",
+    "company": "Sanofi S.A.",
+    "useCase": "Autonomous Clinical Trial Protocol Generator",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780979245423",
+    "company": "Roche Diagnostics",
+    "useCase": "Next-Gen GxP Compliant Manufacturing SOP Assistant",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780978974108",
+    "company": "Merck & Co.",
+    "useCase": "Regulatory SOP Assistant",
+    "domain": "Quality & Regulatory",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780976717608",
+    "company": "Roche Diagnostics",
+    "useCase": "Autonomous Clinical Trial Protocol Generator",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780975787619",
+    "company": "Merck & Co. Enterprise",
+    "useCase": "Autonomous Clinical Trial Protocol Generator",
+    "domain": "R&D / Clinical",
+    "priorityScore": 89,
+    "verdict": "Incubate & Validate",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780975578500",
+    "company": "Merck & Co. Enterprise",
+    "useCase": "Autonomous Clinical Trial Protocol Generator",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780975125286",
+    "company": "Roche Diagnostics",
+    "useCase": "Autonomous Clinical Trial Protocol Generator",
+    "domain": "R&D / Clinical",
+    "priorityScore": 79,
+    "verdict": "Incubate & Validate",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780974722903",
+    "company": "Merck & Co.",
+    "useCase": "Regulatory SOP Assistant",
+    "domain": "Quality & Regulatory",
+    "priorityScore": 100,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780974677420",
+    "company": "Merck & Co.",
+    "useCase": "Regulatory SOP Assistant",
+    "domain": "Quality & Regulatory",
+    "priorityScore": 100,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780974587803",
+    "company": "Merck & Co.",
+    "useCase": "Regulatory SOP Assistant",
+    "domain": "Quality & Regulatory",
+    "priorityScore": 100,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780974570985",
+    "company": "Merck & Co.",
+    "useCase": "Regulatory SOP Assistant",
+    "domain": "Quality & Regulatory",
+    "priorityScore": 100,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780974438971",
+    "company": "Merck & Co.",
+    "useCase": "Regulatory SOP Assistant",
+    "domain": "Quality & Regulatory",
+    "priorityScore": 100,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780974426053",
+    "company": "Merck & Co.",
+    "useCase": "Regulatory SOP Assistant",
+    "domain": "Quality & Regulatory",
+    "priorityScore": 100,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780974363553",
+    "company": "Merck & Co.",
+    "useCase": "Regulatory SOP Assistant",
+    "domain": "Quality & Regulatory",
+    "priorityScore": 100,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780973166817",
+    "company": "Novartis Pharma AG (Global R&D)",
+    "useCase": "Autonomous Radioligand Therapy Dossier Generator",
+    "domain": "R&D / Clinical",
+    "priorityScore": 79,
+    "verdict": "Incubate & Validate",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780972457436",
+    "company": "Novartis Pharma AG (Global R&D)",
+    "useCase": "Autonomous Radioligand Therapy Dossier Generator",
+    "domain": "R&D / Clinical",
+    "priorityScore": 79,
+    "verdict": "Incubate & Validate",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780971920132",
+    "company": "Sanofi S.A.",
+    "useCase": "Global Pharmacovigilance Quality Inspector",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780971834513",
+    "company": "Roche Diagnostics",
+    "useCase": "Autonomous Clinical Trial Protocol Generator",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780971833046",
+    "company": "Sanofi S.A.",
+    "useCase": "Regulatory Submission Dossier Drafting Copilot",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780971832829",
+    "company": "Merck & Co. Enterprise",
+    "useCase": "Next-Gen GxP Compliant Manufacturing SOP Assistant",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780971832613",
+    "company": "Roche Diagnostics",
+    "useCase": "Regulatory Submission Dossier Drafting Copilot",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780971832429",
+    "company": "Novartis Pharma AG",
+    "useCase": "Regulatory Submission Dossier Drafting Copilot",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780971832246",
+    "company": "Merck & Co. Enterprise",
+    "useCase": "Autonomous Clinical Trial Protocol Generator",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780971832046",
+    "company": "Pfizer Inc. (Global R&D)",
+    "useCase": "Next-Gen GxP Compliant Manufacturing SOP Assistant",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780971831846",
+    "company": "Novartis Pharma AG",
+    "useCase": "Global Pharmacovigilance Quality Inspector",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780971831629",
+    "company": "Novartis Pharma AG",
+    "useCase": "Next-Gen GxP Compliant Manufacturing SOP Assistant",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780971831446",
+    "company": "Novartis Pharma AG",
+    "useCase": "Global Pharmacovigilance Quality Inspector",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780971831230",
+    "company": "Roche Diagnostics",
+    "useCase": "Regulatory Submission Dossier Drafting Copilot",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780971831046",
+    "company": "Novartis Pharma AG",
+    "useCase": "Regulatory Submission Dossier Drafting Copilot",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780971830863",
+    "company": "Pfizer Inc. (Global R&D)",
+    "useCase": "Global Pharmacovigilance Quality Inspector",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780971830680",
+    "company": "Novartis Pharma AG",
+    "useCase": "SAP S/4HANA Autonomous Financial Reconciliation",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780971830480",
+    "company": "Roche Diagnostics",
+    "useCase": "Global Pharmacovigilance Quality Inspector",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780971830296",
+    "company": "Roche Diagnostics",
+    "useCase": "Autonomous Clinical Trial Protocol Generator",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780971830113",
+    "company": "Novartis Pharma AG",
+    "useCase": "Global Pharmacovigilance Quality Inspector",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780971829913",
+    "company": "Pfizer Inc. (Global R&D)",
+    "useCase": "Regulatory Submission Dossier Drafting Copilot",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780971829713",
+    "company": "Merck & Co. Enterprise",
+    "useCase": "SAP S/4HANA Autonomous Financial Reconciliation",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780971829530",
+    "company": "Sanofi S.A.",
+    "useCase": "Global Pharmacovigilance Quality Inspector",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780971829346",
+    "company": "Sanofi S.A.",
+    "useCase": "SAP S/4HANA Autonomous Financial Reconciliation",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780971829146",
+    "company": "Roche Diagnostics",
+    "useCase": "Regulatory Submission Dossier Drafting Copilot",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780971828930",
+    "company": "Roche Diagnostics",
+    "useCase": "SAP S/4HANA Autonomous Financial Reconciliation",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780971828447",
+    "company": "Merck & Co. Enterprise",
+    "useCase": "SAP S/4HANA Autonomous Financial Reconciliation",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780971825947",
+    "company": "Merck & Co. Enterprise",
+    "useCase": "Global Pharmacovigilance Quality Inspector",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780971559578",
+    "company": "Novartis Pharma AG (Global R&D)",
+    "useCase": "Autonomous Radioligand Therapy Dossier Generator",
+    "domain": "R&D / Clinical",
+    "priorityScore": 20,
+    "verdict": "Hold & Re-Architect",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780970317469",
+    "company": "Novartis Pharma AG",
+    "useCase": "Global Pharmacovigilance Quality Inspector",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_1780970306217",
+    "company": "Novartis Pharma AG",
+    "useCase": "Global Pharmacovigilance Quality Inspector",
+    "domain": "R&D / Clinical",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 9, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "tile_roche_gxp_copilot",
+    "company": "Roche Diagnostics (Basel)",
+    "useCase": "Autonomous Medical Device Regulatory Submission Agent",
+    "domain": "Quality & Regulatory",
+    "priorityScore": 96,
+    "verdict": "Launch Now",
+    "date": "Jun 8, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "ttv": "3 Weeks",
+      "users": "24.5K"
+    }
+  },
+  {
+    "id": "tile_novartis_verified_v10",
+    "company": "Novartis Pharma AG (Global R&D)",
+    "useCase": "Autonomous Radioligand Therapy Dossier Generator",
+    "domain": "R&D / Clinical",
+    "priorityScore": 99,
+    "verdict": "Launch Now",
+    "date": "Jun 8, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "ttv": "2 Weeks",
+      "users": "18.2K"
+    }
+  },
+  {
+    "id": "merck_gma",
+    "company": "Merck & Co.",
+    "useCase": "GMAX Pricing Agent (AccessIQ)",
+    "domain": "Commercial Ops",
+    "priorityScore": 88,
+    "verdict": "Launch Now",
+    "date": "Jun 8, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom"
+    }
+  },
+  {
+    "id": "roche_inv",
+    "company": "Roche AG",
+    "useCase": "Quality Event Investigator",
+    "domain": "Quality & Regulatory",
+    "priorityScore": 64,
+    "verdict": "Hold & Re-Architect",
+    "date": "Jun 8, 2026",
+    "presetKey": "quality_investigator",
+    "scoringVector": {
+      "presetKey": "quality_investigator"
+    }
+  },
+  {
+    "id": "pfizer_copilot",
+    "company": "Pfizer Inc.",
+    "useCase": "Submission Drafting Copilot",
+    "domain": "R&D / Clinical",
+    "priorityScore": 78,
+    "verdict": "Incubate & Validate",
+    "date": "Jun 8, 2026",
+    "presetKey": "submission_copilot",
+    "scoringVector": {
+      "presetKey": "submission_copilot"
+    }
+  },
+  {
+    "id": "merck_sop",
+    "company": "Merck & Co.",
+    "useCase": "Regulatory SOP Assistant",
+    "domain": "Quality & Regulatory",
+    "priorityScore": 92,
+    "verdict": "Launch Now",
+    "date": "Jun 8, 2026",
+    "presetKey": "sop_assistant",
+    "scoringVector": {
+      "presetKey": "sop_assistant"
+    }
+  }
+]

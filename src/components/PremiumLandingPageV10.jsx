@@ -14,6 +14,8 @@ export default function PremiumLandingPageV10({ onStartAssessment, onSelectPrese
   const [dashboardCustomerFilter, setDashboardCustomerFilter] = useState('ALL');
   const [dashboardSearchQuery, setDashboardSearchQuery] = useState('');
   const [dashboardExcludedIds, setDashboardExcludedIds] = useState([]);
+  const [dashboardPage, setDashboardPage] = useState(1);
+  const [dashboardLimit, setDashboardLimit] = useState(15);
   const [showScannerModal, setShowScannerModal] = useState(false);
   const [scannerInput, setScannerInput] = useState('Writing regulatory clinical trial summaries takes 40 hours per batch');
   const [scannerResult, setScannerResult] = useState(null);
@@ -1903,7 +1905,8 @@ export default function PremiumLandingPageV10({ onStartAssessment, onSelectPrese
                         </tr>
                       </thead>
                       <tbody>
-                        {baseList.map((item, idx) => {
+                        {baseList.slice((dashboardPage - 1) * dashboardLimit, dashboardPage * dashboardLimit).map((item, sliceIdx) => {
+                          const idx = (dashboardPage - 1) * dashboardLimit + sliceIdx;
                           const isInc = !dashboardExcludedIds.includes(item.id) && (dashboardCustomerFilter === 'ALL' || item.company === dashboardCustomerFilter);
                           return (
                             <tr 
@@ -1968,6 +1971,33 @@ export default function PremiumLandingPageV10({ onStartAssessment, onSelectPrese
                         })}
                       </tbody>
                     </table>
+
+                    {baseList.length > dashboardLimit && (
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem', borderTop: t.cardBorder, marginTop: '1rem', fontSize: '0.85rem', color: t.textSub }}>
+                        <div>
+                          Showing <strong>{(dashboardPage - 1) * dashboardLimit + 1}</strong> to <strong>{Math.min(baseList.length, dashboardPage * dashboardLimit)}</strong> of <strong>{baseList.length}</strong> records
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                          <button
+                            onClick={() => setDashboardPage(prev => Math.max(1, prev - 1))}
+                            disabled={dashboardPage === 1}
+                            style={{ background: dashboardPage === 1 ? t.boxBg : '#2563eb', color: dashboardPage === 1 ? t.textSub : '#ffffff', border: 'none', padding: '0.4rem 0.85rem', borderRadius: '100px', fontWeight: 700, cursor: dashboardPage === 1 ? 'not-allowed' : 'pointer' }}
+                          >
+                            ← Previous
+                          </button>
+                          <span style={{ fontWeight: 800, color: t.textMain, padding: '0 0.5rem' }}>
+                            Page {dashboardPage} of {Math.ceil(baseList.length / dashboardLimit)}
+                          </span>
+                          <button
+                            onClick={() => setDashboardPage(prev => Math.min(Math.ceil(baseList.length / dashboardLimit), prev + 1))}
+                            disabled={dashboardPage >= Math.ceil(baseList.length / dashboardLimit)}
+                            style={{ background: dashboardPage >= Math.ceil(baseList.length / dashboardLimit) ? t.boxBg : '#2563eb', color: dashboardPage >= Math.ceil(baseList.length / dashboardLimit) ? t.textSub : '#ffffff', border: 'none', padding: '0.4rem 0.85rem', borderRadius: '100px', fontWeight: 700, cursor: dashboardPage >= Math.ceil(baseList.length / dashboardLimit) ? 'not-allowed' : 'pointer' }}
+                          >
+                            Next →
+                          </button>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 )}
               </div>

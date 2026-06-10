@@ -978,3 +978,29 @@ body.light-theme .step-item {
   }
 }
 
+/* AI Neural Streaming Micro-Animations */
+@keyframes streamDash {
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+@keyframes pulseNode {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+    filter: drop-shadow(0 0 8px rgba(56,189,248,0.6));
+  }
+  50% {
+    transform: scale(1.4);
+    opacity: 1;
+    filter: drop-shadow(0 0 16px rgba(56,189,248,1));
+  }
+}
+.streaming-neural-path {
+  animation: streamDash 3s linear infinite;
+}
+.streaming-neural-node {
+  animation: pulseNode 2s ease-in-out infinite;
+  transform-origin: center;
+}
+
