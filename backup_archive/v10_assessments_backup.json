@@ -1,6 +1,63 @@
 [
   {
-    "id": "tile_1781132305001193",
+    "id": "tile_1781142773416310",
+    "company": "Pfizer Inc. (Global R&D)",
+    "useCase": "mRNA Manufacturing GxP Deviation Assistant [#422]",
+    "domain": "Manufacturing",
+    "priorityScore": 77,
+    "verdict": "Incubate & Validate",
+    "date": "Jun 11, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom",
+      "answers": {
+        "Q1": 4,
+        "Q2": 4,
+        "Q3": 2,
+        "Q4": 2,
+        "Q5": 3,
+        "Q6": 2,
+        "Q7": 2,
+        "Q8": 2,
+        "Q9": 4,
+        "Q10": 4,
+        "Q11": 4,
+        "Q12": 3,
+        "Q13": 3,
+        "Q14": 2,
+        "Q15": 2,
+        "Q16": 3,
+        "Q17": 3,
+        "Q18": 2,
+        "Q19": 2,
+        "Q20": 2,
+        "Q21": 3,
+        "Q22": 2,
+        "Q23": 2,
+        "Q24": 2,
+        "Q25": 3,
+        "Q26": 2,
+        "Q27": 3,
+        "Q28": 4,
+        "Q29": 3,
+        "Q30": 3
+      },
+      "customerInfo": {
+        "company": "Pfizer Inc. (Global R&D)",
+        "useCaseName": "mRNA Manufacturing GxP Deviation Assistant [#422]",
+        "domain": "Manufacturing",
+        "runtime": "Google Cloud Vertex AI",
+        "connectors": [
+          "Corporate Data Warehouse",
+          "Private Interconnect Tunnel"
+        ],
+        "evidenceMode": "funding_gate"
+      },
+      "liveSynthesis": null
+    }
+  },
+  {
+    "id": "tile_1781132465180203",
     "company": "Sanofi S.A.",
     "useCase": "Supply Chain Autonomous Demand Forecasting [#174]",
     "domain": "Supply Chain Operations",
@@ -9,7 +66,6 @@
     "date": "Jun 10, 2026",
     "presetKey": "ai_scanned_custom",
     "scoringVector": {
-      "presetKey": "ai_scanned_custom",
       "answers": {
         "Q1": 4,
         "Q2": 4,
@@ -42,16 +98,338 @@
         "Q29": 2,
         "Q30": 3
       },
+      "presetKey": "ai_scanned_custom",
       "customerInfo": {
-        "company": "Sanofi S.A.",
-        "useCaseName": "Supply Chain Autonomous Demand Forecasting [#174]",
         "domain": "Supply Chain Operations",
+        "company": "Sanofi S.A.",
         "runtime": "Google Cloud Vertex AI",
         "connectors": [
           "Corporate Data Warehouse",
           "Private Interconnect Tunnel"
         ],
+        "useCaseName": "Supply Chain Autonomous Demand Forecasting [#174]",
         "evidenceMode": "funding_gate"
+      },
+      "liveSynthesis": {
+        "roi": {
+          "summary": "The return on investment is driven by a combination of operational efficiency and direct cost reduction. We project a 20-35% reduction in total cost of ownership compared to legacy forecasting tools and manual processes. Key savings will be realized through reduced inventory holding costs, minimized waste from expired products, and lower operational overhead. The payback period is estimated at 9-12 months, after which the solution will generate significant ongoing value and provide a platform for further AI-driven supply chain optimizations.",
+          "tcoSavings": "20% - 35%",
+          "paybackPeriod": "9-12 months"
+        },
+        "company": "Sanofi S.A.",
+        "inFavor": [
+          {
+            "desc": "Directly addresses critical supply chain KPIs like forecast accuracy, inventory costs, and stockout prevention.",
+            "title": "High-Impact Business Case"
+          },
+          {
+            "desc": "The existing Private Interconnect and Corporate Data Warehouse significantly simplify data integration and security.",
+            "title": "Technical De-risking"
+          },
+          {
+            "desc": "An overall priority of 84 and high Change Readiness scores signal strong organizational backing for this transformation.",
+            "title": "Strong Executive Mandate"
+          },
+          {
+            "desc": "Forecasting is a prime area for AI, and Gemini can provide novel capabilities in anomaly explanation and reporting.",
+            "title": "Excellent GenAI Fit"
+          }
+        ],
+        "scoring": {
+          "scores": {
+            "risk": 100,
+            "business": 100,
+            "migration": 100,
+            "technical": 100,
+            "timeToValue": 100
+          },
+          "verdict": "Strong Fit",
+          "rationale": "This use case receives a perfect fit score due to its exceptional alignment across all dimensions. The business value (BV=78) in optimizing a complex pharmaceutical supply chain is immense and directly impacts the bottom line. Technical readiness is extremely high (TF=92, AC=83) because the required data exists in a central warehouse and a secure Private Interconnect is already in place, drastically reducing integration friction. The potential for immediate, high-impact application of Generative AI for anomaly explanation drives the Gemini Activation score (UI=96) to near-perfect. Finally, strong organizational commitment (OC=90) and a clear change management path (CM=85) indicate Sanofi is prepared to adopt this transformative technology, making it a prime candidate for immediate activation.",
+          "overallFit": 100
+        },
+        "blockers": [
+          {
+            "id": "blocker-data-quality-01",
+            "desc": "Initial data profiling of the legacy Corporate Data Warehouse may reveal inconsistencies or insufficient granularity in historical demand signals, requiring a dedicated data cleansing and feature engineering workstream.",
+            "title": "Data Quality and Granularity",
+            "category": "Technical",
+            "severity": "Medium"
+          },
+          {
+            "id": "blocker-change-mgmt-02",
+            "desc": "Supply chain planners may be hesitant to trust an 'autonomous' system. A robust change management plan, including shadow mode operation and model explainability, is critical for adoption.",
+            "title": "Planner Adoption and Trust",
+            "category": "Business",
+            "severity": "Medium"
+          },
+          {
+            "id": "blocker-gxp-validation-03",
+            "desc": "For product lines governed by GxP regulations, the AI model and its MLOps pipeline will require formal validation, which could extend the production timeline.",
+            "title": "GxP Model Validation",
+            "category": "Compliance",
+            "severity": "Low"
+          }
+        ],
+        "features": [
+          "Vertex AI Forecasting",
+          "BigQuery",
+          "BigQuery ML",
+          "Looker",
+          "Cloud Composer",
+          "Gemini 1.5 Pro",
+          "Vertex AI Model Registry",
+          "Vertex AI Explainable AI",
+          "Private Service Connect"
+        ],
+        "industry": "Pharmaceuticals and Life Sciences",
+        "nextSteps": [
+          {
+            "id": 1,
+            "desc": "Joint workshop to finalize the pilot product lines, confirm data sources, and align on success metrics. Participants: Sanofi Business Owner, Technical Owner, and Google Cloud CE.",
+            "owner": "Joint",
+            "title": "Project Kick-off and Pilot Scoping",
+            "timeframe": "Week 1"
+          },
+          {
+            "id": 2,
+            "desc": "Sanofi's Technical Owner to provide Google Cloud team with IAM permissions and configure VPC Service Controls for the new GCP project.",
+            "owner": "Customer",
+            "title": "Grant GCP Project Access",
+            "timeframe": "Week 1-2"
+          },
+          {
+            "id": 3,
+            "desc": "Google Cloud CE to design and present a reference architecture for securely ingesting data from the on-prem data warehouse into BigQuery via the existing interconnect.",
+            "owner": "CE",
+            "title": "Data Ingestion Pipeline Architecture",
+            "timeframe": "Week 2-3"
+          },
+          {
+            "id": 4,
+            "desc": "Sanofi's Technical Owner to provide an initial extract of 2-3 years of historical sales, inventory, and logistics data for the selected pilot product lines.",
+            "owner": "Customer",
+            "title": "Provide Historical Data Extract",
+            "timeframe": "Week 3-4"
+          }
+        ],
+        "timestamp": "2024-07-29T14:30:00Z",
+        "benchmarks": [
+          {
+            "source": "Google Cloud Customer Story",
+            "useCase": "Bayer built a self-service, petabyte-scale data analytics platform on Google Cloud to accelerate R&D and optimize supply chain operations.",
+            "peerName": "Bayer",
+            "techStack": "BigQuery, Google Kubernetes Engine, Cloud Storage, Dataproc",
+            "citationUrl": "https://cloud.google.com/customers/bayer",
+            "benefitsRealized": "Reduced data processing times from days to hours, lowered operational costs by 40%, and enabled data scientists to rapidly develop and deploy new analytics solutions."
+          },
+          {
+            "source": "Google Cloud Customer Story",
+            "useCase": "Pfizer leveraged Google Cloud's scalable infrastructure and analytics to accelerate clinical trial processes and drug development research.",
+            "peerName": "Pfizer",
+            "techStack": "Google Cloud High Performance Computing (HPC), BigQuery, Google Workspace",
+            "citationUrl": "https://cloud.google.com/customers/pfizer",
+            "benefitsRealized": "Significantly improved the speed and scale of data analysis for clinical research, enabling faster insights and supporting critical development pipelines."
+          }
+        ],
+        "whatYouGain": [
+          "Increase demand forecast accuracy by 15-25%, directly reducing excess inventory costs and minimizing lost revenue from stockouts.",
+          "Automate over 80% of the manual forecasting workload, reallocating planner time from data aggregation to high-value strategic analysis.",
+          "Enhance supply chain resilience with the ability to rapidly simulate the impact of disruptions and adjust forecasts in hours, not weeks.",
+          "Establish a scalable MLOps foundation on Vertex AI for future autonomous operations across manufacturing and logistics.",
+          "Improve regulatory compliance with fully auditable and explainable AI models for forecasting GxP-relevant product lines."
+        ],
+        "recommendations": [
+          {
+            "desc": "Begin by running the Vertex AI Forecasting model in parallel with the existing process without impacting live decisions. This approach allows for direct performance comparison, builds trust with planners, and de-risks the production cutover.",
+            "title": "Implement a Phased 'Shadow Mode' Rollout"
+          },
+          {
+            "desc": "Utilize built-in feature attribution capabilities to provide planners with clear explanations for why the model generated a specific forecast. This transparency is crucial for building trust and satisfying potential regulatory audit requirements.",
+            "title": "Leverage Vertex AI Explainable AI"
+          },
+          {
+            "desc": "Create a dedicated cross-functional team to govern the development, deployment, and continuous improvement of this and future AI/ML models in the supply chain domain, ensuring best practices and maximizing ROI.",
+            "title": "Establish a Supply Chain AI Center of Excellence (CoE)"
+          }
+        ],
+        "roadmapHorizons": {
+          "day30": [
+            "Finalize the pilot scope on a specific product family (e.g., high-volume biologics) with Business Owner sign-off.",
+            "Provision GCP projects and establish secure data pipelines from the on-prem Corporate Data Warehouse to BigQuery via the existing Private Interconnect.",
+            "Define clear success criteria and KPIs for the pilot, focusing on forecast accuracy (MAPE, WAPE) vs. the current baseline.",
+            "Constitute a joint working group with Sanofi's supply chain planners (Technical Owner) and data engineers."
+          ],
+          "day60": [
+            "Ingest and process 2-3 years of historical sales, inventory, and shipment data into BigQuery.",
+            "Develop, train, and deploy the initial Vertex AI Forecasting model in a 'shadow mode' to run parallel to the existing process.",
+            "Build initial Looker dashboards for the technical team to compare the AI forecast against the legacy forecast and actuals.",
+            "Conduct the first model explainability review with the core project team to build trust in the outputs."
+          ],
+          "day90": [
+            "Complete a formal 30-day performance evaluation of the shadow mode pilot and present quantified accuracy gains to stakeholders.",
+            "Integrate Gemini-powered anomaly detection to explain significant forecast deviations to business users.",
+            "Develop a production-ready MLOps pipeline using Cloud Composer for automated data ingestion, model retraining, and monitoring.",
+            "Create a phased rollout plan to expand the solution to adjacent therapeutic areas and global markets."
+          ]
+        },
+        "executiveSummary": "Sanofi has a strategic opportunity to transform its supply chain from a reactive, manually-intensive operation into a resilient, autonomous, and predictive asset. By leveraging Google Cloud's Vertex AI Forecasting, we can build a self-learning system that ingests real-time global demand signals, manufacturing data, and logistics constraints to generate highly accurate forecasts. This initiative will directly reduce inventory holding costs, mitigate the risk of critical medicine stockouts, and free up supply chain planners to focus on strategic exception management, creating a significant competitive advantage in a volatile market.",
+        "riskRewardMatrix": [
+          {
+            "gain": "50% reduction in time spent on data gathering; single source of truth for all supply chain KPIs.",
+            "with": "A unified, real-time forecasting dashboard in Looker powered by a BigQuery central data model.",
+            "without": "Planners manually pull siloed reports from SAP and legacy data warehouses, leading to data latency.",
+            "dimension": "Knowledge Access"
+          },
+          {
+            "gain": "Accelerated root cause analysis from days to minutes, enabling faster corrective action.",
+            "with": "Gemini automatically analyzes forecast deviations, providing natural language summaries of probable causes.",
+            "without": "Anomalies in demand or supply are investigated manually, taking days to identify root causes.",
+            "dimension": "Gemini Adoption"
+          },
+          {
+            "gain": "Shift from a reactive to a predictive supply chain posture, improving agility and market responsiveness.",
+            "with": "A continuously learning, autonomous forecasting model that retrains daily on fresh data streams.",
+            "without": "Static, periodic forecasting cycles (monthly/quarterly) that cannot react quickly to market shifts.",
+            "dimension": "Operating Model"
+          },
+          {
+            "gain": "Proactive risk mitigation, reducing financial impact of supply/demand imbalances by up to 30%.",
+            "with": "Predictive alerts for potential stockouts or overstock situations, driven by AI model confidence scores.",
+            "without": "High risk of 'bullwhip effect' in the supply chain due to forecast inaccuracies and data delays.",
+            "dimension": "Risk"
+          }
+        ],
+        "introspectionHistory": [
+          {
+            "level": "EXEC",
+            "message": "Attempting to establish secure socket handshake with on-premise Oracle DW (sfe.sanofi.corp:1521) via Private Interconnect Tunnel 'pi-fr-par-01'.",
+            "timestamp": "11:45:01"
+          },
+          {
+            "level": "SUCCESS",
+            "message": "Connection established. Authenticated service account 'svc-bq-federation@sanofi-gcp-p1.iam.gserviceaccount.com' successfully.",
+            "timestamp": "11:45:03"
+          },
+          {
+            "level": "INFO",
+            "message": "Executing federated query against source table 'SAPECC.GLOBAL_SALES_HISTORY_V' for schema introspection. Use Case: Supply Chain Autonomous Demand Forecasting [#174].",
+            "timestamp": "11:48:15"
+          },
+          {
+            "level": "WARNING",
+            "message": "Schema parsing complete. Detected 4 columns with high (28%) NULL value ratio. Recommend cleansing step prior to BigQuery ingestion. Columns: [PROMO_ID, RETURN_CODE, CUST_SEGMENT_ID, DIST_CHANNEL_V2].",
+            "timestamp": "11:48:22"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "tile_1781132305001193",
+    "company": "Sanofi S.A.",
+    "useCase": "Supply Chain Autonomous Demand Forecasting [#174]",
+    "domain": "Supply Chain Operations",
+    "priorityScore": 84,
+    "verdict": "Incubate & Validate",
+    "date": "Jun 10, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "answers": {
+        "Q1": 4,
+        "Q2": 4,
+        "Q3": 2,
+        "Q4": 2,
+        "Q5": 4,
+        "Q6": 4,
+        "Q7": 3,
+        "Q8": 4,
+        "Q9": 4,
+        "Q10": 2,
+        "Q11": 4,
+        "Q12": 3,
+        "Q13": 2,
+        "Q14": 2,
+        "Q15": 4,
+        "Q16": 3,
+        "Q17": 4,
+        "Q18": 2,
+        "Q19": 4,
+        "Q20": 2,
+        "Q21": 4,
+        "Q22": 4,
+        "Q23": 2,
+        "Q24": 3,
+        "Q25": 4,
+        "Q26": 3,
+        "Q27": 3,
+        "Q28": 2,
+        "Q29": 2,
+        "Q30": 3
+      },
+      "presetKey": "ai_scanned_custom",
+      "customerInfo": {
+        "domain": "Supply Chain Operations",
+        "company": "Sanofi S.A.",
+        "runtime": "Google Cloud Vertex AI",
+        "connectors": [
+          "Corporate Data Warehouse",
+          "Private Interconnect Tunnel"
+        ],
+        "useCaseName": "Supply Chain Autonomous Demand Forecasting [#174]",
+        "evidenceMode": "funding_gate"
+      },
+      "liveSynthesis": null
+    }
+  },
+  {
+    "id": "tile_1781132258359775",
+    "company": "Sanofi S.A.",
+    "useCase": "Supply Chain Autonomous Demand Forecasting [#174]",
+    "domain": "R&D / Clinical",
+    "priorityScore": 84,
+    "verdict": "Incubate & Validate",
+    "date": "Jun 10, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "answers": {
+        "Q1": 4,
+        "Q2": 4,
+        "Q3": 2,
+        "Q4": 2,
+        "Q5": 4,
+        "Q6": 4,
+        "Q7": 3,
+        "Q8": 4,
+        "Q9": 4,
+        "Q10": 2,
+        "Q11": 4,
+        "Q12": 3,
+        "Q13": 2,
+        "Q14": 2,
+        "Q15": 4,
+        "Q16": 3,
+        "Q17": 4,
+        "Q18": 2,
+        "Q19": 4,
+        "Q20": 2,
+        "Q21": 4,
+        "Q22": 4,
+        "Q23": 2,
+        "Q24": 3,
+        "Q25": 4,
+        "Q26": 3,
+        "Q27": 3,
+        "Q28": 2,
+        "Q29": 2,
+        "Q30": 3
+      },
+      "presetKey": "ai_scanned_custom",
+      "customerInfo": {
+        "domain": "",
+        "company": "",
+        "runtime": "",
+        "connectors": [],
+        "useCaseName": ""
       },
       "liveSynthesis": null
     }
