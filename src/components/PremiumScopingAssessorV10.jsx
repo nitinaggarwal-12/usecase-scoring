@@ -1162,6 +1162,55 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
       ]
     });
 
+    const createCustomErrorReport = (reason) => ({
+      company: customerInfo?.company || "Enterprise Candidate",
+      industry: "Custom Evaluation",
+      timestamp: new Date().toISOString(),
+      executiveSummary: `❌ [LIVE EVALUATION FAILED]: ${reason}. Please authenticate your Gemini API Key or active GCP Application Default Credentials in the top settings portal. Absolute Data Attestation rule enforced: zero static demo fallback data has been injected into this custom candidate report.`,
+      whatYouGain: [
+        "❌ Real-time Google Cloud LLM synthesis offline or quota exceeded.",
+        "👉 Secure inline BeyondCorp RAG Rationale extraction pending live connection."
+      ],
+      riskRewardMatrix: [
+        {
+          dimension: "Custom Telemetry Grounding",
+          without: "Unverified mathematical modeling",
+          with: "Authenticated Live Vertex AI execution",
+          gain: "Pending GCP tenant authentication"
+        }
+      ],
+      roadmapHorizons: {
+        day30: ["⚠️ Click User Initials icon in header to configure live credentials."],
+        day60: ["⚠️ Instantiate verified Private Service Connect tunnels."],
+        day90: ["⚠️ Generate immutable 21 CFR Part 11 cryptographic ledgers."]
+      },
+      scoring: {
+        overallFit: currentScoring.overallPriority,
+        verdict: currentScoring.verdict,
+        scores: {
+          technical: currentScoring.technicalReadinessScore,
+          business: currentScoring.businessValueScore,
+          migration: 75,
+          timeToValue: 75,
+          risk: currentScoring.changeReadinessScore
+        },
+        rationale: `⚠️ Live LLM Synthesis unavailable. The baseline mathematical evaluation scored this candidate workload at ${currentScoring.overallPriority}/100 based purely on your structured intake telemetry.`
+      },
+      features: ["⚠️ Live API Disconnected"],
+      nextSteps: [
+        { id: 1, owner: "Joint Working Group", timeframe: "Immediate", title: "Authenticate GCP Tenant Session", desc: "Provide active Google Cloud Gemini credentials to unlock verified custom report generation." }
+      ],
+      introspectionHistory: [
+        { timestamp: new Date().toLocaleTimeString(), level: "WARNING", message: `Live Gemini API streaming disconnected: ${reason}` }
+      ],
+      roi: { tcoSavings: "Pending Live API", paybackPeriod: "Pending", summary: "Please connect live API key to compute quantified TCO models." },
+      benchmarks: []
+    });
+
+    const getFallbackPayload = (reason) => {
+      return createCustomErrorReport(reason);
+    };
+
     try {
       setGeminiStreamingState(prev => ({
         ...prev,
@@ -1174,55 +1223,6 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                                customerInfo?.company?.toLowerCase().includes('novartis') ||
                                customerInfo?.useCaseName?.toLowerCase().includes('sop assistant');
 
-      const createCustomErrorReport = (reason) => ({
-        company: customerInfo?.company || "Enterprise Candidate",
-        industry: "Custom Evaluation",
-        timestamp: new Date().toISOString(),
-        executiveSummary: `❌ [LIVE EVALUATION FAILED]: ${reason}. Please authenticate your Gemini API Key or active GCP Application Default Credentials in the top settings portal. Absolute Data Attestation rule enforced: zero static demo fallback data has been injected into this custom candidate report.`,
-        whatYouGain: [
-          "❌ Real-time Google Cloud LLM synthesis offline or quota exceeded.",
-          "👉 Secure inline BeyondCorp RAG Rationale extraction pending live connection."
-        ],
-        riskRewardMatrix: [
-          {
-            dimension: "Custom Telemetry Grounding",
-            without: "Unverified mathematical modeling",
-            with: "Authenticated Live Vertex AI execution",
-            gain: "Pending GCP tenant authentication"
-          }
-        ],
-        roadmapHorizons: {
-          day30: ["⚠️ Click User Initials icon in header to configure live credentials."],
-          day60: ["⚠️ Instantiate verified Private Service Connect tunnels."],
-          day90: ["⚠️ Generate immutable 21 CFR Part 11 cryptographic ledgers."]
-        },
-        scoring: {
-          overallFit: currentScoring.overallPriority,
-          verdict: currentScoring.verdict,
-          scores: {
-            technical: currentScoring.technicalReadinessScore,
-            business: currentScoring.businessValueScore,
-            migration: 75,
-            timeToValue: 75,
-            risk: currentScoring.changeReadinessScore
-          },
-          rationale: `⚠️ Live LLM Synthesis unavailable. The baseline mathematical evaluation scored this candidate workload at ${currentScoring.overallPriority}/100 based purely on your structured intake telemetry.`
-        },
-        features: ["⚠️ Live API Disconnected"],
-        nextSteps: [
-          { id: 1, owner: "Joint Working Group", timeframe: "Immediate", title: "Authenticate GCP Tenant Session", desc: "Provide active Google Cloud Gemini credentials to unlock verified custom report generation." }
-        ],
-        introspectionHistory: [
-          { timestamp: new Date().toLocaleTimeString(), level: "WARNING", message: `Live Gemini API streaming disconnected: ${reason}` }
-        ],
-        roi: { tcoSavings: "Pending Live API", paybackPeriod: "Pending", summary: "Please connect live API key to compute quantified TCO models." },
-        benchmarks: []
-      });
-
-      const getFallbackPayload = (reason) => {
-        return createCustomErrorReport(reason);
-      };
-
       const safetyTimer = setTimeout(() => {
         setLiveSynthesis(getFallbackPayload("Live API response exceeded 90 seconds"));
         setGeminiStreamingState(prev => ({
@@ -1234,11 +1234,16 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
         handleTabSwitch('scorecard');
       }, 90000);
 
+      const candidateKeys = {
+        key1: activeKey,
+        key2: activeKey2,
+        gcpToken: isAdc ? activeKey : null,
+        gcpProject: localStorage.getItem('gemini_gcp_project') || 'nitinagga-ge'
+      };
+
       const liveGenReport = await generateReportData(
         { ...customerInfo, ...scoringData },
-        activeKey,
-        activeKey2,
-        isAdc ? activeKey : null,
+        candidateKeys,
         (st, lText) => {
           setGeminiStreamingState(prev => ({
             ...prev,

@@ -1,5 +1,61 @@
 [
   {
+    "id": "tile_1781226856705715",
+    "company": "Merck & Co. Enterprise",
+    "useCase": "BeyondCorp OData Clinical Search Federation [#648]",
+    "domain": "Enterprise Operations",
+    "priorityScore": 83,
+    "verdict": "Incubate & Validate",
+    "date": "Jun 12, 2026",
+    "presetKey": "ai_scanned_custom",
+    "scoringVector": {
+      "presetKey": "ai_scanned_custom",
+      "answers": {
+        "Q1": 3,
+        "Q2": 3,
+        "Q3": 3,
+        "Q4": 2,
+        "Q5": 4,
+        "Q6": 2,
+        "Q7": 4,
+        "Q8": 4,
+        "Q9": 2,
+        "Q10": 4,
+        "Q11": 4,
+        "Q12": 2,
+        "Q13": 3,
+        "Q14": 3,
+        "Q15": 4,
+        "Q16": 3,
+        "Q17": 3,
+        "Q18": 4,
+        "Q19": 4,
+        "Q20": 4,
+        "Q21": 2,
+        "Q22": 3,
+        "Q23": 2,
+        "Q24": 2,
+        "Q25": 4,
+        "Q26": 2,
+        "Q27": 4,
+        "Q28": 4,
+        "Q29": 3,
+        "Q30": 2
+      },
+      "customerInfo": {
+        "company": "Enterprise Candidate",
+        "useCaseName": "New AI Workload Evaluation",
+        "domain": "Enterprise Operations",
+        "runtime": "Google Cloud Vertex AI",
+        "connectors": [
+          "BigQuery",
+          "Cloud Storage"
+        ]
+      },
+      "liveSynthesis": null
+    }
+  },
+  {
     "id": "tile_1781226183956661",
     "company": "GSK Bio-Pharma",
     "useCase": "Clinical Study Report (CSR) De-identifying Copilot [#192]",

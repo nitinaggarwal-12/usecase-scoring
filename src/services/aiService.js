@@ -244,9 +244,8 @@ ${JSON.stringify(formData, null, 2)}`;
 }
 
 // Generate structured report data
-export async function generateReportData(formData, apiKey = null, gcpToken = null, onStep = () => {}) {
+export async function generateReportData(formData, candidateKeys = {}, onStep = () => {}) {
   const scoring = calculateScoring(formData);
-  const activeCred = (apiKey || gcpToken || '').trim();
 
   onStep(2, "[security] Sovereign Dynamic Boundary Active, validating prompt schema... Done");
   await new Promise(resolve => setTimeout(resolve, 350));
@@ -255,7 +254,7 @@ export async function generateReportData(formData, apiKey = null, gcpToken = nul
   await new Promise(resolve => setTimeout(resolve, 350));
 
   onStep(4, "[JSON] Synthesizing 100% verified dynamic live Gemini C-Suite Briefing... [STREAMING]");
-  const newReport = await callGeminiReportLogic(formData, scoring, activeCred, onStep);
+  const newReport = await callGeminiReportLogic(formData, scoring, candidateKeys, onStep);
 
   onStep(5, "[Diagnostics] Flawless dynamic live RAG grounding verified. Executing rendering models... [SUCCESS]");
   await new Promise(resolve => setTimeout(resolve, 350));
