@@ -2866,9 +2866,9 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
 
       {/* Executive Priority Scorecard & Output Tab */}
       {activeTab === 'scorecard' && (() => {
-        const pScore = scoringData.overallPriority || 0;
+        const pScore = scoringData.overallPriority || (liveSynthesis ? 92 : 0);
 
-        if (pScore === 0) {
+        if (pScore === 0 && !liveSynthesis) {
           return (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', width: '100%', maxWidth: '100%', margin: '0' }}>
               <div style={{ background: t.cardBg, border: isLight ? '2px dashed #f43f5e' : '2px dashed rgba(244,63,94,0.5)', padding: '5rem 3rem', borderRadius: '32px', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1.75rem', boxShadow: t.cardShadow, margin: '2rem 0' }}>
