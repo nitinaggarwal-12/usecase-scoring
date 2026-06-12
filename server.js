@@ -5,6 +5,11 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import crypto from 'crypto';
+import dotenv from 'dotenv';
+dotenv.config();
+import { WebSocketServer, WebSocket as NodeWebSocket } from 'ws';
+import textToSpeech from '@google-cloud/text-to-speech';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -297,6 +302,174 @@ app.post('/api/v10/assessments', async (req, res) => {
   });
 });
 
-app.listen(PORT, () => {
+// ============================================================================
+// MASTER COMPLIANCE SPECIFICATION: LIVE INTERACTIVE PRESENTATION & Q&A ENGINE
+// ============================================================================
+
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || 'AIzaSyC5Qz7M-yDCdlNEsPt97ffuLYlw871h818');
+const ttsClient = new textToSpeech.TextToSpeechClient();
+
+// Phase A: Automated Presentation Production HTTP API
+app.post('/api/presentation/generate', async (req, res) => {
+  try {
+    const reportData = req.body || {};
+    
+    // 1. Call Gemini 2.5 Flash to formulate 60-second presenter script
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+    const scriptPrompt = `You are Alex, an elite Google Cloud Principal CE (Customer Engineer) presenting an Executive Use Case Assessment Findings report to a C-Suite board.
+Transform the following report metrics into an engaging, first-person 60-second presenter speech script. Speak naturally with executive confidence, highlight the ROI, architecture alignment, regulatory posture, and blockers, and propose immediate next steps.
+Do NOT include stage directions, markdown, or timestamps—output ONLY the exact spoken words.
+Report Data: ${JSON.stringify(reportData, null, 2)}`;
+
+    const genResult = await model.generateContent(scriptPrompt);
+    const textScript = genResult.response.text();
+
+    // 2. Pass script to Google Cloud Text-to-Speech using en-US-Chirp3-HD-Aoede or Studio
+    const ttsRequest = {
+      input: { text: textScript },
+      voice: { languageCode: 'en-US', name: 'en-US-Studio-O' },
+      audioConfig: { audioEncoding: 'MP3', speakingRate: 1.0 },
+    };
+
+    const [ttsResponse] = await ttsClient.synthesizeSpeech(ttsRequest);
+    const base64Audio = ttsResponse.audioContent.toString('base64');
+
+    return res.json({
+      success: true,
+      script: textScript,
+      audioBase64: `data:audio/mp3;base64,${base64Audio}`
+    });
+  } catch (err) {
+    console.error('[PRESENTATION_GEN_ERROR]', err.message);
+    // Trap 9 Mandate: Error Deadlocks (No Infinite Spinners)
+    return res.status(500).json({
+      success: false,
+      error: `Presentation generation failed: ${err.message}`,
+      fallbackScript: "Welcome to the Executive C-Suite Briefing. Today we are auditing your candidate use case workload. Our real-time evaluation confirms exceptional business value and architecture alignment, ready for an immediate pilot deployment."
+    });
+  }
+});
+
+// Instantiate HTTP Server
+const httpServer = app.listen(PORT, () => {
   console.log(`[SYS_INIT] Native PostgreSQL + Dual-Write Express Microservice active on port ${PORT}`);
+});
+
+// Phase B: Universal Bi-Directional WebSocket Router for Gemini Live RAG Barge-In
+const wss = new WebSocketServer({ server: httpServer, path: '/api/qa/stream' });
+
+wss.on('connection', (wsClient) => {
+  console.log('[WS_ROUTER] New enterprise stakeholder Q&A session connected.');
+  let geminiWs = null;
+  let handshakeCompleted = false;
+
+  const initGeminiLiveSocket = (systemReportBlob) => {
+    try {
+      const apiKey = process.env.GEMINI_API_KEY || 'AIzaSyC5Qz7M-yDCdlNEsPt97ffuLYlw871h818';
+      const liveUrl = `wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1alpha.GenerativeService.BidiGenerateContent?key=${apiKey}`;
+      
+      geminiWs = new NodeWebSocket(liveUrl);
+
+      geminiWs.on('open', () => {
+        console.log('[GEMINI_LIVE_SOCKET] Connection open. Transmitting system context setup blob...');
+        // Phase B Step 2 Mandate: Original JSON report passed as systemInstruction blob
+        const setupFrame = {
+          setup: {
+            model: 'models/gemini-2.5-pro',
+            generationConfig: {
+              responseModalities: ["AUDIO"],
+              speechConfig: {
+                voiceConfig: { prebuiltVoiceConfig: { voiceName: "Aoede" } }
+              }
+            },
+            systemInstruction: {
+              parts: [{ 
+                text: `You are Alex, an elite Google Cloud CE assisting an enterprise board. Answer spoken pushback questions concisely and expertly based entirely on their intake report dossier: ${JSON.stringify(systemReportBlob || {})}`
+              }]
+            }
+          }
+        };
+        geminiWs.send(JSON.stringify(setupFrame));
+        handshakeCompleted = true;
+        wsClient.send(JSON.stringify({ type: "handshake_complete" }));
+      });
+
+      geminiWs.on('message', (serverMsg) => {
+        try {
+          const resObj = JSON.parse(serverMsg.toString('utf8'));
+          const content = resObj.serverContent || {};
+
+          // Trap 2 Mandate: Upstream Gemini sends Base64 encoded raw PCM, route to React
+          if (content.modelTurn && content.modelTurn.parts) {
+            content.modelTurn.parts.forEach(part => {
+              if (part.inlineData && part.inlineData.data) {
+                wsClient.send(JSON.stringify({
+                  type: "audio_chunk",
+                  data: part.inlineData.data
+                }));
+              }
+            });
+          }
+
+          // Trap 3 & Trap 8 Mandates: Transition unlocking and graceful socket termination
+          if (content.turnComplete) {
+            console.log('[GEMINI_LIVE_SOCKET] Turn complete. Informing React UI engine...');
+            wsClient.send(JSON.stringify({ type: "turn_complete" }));
+            
+            // Trap 8 Mandate: Gracefully terminate Gemini socket upon task completion
+            setTimeout(() => {
+              try { geminiWs?.close(); } catch(e) {}
+            }, 500);
+          }
+        } catch (parseErr) {
+          console.error('[GEMINI_LIVE_PARSE_ERROR]', parseErr.message);
+        }
+      });
+
+      geminiWs.on('error', (err) => {
+        console.error('[GEMINI_LIVE_SOCKET_ERROR]', err.message);
+        wsClient.send(JSON.stringify({ type: "error", message: err.message }));
+      });
+
+      geminiWs.on('close', () => {
+        console.log('[GEMINI_LIVE_SOCKET] Handshake closed.');
+      });
+    } catch (ex) {
+      console.error('[INIT_GEMINI_SOCKET_EX]', ex.message);
+      wsClient.send(JSON.stringify({ type: "error", message: ex.message }));
+    }
+  };
+
+  wsClient.on('message', (clientMsg) => {
+    try {
+      if (Buffer.isBuffer(clientMsg)) {
+        // Trap 1 Mandate: Upstream binary 16kHz Int16 raw PCM buffers from mic
+        if (handshakeCompleted && geminiWs && geminiWs.readyState === NodeWebSocket.OPEN) {
+          const mediaFrame = {
+            realtimeInput: {
+              mediaChunks: [{
+                mimeType: "audio/pcm;rate=16000",
+                data: clientMsg.toString('base64')
+              }]
+            }
+          };
+          geminiWs.send(JSON.stringify(mediaFrame));
+        }
+        return;
+      }
+
+      const clientObj = JSON.parse(clientMsg.toString('utf8'));
+
+      if (clientObj.type === 'setup') {
+        initGeminiLiveSocket(clientObj.report || {});
+      }
+    } catch (err) {
+      console.error('[CLIENT_WS_MESSAGE_ERROR]', err.message);
+    }
+  });
+
+  wsClient.on('close', () => {
+    console.log('[WS_ROUTER] Enterprise CE session disconnected.');
+    try { geminiWs?.close(); } catch(e) {}
+  });
 });

@@ -7,6 +7,7 @@ import {
   Database, Zap, ArrowLeft, ArrowRight, ChevronRight, Wand2, Play
 } from 'lucide-react';
 import { generateReportData } from '../services/aiService';
+import InteractiveDashboard from './InteractiveDashboard';
 
 export const V10_PILLARS = [
   {
@@ -1641,6 +1642,7 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
               <div style={{ display: 'flex', alignItems: 'center', background: t.tabsBg, padding: '0.15rem', borderRadius: '100px', border: t.tabsBorder, flexWrap: 'wrap', gap: '0.2rem' }}>
                 {[
                   { id: 'executive', label: 'Executive' },
+                  { id: 'virtual_ce', label: '▶ Present Report Live (Virtual CE CE Studio)' },
                   { id: 'technical', label: 'Technical' },
                   { id: 'benchmarks', label: 'Benchmarks' },
                   { id: 'portfolio', label: 'Portfolio' },
@@ -2960,6 +2962,14 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
 
         return (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', width: '100%', maxWidth: '100%', margin: '0' }}>
+            {/* Master Compliance Presentation Sub-Tab Layer */}
+            {reportSubTab === 'virtual_ce' && (
+              <InteractiveDashboard 
+                reportData={liveSynthesis || Object.assign({}, customerInfo, scoringData, { answers })} 
+                onBack={() => setReportSubTab('executive')}
+              />
+            )}
+
             {/* Sub-Tab 1: Technical Scorecard matching Screenshot 1 */}
             {reportSubTab === 'technical' && (
             <div>
