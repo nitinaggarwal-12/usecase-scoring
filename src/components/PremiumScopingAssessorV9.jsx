@@ -848,8 +848,12 @@ export default function PremiumScopingAssessorV9({ activeSessionId, apiKey, gcpT
 Analyze the following Premium Scoping Assessment (v9) questionnaire response payload:
 ${JSON.stringify(payload, null, 2)}
 
+CRITICAL: You MUST evaluate the payload to calculate and return the core KPI metrics directly at the top of your JSON response. Do not rely on local deterministic math.
 Provide a professional, structured executive assessment report JSON response matching this exact schema:
 {
+  "overallFit": 85,
+  "verdict": "Strong Fit Candidate",
+  "maturityGrade": "A+",
   "rationale": "1-2 paragraphs analyzing their strategic gaps, compliance perimeters (GxP, HIPAA), and technical readiness based specifically on their comments.",
   "recommendations": [
     { "title": "Recommendation Title", "desc": "Detailed specific guidance." }
@@ -896,12 +900,32 @@ Ensure response is pure valid JSON without markdown wrapping backticks.`;
         setAiReportData(resultJson);
         setIsGenerating(false);
       } catch (err) {
-        setApiLogs(prev => [...prev, `[ERROR] Live query failed: ${err.message || err}. Reverting to high-fidelity local simulator.`]);
-        await new Promise(r => setTimeout(r, 1000));
-        runLocalSimulation();
+        setApiLogs(prev => [...prev, `[ERROR] Live query failed: ${err.message || err}. PURE GEMINI API MODE ENFORCED: Local simulation disabled.`]);
+        await new Promise(r => setTimeout(r, 600));
+        setAiReportData({
+          overallFit: 0,
+          verdict: "API Offline",
+          maturityGrade: "N/A",
+          rationale: `❌ [LIVE EVALUATION FAILED]: ${err.message || 'Unauthorized'}. Please authenticate your Gemini API Key in the top settings portal. PURE GEMINI API MODE ENFORCED: Local deterministic mathematical simulation has been strictly disabled per your exact architectural directives.`,
+          recommendations: [],
+          blockers: [{ id: "err_1", category: "Technical", severity: "Critical", title: "Live API Disconnected", desc: "Connect live Gemini key to generate fully verified executive dossiers." }],
+          nextSteps: [{ week: "Immediate", owner: "Joint", action: "Authenticate Gemini developer key in top portal." }]
+        });
+        setIsGenerating(false);
       }
     } else {
-      runLocalSimulation();
+      setApiLogs(prev => [...prev, `[ERROR] No live credentials registered. PURE GEMINI API MODE ENFORCED: Local simulation disabled.`]);
+      await new Promise(r => setTimeout(r, 600));
+      setAiReportData({
+        overallFit: 0,
+        verdict: "Offline",
+        maturityGrade: "N/A",
+        rationale: `⚠️ Live LLM Synthesis unavailable. Please authenticate your Gemini Developer Key. PURE GEMINI API MODE ENFORCED: Local deterministic mathematical simulation has been strictly disabled per your exact directives.`,
+        recommendations: [],
+        blockers: [{ id: "err_1", category: "Technical", severity: "Critical", title: "Live API Disconnected", desc: "Connect live Gemini key to generate fully verified executive dossiers." }],
+        nextSteps: [{ week: "Immediate", owner: "Joint", action: "Authenticate Gemini developer key in top portal." }]
+      });
+      setIsGenerating(false);
     }
   };
 
@@ -1434,12 +1458,12 @@ Ensure response is pure valid JSON without markdown wrapping backticks.`;
 
               <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
                 <div style={{ width: '80px', height: '80px', borderRadius: '50%', background: 'var(--google-blue)', color: 'white', fontSize: '2.5rem', fontWeight: 950, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 6px 20px rgba(66,133,244,0.4)', flexShrink: 0 }}>
-                  {maturityGrade}
+                  {aiReportData?.maturityGrade || 'N/A'}
                 </div>
                 <div>
-                  <h3 style={{ margin: 0, fontSize: '1.5rem', fontWeight: 900, color: 'var(--text-primary)' }}>{verdict}</h3>
+                  <h3 style={{ margin: 0, fontSize: '1.5rem', fontWeight: 900, color: 'var(--text-primary)' }}>{aiReportData?.verdict || 'Offline'}</h3>
                   <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '0.25rem', display: 'block' }}>
-                    Overall Suitability Fit: <strong style={{ color: verdictColor, fontSize: '1rem' }}>{overallFit}%</strong>
+                    Overall Suitability Fit: <strong style={{ color: aiReportData?.overallFit >= 80 ? 'var(--google-green)' : (aiReportData?.overallFit >= 60 ? 'var(--google-blue)' : 'var(--google-red)'), fontSize: '1rem' }}>{aiReportData?.overallFit !== undefined ? aiReportData.overallFit : 0}%</strong>
                   </span>
                 </div>
               </div>

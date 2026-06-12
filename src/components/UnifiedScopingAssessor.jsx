@@ -294,8 +294,14 @@ export default function UnifiedScopingAssessor({ activeSessionId, apiKey, gcpTok
 Analyze the following Unified Scoping Assessment questionnaire response payload:
 ${JSON.stringify(payload, null, 2)}
 
+CRITICAL: You MUST evaluate the payload to calculate and return the core KPI metrics directly at the top of your JSON response. Do not rely on local deterministic math.
 Provide a structured assessment report JSON response matching this schema:
 {
+  "overallFit": 82,
+  "verdict": "Strong Fit",
+  "maturityGrade": "A+",
+  "discoveryPriority": "High",
+  "platformReadiness": "Ready",
   "rationale": "1-2 paragraphs analyzing their strategic gaps, compliance perimeters, and technical readiness.",
   "recommendations": [
     { "title": "Recommendation Title", "desc": "Detailed specific guidance." }
@@ -341,12 +347,34 @@ Ensure response is pure valid JSON without markdown wrapping backticks.`;
         setApiLogs(prev => [...prev, `[Diagnostics] Analysis completed successfully. Updating dossier...`]);
         setAiReportData(resultJson);
       } catch (err) {
-        setApiLogs(prev => [...prev, `[ERROR] Live query failed: ${err.message || err}. Reverting to local simulator.`]);
-        await new Promise(r => setTimeout(r, 1000));
-        runLocalSimulation();
+        setApiLogs(prev => [...prev, `[ERROR] Live query failed: ${err.message || err}. PURE GEMINI API MODE ENFORCED: Local simulation disabled.`]);
+        await new Promise(r => setTimeout(r, 600));
+        setAiReportData({
+          overallFit: 0,
+          verdict: "API Offline",
+          maturityGrade: "N/A",
+          discoveryPriority: "Offline",
+          platformReadiness: "Offline",
+          rationale: `❌ [LIVE EVALUATION FAILED]: ${err.message || 'Unauthorized'}. Please authenticate your Gemini API Key in the top settings portal. PURE GEMINI API MODE ENFORCED: Local deterministic mathematical simulation has been strictly disabled per your exact architectural directives.`,
+          recommendations: [],
+          blockers: [{ id: "err_1", category: "Technical", severity: "Critical", title: "Live API Disconnected", desc: "Connect live Gemini key to generate fully verified executive dossiers." }],
+          nextSteps: [{ week: "Immediate", owner: "Joint", action: "Authenticate Gemini developer key in top portal." }]
+        });
       }
     } else {
-      runLocalSimulation();
+      setApiLogs(prev => [...prev, `[ERROR] No live credentials registered. PURE GEMINI API MODE ENFORCED: Local simulation disabled.`]);
+      await new Promise(r => setTimeout(r, 600));
+      setAiReportData({
+        overallFit: 0,
+        verdict: "Offline",
+        maturityGrade: "N/A",
+        discoveryPriority: "Offline",
+        platformReadiness: "Offline",
+        rationale: `⚠️ Live LLM Synthesis unavailable. Please authenticate your Gemini Developer Key. PURE GEMINI API MODE ENFORCED: Local deterministic mathematical simulation has been strictly disabled per your exact directives.`,
+        recommendations: [],
+        blockers: [{ id: "err_1", category: "Technical", severity: "Critical", title: "Live API Disconnected", desc: "Connect live Gemini key to generate fully verified executive dossiers." }],
+        nextSteps: [{ week: "Immediate", owner: "Joint", action: "Authenticate Gemini developer key in top portal." }]
+      });
     }
   };
 
@@ -614,14 +642,14 @@ Ensure response is pure valid JSON without markdown wrapping backticks.`;
           <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
               <span style={{ fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--text-secondary)' }}>Overall Fit</span>
-              <span style={{ fontSize: '2.5rem', fontWeight: 900, color: verdictColor, lineHeight: 1 }}>{overallFit}%</span>
-              <span style={{ fontSize: '0.78rem', fontWeight: 800, color: verdictColor }}>{verdict}</span>
+              <span style={{ fontSize: '2.5rem', fontWeight: 900, color: verdictColor, lineHeight: 1 }}>{aiReportData?.overallFit !== undefined ? aiReportData.overallFit : 0}%</span>
+              <span style={{ fontSize: '0.78rem', fontWeight: 800, color: verdictColor }}>{aiReportData?.verdict || 'Offline'}</span>
             </div>
             
             <div style={{ borderLeft: '1.5px solid var(--border-color)', paddingLeft: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.15rem' }}>
-              <span style={{ fontSize: '0.82rem', color: 'var(--text-primary)' }}>Maturity Grade: <strong style={{ color: 'var(--google-blue)', fontSize: '1rem' }}>{maturityGrade}</strong></span>
-              <span style={{ fontSize: '0.82rem', color: 'var(--text-primary)' }}>Discovery Priority: <strong>{discoveryPriority}</strong></span>
-              <span style={{ fontSize: '0.82rem', color: 'var(--text-primary)' }}>Platform Readiness: <strong style={{ color: platformReadiness === 'Blockers' ? 'var(--google-red)' : 'var(--google-green)' }}>{platformReadiness}</strong></span>
+              <span style={{ fontSize: '0.82rem', color: 'var(--text-primary)' }}>Maturity Grade: <strong style={{ color: 'var(--google-blue)', fontSize: '1rem' }}>{aiReportData?.maturityGrade || 'N/A'}</strong></span>
+              <span style={{ fontSize: '0.82rem', color: 'var(--text-primary)' }}>Discovery Priority: <strong>{aiReportData?.discoveryPriority || 'Offline'}</strong></span>
+              <span style={{ fontSize: '0.82rem', color: 'var(--text-primary)' }}>Platform Readiness: <strong style={{ color: aiReportData?.platformReadiness === 'Blockers' ? 'var(--google-red)' : 'var(--google-green)' }}>{aiReportData?.platformReadiness || 'Offline'}</strong></span>
             </div>
           </div>
 
