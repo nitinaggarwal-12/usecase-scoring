@@ -106,21 +106,25 @@ export default function InteractiveDashboard({ reportData, onBack }) {
       setPresenterScript(data.script || 'Assessment findings ready.');
       
       // Hydrate absolute Base64 audio element or delegate to sovereign W3C Web Speech pipeline
+      const handlePlayEndOrErr = () => {
+        setAppState(curr => (curr === 'PRESENTING' || curr === 'RESUMING' ? 'IDLE' : curr));
+      };
+
       if (data.audioBase64 && data.audioBase64.length > 20) {
         if (!audioElemRef.current) {
           audioElemRef.current = new Audio();
         }
         audioElemRef.current.src = data.audioBase64;
-        audioElemRef.current.onended = () => setAppState('IDLE');
-        audioElemRef.current.onerror = () => setAppState('IDLE');
+        audioElemRef.current.onended = handlePlayEndOrErr;
+        audioElemRef.current.onerror = handlePlayEndOrErr;
         await audioElemRef.current.play();
       } else if ('speechSynthesis' in window) {
         console.log("⚡ [TTS Fallback Engine] Executing sovereign client W3C Web Speech synthesis.");
         const utterance = new SpeechSynthesisUtterance(data.script || 'Assessment findings ready.');
         utterance.rate = 1.0;
         utterance.pitch = 1.0;
-        utterance.onend = () => setAppState('IDLE');
-        utterance.onerror = () => setAppState('IDLE');
+        utterance.onend = handlePlayEndOrErr;
+        utterance.onerror = handlePlayEndOrErr;
         window.speechSynthesis.speak(utterance);
       }
 
