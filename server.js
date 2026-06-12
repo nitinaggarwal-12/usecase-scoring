@@ -297,8 +297,27 @@ app.post('/api/presentation/generate', async (req, res) => {
       const location = process.env.GCP_LOCATION || 'us-central1';
       const url = `https://${location}-aiplatform.googleapis.com/v1/projects/${projectId}/locations/${location}/publishers/google/models/gemini-1.5-flash:generateContent`;
 
-      const scriptPrompt = `You are Alex, an elite Google Cloud Principal CE presenting an Executive Use Case Assessment Findings report to a C-Suite board.
+      const { persona, voice, language } = req.body.config || {};
+      const actPersona = persona || 'Alex';
+      const actVoice = voice || 'Aoede';
+      const actLang = language || 'en-US';
+
+      const personaDescriptors = {
+        Alex: "an elite Google Cloud Principal CE Transformation Specialist",
+        Sam: "an elite Google Cloud Virtual CIO & Security FDE specializing in BeyondCorp Zero Trust and VPC-SC perimeter sovereignty",
+        Taylor: "an elite Global C-Suite Financial ROI & Value Engineering Specialist"
+      };
+      const langInstructions = {
+        'en-US': "Output exclusively in professional executive English.",
+        'fr-FR': "Traduisez et rédigez l'intégralité de la présentation exclusivement en français courtois, persuasif et professionnel.",
+        'de-DE': "Übersetzen und verfassen Sie die gesamte Präsentation ausschließlich in hochprofessionellem Deutsch.",
+        'ja-JP': "プレゼンテーション全体を極めて自然で礼儀正しいプロフェッショナルな日本語で作成してください。",
+        'es-ES': "Traduzca y redacte toda la presentación exclusivamente en español profesional, persuasivo y natural."
+      };
+
+      const scriptPrompt = `You are ${actPersona}, ${personaDescriptors[actPersona] || personaDescriptors.Alex} presenting an Executive Use Case Assessment Findings report to a C-Suite board.
 Transform the following report metrics into an engaging, first-person 60-second presenter speech script. Speak naturally with executive confidence, highlight the ROI, architecture alignment, regulatory posture, and blockers, and propose immediate next steps.
+${langInstructions[actLang] || langInstructions['en-US']}
 Do NOT include stage directions, markdown, or timestamps—output ONLY the exact spoken words.
 Report Data: ${JSON.stringify(reportData, null, 2)}`;
 
@@ -320,8 +339,25 @@ Report Data: ${JSON.stringify(reportData, null, 2)}`;
       console.warn("⚠️ [Vertex ADC Fallback] Vertex failed, pivoting to verified AI Studio Route:", vertexErr.message);
       try {
         const fallbackAi = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-        const scriptPrompt = `You are Alex, an elite Google Cloud Principal CE presenting an Executive Use Case Assessment Findings report to a C-Suite board.
+        const { persona, voice, language } = req.body.config || {};
+        const actPersona = persona || 'Alex';
+        const actLang = language || 'en-US';
+        const personaDescriptors = {
+          Alex: "an elite Google Cloud Principal CE Transformation Specialist",
+          Sam: "an elite Google Cloud Virtual CIO & Security FDE specializing in BeyondCorp Zero Trust and VPC-SC perimeter sovereignty",
+          Taylor: "an elite Global C-Suite Financial ROI & Value Engineering Specialist"
+        };
+        const langInstructions = {
+          'en-US': "Output exclusively in professional executive English.",
+          'fr-FR': "Traduisez et rédigez l'intégralité de la présentation exclusivement en français courtois et professionnel.",
+          'de-DE': "Übersetzen und verfassen Sie die gesamte Präsentation ausschließlich in hochprofessionellem Deutsch.",
+          'ja-JP': "プレゼンテーション全体を極めて自然で礼儀正しいプロフェッショナルな日本語で作成してください。",
+          'es-ES': "Traduzca y redacte toda la presentación exclusivamente en español profesional y persuasivo."
+        };
+
+        const scriptPrompt = `You are ${actPersona}, ${personaDescriptors[actPersona] || personaDescriptors.Alex} presenting an Executive Use Case Assessment Findings report to a C-Suite board.
 Transform the following report metrics into an engaging, first-person 60-second presenter speech script. Speak naturally with executive confidence, highlight the ROI, architecture alignment, regulatory posture, and blockers, and propose immediate next steps.
+${langInstructions[actLang] || langInstructions['en-US']}
 Do NOT include stage directions, markdown, or timestamps—output ONLY the exact spoken words.
 Report Data: ${JSON.stringify(reportData, null, 2)}`;
 
@@ -335,10 +371,23 @@ Report Data: ${JSON.stringify(reportData, null, 2)}`;
       }
     }
 
-    // 2. Pass script to Google Cloud Text-to-Speech using en-US-Chirp3-HD-Aoede or Studio
+    // 2. Pass script to Google Cloud Text-to-Speech using tailored Persona voice
+    const { language, voice } = req.body.config || {};
+    const actLang = language || 'en-US';
+    const actVoice = voice || 'Aoede';
+
+    const ttsVoiceMap = {
+      'en-US': { Aoede: 'en-US-Studio-O', Charon: 'en-US-Studio-Q', Fenrir: 'en-US-Journey-D', Kore: 'en-US-Casual-K', Puck: 'en-US-Journey-F' },
+      'fr-FR': { Aoede: 'fr-FR-Standard-A', Charon: 'fr-FR-Standard-D', Fenrir: 'fr-FR-Standard-C', Kore: 'fr-FR-Standard-E', Puck: 'fr-FR-Standard-B' },
+      'de-DE': { Aoede: 'de-DE-Standard-A', Charon: 'de-DE-Standard-D', Fenrir: 'de-DE-Standard-C', Kore: 'de-DE-Standard-F', Puck: 'de-DE-Standard-B' },
+      'ja-JP': { Aoede: 'ja-JP-Standard-A', Charon: 'ja-JP-Standard-D', Fenrir: 'ja-JP-Standard-C', Kore: 'ja-JP-Standard-B', Puck: 'ja-JP-Standard-A' },
+      'es-ES': { Aoede: 'es-ES-Standard-A', Charon: 'es-ES-Standard-D', Fenrir: 'es-ES-Standard-C', Kore: 'es-ES-Standard-B', Puck: 'es-ES-Standard-A' }
+    };
+    const targetTtsName = (ttsVoiceMap[actLang] && ttsVoiceMap[actLang][actVoice]) || 'en-US-Studio-O';
+
     const ttsRequest = {
       input: { text: textScript },
-      voice: { languageCode: 'en-US', name: 'en-US-Studio-O' },
+      voice: { languageCode: actLang, name: targetTtsName },
       audioConfig: { audioEncoding: 'MP3', speakingRate: 1.0 },
     };
 
@@ -384,7 +433,7 @@ wss.on('connection', (wsClient) => {
   let geminiWs = null;
   let handshakeCompleted = false;
 
-  const initGeminiLiveSocket = (systemReportBlob) => {
+  const initGeminiLiveSocket = (systemReportBlob, liveConfig) => {
     try {
       const activeKeyStr = process.env.GEMINI_API_KEY || ['AQ.', 'Ab8RN6Ib', '12L9Qun0', 'kfyFVzma', 'gU2zViLb', 'EXpQToB1', 'kvM2UBhDtg'].join('');
       const liveUrl = `wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1alpha.GenerativeService.BidiGenerateContent?key=${activeKeyStr}`;
@@ -402,20 +451,37 @@ wss.on('connection', (wsClient) => {
       geminiWs.on('open', () => {
         clearTimeout(upstreamHangTimer);
         console.log('[GEMINI_LIVE_SOCKET] Connection open. Transmitting system context setup blob...');
-        // Phase B Step 2 Mandate: Original JSON report passed as systemInstruction blob
+        
+        const { persona, voice, language } = liveConfig || {};
+        const actPersona = persona || 'Alex';
+        const actVoice = voice || 'Aoede';
+        const actLang = language || 'en-US';
+
+        const personaSysPrompts = {
+          Alex: "You are Alex, an elite Google Cloud CE Solution Architect. You are having a natural voice chat with an executive about their Maturity Assessment scorecard. DO NOT use canned corporate buzzwords.",
+          Sam: "You are Sam, an elite Google Cloud Virtual CIO & Security FDE specializing in BeyondCorp Zero Trust and VPC-SC perimeter sovereignty. You are having an authoritative voice chat with a user about their infrastructure readiness scorecard. DO NOT use canned corporate buzzwords.",
+          Taylor: "You are Taylor, an elite Global C-Suite Financial ROI and Value Engineering Strategist. You are having an engaging voice chat with a board about their financial TCO and rapid time-to-value scorecard. DO NOT use canned corporate buzzwords."
+        };
+        const langSysInstructions = {
+          'en-US': "Speak exclusively in professional executive conversational English.",
+          'fr-FR': "Répondez et parlez exclusivement en français professionnel, naturel et courtois.",
+          'de-DE': "Sprechen Sie ausschließlich in hochprofessionellem, natürlichem und überzeugendem Deutsch.",
+          'ja-JP': "極めて自然で礼儀正しいプロフェッショナルな日本語で会話してください。",
+          'es-ES': "Hable exclusivamente en español profesional, persuasivo y natural."
+        };
+        const fullInstructionText = (personaSysPrompts[actPersona] || personaSysPrompts.Alex) + " " + (langSysInstructions[actLang] || langSysInstructions['en-US']) + " DO NOT repeat their queries. Answer naturally like a real human. Scorecard Data: " + JSON.stringify(systemReportBlob || {});
+
         const setupFrame = {
           setup: {
             model: "models/gemini-2.5-flash",
             generationConfig: {
               responseModalities: ["AUDIO"],
               speechConfig: {
-                voiceConfig: { prebuiltVoiceConfig: { voiceName: "Aoede" } }
+                voiceConfig: { prebuiltVoiceConfig: { voiceName: actVoice } }
               }
             },
             systemInstruction: {
-              parts: [{
-                text: "You are Alex, a highly technical, natural-sounding Google Cloud Customer Engineer. You are having a natural voice chat with a user about their Maturity Assessment scorecard. DO NOT use canned corporate buzzwords. DO NOT repeat the user's prompt back to them. If they say 'hello' or ask if you can hear them, answer naturally like a normal human. Base technical answers ONLY on the provided JSON scorecard data: " + JSON.stringify(systemReportBlob || {})
-              }]
+              parts: [{ text: fullInstructionText }]
             }
           }
         };
@@ -514,7 +580,7 @@ wss.on('connection', (wsClient) => {
       const clientObj = JSON.parse(clientMsg.toString('utf8'));
 
       if (clientObj.type === 'setup') {
-        initGeminiLiveSocket(clientObj.report || {});
+        initGeminiLiveSocket(clientObj.report || {}, clientObj.config || {});
       }
     } catch (err) {
       console.error('[CLIENT_WS_MESSAGE_ERROR]', err.message);

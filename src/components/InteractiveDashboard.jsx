@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import MaturityScorecards from './MaturityScorecards';
-import { Mic, Play, Pause, Square, AlertCircle, RefreshCw, Volume2, Radio, CheckCircle2 } from 'lucide-react';
+import { Mic, Play, Pause, Square, AlertCircle, RefreshCw, Volume2, Radio, CheckCircle2, Sliders, User, Globe } from 'lucide-react';
 
 export default function InteractiveDashboard({ reportData, onBack }) {
   // Master State Machine Mandate: IDLE -> GENERATING -> PRESENTING -> LISTENING -> ANSWERING -> RESUMING
@@ -8,6 +8,11 @@ export default function InteractiveDashboard({ reportData, onBack }) {
   const [transcript, setTranscript] = useState('');
   const [presenterScript, setPresenterScript] = useState('');
   const [isErrorMessage, setIsErrorMessage] = useState(null);
+
+  // Feature Extension: Dynamic Persona, Voice & Language Executive State Tokens
+  const [activePersona, setActivePersona] = useState('Alex');
+  const [activeVoice, setActiveVoice] = useState('Aoede');
+  const [activeLanguage, setActiveLanguage] = useState('en-US');
 
   // Trap 4 Mandate: Strict Mode Double-Mount / Concurrency References
   const audioElemRef = useRef(null);
@@ -94,7 +99,8 @@ export default function InteractiveDashboard({ reportData, onBack }) {
           overallPriority: rawReport.priorityScore || 92,
           businessValue: 95,
           technicalReadiness: 89
-        }
+        },
+        config: { persona: activePersona, voice: activeVoice, language: activeLanguage }
       };
 
       // Trap 6 Mandate: Absolute HTTP Endpoint with CORS
@@ -128,6 +134,7 @@ export default function InteractiveDashboard({ reportData, onBack }) {
       } else if ('speechSynthesis' in window) {
         console.log("⚡ [TTS Fallback Engine] Executing sovereign client W3C Web Speech synthesis.");
         const utterance = new SpeechSynthesisUtterance(data.script || 'Assessment findings ready.');
+        utterance.lang = activeLanguage;
         utterance.rate = 1.0;
         utterance.pitch = 1.0;
         utterance.onend = handlePlayEndOrErr;
@@ -211,10 +218,11 @@ export default function InteractiveDashboard({ reportData, onBack }) {
 
       socket.onopen = () => {
         // Handshake Race Condition Block: Send setup blob first
-        setTranscript('Socket open. Authenticating GxP RAG contextual blueprint...');
+        setTranscript('Socket open. Authenticating RAG contextual blueprint & execution config...');
         socket.send(JSON.stringify({
           type: 'setup',
-          report: activeReportRef.current || {}
+          report: activeReportRef.current || {},
+          config: { persona: activePersona, voice: activeVoice, language: activeLanguage }
         }));
       };
 
@@ -394,6 +402,67 @@ export default function InteractiveDashboard({ reportData, onBack }) {
         </div>
       </div>
 
+      {/* Premium Multi-Modal Persona, Voice & Language Configuration Drawer */}
+      <div style={{ background: 'linear-gradient(135deg, rgba(30,41,59,0.75), rgba(15,23,42,0.75))', backdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '20px', padding: '1.25rem 1.75rem', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '1.5rem', boxShadow: '0 8px 32px rgba(0,0,0,0.3)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <div style={{ background: 'rgba(56,189,248,0.15)', padding: '0.5rem', borderRadius: '12px', border: '1px solid rgba(56,189,248,0.3)' }}>
+            <Sliders size={20} color="#38bdf8" />
+          </div>
+          <span style={{ fontSize: '0.95rem', fontWeight: 850, color: '#f8fafc', letterSpacing: '-0.2px' }}>AI Presenter Execution Customization</span>
+        </div>
+
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.5rem', alignItems: 'center' }}>
+          {/* Persona Picker */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+            <User size={16} color="#94a3b8" />
+            <span style={{ fontSize: '0.8rem', fontWeight: 800, textTransform: 'uppercase', color: '#94a3b8' }}>Persona:</span>
+            <select
+              value={activePersona}
+              onChange={e => { setActivePersona(e.target.value); executeCleanAudioTeardown(); setAppState('IDLE'); }}
+              style={{ background: '#0f172a', color: '#38bdf8', border: '1px solid #334155', padding: '0.5rem 1rem', borderRadius: '100px', fontWeight: 800, fontSize: '0.85rem', cursor: 'pointer', outline: 'none' }}
+            >
+              <option value="Alex">Alex (Googler CE Architect)</option>
+              <option value="Sam">Sam (Virtual CIO & Security FDE)</option>
+              <option value="Taylor">Taylor (Elite Financial ROI Strategist)</option>
+            </select>
+          </div>
+
+          {/* Voice Customization */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+            <Mic size={16} color="#94a3b8" />
+            <span style={{ fontSize: '0.8rem', fontWeight: 800, textTransform: 'uppercase', color: '#94a3b8' }}>Voice:</span>
+            <select
+              value={activeVoice}
+              onChange={e => { setActiveVoice(e.target.value); executeCleanAudioTeardown(); setAppState('IDLE'); }}
+              style={{ background: '#0f172a', color: '#a855f7', border: '1px solid #334155', padding: '0.5rem 1rem', borderRadius: '100px', fontWeight: 800, fontSize: '0.85rem', cursor: 'pointer', outline: 'none' }}
+            >
+              <option value="Aoede">Aoede (Elite Female CE)</option>
+              <option value="Charon">Charon (Deep Authoritative Male)</option>
+              <option value="Fenrir">Fenrir (Resonant Executive Male)</option>
+              <option value="Kore">Kore (Engaging Dynamic Female)</option>
+              <option value="Puck">Puck (Energetic Co-Seller)</option>
+            </select>
+          </div>
+
+          {/* Language Engagement */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+            <Globe size={16} color="#94a3b8" />
+            <span style={{ fontSize: '0.8rem', fontWeight: 800, textTransform: 'uppercase', color: '#94a3b8' }}>Language:</span>
+            <select
+              value={activeLanguage}
+              onChange={e => { setActiveLanguage(e.target.value); executeCleanAudioTeardown(); setAppState('IDLE'); }}
+              style={{ background: '#0f172a', color: '#10b981', border: '1px solid #334155', padding: '0.5rem 1rem', borderRadius: '100px', fontWeight: 800, fontSize: '0.85rem', cursor: 'pointer', outline: 'none' }}
+            >
+              <option value="en-US">🇺🇸 English (US/UK)</option>
+              <option value="fr-FR">🇫🇷 French (Français)</option>
+              <option value="de-DE">🇩🇪 German (Deutsch - GxP DACH)</option>
+              <option value="ja-JP">🇯🇵 Japanese (日本語)</option>
+              <option value="es-ES">🇪🇸 Spanish (Español)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
       {/* Master State Machine Control Bar */}
       <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', background: '#1e293b', padding: '1rem 1.5rem', borderRadius: '20px', border: '1px solid #334155' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
@@ -495,7 +564,7 @@ export default function InteractiveDashboard({ reportData, onBack }) {
         {/* Left Video Presenter Studio Box */}
         <div style={{ background: '#1e293b', border: '1px solid #334155', borderRadius: '24px', padding: '2rem', display: 'flex', flexDirection: 'column', gap: '1.5rem', alignItems: 'center', textAlign: 'center', boxShadow: '0 10px 30px rgba(0,0,0,0.3)', position: 'relative', overflow: 'hidden' }}>
           <div style={{ position: 'absolute', top: '15px', left: '15px', display: 'flex', alignItems: 'center', gap: '0.4rem', background: '#0f172a', padding: '0.35rem 0.85rem', borderRadius: '100px', fontSize: '0.75rem', fontWeight: 850, border: '1px solid #334155', color: '#38bdf8' }}>
-            <CheckCircle2 size={12} color="#38bdf8" /> Virtual CE Alex
+            <CheckCircle2 size={12} color="#38bdf8" /> Virtual CE {activePersona === 'Alex' ? 'Alex' : activePersona === 'Sam' ? 'Sam' : 'Taylor'}
           </div>
 
           <div style={{ position: 'absolute', top: '15px', right: '15px', display: 'flex', alignItems: 'center', gap: '0.4rem', background: appState === 'PRESENTING' ? '#10b981' : appState === 'LISTENING' ? '#f59e0b' : appState === 'ANSWERING' ? '#8b5cf6' : '#64748b', padding: '0.35rem 0.85rem', borderRadius: '100px', fontSize: '0.75rem', fontWeight: 900, color: '#ffffff' }}>
@@ -505,7 +574,7 @@ export default function InteractiveDashboard({ reportData, onBack }) {
           {/* Photorealistic Virtual Avatar Graphic Wrapper */}
           <div style={{ width: '220px', height: '220px', borderRadius: '50%', background: 'linear-gradient(135deg, #1e293b, #0f172a)', border: appState === 'PRESENTING' ? '4px solid #3b82f6' : appState === 'LISTENING' ? '4px solid #f59e0b' : appState === 'ANSWERING' ? '4px solid #8b5cf6' : '4px solid #475569', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: appState === 'PRESENTING' ? '0 0 45px rgba(59,130,246,0.3)' : '0 10px 25px rgba(0,0,0,0.4)', marginTop: '1.5rem', transition: 'all 0.3s ease', position: 'relative', overflow: 'hidden' }}>
             <div style={{ fontSize: '6.5rem', animation: (appState === 'PRESENTING' || appState === 'ANSWERING') ? 'bounce 1s infinite' : 'none' }}>
-              🧑‍💻
+              {activePersona === 'Alex' ? '🧑‍💻' : activePersona === 'Sam' ? '🔐' : '📈'}
             </div>
             {(appState === 'PRESENTING' || appState === 'ANSWERING') && (
               <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', height: '35%', background: 'linear-gradient(0deg, rgba(59,130,246,0.2), transparent)', animation: 'pulse 1.5s infinite' }} />
@@ -514,10 +583,10 @@ export default function InteractiveDashboard({ reportData, onBack }) {
 
           <div>
             <h3 style={{ fontSize: '1.35rem', fontWeight: 900, color: '#ffffff', margin: '0 0 0.4rem 0' }}>
-              Alex (Googler CE)
+              {activePersona === 'Alex' ? 'Alex (Googler CE)' : activePersona === 'Sam' ? 'Sam (Virtual CIO)' : 'Taylor (ROI Strategist)'}
             </h3>
             <span style={{ fontSize: '0.9rem', color: '#94a3b8', fontWeight: 600 }}>
-              Principal Transformation Specialist & AI Solution Architect
+              {activePersona === 'Alex' ? 'Principal Transformation Specialist & AI Solution Architect' : activePersona === 'Sam' ? 'BeyondCorp FDE Specialist & Infrastructure Solution Architect' : 'Global C-Suite Financial ROI & Value Engineering Specialist'}
             </span>
           </div>
 
