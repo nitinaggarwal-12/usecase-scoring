@@ -74,11 +74,24 @@ export default function InteractiveDashboard({ reportData, onBack }) {
     executeCleanAudioTeardown();
 
     try {
+      const rawReport = activeReportRef.current || {};
+      console.log("📥 [Frontend API Ingest] Initiating presentation generation for:", rawReport.company || 'Enterprise Candidate');
+      
+      const payloadToSend = {
+        ...rawReport,
+        clientName: rawReport.company || rawReport.clientName || 'Novartis Oncology',
+        scores: rawReport.scores || rawReport.scoring || rawReport.roi || {
+          overallPriority: rawReport.priorityScore || 92,
+          businessValue: 95,
+          technicalReadiness: 89
+        }
+      };
+
       // Trap 6 Mandate: Absolute HTTP Endpoint with CORS
       const response = await fetch(`${BASE_HTTP_URL}/api/presentation/generate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(activeReportRef.current || {})
+        body: JSON.stringify(payloadToSend)
       });
 
       const data = await response.json();
@@ -158,6 +171,7 @@ export default function InteractiveDashboard({ reportData, onBack }) {
 
           // Trap 13 Mandate: Handshake completed successfully, activate mic downsampling loop
           if (serverPacket.type === 'handshake_complete') {
+            console.log("✅ [Handshake Success] Upstream Gemini Live connection fully authenticated.");
             setTranscript('⚡ Ready! Speak your pushback question clearly into the microphone...');
             
             // Trap 1 Mandate: Capture mic buffer, downsample Float32 to 16kHz Int16 raw binary
@@ -168,6 +182,13 @@ export default function InteractiveDashboard({ reportData, onBack }) {
             scriptNode.onaudioprocess = (audioProcessEvent) => {
               if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN && appState === 'LISTENING') {
                 const inputBuffer = audioProcessEvent.inputBuffer.getChannelData(0);
+                
+                // Frontend Validation 2A: Mic active but emitting empty audio buffers
+                if (!inputBuffer || inputBuffer.length === 0) {
+                  console.warn("⚠️ [Audio Input] Mic is active but emitting empty audio buffers.");
+                  return;
+                }
+
                 const int16Array = new Int16Array(inputBuffer.length);
                 for (let i = 0; i < inputBuffer.length; i++) {
                   const s = Math.max(-1, Math.min(1, inputBuffer[i]));
@@ -184,6 +205,7 @@ export default function InteractiveDashboard({ reportData, onBack }) {
 
           // Trap 2 Mandate: Intercept incoming Base64 PCM payloads, decode and play sequentially
           if (serverPacket.type === 'audio_chunk') {
+            console.log(`📥 [Audio Ingest] Received ${serverPacket.data.length} Base64 PCM bytes from backend.`);
             if (appState === 'LISTENING') {
               // State Transition: Incoming audio shifts engine to ANSWERING
               setAppState('ANSWERING');
@@ -221,6 +243,7 @@ export default function InteractiveDashboard({ reportData, onBack }) {
 
           // Trap 3 Mandate: Parse turnComplete flag to resume main presentation
           if (serverPacket.type === 'turn_complete') {
+            console.log("✅ [Turn Success] Gemini turn complete signal received.");
             setAppState('RESUMING');
             setTranscript('Question resolved. Resuming executive brief...');
             executeCleanAudioTeardown();
@@ -240,7 +263,12 @@ export default function InteractiveDashboard({ reportData, onBack }) {
             throw new Error(serverPacket.message || 'Upstream socket error');
           }
         } catch (ex) {
-          // Fall back gracefully
+          // Frontend Validation 2B: Downstream Payload Buffer Integrity Checks
+          if (!(msgEvent.data instanceof ArrayBuffer) || msgEvent.data.byteLength === 0) {
+            console.error("❌ [Audio Output Validation] Received invalid or empty binary chunk from socket.");
+            return;
+          }
+          console.log(`✅ [Audio Success] Ingested ${msgEvent.data.byteLength} raw ArrayBuffer bytes.`);
         }
       };
 

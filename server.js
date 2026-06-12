@@ -312,6 +312,13 @@ const ttsClient = new textToSpeech.TextToSpeechClient();
 // Phase A: Automated Presentation Production HTTP API
 app.post('/api/presentation/generate', async (req, res) => {
   try {
+    // Input Schema Validation Mandate
+    if (!req.body || !req.body.scores || typeof req.body.scores !== 'object') {
+      console.error("❌ [Validation Error] Incoming report data is missing or malformed.");
+      return res.status(400).json({ error: "Invalid Assessment Report JSON structure." });
+    }
+    console.log("📥 [API Ingest] Successfully validated incoming report for:", req.body.clientName);
+
     const reportData = req.body || {};
     
     // 1. Call Gemini 2.5 Flash to formulate 60-second presenter script
@@ -334,6 +341,12 @@ Report Data: ${JSON.stringify(reportData, null, 2)}`;
     };
 
     const [ttsResponse] = await ttsClient.synthesizeSpeech(ttsRequest);
+    
+    if (!ttsResponse.audioContent || ttsResponse.audioContent.length === 0) {
+      throw new Error("Google Text-to-Speech API returned a zero-byte audio buffer.");
+    }
+    console.log(`✅ [TTS Success] Generated ${ttsResponse.audioContent.length} bytes of Chirp 3 HD audio.`);
+    
     const base64Audio = ttsResponse.audioContent.toString('base64');
 
     return res.json({
@@ -362,6 +375,7 @@ const wss = new WebSocketServer({ server: httpServer, path: '/api/qa/stream' });
 
 wss.on('connection', (wsClient) => {
   console.log('[WS_ROUTER] New enterprise stakeholder Q&A session connected.');
+  console.log(`🔌 [WS Ingest] Session verified. ReadyState: ${wsClient.readyState}`);
   let geminiWs = null;
   let handshakeCompleted = false;
 
@@ -400,6 +414,14 @@ wss.on('connection', (wsClient) => {
           const resObj = JSON.parse(serverMsg.toString('utf8'));
           const content = resObj.serverContent || {};
 
+          // Google Socket Error Trapping Mandate
+          if (content.error || resObj.error) {
+            const errTarget = content.error || resObj.error;
+            console.error(`❌ [Gemini Live Error Frame] ${errTarget.message || errTarget}`);
+            wsClient.send(JSON.stringify({ type: 'error', message: errTarget.message || JSON.stringify(errTarget) }));
+            return;
+          }
+
           // Trap 2 Mandate: Upstream Gemini sends Base64 encoded raw PCM, route to React
           if (content.modelTurn && content.modelTurn.parts) {
             content.modelTurn.parts.forEach(part => {
@@ -432,8 +454,13 @@ wss.on('connection', (wsClient) => {
         wsClient.send(JSON.stringify({ type: "error", message: err.message }));
       });
 
-      geminiWs.on('close', () => {
-        console.log('[GEMINI_LIVE_SOCKET] Handshake closed.');
+      geminiWs.on('close', (code, reason) => {
+        console.log(`🔌 [Gemini Socket Closed] Code: ${code} | Reason: ${reason ? reason.toString() : 'None'}`);
+        if (code === 401 || code === 403) {
+          wsClient.send(JSON.stringify({ type: 'error', message: 'Authentication failed with Google Cloud.' }));
+        } else if (code !== 1000) {
+          wsClient.send(JSON.stringify({ type: 'error', message: `Upstream socket error: ${code}` }));
+        }
       });
     } catch (ex) {
       console.error('[INIT_GEMINI_SOCKET_EX]', ex.message);
