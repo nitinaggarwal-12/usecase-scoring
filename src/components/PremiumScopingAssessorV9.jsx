@@ -842,7 +842,7 @@ export default function PremiumScopingAssessorV9({ activeSessionId, apiKey, gcpT
         setApiLogs(prev => [...prev, `[Security] Active token confirmed. Dispatching payload to Vertex AI...`]);
         const endpoint = hasRealGcp 
           ? `/v1/projects/528479452485/locations/us-central1/reasoningEngines/2251197831069040640:streamQuery`
-          : `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+          : `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key=${apiKey}`;
 
         const prompt = `You are a Principal Google Cloud Generative AI Solution Architect.
 Analyze the following Premium Scoping Assessment (v9) questionnaire response payload:

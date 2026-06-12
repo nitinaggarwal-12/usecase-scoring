@@ -34,7 +34,7 @@ export default function SettingsModal({ isOpen, onClose, apiKey, gcpToken, isSup
     // 1. Validate Gemini API Key
     if (isLiveKey) {
       try {
-        const wireModel = selectedModel.includes('3.5') || selectedModel.includes('3.0') ? 'gemini-2.5-flash' : selectedModel;
+        const wireModel = 'gemini-1.5-pro';
         const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${wireModel}:generateContent?key=${cleanKey}`;
         const response = await fetch(endpoint, {
           method: 'POST',

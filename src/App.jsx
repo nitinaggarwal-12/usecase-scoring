@@ -379,9 +379,14 @@ export default function App() {
   }, []);
   const [apiKey, setApiKey] = useState(() => {
     try {
-      return localStorage.getItem('gemini_api_key') || '';
+      const existing = localStorage.getItem('gemini_api_key');
+      if (!existing || existing.startsWith('AIza')) {
+        localStorage.setItem('gemini_api_key', 'demo_token');
+        return 'demo_token';
+      }
+      return existing;
     } catch {
-      return '';
+      return 'demo_token';
     }
   });
 

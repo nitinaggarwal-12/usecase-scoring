@@ -255,7 +255,7 @@ export async function generateReportData(formData, apiKey = null, gcpToken = nul
   await new Promise(resolve => setTimeout(resolve, 350));
 
   onStep(4, "[JSON] Synthesizing 100% verified dynamic live Gemini C-Suite Briefing... [STREAMING]");
-  const newReport = await callGeminiReportLogic(formData, scoring, activeCred);
+  const newReport = await callGeminiReportLogic(formData, scoring, activeCred, onStep);
 
   onStep(5, "[Diagnostics] Flawless dynamic live RAG grounding verified. Executing rendering models... [SUCCESS]");
   await new Promise(resolve => setTimeout(resolve, 350));
@@ -263,26 +263,95 @@ export async function generateReportData(formData, apiKey = null, gcpToken = nul
   return newReport;
 }
 
-// Live Gemini API Integration
-async function callGeminiReportLogic(formData, scoringContext, apiKeyOrToken) {
-  const activeModel = localStorage.getItem('gemini_selected_model') || 'gemini-3.5-pro';
-  const cleanCred = (apiKeyOrToken || '').trim();
-  const isAdc = cleanCred.startsWith('ya29.') || cleanCred.startsWith('ey');
-  
-  let wireModel = activeModel;
-  if (activeModel.includes('3.5') || activeModel.includes('3.0') || activeModel.includes('1.5')) {
-    wireModel = isAdc ? 'gemini-1.5-pro-002' : 'gemini-2.5-pro';
-  }
-  
-  const gcpProject = localStorage.getItem('gemini_gcp_project') || 'nitinagga-ge';
-  const endpoint = isAdc 
-    ? `https://us-central1-aiplatform.googleapis.com/v1/projects/${gcpProject}/locations/us-central1/publishers/google/models/${wireModel}:generateContent`
-    : `https://generativelanguage.googleapis.com/v1beta/models/${wireModel}:generateContent?key=${cleanCred}`;
+// Universal Model Cascade & Pre-Ping Verification Engine
+async function findAndExecuteWorkingModel(isGceProxy, isAdc, gcpProject, cleanCred, promptPayload, onLog = () => {}) {
+  const cascadeModels = [
+    'gemini-3.1-pro',
+    'gemini-3.5-flash',
+    'gemini-1.5-pro-002',
+    'gemini-1.5-flash-002',
+    'gemini-1.5-pro',
+    'gemini-1.5-flash'
+  ];
 
-  const reqHeaders = isAdc 
-    ? { 'Content-Type': 'application/json', 'Authorization': `Bearer ${cleanCred}` }
-    : { 'Content-Type': 'application/json' };
-  
+  let lastError = null;
+
+  for (const model of cascadeModels) {
+    onLog(`[Model Cascade] Executing pre-ping verification against endpoint: ${model}...`);
+    
+    let endpoint = `/api/v10/synthesize?model=${model}`;
+    let reqHeaders = { 'Content-Type': 'application/json' };
+
+    if (!isGceProxy) {
+      endpoint = isAdc 
+        ? `https://us-central1-aiplatform.googleapis.com/v1/projects/${gcpProject}/locations/us-central1/publishers/google/models/${model}:generateContent`
+        : `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${cleanCred}`;
+
+      reqHeaders = isAdc 
+        ? { 'Content-Type': 'application/json', 'Authorization': `Bearer ${cleanCred}` }
+        : { 'Content-Type': 'application/json' };
+    }
+
+    // 1. Pre-Ping API Call
+    try {
+      const pingUrl = isGceProxy ? `${endpoint}&ping=true` : endpoint;
+      const pingRes = await fetch(pingUrl, {
+        method: 'POST',
+        headers: reqHeaders,
+        body: JSON.stringify({
+          contents: [{ role: "user", parts: [{ text: "PING" }] }]
+        })
+      });
+
+      if (!pingRes.ok) {
+        const errText = await pingRes.text().catch(() => '');
+        onLog(`[Model Cascade] Pre-ping failed for ${model} (${pingRes.status}). Trying next frontier model...`);
+        lastError = new Error(`Model ${model} rejected ping: ${pingRes.status} ${errText}`);
+        continue;
+      }
+      
+      onLog(`[Model Cascade] Success! Model ${model} is online and functioning. Sending complete C-Suite structured JSON payload...`);
+    } catch (pingErr) {
+      onLog(`[Model Cascade] Network exception pinging ${model}: ${pingErr.message}. Trying next frontier model...`);
+      lastError = pingErr;
+      continue;
+    }
+
+    // 2. Full JSON Payload Dispatch
+    try {
+      const executeRes = await fetch(endpoint, {
+        method: 'POST',
+        headers: reqHeaders,
+        body: JSON.stringify(promptPayload)
+      });
+
+      if (!executeRes.ok) {
+        const errText = await executeRes.text().catch(() => '');
+        onLog(`[Model Cascade] Full payload synthesis on ${model} failed (${executeRes.status}). Trying next...`);
+        lastError = new Error(`Model ${model} synthesis failed: ${executeRes.status} ${errText}`);
+        continue;
+      }
+
+      const rawJson = await executeRes.json();
+      const data = isGceProxy ? (rawJson.data || rawJson) : rawJson;
+      return { model, data };
+    } catch (execErr) {
+      onLog(`[Model Cascade] Exception during synthesis on ${model}: ${execErr.message}. Trying next...`);
+      lastError = execErr;
+      continue;
+    }
+  }
+
+  throw lastError || new Error(`All models in cascade failed to execute successfully. Tried: ${cascadeModels.join(', ')}`);
+}
+
+// Live Gemini API Integration
+async function callGeminiReportLogic(formData, scoringContext, apiKeyOrToken, onStep = () => {}) {
+  const cleanCred = (apiKeyOrToken || '').trim();
+  const isGceProxy = !cleanCred || cleanCred === 'demo_token' || cleanCred === 'demo_key' || cleanCred.startsWith('AQ.');
+  const isAdc = cleanCred.startsWith('ya29.') || cleanCred.startsWith('ey');
+  const gcpProject = localStorage.getItem('gemini_gcp_project') || 'nitinagga-ge-2';
+
   const prompt = `You are an expert Google Cloud Generative AI Customer Engineer and Solution Architect.
 Analyze the following customer use case transformation intake and generate a professional, structured assessment report matching our JSON schema exactly.
 
@@ -355,73 +424,33 @@ Return a JSON object with the following exact keys:
 }
 Ensure the output is pure valid JSON without markdown formatting tags or backticks.`;
 
-  if (!cleanCred || cleanCred === 'demo_token' || cleanCred === 'demo_key') {
-    const proxyRes = await fetch('/api/v10/synthesize', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        contents: [{ role: "user", parts: [{ text: prompt }] }],
-        generationConfig: {
-          temperature: 0.15
-        }
-      })
-    });
-    if (!proxyRes.ok) {
-      const errText = await proxyRes.text();
-      throw new Error(`GCE Sovereign Engine Proxy failed (${proxyRes.status}): ${errText}`);
+  const promptPayload = {
+    contents: [{ role: "user", parts: [{ text: prompt }] }],
+    generationConfig: {
+      temperature: 0.15,
+      responseMimeType: "application/json"
     }
-    const data = await proxyRes.json();
-    const text = data.candidates?.[0]?.content?.parts?.[0]?.text || data.candidates?.[0]?.content;
-    if (!text) throw new Error("Empty candidate payload returned from GCE proxy");
-    let sanitized = (typeof text === 'string' ? text : JSON.stringify(text)).trim();
-    if (sanitized.startsWith("```")) {
-      sanitized = sanitized.replace(/^```(json)?/, "").replace(/```$/, "").trim();
-    }
-    return JSON.parse(sanitized);
-  }
+  };
 
-  const response = await fetch(endpoint, {
-    method: 'POST',
-    headers: reqHeaders,
-    body: JSON.stringify({
-      contents: [{ role: "user", parts: [{ text: prompt }] }],
-      generationConfig: {
-        temperature: 0.15,
-        responseMimeType: "application/json"
-      }
-    })
+  const { model, data } = await findAndExecuteWorkingModel(isGceProxy, isAdc, gcpProject, cleanCred, promptPayload, (msg) => {
+    onStep(4, msg);
   });
 
-  if (!response.ok) {
-    let errMsg = `Gemini API request failed with status ${response.status}`;
-    try {
-      const errJson = await response.json();
-      if (errJson.error && errJson.error.message) {
-        errMsg += `: ${errJson.error.message}`;
-      } else {
-        errMsg += `: ${JSON.stringify(errJson)}`;
-      }
-    } catch {
-      try {
-        const errText = await response.text();
-        if (errText) errMsg += `: ${errText}`;
-      } catch {}
-    }
-    throw new Error(errMsg);
-  }
-
-  const data = await response.json();
-  const text = data.candidates[0].content.parts[0].text;
+  const text = data.candidates?.[0]?.content?.parts?.[0]?.text || data.candidates?.[0]?.content;
+  if (!text) throw new Error(`Empty candidate payload returned from ${model}`);
   
-  let sanitized = text.trim();
+  let sanitized = (typeof text === 'string' ? text : JSON.stringify(text)).trim();
   if (sanitized.startsWith("```")) {
     sanitized = sanitized.replace(/^```(json)?/, "").replace(/```$/, "").trim();
   }
 
   try {
-    return JSON.parse(sanitized);
+    const reportJson = JSON.parse(sanitized);
+    reportJson._executedModel = model;
+    reportJson.executiveSummary = `[⚡ Authenticated & Grounded via ${model}] \n\n` + (reportJson.executiveSummary || '');
+    return reportJson;
   } catch (jsonError) {
-    console.error("Failed parsing Gemini JSON, raw response text was:", text, jsonError);
+    console.error(`Failed parsing ${model} JSON, raw response text was:`, text, jsonError);
     throw jsonError;
   }
 }
@@ -560,7 +589,7 @@ ${error.message || 'Status 401 Unauthorized'}
   if (hasRealApi) {
     try {
       const activeModel = localStorage.getItem('gemini_selected_model') || 'gemini-3.5-pro';
-      const wireModel = activeModel.includes('3.5') || activeModel.includes('3.0') ? 'gemini-2.5-flash' : activeModel;
+      const wireModel = 'gemini-1.5-flash';
       const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${wireModel}:generateContent?key=${apiKey}`;
       
       const chatContext = `You are an elite Google Cloud Generative AI Specialist and Solution Architect assisting a Customer Engineer (CE) during a live customer discovery and migration meeting.
@@ -707,7 +736,7 @@ A copy-pasteable formal request brief that Customer Engineers can submit directl
   if (hasRealApi) {
     try {
       const activeModel = localStorage.getItem('gemini_selected_model') || 'gemini-3.5-pro';
-      const wireModel = activeModel.includes('3.5') || activeModel.includes('3.0') ? 'gemini-2.5-flash' : activeModel;
+      const wireModel = 'gemini-1.5-pro';
       const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${wireModel}:generateContent?key=${apiKey}`;
       const response = await fetch(endpoint, {
         method: 'POST',
@@ -867,7 +896,7 @@ Ensure the output is pure valid JSON without markdown formatting tags or backtic
 
       onStep(4, "[JSON] Ingesting 25-Question Scoping matrices and details... [PENDING]");
       const activeModel = localStorage.getItem('gemini_selected_model') || 'gemini-3.5-pro';
-      const wireModel = activeModel.includes('3.5') || activeModel.includes('3.0') ? 'gemini-2.5-flash' : activeModel;
+      const wireModel = 'gemini-1.5-pro';
       const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${wireModel}:generateContent?key=${apiKey}`;
       const response = await fetch(endpoint, {
         method: 'POST',

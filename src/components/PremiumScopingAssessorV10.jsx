@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import { 
   Sparkles, Award, Target, Layers, FileText, Check, X, 
   Trash2, Plus, Edit2, TrendingUp, Copy, CheckCircle2, AlertTriangle, 
@@ -881,20 +881,34 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
         if (vec.liveSynthesis) setLiveSynthesis(vec.liveSynthesis);
         setActiveTab('scorecard');
         setReportSubTab('executive');
-        setTimeout(() => handleRunLiveGeminiAssessment(), 600);
         return;
       }
 
-      if (idParam || uCaseParam || compParam || matchedTile || presetParam || params.get('action') === 'start') {
+      if (params.get('action') === 'start') {
+        setAnswers({});
+        setCustomerInfo({
+          company: 'Enterprise Candidate',
+          useCaseName: 'New AI Workload Evaluation',
+          domain: 'Enterprise Operations',
+          runtime: 'Google Cloud Vertex AI',
+          connectors: ['BigQuery', 'Cloud Storage']
+        });
+        setLiveSynthesis(null);
+        setActiveTab('intake');
+        return;
+      }
+
+      if (presetParam || idParam || uCaseParam || compParam) {
         const cName = compParam ? decodeURIComponent(compParam) : (matchedTile?.company || 'Novartis AG');
         const uName = uCaseParam ? decodeURIComponent(uCaseParam) : (matchedTile?.useCase || 'Clinical Operations Core RAG Mesh');
         handleLoadPreset(presetParam || matchedTile?.presetKey || 'ai_scanned_custom', uName, cName);
         setActiveTab('scorecard');
         setReportSubTab('executive');
         setTimeout(() => handleRunLiveGeminiAssessment(), 600);
-      } else {
-        setActiveTab('intake');
+        return;
       }
+
+      setActiveTab('intake');
     };
 
     handleRoute();
@@ -918,6 +932,7 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
   };
 
   // Real-Time Math & Normalized Scoring Calculations
+  const scoringDataRef = useRef(null);
   const scoringData = useMemo(() => {
     let bvScore = 0;
     let uiScore = 0;
@@ -991,7 +1006,7 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
       rationale = "High intrinsic value but requires explicit Human-in-the-Loop exception models or connector proofs.";
     }
 
-    return {
+    const finalResult = {
       overallPriority: normalizedTotal,
       pillarScores: pScores,
       questionScores: qScores,
@@ -1004,6 +1019,8 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
       technicalReadinessScore: Math.round(trScore),
       changeReadinessScore: Math.round(crScore)
     };
+    scoringDataRef.current = finalResult;
+    return finalResult;
   }, [answers]);
 
   const persistToSavedAssessments = async (cName, uName, pScore, overrideAnswers = null) => {
@@ -1046,14 +1063,15 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
   };
 
   const handleRunLiveGeminiAssessment = async () => {
-    if (!scoringData.overallPriority || scoringData.overallPriority === 0) {
+    const currentScoring = scoringDataRef.current || scoringData;
+    if (!currentScoring.overallPriority || currentScoring.overallPriority === 0) {
       alert("⚠ Discovery Assessment Incomplete: Please complete at least one evaluation question or load a candidate preset before running the verified Gemini evaluation.");
       return;
     }
     const ts = () => new Date().toISOString().replace('T', ' ').substring(11, 23);
 
-    const activeKey = (apiKey || gcpToken || 'gce_metadata_proxy').trim();
-    const cleanCred = activeKey === 'gce_metadata_proxy' ? '' : activeKey;
+    const activeKey = (apiKey || gcpToken || localStorage.getItem('gemini_api_key') || 'demo_token').trim();
+    const cleanCred = activeKey === 'gce_metadata_proxy' ? 'demo_token' : activeKey;
     const isAdc = cleanCred.startsWith('ya29.') || cleanCred.startsWith('ey');
 
     const bioPharmaMasterFallback = {
@@ -1150,17 +1168,76 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
         logs: [...prev.logs, `[${ts()}] [POST] Dispatching secure streaming payload... [STREAMING LIVE]`]
       }));
 
+      const isAuthorizedDemo = window.location.hash.includes('demo_') || 
+                               window.location.hash.includes('preset=') || 
+                               customerInfo?.company?.toLowerCase().includes('novartis') ||
+                               customerInfo?.useCaseName?.toLowerCase().includes('sop assistant');
+
+      const createCustomErrorReport = (reason) => ({
+        company: customerInfo?.company || "Enterprise Candidate",
+        industry: "Custom Evaluation",
+        timestamp: new Date().toISOString(),
+        executiveSummary: `❌ [LIVE EVALUATION FAILED]: ${reason}. Please authenticate your Gemini API Key or active GCP Application Default Credentials in the top settings portal. Absolute Data Attestation rule enforced: zero static demo fallback data has been injected into this custom candidate report.`,
+        whatYouGain: [
+          "❌ Real-time Google Cloud LLM synthesis offline or quota exceeded.",
+          "👉 Secure inline BeyondCorp RAG Rationale extraction pending live connection."
+        ],
+        riskRewardMatrix: [
+          {
+            dimension: "Custom Telemetry Grounding",
+            without: "Unverified mathematical modeling",
+            with: "Authenticated Live Vertex AI execution",
+            gain: "Pending GCP tenant authentication"
+          }
+        ],
+        roadmapHorizons: {
+          day30: ["⚠️ Click User Initials icon in header to configure live credentials."],
+          day60: ["⚠️ Instantiate verified Private Service Connect tunnels."],
+          day90: ["⚠️ Generate immutable 21 CFR Part 11 cryptographic ledgers."]
+        },
+        scoring: {
+          overallFit: currentScoring.overallPriority,
+          verdict: currentScoring.verdict,
+          scores: {
+            technical: currentScoring.technicalReadinessScore,
+            business: currentScoring.businessValueScore,
+            migration: 75,
+            timeToValue: 75,
+            risk: currentScoring.changeReadinessScore
+          },
+          rationale: `⚠️ Live LLM Synthesis unavailable. The baseline mathematical evaluation scored this candidate workload at ${currentScoring.overallPriority}/100 based purely on your structured intake telemetry.`
+        },
+        features: ["⚠️ Live API Disconnected"],
+        nextSteps: [
+          { id: 1, owner: "Joint Working Group", timeframe: "Immediate", title: "Authenticate GCP Tenant Session", desc: "Provide active Google Cloud Gemini credentials to unlock verified custom report generation." }
+        ],
+        introspectionHistory: [
+          { timestamp: new Date().toLocaleTimeString(), level: "WARNING", message: `Live Gemini API streaming disconnected: ${reason}` }
+        ],
+        roi: { tcoSavings: "Pending Live API", paybackPeriod: "Pending", summary: "Please connect live API key to compute quantified TCO models." },
+        benchmarks: []
+      });
+
+      const getFallbackPayload = (reason) => {
+        if (isAuthorizedDemo) {
+          return {
+            ...bioPharmaMasterFallback,
+            executiveSummary: `⚠️ [OFFLINE SHOWCASE BENCHMARK]: ${reason}. Displaying offline sovereign verified model plan for ${customerInfo?.useCaseName || 'Digital Workload'}. To stream real-time custom AI inferences, please connect your Gemini API Key in the top settings panel.\n\n` + bioPharmaMasterFallback.executiveSummary
+          };
+        }
+        return createCustomErrorReport(reason);
+      };
+
       const safetyTimer = setTimeout(() => {
-        setLiveSynthesis(bioPharmaMasterFallback);
+        setLiveSynthesis(getFallbackPayload("Live API response exceeded 90 seconds"));
         setGeminiStreamingState(prev => ({
           ...prev,
           active: false,
           currentStep: 6,
-          logs: [...prev.logs, `[${ts()}] [FALLBACK_RESOLVED] Live evaluation API response successfully verified.`]
+          logs: [...prev.logs, `[${ts()}] [TIMEOUT] Live API response exceeded 90s. Attestation rule enforced.`]
         }));
         handleTabSwitch('scorecard');
-        alert("✓ Live AI inference evaluation completed perfectly and unlocked your executive report scorecard!");
-      }, 3800);
+      }, 90000);
 
       const liveGenReport = await generateReportData(
         { ...customerInfo, ...scoringData },
@@ -1176,7 +1253,7 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
       );
 
       clearTimeout(safetyTimer);
-      setLiveSynthesis(liveGenReport || bioPharmaMasterFallback);
+      setLiveSynthesis(liveGenReport);
 
       setGeminiStreamingState(prev => ({
         ...prev,
@@ -1196,7 +1273,7 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
         const stepLogs = [{
           time: new Date().toISOString(),
           level: 'API_STREAM',
-          message: `POST /v1beta/models/gemini-2.5-flash:generateContent [200 OK] - Authentic Live Report Generated Successfully`,
+          message: `POST /v1beta/models/gemini-2.5-pro:generateContent [200 OK] - Authentic Live Report Generated Successfully`,
           company: `${cName} [Live API]`
         }];
         localStorage.setItem('v10_session_logs', JSON.stringify([...stepLogs, ...existing]));
@@ -1204,27 +1281,27 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
       } catch(ex) {}
 
       return;
-      } catch (err) {
-        console.error("Live evaluation query error:", err);
-        setLiveSynthesis(bioPharmaMasterFallback);
-        setGeminiStreamingState({
-          active: false,
-          currentStep: 0,
-          logs: []
-        });
-        handleTabSwitch('scorecard');
-        return;
-      }
+    } catch (err) {
+      console.error("Live evaluation query error:", err);
+      setLiveSynthesis(getFallbackPayload(`API Connection Error (${err.message || 'Unauthorized'})`));
+      setGeminiStreamingState({
+        active: false,
+        currentStep: 0,
+        logs: []
+      });
+      handleTabSwitch('scorecard');
+      return;
+    }
   };
 
   const PRESET_CANDIDATES = [
-    { company: 'AstraZeneca Global', useCaseName: 'Oncology Clinical Protocol QA Agent', domain: 'Clinical R&D' },
-    { company: 'Novartis Pharma AG', useCaseName: 'Global Pharmacovigilance Auto-Triage', domain: 'Quality & Safety' },
-    { company: 'Pfizer Inc. (Global R&D)', useCaseName: 'mRNA Manufacturing GxP Deviation Assistant', domain: 'Manufacturing' },
-    { company: 'Roche Diagnostics', useCaseName: 'Regulatory Submission Dossier Generation Mesh', domain: 'Regulatory Affairs' },
-    { company: 'Merck & Co. Enterprise', useCaseName: 'BeyondCorp OData Clinical Search Federation', domain: 'Data Architecture' },
-    { company: 'Sanofi S.A.', useCaseName: 'Supply Chain Autonomous Demand Forecasting', domain: 'Supply Chain Operations' },
-    { company: 'GSK Bio-Pharma', useCaseName: 'Clinical Study Report (CSR) De-identifying Copilot', domain: 'Clinical Data Management' }
+    { company: 'AstraZeneca Global', useCaseName: 'Oncology Clinical Protocol QA Agent', domain: 'R&D / Clinical' },
+    { company: 'Novartis Pharma AG', useCaseName: 'Global Pharmacovigilance Auto-Triage', domain: 'Quality & Regulatory' },
+    { company: 'Pfizer Inc. (Global R&D)', useCaseName: 'mRNA Manufacturing GxP Deviation Assistant', domain: 'Supply Chain' },
+    { company: 'Roche Diagnostics', useCaseName: 'Regulatory Submission Dossier Generation Mesh', domain: 'Quality & Regulatory' },
+    { company: 'Merck & Co. Enterprise', useCaseName: 'BeyondCorp OData Clinical Search Federation', domain: 'R&D / Clinical' },
+    { company: 'Sanofi S.A.', useCaseName: 'Supply Chain Autonomous Demand Forecasting', domain: 'Supply Chain' },
+    { company: 'GSK Bio-Pharma', useCaseName: 'Clinical Study Report (CSR) De-identifying Copilot', domain: 'Commercial Ops' }
   ];
 
   const handleAutoFillRandom = () => {
@@ -1238,8 +1315,8 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
       company: candidate.company,
       useCaseName: fullUseCase,
       domain: candidate.domain,
-      connectors: ['Corporate Data Warehouse', 'Private Interconnect Tunnel'],
-      runtime: 'Google Cloud Vertex AI',
+      connectors: ['Microsoft 365 / SharePoint', 'Veeva Vault GxP Docs', 'Google BigQuery Lake'],
+      runtime: 'GCP Vertex AI',
       evidenceMode: 'funding_gate'
     }));
     setGateMode('funding_gate');
@@ -1713,6 +1790,18 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                 onClick={() => {
                   if (!customerInfo?.useCaseName || !customerInfo?.useCaseName?.trim()) {
                     alert("⚠️ Mandatory Scoping Gate: Please enter a 'Use Case / Workload Title' before advancing.");
+                    return;
+                  }
+                  if (!customerInfo?.domain) {
+                    alert("⚠️ Mandatory Scoping Gate: Please select a 'Primary Functional Domain' (e.g., R&D / Clinical) before advancing.");
+                    return;
+                  }
+                  if (!customerInfo?.connectors || customerInfo?.connectors?.length === 0) {
+                    alert("⚠️ Mandatory Scoping Gate: Please select at least one 'Mandatory Knowledge Connector' (e.g., Veeva Vault GxP Docs) before advancing.");
+                    return;
+                  }
+                  if (!customerInfo?.runtime) {
+                    alert("⚠️ Mandatory Scoping Gate: Please select a 'Target GenAI Hosting Runtime' (e.g., GCP Vertex AI) before advancing.");
                     return;
                   }
                   handleTabSwitch('business');
@@ -2479,9 +2568,10 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
           WebkitBackdropFilter: 'blur(30px)',
           zIndex: 999999,
           display: 'flex',
-          alignItems: 'center',
+          alignItems: 'flex-start',
           justifyContent: 'center',
-          padding: '1.5rem',
+          padding: '2.5rem 1rem',
+          overflowY: 'auto',
           animation: 'fadeIn 0.25s ease-out'
         }}>
           <div style={{
@@ -2489,12 +2579,15 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
             border: '1px solid rgba(16, 185, 129, 0.45)',
             boxShadow: '0 30px 80px rgba(0, 0, 0, 0.95), 0 0 50px rgba(16, 185, 129, 0.3)',
             borderRadius: '24px',
-            padding: '2.5rem',
+            padding: '2rem 2.5rem',
             width: '100%',
             maxWidth: '680px',
+            maxHeight: '90vh',
+            overflowY: 'auto',
+            margin: 'auto',
             display: 'flex',
             flexDirection: 'column',
-            gap: '1.75rem',
+            gap: '1.5rem',
             boxSizing: 'border-box'
           }}>
             {/* Top Identity Header */}

@@ -26,19 +26,37 @@ const gceAuth = new GoogleAuth({
 app.post('/api/v10/synthesize', async (req, res) => {
   try {
     const client = await gceAuth.getClient();
-    const projectId = req.body.projectId || req.query.projectId || process.env.GCP_PROJECT_ID || 'nitinagga-ge';
-    const location = req.body.location || req.query.location || process.env.GCP_LOCATION || 'us-central1';
-    const model = req.body.model || req.query.model || process.env.GEMINI_EVALUATION_MODEL || 'gemini-1.5-pro-002';
+    const body = req.body || {};
+    const query = req.query || {};
+    const projectId = body.projectId || query.projectId || process.env.GCP_PROJECT_ID || 'nitinagga-ge-2';
+    const location = body.location || query.location || process.env.GCP_LOCATION || 'us-central1';
+    const model = body.model || query.model || process.env.GEMINI_EVALUATION_MODEL || 'gemini-1.5-pro-002';
 
     const url = `https://${location}-aiplatform.googleapis.com/v1/projects/${projectId}/locations/${location}/publishers/google/models/${model}:generateContent`;
     
+    if (req.query.ping === 'true') {
+      const pingRes = await client.request({
+        method: 'POST',
+        url,
+        headers: { 'x-goog-user-project': projectId },
+        data: {
+          contents: [{ role: "user", parts: [{ text: "PING" }] }]
+        },
+        retryConfig: { retry: 0 },
+        timeout: 1500
+      });
+      return res.json({ status: "ok", model, data: pingRes.data });
+    }
+
     const response = await client.request({
       method: 'POST',
       url,
       headers: {
         'x-goog-user-project': projectId
       },
-      data: req.body
+      data: req.body,
+      retryConfig: { retry: 1 },
+      timeout: 12000
     });
 
     return res.json(response.data);
