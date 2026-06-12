@@ -74,7 +74,12 @@ app.post('/api/v10/synthesize', async (req, res) => {
     const client = await gceAuth.getClient();
     const projectId = body.projectId || query.projectId || process.env.GCP_PROJECT_ID || 'nitinagga-ge-2';
     const location = body.location || query.location || process.env.GCP_LOCATION || 'us-central1';
-    const gcpModel = model.includes('002') ? model : 'gemini-1.5-pro-002';
+    let gcpModel = 'gemini-1.5-pro';
+    if (model.includes('flash') || model.includes('3.5')) {
+      gcpModel = 'gemini-1.5-flash';
+    } else {
+      gcpModel = 'gemini-1.5-pro';
+    }
 
     const url = `https://${location}-aiplatform.googleapis.com/v1/projects/${projectId}/locations/${location}/publishers/google/models/${gcpModel}:generateContent`;
     

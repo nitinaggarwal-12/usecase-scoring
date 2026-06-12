@@ -1,5 +1,68 @@
 [
   {
+    "audit_id": "gxp_f07cc17e-71fa-4b1f-b05b-4145388f7c30",
+    "timestamp": "2026-06-12T01:40:02.184Z",
+    "candidate_id": "tile_1781228401810928",
+    "execution_user": "nitinagga",
+    "sha256_lineage_hash": "ec970fa108d791f43b69072298094516e0ca2695d50f8b4e8383309ca1b8a13e",
+    "payload": {
+      "id": "tile_1781228401810928",
+      "company": "Merck & Co. Enterprise",
+      "useCase": "BeyondCorp OData Clinical Search Federation [#101]",
+      "domain": "Enterprise Operations",
+      "priorityScore": 83,
+      "verdict": "Incubate & Validate",
+      "date": "Jun 12, 2026",
+      "presetKey": "ai_scanned_custom",
+      "scoringVector": {
+        "presetKey": "ai_scanned_custom",
+        "answers": {
+          "Q1": 3,
+          "Q2": 3,
+          "Q3": 2,
+          "Q4": 3,
+          "Q5": 4,
+          "Q6": 4,
+          "Q7": 2,
+          "Q8": 4,
+          "Q9": 3,
+          "Q10": 3,
+          "Q11": 3,
+          "Q12": 2,
+          "Q13": 4,
+          "Q14": 3,
+          "Q15": 2,
+          "Q16": 3,
+          "Q17": 4,
+          "Q18": 4,
+          "Q19": 3,
+          "Q20": 3,
+          "Q21": 2,
+          "Q22": 4,
+          "Q23": 4,
+          "Q24": 3,
+          "Q25": 4,
+          "Q26": 3,
+          "Q27": 4,
+          "Q28": 2,
+          "Q29": 2,
+          "Q30": 3
+        },
+        "customerInfo": {
+          "company": "Enterprise Candidate",
+          "useCaseName": "New AI Workload Evaluation",
+          "domain": "Enterprise Operations",
+          "runtime": "Google Cloud Vertex AI",
+          "connectors": [
+            "BigQuery",
+            "Cloud Storage"
+          ]
+        },
+        "liveSynthesis": null
+      }
+    }
+  },
+  {
     "audit_id": "gxp_7e7a4195-bf88-40c5-8c35-ddbe30c42b56",
     "timestamp": "2026-06-12T01:14:16.933Z",
     "candidate_id": "tile_1781226856705715",
