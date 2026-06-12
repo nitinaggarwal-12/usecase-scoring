@@ -150,7 +150,7 @@ export default function InteractiveDashboard({ reportData, onBack }) {
       setAppState('IDLE');
     }
   };
-  // State Transition Trigger: PRESENTING -> LISTENING (WebSocket & Mic Ingestion)
+  // State Transition Trigger: PRESENTING -> CONNECTING -> LISTENING (WebSocket & Mic Ingestion)
   const handleAskQuestion = async () => {
     if (appState !== 'PRESENTING') return;
 
@@ -162,7 +162,7 @@ export default function InteractiveDashboard({ reportData, onBack }) {
         window.speechSynthesis.cancel();
       }
 
-      setAppState('LISTENING');
+      setAppState('CONNECTING');
       setTranscript('Connecting secure WebRTC Web Audio socket to Gemini Live...');
       executeCleanAudioTeardown();
 
@@ -173,7 +173,7 @@ export default function InteractiveDashboard({ reportData, onBack }) {
           const rec = new SpeechRecognition();
           rec.continuous = true;
           rec.interimResults = true;
-          rec.lang = 'en-US';
+          rec.lang = activeLanguage || 'en-US';
           recognitionRef.current = rec;
           
           rec.onresult = (evt) => {
@@ -189,23 +189,6 @@ export default function InteractiveDashboard({ reportData, onBack }) {
 
       const actx = getOrInitAudioContext();
       nextStartTimeRef.current = actx.currentTime;
-
-      let stream = null;
-      try {
-        stream = await navigator.mediaDevices.getUserMedia({
-          audio: {
-            echoCancellation: true,
-            noiseSuppression: true,
-            autoGainControl: true
-          }
-        });
-      } catch (micDenialErr) {
-        console.error("Microphone access denied or non-secure HTTP context:", micDenialErr);
-        window.alert("Microphone access denied. Please use localhost or secure HTTPS.");
-        setAppState('PRESENTING');
-        return;
-      }
-      micStreamRef.current = stream;
 
       let socketUrl = `${BASE_WS_URL}/api/qa/stream`;
       if (window.location.hostname.includes('googlers.com') && !window.location.hostname.includes('proxy')) {
@@ -231,11 +214,27 @@ export default function InteractiveDashboard({ reportData, onBack }) {
           const serverPacket = JSON.parse(msgEvent.data);
 
           // Trap 13 Mandate: Handshake completed successfully, activate mic downsampling loop
-          if (serverPacket.type === 'handshake_complete') {
-            handshakeCompleteLock = true;
-            clearTimeout(proxyPivotTimer);
-            console.log("✅ [Handshake Success] Upstream Gemini Live connection fully authenticated.");
-            setTranscript('⚡ Ready! Speak your pushback question clearly into the microphone...');
+          if (serverPacket.type === 'handshake_complete' || serverPacket.type === 'backend_ready') {
+            console.log("✅ [Backend Ready] Upstream Gemini Live connection fully open. Requesting physical microphone tracks...");
+            setAppState('LISTENING');
+            setTranscript('⚡ Ready! Speak your strategic pushback question clearly into the microphone...');
+            
+            let stream = null;
+            try {
+              stream = await navigator.mediaDevices.getUserMedia({
+                audio: {
+                  echoCancellation: true,
+                  noiseSuppression: true,
+                  autoGainControl: true
+                }
+              });
+            } catch (micDenialErr) {
+              console.error("Microphone access denied or non-secure HTTP context:", micDenialErr);
+              window.alert("Microphone access denied. Please use localhost or secure HTTPS.");
+              setAppState('PRESENTING');
+              return;
+            }
+            micStreamRef.current = stream;
             
             // Trap 1 Mandate: Capture mic buffer, downsample Float32 to 16kHz Int16 raw binary
             const source = actx.createMediaStreamSource(stream);
