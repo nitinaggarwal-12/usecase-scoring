@@ -281,16 +281,11 @@ async function findAndExecuteWorkingModel(isGceProxy, isAdc, gcpProject, cleanCr
     
     let endpoint = `/api/v10/synthesize?model=${model}`;
     let reqHeaders = { 'Content-Type': 'application/json' };
-
-    if (!isGceProxy) {
-      endpoint = isAdc 
-        ? `https://us-central1-aiplatform.googleapis.com/v1/projects/${gcpProject}/locations/us-central1/publishers/google/models/${model}:generateContent`
-        : `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${cleanCred}`;
-
-      reqHeaders = isAdc 
-        ? { 'Content-Type': 'application/json', 'Authorization': `Bearer ${cleanCred}` }
-        : { 'Content-Type': 'application/json' };
-    }
+    const proxyPayload = {
+      ...promptPayload,
+      apiKey: cleanCred,
+      projectId: gcpProject
+    };
 
     // 1. Pre-Ping API Call
     try {
@@ -322,7 +317,7 @@ async function findAndExecuteWorkingModel(isGceProxy, isAdc, gcpProject, cleanCr
       const executeRes = await fetch(endpoint, {
         method: 'POST',
         headers: reqHeaders,
-        body: JSON.stringify(promptPayload)
+        body: JSON.stringify(proxyPayload)
       });
 
       if (!executeRes.ok) {
@@ -333,7 +328,7 @@ async function findAndExecuteWorkingModel(isGceProxy, isAdc, gcpProject, cleanCr
       }
 
       const rawJson = await executeRes.json();
-      const data = isGceProxy ? (rawJson.data || rawJson) : rawJson;
+      const data = rawJson.data || rawJson;
       return { model, data };
     } catch (execErr) {
       onLog(`[Model Cascade] Exception during synthesis on ${model}: ${execErr.message}. Trying next...`);

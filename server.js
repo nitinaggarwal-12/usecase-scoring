@@ -25,16 +25,60 @@ const gceAuth = new GoogleAuth({
 
 app.post('/api/v10/synthesize', async (req, res) => {
   try {
-    const client = await gceAuth.getClient();
     const body = req.body || {};
     const query = req.query || {};
+    const apiKey = body.apiKey || query.apiKey || req.headers['x-gemini-api-key'] || '';
+    const model = body.model || query.model || 'gemini-1.5-pro';
+
+    // Branch A: Direct Gemini Developer API Key integration (Completely standalone & CORS-free!)
+    if (apiKey && apiKey.startsWith('AIza')) {
+      const cleanKey = apiKey.trim();
+      const aiStudioUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${cleanKey}`;
+      
+      if (query.ping === 'true') {
+        const pingRes = await fetch(aiStudioUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{ role: "user", parts: [{ text: "PING" }] }]
+          })
+        });
+        if (!pingRes.ok) {
+          const errText = await pingRes.text().catch(() => '');
+          return res.status(pingRes.status).json({ error: `AI Studio ping rejected (${pingRes.status}): ${errText}` });
+        }
+        const pingData = await pingRes.json();
+        return res.json({ status: "ok", model, data: pingData });
+      }
+
+      const executeRes = await fetch(aiStudioUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: body.contents,
+          generationConfig: body.generationConfig,
+          systemInstruction: body.systemInstruction
+        })
+      });
+
+      if (!executeRes.ok) {
+        const errText = await executeRes.text().catch(() => '');
+        return res.status(executeRes.status).json({ error: `AI Studio synthesis failed (${executeRes.status}): ${errText}` });
+      }
+
+      const executeData = await executeRes.json();
+      return res.json(executeData);
+    }
+
+    // Branch B: Google Cloud Vertex AI ADC integration
+    const client = await gceAuth.getClient();
     const projectId = body.projectId || query.projectId || process.env.GCP_PROJECT_ID || 'nitinagga-ge-2';
     const location = body.location || query.location || process.env.GCP_LOCATION || 'us-central1';
-    const model = body.model || query.model || process.env.GEMINI_EVALUATION_MODEL || 'gemini-1.5-pro-002';
+    const gcpModel = model.includes('002') ? model : 'gemini-1.5-pro-002';
 
-    const url = `https://${location}-aiplatform.googleapis.com/v1/projects/${projectId}/locations/${location}/publishers/google/models/${model}:generateContent`;
+    const url = `https://${location}-aiplatform.googleapis.com/v1/projects/${projectId}/locations/${location}/publishers/google/models/${gcpModel}:generateContent`;
     
-    if (req.query.ping === 'true') {
+    if (query.ping === 'true') {
       const pingRes = await client.request({
         method: 'POST',
         url,
@@ -45,7 +89,7 @@ app.post('/api/v10/synthesize', async (req, res) => {
         retryConfig: { retry: 0 },
         timeout: 1500
       });
-      return res.json({ status: "ok", model, data: pingRes.data });
+      return res.json({ status: "ok", model: gcpModel, data: pingRes.data });
     }
 
     const response = await client.request({

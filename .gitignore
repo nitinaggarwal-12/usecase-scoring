@@ -27,3 +27,8 @@ dist-ssr
 .venv/
 __pycache__/
 *.pyc
+
+# Local Test Scripts & Certs
+test_api.js
+test_vertex.js
+localhost*.pem
