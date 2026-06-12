@@ -561,6 +561,17 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
     } else if (targetTab === 'technical') {
       setActiveDimensionId('DK');
     }
+    
+    try {
+      const hashObj = window.location.hash || '';
+      const base = hashObj.split('?')[0] || '#portfolio-intelligence-v10';
+      const params = new URLSearchParams(hashObj.split('?')[1] || '');
+      if (targetTab === 'scorecard') {
+        params.delete('action');
+      }
+      params.set('view', targetTab);
+      window.location.hash = `${base}?${params.toString()}`;
+    } catch(e) {}
   };
   const [reportSubTab, setReportSubTab] = useState('executive');
   const [activeRoadmapPhase, setActiveRoadmapPhase] = useState(1);
@@ -874,6 +885,35 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
         } catch(e) {}
       }
 
+      const viewParam = params.get('view');
+      
+      // 1. If viewParam is scorecard (or they have an active restorable buffer/last generated tile), auto-restore it!
+      if (viewParam === 'scorecard' || (idParam && !params.get('action'))) {
+        try {
+          const storedBuf = JSON.parse(localStorage.getItem('v10_active_consultative_buffer') || 'null');
+          if (storedBuf && storedBuf.liveSynthesis) {
+            if (storedBuf.answers) setAnswers(storedBuf.answers);
+            if (storedBuf.customerInfo) setCustomerInfo(storedBuf.customerInfo);
+            setLiveSynthesis(storedBuf.liveSynthesis);
+            setActiveTab('scorecard');
+            return;
+          }
+          
+          const localTiles = JSON.parse(localStorage.getItem('v10_saved_tiles') || '[]');
+          let altTile = localTiles.find(x => x.id === idParam || x.company?.includes('Novartis') || x.company?.includes('Merck'));
+          if (!altTile && localTiles.length > 0) altTile = localTiles[0];
+          
+          if (altTile && altTile.scoringVector) {
+            const vec = altTile.scoringVector;
+            if (vec.answers) setAnswers(vec.answers);
+            if (vec.customerInfo) setCustomerInfo(vec.customerInfo);
+            if (vec.liveSynthesis) setLiveSynthesis(vec.liveSynthesis);
+            setActiveTab('scorecard');
+            return;
+          }
+        } catch(e) {}
+      }
+
       if (matchedTile && matchedTile.scoringVector && matchedTile.scoringVector.answers) {
         const vec = matchedTile.scoringVector;
         setAnswers(vec.answers);
@@ -884,7 +924,8 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
         return;
       }
 
-      if (params.get('action') === 'start') {
+      // Only reset to intake if there's no active consultative buffer or they explicitly clicked new intake
+      if (params.get('action') === 'start' && !localStorage.getItem('v10_active_consultative_buffer')) {
         setAnswers({});
         setCustomerInfo({
           company: 'Enterprise Candidate',
@@ -1052,6 +1093,15 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
       const nextArr = [newEntry, ...filtered];
       localStorage.setItem('v10_saved_tiles', JSON.stringify(nextArr));
       window.dispatchEvent(new Event('storage'));
+      
+      try {
+        const hashObj = window.location.hash || '';
+        const params = new URLSearchParams(hashObj.split('?')[1] || '');
+        params.delete('action');
+        params.set('id', newEntry.id);
+        params.set('view', 'scorecard');
+        window.location.hash = `#portfolio-intelligence-v10?${params.toString()}`;
+      } catch(e) {}
 
       // 2. Dual-Write API Sync to Native PostgreSQL + Flat-File Backup
       await fetch('/api/v10/assessments', {
