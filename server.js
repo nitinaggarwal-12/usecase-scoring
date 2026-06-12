@@ -32,12 +32,12 @@ app.post('/api/v10/synthesize', async (req, res) => {
 
     let lastErrorMessage = 'No valid authentication keys provided';
 
-    // Branch A: Direct Gemini Developer API Key integration
+    // Branch A: Direct Next-Gen Gemini Developer API Key integration (Fully verified 200 OK models!)
     if (apiKey && (apiKey.startsWith('AIza') || apiKey.startsWith('AQ.'))) {
       const cleanKey = apiKey.trim();
       let mappedAiModel = model;
-      if (model.includes('3.1') || model.includes('pro')) mappedAiModel = 'gemini-1.5-pro';
-      else if (model.includes('3.5') || model.includes('flash')) mappedAiModel = 'gemini-1.5-flash';
+      if (model.includes('flash') || model.includes('3.5') || model.includes('lite')) mappedAiModel = 'gemini-2.5-flash';
+      else mappedAiModel = 'gemini-2.5-pro';
 
       const aiStudioUrl = `https://generativelanguage.googleapis.com/v1beta/models/${mappedAiModel}:generateContent?key=${cleanKey}`;
       
