@@ -17,6 +17,9 @@ export default function InteractiveDashboard({ reportData, onBack }) {
   const scriptProcessorRef = useRef(null);
   const nextStartTimeRef = useRef(0);
   const activeReportRef = useRef(reportData);
+  const recognitionRef = useRef(null);
+  const spokenQuestionRef = useRef('');
+  const [spokenQuestion, setSpokenQuestion] = useState('');
 
   const BASE_HTTP_URL = window.location.hostname.includes('googlers.com') || window.location.port === '3000' 
     ? (window.location.origin.replace('3000', '3001')) 
@@ -29,6 +32,10 @@ export default function InteractiveDashboard({ reportData, onBack }) {
     try {
       if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel();
+      }
+      if (recognitionRef.current) {
+        recognitionRef.current.abort();
+        recognitionRef.current = null;
       }
       if (micStreamRef.current) {
         // Trap 1 Mandate & Edge-Case Defense 1: Complete Track Stop
@@ -137,13 +144,54 @@ export default function InteractiveDashboard({ reportData, onBack }) {
     }
   };
 
+  const executeSubmitSpokenQuestion = async (userQText) => {
+    try {
+      if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+      if (audioElemRef.current) audioElemRef.current.pause();
+
+      setAppState('ANSWERING');
+      setTranscript(`💬 Evaluating pushback: "${userQText}"...`);
+
+      const res = await fetch(`${BASE_HTTP_URL}/api/presentation/qa`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          question: userQText,
+          report: activeReportRef.current || {}
+        })
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) throw new Error(data.error || "QA API Synthesis Failed");
+
+      setTranscript(`Alex: "${data.answer}"`);
+
+      const handleQaEnd = () => {
+        setAppState(curr => (curr === 'ANSWERING' || curr === 'RESUMING' ? 'IDLE' : curr));
+      };
+
+      if (data.audioBase64 && data.audioBase64.length > 20) {
+        audioElemRef.current.src = data.audioBase64;
+        audioElemRef.current.onended = handleQaEnd;
+        audioElemRef.current.onerror = handleQaEnd;
+        await audioElemRef.current.play();
+      } else if ('speechSynthesis' in window) {
+        const utt = new SpeechSynthesisUtterance(data.answer);
+        utt.onend = handleQaEnd;
+        utt.onerror = handleQaEnd;
+        window.speechSynthesis.speak(utt);
+      }
+    } catch (err) {
+      setIsErrorMessage(`QA Error: ${err.message}`);
+      setAppState('IDLE');
+    }
+  };
+
   // State Transition Trigger: PRESENTING -> LISTENING (WebSocket & Mic Ingestion)
   const handleAskQuestion = async () => {
-    // Trap 10 Mandate: UI Concurrency Locks (Strictly disabled unless PRESENTING)
     if (appState !== 'PRESENTING') return;
 
     try {
-      // 1. Pause main presentation audio & explicitly cancel active Web Speech synthesis
       if (audioElemRef.current) {
         audioElemRef.current.pause();
       }
@@ -155,10 +203,30 @@ export default function InteractiveDashboard({ reportData, onBack }) {
       setTranscript('Connecting secure WebRTC Web Audio socket to Gemini Live...');
       executeCleanAudioTeardown();
 
+      // Native Browser Speech Recognition Architecture
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (SpeechRecognition) {
+        try {
+          const rec = new SpeechRecognition();
+          rec.continuous = true;
+          rec.interimResults = true;
+          rec.lang = 'en-US';
+          recognitionRef.current = rec;
+          
+          rec.onresult = (evt) => {
+            const transcriptText = Array.from(evt.results).map(r => r[0].transcript).join('');
+            setSpokenQuestion(transcriptText);
+            spokenQuestionRef.current = transcriptText;
+            setTranscript(`You: "${transcriptText}"`);
+          };
+
+          rec.start();
+        } catch(ex) {}
+      }
+
       const actx = getOrInitAudioContext();
       nextStartTimeRef.current = actx.currentTime;
 
-      // Trap 11 Mandate: Hardware Acoustic Echo Cancellation & Noise Suppression
       const stream = await navigator.mediaDevices.getUserMedia({
         audio: {
           echoCancellation: true,
@@ -168,7 +236,6 @@ export default function InteractiveDashboard({ reportData, onBack }) {
       });
       micStreamRef.current = stream;
 
-      // 2. Open Universal Bi-Directional WebSocket
       let socketUrl = `${BASE_WS_URL}/api/qa/stream`;
       if (window.location.hostname.includes('googlers.com') && !window.location.hostname.includes('proxy')) {
         socketUrl = `ws://${window.location.hostname}:3001/api/qa/stream`;
@@ -176,35 +243,15 @@ export default function InteractiveDashboard({ reportData, onBack }) {
       
       const socket = new WebSocket(socketUrl);
       wsRef.current = socket;
-      // Level 10 Physics Trap Mandate: Explicitly set binaryType to force ArrayBuffer decoding
       socket.binaryType = "arraybuffer";
 
-      // ⚠️ Unbreakable Load Balancer Pivot: If upstream Google latency stalls beyond 3.5 seconds, activate sovereign client WebRTC Q&A Engine
       let handshakeCompleteLock = false;
       const proxyPivotTimer = setTimeout(() => {
         if (!handshakeCompleteLock) {
           console.warn("⚠️ [WebSocket Load Balancer] Upstream latency timed out, activating sovereign client WebRTC Q&A Engine.");
-          setTranscript('⚡ Ready! Speak your pushback question clearly into the microphone...');
-          setAppState('ANSWERING');
-          setTimeout(() => {
-            setTranscript('Alex: Excellent pushback. Based on our 98% Model Governance attestation and Veeva Vault vector mesh, all GxP compliance boundaries are fully sovereign and continuously audited.');
-            if ('speechSynthesis' in window) {
-              window.speechSynthesis.cancel();
-              const ansUtt = new SpeechSynthesisUtterance("Excellent pushback. Based on our 98 percent Model Governance attestation and Veeva Vault vector mesh, all GxP compliance boundaries are fully sovereign and continuously audited.");
-              ansUtt.rate = 1.0;
-              ansUtt.onend = () => {
-                setAppState('RESUMING');
-                setTranscript('Question resolved. Resuming executive brief...');
-                setTimeout(() => {
-                  setAppState('PRESENTING');
-                  setTranscript('');
-                }, 1200);
-              };
-              window.speechSynthesis.speak(ansUtt);
-            }
-          }, 3500);
+          executeSubmitSpokenQuestion(spokenQuestionRef.current || spokenQuestion || "What is the concrete recurring ROI for this initiative?");
         }
-      }, 3200);
+      }, 3600);
 
       socket.onopen = () => {
         // Handshake Race Condition Block: Send setup blob first
@@ -418,28 +465,54 @@ export default function InteractiveDashboard({ reportData, onBack }) {
           </button>
 
           {/* Trap 10 Mandate: Completely disabled unless PRESENTING */}
-          <button
-            onClick={handleAskQuestion}
-            disabled={appState !== 'PRESENTING'}
-            style={{
-              background: appState === 'PRESENTING' ? 'linear-gradient(135deg, #f59e0b, #d97706)' : '#334155',
-              color: appState === 'PRESENTING' ? '#ffffff' : '#94a3b8',
-              border: 'none',
-              padding: '0.75rem 1.8rem',
-              borderRadius: '100px',
-              fontWeight: 900,
-              fontSize: '0.95rem',
-              cursor: appState === 'PRESENTING' ? 'pointer' : 'not-allowed',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-              boxShadow: appState === 'PRESENTING' ? '0 4px 15px rgba(245,158,11,0.4)' : 'none',
-              transition: 'all 0.2s ease'
-            }}
-          >
-            <Mic size={16} className={appState === 'LISTENING' ? 'pulse-animation' : ''} />
-            <span>✋ Ask a Question (Barge-In)</span>
-          </button>
+          {appState !== 'LISTENING' && (
+            <button
+              onClick={handleAskQuestion}
+              disabled={appState !== 'PRESENTING'}
+              style={{
+                background: appState === 'PRESENTING' ? 'linear-gradient(135deg, #f59e0b, #d97706)' : '#334155',
+                color: appState === 'PRESENTING' ? '#ffffff' : '#94a3b8',
+                border: 'none',
+                padding: '0.75rem 1.8rem',
+                borderRadius: '100px',
+                fontWeight: 900,
+                fontSize: '0.95rem',
+                cursor: appState === 'PRESENTING' ? 'pointer' : 'not-allowed',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                boxShadow: appState === 'PRESENTING' ? '0 4px 15px rgba(245,158,11,0.4)' : 'none',
+                transition: 'all 0.2s ease'
+              }}
+            >
+              <Mic size={16} />
+              <span>✋ Ask a Question (Barge-In)</span>
+            </button>
+          )}
+
+          {appState === 'LISTENING' && (
+            <button
+              onClick={() => executeSubmitSpokenQuestion(spokenQuestionRef.current || spokenQuestion || "What is the tangible financial ROI for this initiative?")}
+              style={{
+                background: 'linear-gradient(135deg, #a855f7, #7e22ce)',
+                color: '#ffffff',
+                border: 'none',
+                padding: '0.75rem 1.8rem',
+                borderRadius: '100px',
+                fontWeight: 900,
+                fontSize: '0.95rem',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                boxShadow: '0 4px 15px rgba(168,85,247,0.4)',
+                animation: 'pulse 2s infinite'
+              }}
+            >
+              <CheckCircle2 size={16} />
+              <span>💬 Answer Spoken Question</span>
+            </button>
+          )}
 
           {appState !== 'IDLE' && (
             <button
