@@ -380,13 +380,12 @@ export default function App() {
   const [apiKey, setApiKey] = useState(() => {
     try {
       const existing = localStorage.getItem('gemini_api_key');
-      if (!existing || existing.startsWith('AIza')) {
-        localStorage.setItem('gemini_api_key', 'demo_token');
-        return 'demo_token';
+      if (!existing || existing.startsWith('AQ.')) {
+        return '';
       }
       return existing;
     } catch {
-      return 'demo_token';
+      return '';
     }
   });
 

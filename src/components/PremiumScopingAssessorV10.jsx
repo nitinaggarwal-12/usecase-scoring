@@ -1070,8 +1070,8 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
     }
     const ts = () => new Date().toISOString().replace('T', ' ').substring(11, 23);
 
-    const activeKey = (apiKey || gcpToken || localStorage.getItem('gemini_api_key') || 'demo_token').trim();
-    const cleanCred = activeKey === 'gce_metadata_proxy' ? 'demo_token' : activeKey;
+    const activeKey = (apiKey || gcpToken || localStorage.getItem('gemini_api_key') || '').trim();
+    const cleanCred = activeKey;
     const isAdc = cleanCred.startsWith('ya29.') || cleanCred.startsWith('ey');
 
     const bioPharmaMasterFallback = {
@@ -1219,12 +1219,6 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
       });
 
       const getFallbackPayload = (reason) => {
-        if (isAuthorizedDemo) {
-          return {
-            ...bioPharmaMasterFallback,
-            executiveSummary: `⚠️ [OFFLINE SHOWCASE BENCHMARK]: ${reason}. Displaying offline sovereign verified model plan for ${customerInfo?.useCaseName || 'Digital Workload'}. To stream real-time custom AI inferences, please connect your Gemini API Key in the top settings panel.\n\n` + bioPharmaMasterFallback.executiveSummary
-          };
-        }
         return createCustomErrorReport(reason);
       };
 
