@@ -498,7 +498,8 @@ export default function App() {
       } else if (validRoutes.includes(route)) {
         if (route === 'portfolio-intelligence-v10') {
           setActiveFramework('option10');
-          setViewMode((query?.includes('action=start') || query?.includes('preset=')) ? 'assessor' : 'landing');
+          const isLandingOnly = !query || query.trim() === '' || query.includes('view=saved_library');
+          setViewMode(isLandingOnly ? 'landing' : 'assessor');
         } else if (route === 'premium-assessor') {
           setActiveFramework('option9');
           setViewMode((viewMode === 'landing' && !query?.includes('action=start') && !query?.includes('session=')) ? 'landing' : 'home');

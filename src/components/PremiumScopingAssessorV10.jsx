@@ -868,6 +868,21 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
       const uCaseParam = params.get('useCase');
       const compParam = params.get('company');
 
+      if (params.get('action') === 'start') {
+        try { localStorage.removeItem('v10_active_consultative_buffer'); } catch(e) {}
+        setAnswers({});
+        setCustomerInfo({
+          company: 'Enterprise Candidate',
+          useCaseName: 'New AI Workload Evaluation',
+          domain: 'Enterprise Operations',
+          runtime: 'Google Cloud Vertex AI',
+          connectors: ['BigQuery', 'Cloud Storage']
+        });
+        setLiveSynthesis(null);
+        setActiveTab('intake');
+        return;
+      }
+
       let matchedTile = null;
       if (idParam) {
         try {
@@ -923,22 +938,6 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
         setReportSubTab('executive');
         return;
       }
-
-      // Only reset to intake if there's no active consultative buffer or they explicitly clicked new intake
-      if (params.get('action') === 'start' && !localStorage.getItem('v10_active_consultative_buffer')) {
-        setAnswers({});
-        setCustomerInfo({
-          company: 'Enterprise Candidate',
-          useCaseName: 'New AI Workload Evaluation',
-          domain: 'Enterprise Operations',
-          runtime: 'Google Cloud Vertex AI',
-          connectors: ['BigQuery', 'Cloud Storage']
-        });
-        setLiveSynthesis(null);
-        setActiveTab('intake');
-        return;
-      }
-
       if (presetParam || idParam || uCaseParam || compParam) {
         const cName = compParam ? decodeURIComponent(compParam) : (matchedTile?.company || 'Novartis AG');
         const uName = uCaseParam ? decodeURIComponent(uCaseParam) : (matchedTile?.useCase || 'Clinical Operations Core RAG Mesh');
