@@ -28,9 +28,9 @@ export default function InteractiveDashboard({ reportData, onBack }) {
   const spokenQuestionRef = useRef('');
   const [spokenQuestion, setSpokenQuestion] = useState('');
 
-  const BASE_HTTP_URL = window.location.hostname.includes('googlers.com') || window.location.port === '3000' 
-    ? (window.location.origin.replace('3000', '3001')) 
-    : 'http://localhost:3001';
+  const protocol = window.location.protocol;
+  const host = window.location.hostname === 'localhost' ? 'localhost:3001' : window.location.host;
+  const BASE_HTTP_URL = `${protocol}//${host}`;
 
   const BASE_WS_URL = BASE_HTTP_URL.replace('http', 'ws');
 
@@ -125,8 +125,12 @@ export default function InteractiveDashboard({ reportData, onBack }) {
         config: { persona: activePersona, voice: activeVoice, language: activeLanguage }
       };
 
-      // Trap 6 Mandate: Absolute HTTP Endpoint with CORS
-      const response = await fetch(`${BASE_HTTP_URL}/api/presentation/generate`, {
+      // Dynamically resolve the HTTP base URL to support both Localhost and Cloudtop Proxies
+      const protocol = window.location.protocol;
+      const host = window.location.hostname === 'localhost' ? 'localhost:3001' : window.location.host;
+      const DYNAMIC_BASE_URL = `${protocol}//${host}`;
+
+      const response = await fetch(`${DYNAMIC_BASE_URL}/api/presentation/generate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payloadToSend)
