@@ -3095,20 +3095,47 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                             onClick={() => {
                               if (!isPodcastPlaying) {
                                 setIsPodcastPlaying(true);
-                                setPodcastProgress(10);
+                                setPodcastProgress(5);
+                                
+                                // Native HTML5 Speech Synthesis integration
+                                if ('speechSynthesis' in window) {
+                                  window.speechSynthesis.cancel();
+                                  const textContent = liveSynthesis ? (liveSynthesis.executiveSummary || liveSynthesis.scoring?.rationale || "Executive briefing verified.") : "Welcome to the Executive C-Suite Briefing. Today we are auditing the candidate RAG workload. Our live AI assessment confirms exceptional strategic value, eliminating manual verification bottlenecks and strengthening regulatory attestation.";
+                                  const cleanSpeech = textContent.replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, '').replace(/❌|⚠️|👉|⚡|📐|❄️|🐘|☁️|🚀|🔒|💡|📖|📑/g, '');
+                                  const utterance = new SpeechSynthesisUtterance(cleanSpeech);
+                                  utterance.rate = 0.95;
+                                  utterance.pitch = 1.02;
+                                  
+                                  utterance.onend = () => {
+                                    setIsPodcastPlaying(false);
+                                    setPodcastProgress(0);
+                                  };
+                                  utterance.onerror = () => {
+                                    setIsPodcastPlaying(false);
+                                    setPodcastProgress(0);
+                                  };
+                                  window.speechSynthesis.speak(utterance);
+                                }
+
+                                const durationMs = 18000;
+                                const intervalTime = 400;
+                                const stepIncrement = (100 / (durationMs / intervalTime));
+                                
                                 const interval = setInterval(() => {
                                   setPodcastProgress(prev => {
-                                    if (prev >= 100) {
+                                    if (prev >= 100 || !isPodcastPlaying) {
                                       clearInterval(interval);
-                                      setIsPodcastPlaying(false);
-                                      return 0;
+                                      return 100;
                                     }
-                                    return prev + 10;
+                                    return Math.min(100, Math.round(prev + stepIncrement));
                                   });
-                                }, 600);
+                                }, intervalTime);
                               } else {
                                 setIsPodcastPlaying(false);
                                 setPodcastProgress(0);
+                                if ('speechSynthesis' in window) {
+                                  window.speechSynthesis.cancel();
+                                }
                               }
                             }}
                             style={{ background: isPodcastPlaying ? '#ef4444' : '#2563eb', color: '#ffffff', border: 'none', padding: '0.5rem 1.25rem', borderRadius: '100px', fontWeight: 800, fontSize: '0.85rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.4rem', boxShadow: '0 2px 10px rgba(37,99,235,0.3)' }}
