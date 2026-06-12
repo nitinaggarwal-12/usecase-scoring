@@ -9,7 +9,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 import { WebSocketServer, WebSocket as NodeWebSocket } from 'ws';
 import textToSpeech from '@google-cloud/text-to-speech';
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import { GoogleGenAI } from '@google/genai';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -306,7 +306,7 @@ app.post('/api/v10/assessments', async (req, res) => {
 // MASTER COMPLIANCE SPECIFICATION: LIVE INTERACTIVE PRESENTATION & Q&A ENGINE
 // ============================================================================
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || 'AIzaSyC5Qz7M-yDCdlNEsPt97ffuLYlw871h818');
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || 'AIzaSyC5Qz7M-yDCdlNEsPt97ffuLYlw871h818' });
 const ttsClient = new textToSpeech.TextToSpeechClient();
 
 // Phase A: Automated Presentation Production HTTP API
@@ -315,14 +315,16 @@ app.post('/api/presentation/generate', async (req, res) => {
     const reportData = req.body || {};
     
     // 1. Call Gemini 2.5 Flash to formulate 60-second presenter script
-    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
     const scriptPrompt = `You are Alex, an elite Google Cloud Principal CE (Customer Engineer) presenting an Executive Use Case Assessment Findings report to a C-Suite board.
 Transform the following report metrics into an engaging, first-person 60-second presenter speech script. Speak naturally with executive confidence, highlight the ROI, architecture alignment, regulatory posture, and blockers, and propose immediate next steps.
 Do NOT include stage directions, markdown, or timestamps—output ONLY the exact spoken words.
 Report Data: ${JSON.stringify(reportData, null, 2)}`;
 
-    const genResult = await model.generateContent(scriptPrompt);
-    const textScript = genResult.response.text();
+    const genResult = await ai.models.generateContent({
+      model: 'gemini-2.5-flash',
+      contents: scriptPrompt,
+    });
+    const textScript = genResult.text;
 
     // 2. Pass script to Google Cloud Text-to-Speech using en-US-Chirp3-HD-Aoede or Studio
     const ttsRequest = {
@@ -365,8 +367,7 @@ wss.on('connection', (wsClient) => {
 
   const initGeminiLiveSocket = (systemReportBlob) => {
     try {
-      const apiKey = process.env.GEMINI_API_KEY || 'AIzaSyC5Qz7M-yDCdlNEsPt97ffuLYlw871h818';
-      const liveUrl = `wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1alpha.GenerativeService.BidiGenerateContent?key=${apiKey}`;
+      const liveUrl = `wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1alpha.GenerativeService.BidiGenerateContent?key=${process.env.GEMINI_API_KEY}`;
       
       geminiWs = new NodeWebSocket(liveUrl);
 
@@ -375,7 +376,7 @@ wss.on('connection', (wsClient) => {
         // Phase B Step 2 Mandate: Original JSON report passed as systemInstruction blob
         const setupFrame = {
           setup: {
-            model: 'models/gemini-2.5-pro',
+            model: 'models/gemini-2.5-flash',
             generationConfig: {
               responseModalities: ["AUDIO"],
               speechConfig: {
