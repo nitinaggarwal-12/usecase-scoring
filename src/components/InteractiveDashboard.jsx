@@ -6,7 +6,8 @@ import { Mic, Play, Pause, Square, AlertCircle, RefreshCw, Volume2, Radio, Check
 export default function InteractiveDashboard({ reportData, onBack }) {
   // Master State Machine Mandate: IDLE -> GENERATING -> PRESENTING -> LISTENING -> ANSWERING -> RESUMING
   const [appState, setAppState] = useState('IDLE');
-  const [transcript, setTranscript] = useState('');
+  const [userQuery, setUserQuery] = useState('');
+  const [aiResponse, setAiResponse] = useState('');
   const [presenterScript, setPresenterScript] = useState('');
   const [isErrorMessage, setIsErrorMessage] = useState(null);
 
@@ -202,7 +203,8 @@ export default function InteractiveDashboard({ reportData, onBack }) {
       }
 
       setAppState('CONNECTING');
-      setTranscript('Connecting secure WebRTC Web Audio socket to Gemini Live...');
+      setUserQuery('Connecting secure WebRTC Web Audio socket to Gemini Live...');
+      setAiResponse('');
       executeCleanAudioTeardown();
 
       // 5-Second Safety Timeout RAG Fallback Bridge
@@ -225,7 +227,8 @@ export default function InteractiveDashboard({ reportData, onBack }) {
                 });
                 const fbData = await response.json();
                 
-                setTranscript(`Alex: "${fbData.answer || 'Assessment verified.'}"`);
+                setAiResponse(fbData.answer || 'Assessment verified.');
+                setUserQuery(spokenQuestionRef.current || 'Can you elaborate on our use case scorecard?');
                 
                 // Execute Web Speech & 3D Avatar Lip-Sync
                 if ('speechSynthesis' in window) {
@@ -270,7 +273,8 @@ export default function InteractiveDashboard({ reportData, onBack }) {
             const transcriptText = Array.from(evt.results).map(r => r[0].transcript).join('');
             setSpokenQuestion(transcriptText);
             spokenQuestionRef.current = transcriptText;
-            setTranscript(`You: "${transcriptText}"\n\n`);
+            setUserQuery(transcriptText);
+            setAiResponse('');
           };
 
           rec.start();
@@ -289,7 +293,7 @@ export default function InteractiveDashboard({ reportData, onBack }) {
 
       socket.onopen = () => {
         // Handshake Race Condition Block: Send setup blob first
-        setTranscript('Socket open. Authenticating RAG contextual blueprint & execution config...');
+        setAiResponse('Socket open. Authenticating RAG contextual blueprint & execution config...');
         socket.send(JSON.stringify({
           type: 'setup',
           report: activeReportRef.current || {},
@@ -306,7 +310,8 @@ export default function InteractiveDashboard({ reportData, onBack }) {
             clearTimeout(connectHangTimer);
             console.log("✅ [Backend Ready] Upstream Gemini Live connection fully open. Requesting physical microphone tracks...");
             setAppState('LISTENING');
-            setTranscript('⚡ Ready! Speak your strategic pushback question clearly into the microphone...');
+            setUserQuery('⚡ Ready! Speak your strategic pushback question clearly into the microphone...');
+            setAiResponse('');
             
             let stream = null;
             try {
@@ -349,15 +354,7 @@ export default function InteractiveDashboard({ reportData, onBack }) {
           }
 
           if (serverPacket.type === 'text_chunk') {
-            setTranscript(curr => {
-              if (curr.startsWith('Connecting') || curr.startsWith('Socket') || curr.startsWith('⚡ Ready') || curr.startsWith('Alex is answering')) {
-                return `Alex: "${serverPacket.text}"`;
-              }
-              if (curr.endsWith('\n\n')) {
-                return curr + `Alex: "${serverPacket.text}"`;
-              }
-              return curr + serverPacket.text;
-            });
+            setAiResponse(prev => prev + serverPacket.text);
           }
 
           // Trap 2 Mandate: Intercept incoming Base64 PCM payloads, decode and play sequentially
@@ -366,7 +363,7 @@ export default function InteractiveDashboard({ reportData, onBack }) {
             if (appState === 'LISTENING') {
               // State Transition: Incoming audio shifts engine to ANSWERING
               setAppState('ANSWERING');
-              setTranscript('Alex is answering your question...');
+              setAiResponse('Alex is answering your question...');
             }
 
             const base64Str = serverPacket.data;
@@ -441,7 +438,7 @@ export default function InteractiveDashboard({ reportData, onBack }) {
               if (window.dispatchAvatarRms) window.dispatchAvatarRms(0);
               // NOW execute the teardown
               setAppState('RESUMING');
-              setTranscript('Question beautifully resolved. Resuming executive brief...');
+              setAiResponse('Question beautifully resolved. Resuming executive brief...');
               executeCleanAudioTeardown();
 
               // Smoothly resume main presentation
@@ -449,7 +446,8 @@ export default function InteractiveDashboard({ reportData, onBack }) {
                 if (audioElemRef.current) {
                   audioElemRef.current.play();
                   setAppState('PRESENTING');
-                  setTranscript('');
+                  setUserQuery('');
+                  setAiResponse('');
                 } else {
                   setAppState('IDLE');
                 }
@@ -494,7 +492,8 @@ export default function InteractiveDashboard({ reportData, onBack }) {
     }
     if (window.dispatchAvatarRms) window.dispatchAvatarRms(0);
     setAppState('IDLE');
-    setTranscript('');
+    setUserQuery('');
+    setAiResponse('');
     setIsErrorMessage(null);
   };
 
@@ -662,18 +661,19 @@ export default function InteractiveDashboard({ reportData, onBack }) {
         </div>
       </div>
 
-      {/* Real-Time Telemetry & Transcribing Visual Box */}
-      {transcript && (
-        <div style={{ background: '#1e293b', borderLeft: '4px solid #f59e0b', padding: '1.25rem 1.75rem', borderRadius: '16px', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', animation: 'fadeIn 0.3s', margin: '1rem 0' }}>
-          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem', flex: 1 }}>
-            <AlertCircle size={20} color="#f59e0b" style={{ marginTop: '0.2rem', flexShrink: 0 }} />
-            <div style={{ fontSize: '1.05rem', fontWeight: 700, color: '#f8fafc', whiteSpace: 'pre-wrap', lineHeight: '1.6', wordBreak: 'break-word' }}>
-              {transcript}
-            </div>
-          </div>
-          <span style={{ fontSize: '0.8rem', color: '#94a3b8', fontWeight: 800, background: '#0f172a', padding: '0.35rem 0.85rem', borderRadius: '100px', border: '1px solid #334155', flexShrink: 0, marginLeft: '1rem', alignSelf: 'center' }}>
-            WebRTC Dual Audio Pipeline Active
-          </span>
+      {/* Real-Time Telemetry & Transcribing Layer */}
+      {(userQuery || aiResponse) && (
+        <div className="transcript-box" style={{ padding: '15px', backgroundColor: '#1e1e2d', borderRadius: '8px', marginTop: '20px' }}>
+            {userQuery && (
+                <div style={{ color: '#4da6ff', marginBottom: '10px', whiteSpace: 'pre-wrap', lineHeight: '1.6' }}>
+                    <strong>You:</strong> "{userQuery}"
+                </div>
+            )}
+            {aiResponse && (
+                <div style={{ color: '#ffffff', whiteSpace: 'pre-wrap', lineHeight: '1.6' }}>
+                    <strong>Alex:</strong> "{aiResponse}"
+                </div>
+            )}
         </div>
       )}
 
