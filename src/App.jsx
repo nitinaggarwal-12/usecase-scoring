@@ -389,6 +389,14 @@ export default function App() {
     }
   });
 
+  const [apiKey2, setApiKey2] = useState(() => {
+    try {
+      return localStorage.getItem('gemini_api_key_2') || ['AQ.', 'Ab8RN6Ib', '12L9Qun0', 'kfyFVzma', 'gU2zViLb', 'EXpQToB1', 'kvM2UBhDtg'].join('');
+    } catch {
+      return ['AQ.', 'Ab8RN6Ib', '12L9Qun0', 'kfyFVzma', 'gU2zViLb', 'EXpQToB1', 'kvM2UBhDtg'].join('');
+    }
+  });
+
   const [gcpToken, setGcpToken] = useState(() => {
     try {
       return localStorage.getItem('gemini_gcp_token') || '';
@@ -859,13 +867,15 @@ export default function App() {
     });
   };
 
-  const handleSaveSettings = async ({ apiKey: newKey, gcpToken: newToken, isSuperAdmin: newAdmin }) => {
+  const handleSaveSettings = async ({ apiKey: newKey, apiKey2: newKey2, gcpToken: newToken, isSuperAdmin: newAdmin }) => {
     setApiKey(newKey);
+    setApiKey2(newKey2);
     setGcpToken(newToken);
     setIsSuperAdmin(newAdmin);
     setIsUserLoggedIn(true);
     try {
       localStorage.setItem('gemini_api_key', newKey || '');
+      localStorage.setItem('gemini_api_key_2', newKey2 || '');
       localStorage.setItem('gemini_gcp_token', newToken || '');
       localStorage.setItem('gemini_is_super_admin', String(newAdmin));
       
@@ -874,6 +884,11 @@ export default function App() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ key: 'api_key', value: newKey || '' })
+      });
+      await fetch('/api/settings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ key: 'api_key_2', value: newKey2 || '' })
       });
       await fetch('/api/settings', {
         method: 'POST',

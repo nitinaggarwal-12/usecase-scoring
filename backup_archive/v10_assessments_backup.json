@@ -9,7 +9,6 @@
     "date": "Jun 12, 2026",
     "presetKey": "ai_scanned_custom",
     "scoringVector": {
-      "presetKey": "ai_scanned_custom",
       "answers": {
         "Q1": 3,
         "Q2": 4,
@@ -42,15 +41,16 @@
         "Q29": 2,
         "Q30": 2
       },
+      "presetKey": "ai_scanned_custom",
       "customerInfo": {
-        "company": "Enterprise Candidate",
-        "useCaseName": "New AI Workload Evaluation",
         "domain": "Enterprise Operations",
+        "company": "Enterprise Candidate",
         "runtime": "Google Cloud Vertex AI",
         "connectors": [
           "BigQuery",
           "Cloud Storage"
-        ]
+        ],
+        "useCaseName": "New AI Workload Evaluation"
       },
       "liveSynthesis": null
     }

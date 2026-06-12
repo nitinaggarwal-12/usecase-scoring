@@ -263,8 +263,8 @@ export async function generateReportData(formData, apiKey = null, gcpToken = nul
   return newReport;
 }
 
-// Universal Model Cascade & Pre-Ping Verification Engine
-async function findAndExecuteWorkingModel(isGceProxy, isAdc, gcpProject, cleanCred, promptPayload, onLog = () => {}) {
+// Universal Dual Project Active Balance & Failover Cascade Engine
+async function findAndExecuteWorkingModel(candidateKeys, promptPayload, onLog = () => {}) {
   const cascadeModels = [
     'gemini-3.1-pro',
     'gemini-3.5-flash',
@@ -274,79 +274,79 @@ async function findAndExecuteWorkingModel(isGceProxy, isAdc, gcpProject, cleanCr
     'gemini-1.5-flash'
   ];
 
+  const tenantConfigs = [
+    { project: candidateKeys?.gcpProject || 'nitinagga-ge', key: candidateKeys?.key1, label: 'Tenant #1' },
+    { project: 'nitinagga-ge-2', key: candidateKeys?.key2, label: 'Tenant #2' }
+  ];
+
   let lastError = null;
 
   for (const model of cascadeModels) {
-    onLog(`[Model Cascade] Executing pre-ping verification against endpoint: ${model}...`);
-    
-    let endpoint = `/api/v10/synthesize?model=${model}`;
-    let reqHeaders = { 'Content-Type': 'application/json' };
-    const proxyPayload = {
-      ...promptPayload,
-      apiKey: cleanCred,
-      projectId: gcpProject
-    };
+    for (const tenant of tenantConfigs) {
+      const activeCred = tenant.key || candidateKeys?.gcpToken;
+      if (!activeCred) continue;
 
-    // 1. Pre-Ping API Call
-    try {
-      const pingUrl = isGceProxy ? `${endpoint}&ping=true` : endpoint;
-      const pingRes = await fetch(pingUrl, {
-        method: 'POST',
-        headers: reqHeaders,
-        body: JSON.stringify({
-          contents: [{ role: "user", parts: [{ text: "PING" }] }]
-        })
-      });
-
-      if (!pingRes.ok) {
-        const errText = await pingRes.text().catch(() => '');
-        onLog(`[Model Cascade] Pre-ping failed for ${model} (${pingRes.status}). Trying next frontier model...`);
-        lastError = new Error(`Model ${model} rejected ping: ${pingRes.status} ${errText}`);
-        continue;
-      }
+      onLog(`[Dual-Key Cascade] Pinging ${model} via ${tenant.label} (${tenant.project})...`);
       
-      onLog(`[Model Cascade] Success! Model ${model} is online and functioning. Sending complete C-Suite structured JSON payload...`);
-    } catch (pingErr) {
-      onLog(`[Model Cascade] Network exception pinging ${model}: ${pingErr.message}. Trying next frontier model...`);
-      lastError = pingErr;
-      continue;
-    }
-
-    // 2. Full JSON Payload Dispatch
-    try {
-      const executeRes = await fetch(endpoint, {
-        method: 'POST',
-        headers: reqHeaders,
-        body: JSON.stringify(proxyPayload)
-      });
-
-      if (!executeRes.ok) {
-        const errText = await executeRes.text().catch(() => '');
-        onLog(`[Model Cascade] Full payload synthesis on ${model} failed (${executeRes.status}). Trying next...`);
-        lastError = new Error(`Model ${model} synthesis failed: ${executeRes.status} ${errText}`);
+      const endpoint = `/api/v10/synthesize?model=${model}`;
+      const proxyPayload = {
+        ...promptPayload,
+        apiKey: tenant.key,
+        projectId: tenant.project,
+        gcpToken: candidateKeys?.gcpToken
+      };
+      
+      // 1. Pre-ping
+      try {
+        const pingRes = await fetch(`${endpoint}&ping=true`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{ role: "user", parts: [{ text: "PING" }] }]
+          })
+        });
+        if (!pingRes.ok) {
+          const errText = await pingRes.text().catch(() => '');
+          onLog(`[Dual-Key Cascade] Pre-ping failed for ${tenant.label} (${pingRes.status}). Trying next balanced route...`);
+          lastError = new Error(`Route ${tenant.label} (${tenant.project}) rejected ping: ${errText}`);
+          continue;
+        }
+        onLog(`[Dual-Key Cascade] Success! Verified ${model} on ${tenant.label} (${tenant.project}). Sending full structured payload...`);
+      } catch (pingErr) {
+        onLog(`[Dual-Key Cascade] Network exception on ${tenant.label}: ${pingErr.message}. Trying next balanced route...`);
+        lastError = pingErr;
         continue;
       }
 
-      const rawJson = await executeRes.json();
-      const data = rawJson.data || rawJson;
-      return { model, data };
-    } catch (execErr) {
-      onLog(`[Model Cascade] Exception during synthesis on ${model}: ${execErr.message}. Trying next...`);
-      lastError = execErr;
-      continue;
+      // 2. Full execute
+      try {
+        const executeRes = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(proxyPayload)
+        });
+        if (!executeRes.ok) {
+          const errText = await executeRes.text().catch(() => '');
+          onLog(`[Dual-Key Cascade] Full payload synthesis on ${tenant.label} failed (${executeRes.status}). Trying next...`);
+          lastError = new Error(`Route ${tenant.label} synthesis failed: ${errText}`);
+          continue;
+        }
+        const rawJson = await executeRes.json();
+        const data = rawJson.data || rawJson;
+        return { model, tenant, data };
+      } catch (execErr) {
+        onLog(`[Dual-Key Cascade] Exception during synthesis on ${tenant.label}: ${execErr.message}. Trying next...`);
+        lastError = execErr;
+        continue;
+      }
     }
   }
 
-  throw lastError || new Error(`All models in cascade failed to execute successfully. Tried: ${cascadeModels.join(', ')}`);
+  throw lastError || new Error(`All Dual Project candidate keys and models failed to execute successfully.`);
 }
 
 // Live Gemini API Integration
-async function callGeminiReportLogic(formData, scoringContext, apiKeyOrToken, onStep = () => {}) {
-  const cleanCred = (apiKeyOrToken || '').trim();
-  const isGceProxy = !cleanCred || cleanCred === 'demo_token' || cleanCred === 'demo_key' || cleanCred.startsWith('AQ.');
-  const isAdc = cleanCred.startsWith('ya29.') || cleanCred.startsWith('ey');
-  const gcpProject = localStorage.getItem('gemini_gcp_project') || 'nitinagga-ge-2';
-
+async function callGeminiReportLogic(formData, scoringContext, candidateKeys, onStep = () => {}) {
   const prompt = `You are an expert Google Cloud Generative AI Customer Engineer and Solution Architect.
 Analyze the following customer use case transformation intake and generate a professional, structured assessment report matching our JSON schema exactly.
 
@@ -427,7 +427,7 @@ Ensure the output is pure valid JSON without markdown formatting tags or backtic
     }
   };
 
-  const { model, data } = await findAndExecuteWorkingModel(isGceProxy, isAdc, gcpProject, cleanCred, promptPayload, (msg) => {
+  const { model, tenant, data } = await findAndExecuteWorkingModel(candidateKeys, promptPayload, (msg) => {
     onStep(4, msg);
   });
 
@@ -442,10 +442,11 @@ Ensure the output is pure valid JSON without markdown formatting tags or backtic
   try {
     const reportJson = JSON.parse(sanitized);
     reportJson._executedModel = model;
-    reportJson.executiveSummary = `[⚡ Authenticated & Grounded via ${model}] \n\n` + (reportJson.executiveSummary || '');
+    reportJson._orchestratingTenant = tenant;
+    reportJson.executiveSummary = `[⚡ Authenticated & Grounded via ${model} • Dual-Project Key Balancer (${tenant.label}: ${tenant.project})] \n\n` + (reportJson.executiveSummary || '');
     return reportJson;
   } catch (jsonError) {
-    console.error(`Failed parsing ${model} JSON, raw response text was:`, text, jsonError);
+    console.error(`Failed parsing ${model} JSON on ${tenant.label}, raw response text was:`, text, jsonError);
     throw jsonError;
   }
 }
