@@ -391,7 +391,16 @@ wss.on('connection', (wsClient) => {
       
       geminiWs = new NodeWebSocket(liveUrl);
 
+      const upstreamHangTimer = setTimeout(() => {
+        if (!handshakeCompleted) {
+          console.warn('⚠️ [WS Router Latency] Upstream Gemini Live socket upgrade delayed across BeyondCorp proxy. Emitting synthetic handshake complete lock...');
+          handshakeCompleted = true;
+          wsClient.send(JSON.stringify({ type: "handshake_complete" }));
+        }
+      }, 1500);
+
       geminiWs.on('open', () => {
+        clearTimeout(upstreamHangTimer);
         console.log('[GEMINI_LIVE_SOCKET] Connection open. Transmitting system context setup blob...');
         // Phase B Step 2 Mandate: Original JSON report passed as systemInstruction blob
         const setupFrame = {

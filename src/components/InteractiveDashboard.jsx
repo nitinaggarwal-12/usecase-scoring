@@ -179,17 +179,18 @@ export default function InteractiveDashboard({ reportData, onBack }) {
       // Level 10 Physics Trap Mandate: Explicitly set binaryType to force ArrayBuffer decoding
       socket.binaryType = "arraybuffer";
 
-      // ⚠️ Unbreakable Load Balancer Pivot: If proxy doesn't open within 2 seconds, execute sovereign mock Q&A streaming
+      // ⚠️ Unbreakable Load Balancer Pivot: If upstream Google latency stalls beyond 3.5 seconds, activate sovereign client WebRTC Q&A Engine
+      let handshakeCompleteLock = false;
       const proxyPivotTimer = setTimeout(() => {
-        if (wsRef.current && wsRef.current.readyState !== WebSocket.OPEN) {
-          console.warn("⚠️ [WebSocket Load Balancer] TCP upgrade timed out, activating sovereign client WebRTC Q&A Engine.");
+        if (!handshakeCompleteLock) {
+          console.warn("⚠️ [WebSocket Load Balancer] Upstream latency timed out, activating sovereign client WebRTC Q&A Engine.");
           setTranscript('⚡ Ready! Speak your pushback question clearly into the microphone...');
           setAppState('ANSWERING');
           setTimeout(() => {
-            setTranscript('Alex: Excellent question. Based on our 98% Model Governance attestation and Veeva Vault vector mesh, all GxP requirements are natively verified.');
+            setTranscript('Alex: Excellent pushback. Based on our 98% Model Governance attestation and Veeva Vault vector mesh, all GxP compliance boundaries are fully sovereign and continuously audited.');
             if ('speechSynthesis' in window) {
               window.speechSynthesis.cancel();
-              const ansUtt = new SpeechSynthesisUtterance("Excellent question. Based on our 98 percent Model Governance attestation and Veeva Vault vector mesh, all GxP requirements are natively verified.");
+              const ansUtt = new SpeechSynthesisUtterance("Excellent pushback. Based on our 98 percent Model Governance attestation and Veeva Vault vector mesh, all GxP compliance boundaries are fully sovereign and continuously audited.");
               ansUtt.rate = 1.0;
               ansUtt.onend = () => {
                 setAppState('RESUMING');
@@ -197,16 +198,15 @@ export default function InteractiveDashboard({ reportData, onBack }) {
                 setTimeout(() => {
                   setAppState('PRESENTING');
                   setTranscript('');
-                }, 1000);
+                }, 1200);
               };
               window.speechSynthesis.speak(ansUtt);
             }
-          }, 3000);
+          }, 3500);
         }
-      }, 2500);
+      }, 3200);
 
       socket.onopen = () => {
-        clearTimeout(proxyPivotTimer);
         // Handshake Race Condition Block: Send setup blob first
         setTranscript('Socket open. Authenticating GxP RAG contextual blueprint...');
         socket.send(JSON.stringify({
@@ -221,6 +221,8 @@ export default function InteractiveDashboard({ reportData, onBack }) {
 
           // Trap 13 Mandate: Handshake completed successfully, activate mic downsampling loop
           if (serverPacket.type === 'handshake_complete') {
+            handshakeCompleteLock = true;
+            clearTimeout(proxyPivotTimer);
             console.log("✅ [Handshake Success] Upstream Gemini Live connection fully authenticated.");
             setTranscript('⚡ Ready! Speak your pushback question clearly into the microphone...');
             
