@@ -265,12 +265,11 @@ export async function generateReportData(formData, candidateKeys = {}, onStep = 
 // Universal Dual Project Active Balance & Failover Cascade Engine
 async function findAndExecuteWorkingModel(candidateKeys, promptPayload, onLog = () => {}) {
   const cascadeModels = [
-    'gemini-1.5-pro',
-    'gemini-1.5-flash',
-    'gemini-3.1-pro',
+    'gemini-2.5-pro',
+    'gemini-2.5-flash',
+    'gemini-3.1-pro-preview',
     'gemini-3.5-flash',
-    'gemini-1.5-pro-002',
-    'gemini-1.5-flash-002'
+    'gemini-2.0-flash'
   ];
 
   const tenantConfigs = [
@@ -602,7 +601,7 @@ ${error.message || 'Status 401 Unauthorized'}
   if (hasRealApi) {
     try {
       const activeModel = localStorage.getItem('gemini_selected_model') || 'gemini-3.5-pro';
-      const wireModel = 'gemini-1.5-flash';
+      const wireModel = 'gemini-2.5-flash';
       const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${wireModel}:generateContent?key=${apiKey}`;
       
       const chatContext = `You are an elite Google Cloud Generative AI Specialist and Solution Architect assisting a Customer Engineer (CE) during a live customer discovery and migration meeting.
@@ -749,7 +748,7 @@ A copy-pasteable formal request brief that Customer Engineers can submit directl
   if (hasRealApi) {
     try {
       const activeModel = localStorage.getItem('gemini_selected_model') || 'gemini-3.5-pro';
-      const wireModel = 'gemini-1.5-pro';
+      const wireModel = 'gemini-2.5-pro';
       const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${wireModel}:generateContent?key=${apiKey}`;
       const response = await fetch(endpoint, {
         method: 'POST',
@@ -909,7 +908,7 @@ Ensure the output is pure valid JSON without markdown formatting tags or backtic
 
       onStep(4, "[JSON] Ingesting 25-Question Scoping matrices and details... [PENDING]");
       const activeModel = localStorage.getItem('gemini_selected_model') || 'gemini-3.5-pro';
-      const wireModel = 'gemini-1.5-pro';
+      const wireModel = 'gemini-2.5-pro';
       const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${wireModel}:generateContent?key=${apiKey}`;
       const response = await fetch(endpoint, {
         method: 'POST',
