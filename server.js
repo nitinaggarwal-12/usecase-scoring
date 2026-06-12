@@ -377,13 +377,19 @@ Report Data: ${JSON.stringify(reportData, null, 2)}`;
     const actVoice = voice || 'Aoede';
 
     const ttsVoiceMap = {
-      'en-US': { Aoede: 'en-US-Studio-O', Charon: 'en-US-Studio-Q', Fenrir: 'en-US-Journey-D', Kore: 'en-US-Casual-K', Puck: 'en-US-Journey-F' },
-      'fr-FR': { Aoede: 'fr-FR-Standard-A', Charon: 'fr-FR-Standard-D', Fenrir: 'fr-FR-Standard-C', Kore: 'fr-FR-Standard-E', Puck: 'fr-FR-Standard-B' },
-      'de-DE': { Aoede: 'de-DE-Standard-A', Charon: 'de-DE-Standard-D', Fenrir: 'de-DE-Standard-C', Kore: 'de-DE-Standard-F', Puck: 'de-DE-Standard-B' },
-      'ja-JP': { Aoede: 'ja-JP-Standard-A', Charon: 'ja-JP-Standard-D', Fenrir: 'ja-JP-Standard-C', Kore: 'ja-JP-Standard-B', Puck: 'ja-JP-Standard-A' },
-      'es-ES': { Aoede: 'es-ES-Standard-A', Charon: 'es-ES-Standard-D', Fenrir: 'es-ES-Standard-C', Kore: 'es-ES-Standard-B', Puck: 'es-ES-Standard-A' }
+      'en-US': { 
+        'Aoede': 'en-US-Journey-F', 
+        'Kore': 'en-US-Journey-F', 
+        'Puck': 'en-US-Journey-D', 
+        'Charon': 'en-US-Journey-D', 
+        'Fenrir': 'en-US-Journey-D' 
+      },
+      'es-ES': { 'Aoede': 'es-ES-Standard-A', 'Kore': 'es-ES-Standard-A', 'Puck': 'es-ES-Standard-B', 'Charon': 'es-ES-Standard-B', 'Fenrir': 'es-ES-Standard-B' },
+      'fr-FR': { 'Aoede': 'fr-FR-Standard-A', 'Kore': 'fr-FR-Standard-A', 'Puck': 'fr-FR-Standard-B', 'Charon': 'fr-FR-Standard-B', 'Fenrir': 'fr-FR-Standard-B' },
+      'de-DE': { 'Aoede': 'de-DE-Standard-A', 'Kore': 'de-DE-Standard-A', 'Puck': 'de-DE-Standard-B', 'Charon': 'de-DE-Standard-B', 'Fenrir': 'de-DE-Standard-B' },
+      'ja-JP': { 'Aoede': 'ja-JP-Standard-A', 'Kore': 'ja-JP-Standard-A', 'Puck': 'ja-JP-Standard-B', 'Charon': 'ja-JP-Standard-B', 'Fenrir': 'ja-JP-Standard-B' }
     };
-    const targetTtsName = (ttsVoiceMap[actLang] && ttsVoiceMap[actLang][actVoice]) || 'en-US-Studio-O';
+    const targetTtsName = (ttsVoiceMap[actLang] && ttsVoiceMap[actLang][actVoice]) || 'en-US-Journey-F';
 
     const ttsRequest = {
       input: { text: textScript },

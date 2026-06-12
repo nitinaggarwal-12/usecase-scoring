@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import MaturityScorecards from './MaturityScorecards';
+import AvatarCanvas from './AvatarCanvas';
 import { Mic, Play, Pause, Square, AlertCircle, RefreshCw, Volume2, Radio, CheckCircle2, Sliders, User, Globe } from 'lucide-react';
 
 export default function InteractiveDashboard({ reportData, onBack }) {
@@ -20,6 +21,7 @@ export default function InteractiveDashboard({ reportData, onBack }) {
   const wsRef = useRef(null);
   const micStreamRef = useRef(null);
   const scriptProcessorRef = useRef(null);
+  const audioToBlendshapesRef = useRef(null);
   const nextStartTimeRef = useRef(0);
   const activeReportRef = useRef(reportData);
   const recognitionRef = useRef(null);
@@ -63,6 +65,26 @@ export default function InteractiveDashboard({ reportData, onBack }) {
   };
 
   useEffect(() => {
+    let activeTask = null;
+    try {
+      import('@mediapipe/tasks-audio').then(async ({ FilesetResolver, AudioToBlendshapes }) => {
+        try {
+          const audioBlob = await FilesetResolver.forAudioTasks("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-audio@latest/wasm");
+          activeTask = await AudioToBlendshapes.createFromOptions(audioBlob, {
+            baseOptions: {
+              modelAssetPath: "https://storage.googleapis.com/mediapipe-models/audio_to_blendshapes/audio_to_blendshapes/float32/1/audio_to_blendshapes.tflite"
+            },
+            runningMode: "AUDIO_STREAM",
+            numBlendshapes: 52
+          });
+          audioToBlendshapesRef.current = activeTask;
+          console.log("✅ [MediaPipe Live] AudioToBlendshapes ARKit 52 Task initialized successfully.");
+        } catch(e) {
+          console.warn("⚠️ [MediaPipe Proxy] CDN block or BeyondCorp sandbox, executing synthetic procedural lip-sync engine.");
+        }
+      });
+    } catch(err) {}
+
     return () => {
       executeCleanAudioTeardown();
     };
@@ -131,6 +153,16 @@ export default function InteractiveDashboard({ reportData, onBack }) {
         audioElemRef.current.onended = handlePlayEndOrErr;
         audioElemRef.current.onerror = handlePlayEndOrErr;
         await audioElemRef.current.play();
+
+        const playbackTimer = setInterval(() => {
+          if (!audioElemRef.current || audioElemRef.current.paused || audioElemRef.current.ended) {
+            clearInterval(playbackTimer);
+            if (window.dispatchAvatarRms) window.dispatchAvatarRms(0);
+          } else {
+            const rhythmicEnergy = 0.2 + (Math.sin(audioElemRef.current.currentTime * 14) * 0.18) + (Math.random() * 0.1);
+            if (window.dispatchAvatarRms) window.dispatchAvatarRms(rhythmicEnergy);
+          }
+        }, 50);
       } else if ('speechSynthesis' in window) {
         console.log("⚡ [TTS Fallback Engine] Executing sovereign client W3C Web Speech synthesis.");
         const utterance = new SpeechSynthesisUtterance(data.script || 'Assessment findings ready.');
@@ -140,6 +172,16 @@ export default function InteractiveDashboard({ reportData, onBack }) {
         utterance.onend = handlePlayEndOrErr;
         utterance.onerror = handlePlayEndOrErr;
         window.speechSynthesis.speak(utterance);
+
+        const ttsTimer = setInterval(() => {
+          if (!window.speechSynthesis.speaking) {
+            clearInterval(ttsTimer);
+            if (window.dispatchAvatarRms) window.dispatchAvatarRms(0);
+          } else {
+            const rhythmicEnergy = 0.25 + (Math.random() * 0.2);
+            if (window.dispatchAvatarRms) window.dispatchAvatarRms(rhythmicEnergy);
+          }
+        }, 50);
       }
 
       setAppState('PRESENTING');
@@ -304,6 +346,30 @@ export default function InteractiveDashboard({ reportData, onBack }) {
             nextStartTimeRef.current = Math.max(curr, nextStartTimeRef.current);
             source.start(nextStartTimeRef.current);
             nextStartTimeRef.current += audioBuffer.duration;
+
+            // Compute RMS audio energy
+            let sumSq = 0;
+            for (let i = 0; i < float32Data.length; i++) {
+              sumSq += float32Data[i] * float32Data[i];
+            }
+            const rmsEnergy = Math.sqrt(sumSq / float32Data.length);
+
+            // Execute 3D Avatar lip-syncing
+            if (audioToBlendshapesRef.current && window.dispatchAvatarBlendshapes) {
+              try {
+                // Intercept resampled 16kHz audio chunks into audioToBlendshapes.process()
+                const blendshapesOutput = audioToBlendshapesRef.current.audioToBlendshapes(float32Data, 16000, actx.currentTime * 1000);
+                if (blendshapesOutput?.audioBlendshapes?.[0]?.blendshapes) {
+                  window.dispatchAvatarBlendshapes(blendshapesOutput.audioBlendshapes[0].blendshapes);
+                } else if (window.dispatchAvatarRms) {
+                  window.dispatchAvatarRms(rmsEnergy);
+                }
+              } catch(ex) {
+                if (window.dispatchAvatarRms) window.dispatchAvatarRms(rmsEnergy);
+              }
+            } else if (window.dispatchAvatarRms) {
+              window.dispatchAvatarRms(rmsEnergy);
+            }
           }
 
           // Trap 3 Mandate: Parse turnComplete flag, compute Web Audio drain latency, and smoothly resume main presentation
@@ -316,6 +382,7 @@ export default function InteractiveDashboard({ reportData, onBack }) {
             
             // Wait for the queue to physically finish playing out loud
             setTimeout(() => {
+              if (window.dispatchAvatarRms) window.dispatchAvatarRms(0);
               // NOW execute the teardown
               setAppState('RESUMING');
               setTranscript('Question beautifully resolved. Resuming executive brief...');
@@ -369,6 +436,7 @@ export default function InteractiveDashboard({ reportData, onBack }) {
       audioElemRef.current.pause();
       audioElemRef.current.currentTime = 0;
     }
+    if (window.dispatchAvatarRms) window.dispatchAvatarRms(0);
     setAppState('IDLE');
     setTranscript('');
     setIsErrorMessage(null);
@@ -566,19 +634,12 @@ export default function InteractiveDashboard({ reportData, onBack }) {
             <CheckCircle2 size={12} color="#38bdf8" /> Virtual CE {activePersona === 'Alex' ? 'Alex' : activePersona === 'Sam' ? 'Sam' : 'Taylor'}
           </div>
 
-          <div style={{ position: 'absolute', top: '15px', right: '15px', display: 'flex', alignItems: 'center', gap: '0.4rem', background: appState === 'PRESENTING' ? '#10b981' : appState === 'LISTENING' ? '#f59e0b' : appState === 'ANSWERING' ? '#8b5cf6' : '#64748b', padding: '0.35rem 0.85rem', borderRadius: '100px', fontSize: '0.75rem', fontWeight: 900, color: '#ffffff' }}>
+          <div style={{ position: 'absolute', top: '15px', right: '15px', display: 'flex', alignItems: 'center', gap: '0.4rem', background: appState === 'PRESENTING' ? '#10b981' : appState === 'LISTENING' ? '#f59e0b' : appState === 'ANSWERING' ? '#8b5cf6' : '#64748b', padding: '0.35rem 0.85rem', borderRadius: '100px', fontSize: '0.75rem', fontWeight: 900, color: '#ffffff', zIndex: 10 }}>
             {appState === 'PRESENTING' ? '▶ SPEAKING' : appState === 'LISTENING' ? '🎙️ LISTENING' : appState === 'ANSWERING' ? '⚡ DEFENDING' : '⏹ STANDBY'}
           </div>
 
-          {/* Photorealistic Virtual Avatar Graphic Wrapper */}
-          <div style={{ width: '220px', height: '220px', borderRadius: '50%', background: 'linear-gradient(135deg, #1e293b, #0f172a)', border: appState === 'PRESENTING' ? '4px solid #3b82f6' : appState === 'LISTENING' ? '4px solid #f59e0b' : appState === 'ANSWERING' ? '4px solid #8b5cf6' : '4px solid #475569', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: appState === 'PRESENTING' ? '0 0 45px rgba(59,130,246,0.3)' : '0 10px 25px rgba(0,0,0,0.4)', marginTop: '1.5rem', transition: 'all 0.3s ease', position: 'relative', overflow: 'hidden' }}>
-            <div style={{ fontSize: '6.5rem', animation: (appState === 'PRESENTING' || appState === 'ANSWERING') ? 'bounce 1s infinite' : 'none' }}>
-              {activePersona === 'Alex' ? '🧑‍💻' : activePersona === 'Sam' ? '🔐' : '📈'}
-            </div>
-            {(appState === 'PRESENTING' || appState === 'ANSWERING') && (
-              <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', height: '35%', background: 'linear-gradient(0deg, rgba(59,130,246,0.2), transparent)', animation: 'pulse 1.5s infinite' }} />
-            )}
-          </div>
+          {/* Breathtaking Three.js 3D WebGL Cyber-Human CE Avatar */}
+          <AvatarCanvas appState={appState} activePersona={activePersona} />
 
           <div>
             <h3 style={{ fontSize: '1.35rem', fontWeight: 900, color: '#ffffff', margin: '0 0 0.4rem 0' }}>
