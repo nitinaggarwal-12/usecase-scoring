@@ -28,11 +28,8 @@ export default function InteractiveDashboard({ reportData, onBack }) {
   const spokenQuestionRef = useRef('');
   const [spokenQuestion, setSpokenQuestion] = useState('');
 
-  const protocol = window.location.protocol;
-  const host = window.location.hostname === 'localhost' ? 'localhost:3001' : window.location.host;
-  const BASE_HTTP_URL = `${protocol}//${host}`;
+  // Discard legacy absolute base URL logic in favor of robust relative API proxies
 
-  const BASE_WS_URL = BASE_HTTP_URL.replace('http', 'ws');
 
   // Trap 4: Full Teardown & Trax Release Lifecycle Cleanup
   const executeCleanAudioTeardown = () => {
@@ -125,12 +122,8 @@ export default function InteractiveDashboard({ reportData, onBack }) {
         config: { persona: activePersona, voice: activeVoice, language: activeLanguage }
       };
 
-      // Dynamically resolve the HTTP base URL to support both Localhost and Cloudtop Proxies
-      const protocol = window.location.protocol;
-      const host = window.location.hostname === 'localhost' ? 'localhost:3001' : window.location.host;
-      const DYNAMIC_BASE_URL = `${protocol}//${host}`;
-
-      const response = await fetch(`${DYNAMIC_BASE_URL}/api/presentation/generate`, {
+      // Rely exactly on resilient Vite internal `/api` proxy middleman
+      const response = await fetch('/api/presentation/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payloadToSend)
@@ -221,11 +214,7 @@ export default function InteractiveDashboard({ reportData, onBack }) {
             // Execute automated HTTP RAG retrieval
             const runHttpBridge = async () => {
               try {
-                const protocol = window.location.protocol;
-                const host = window.location.hostname === 'localhost' ? 'localhost:3001' : window.location.host;
-                const DYNAMIC_BASE_URL = `${protocol}//${host}`;
-
-                const fbRes = await fetch(`${DYNAMIC_BASE_URL}/api/qa/fallback`, {
+                const response = await fetch('/api/qa/fallback', {
                   method: 'POST',
                   headers: { 'Content-Type': 'application/json' },
                   body: JSON.stringify({
@@ -234,7 +223,7 @@ export default function InteractiveDashboard({ reportData, onBack }) {
                     config: { persona: activePersona, language: activeLanguage }
                   })
                 });
-                const fbData = await fbRes.json();
+                const fbData = await response.json();
                 
                 setTranscript(`Alex: "${fbData.answer || 'Assessment verified.'}"`);
                 
@@ -292,8 +281,7 @@ export default function InteractiveDashboard({ reportData, onBack }) {
       nextStartTimeRef.current = actx.currentTime;
 
       const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-      const host = window.location.hostname === 'localhost' ? 'localhost:3001' : window.location.host;
-      const wsUrl = `${protocol}//${host}/api/qa/stream`;
+      const wsUrl = `${protocol}//${window.location.host}/api/qa/stream`;
       
       const socket = new WebSocket(wsUrl);
       wsRef.current = socket;
