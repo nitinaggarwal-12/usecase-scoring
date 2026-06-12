@@ -350,15 +350,23 @@ async function callGeminiReportLogic(formData, scoringContext, candidateKeys, on
 Analyze the following customer use case transformation intake and generate a professional, structured assessment report matching our JSON schema exactly.
 
 CRITICAL SYSTEM GROUNDING DIRECTIVES:
-1. **Analyze Use Case Description:** You MUST analyze the detailed Use Case Description ("useCaseDesc") as your core context anchor. Every recommendation, next step, blocker, and roadmap you formulate must directly address the RAG strategies, document formats, pipelines, and operational needs described there. Do not use generic templates.
-2. **Ingest Custom Annotations:** Sift through all custom free-text meeting annotations provided by the Customer Engineer (e.g., "timelineNotes", "divisionNotes", "lighthouseNotes", "execSponsorNotes", "currentPlatformNotes", "currentDataSourceNotes"). You MUST integrate these live meeting annotations directly into your scoring rationale, objections, and next steps (e.g., if a timeline note specifies a stakeholder freeze, ensure week targets adjust accordingly).
-3. **Existing Workload transition Roadmap:** If "isCurrentUseCase" is "Yes", you MUST structure specific migration recommendations and next steps detailing the transition of their existing workload from their legacy platform ("currentPlatform" and "currentPlatformNotes") and legacy database ("currentDataSource" and "currentDataSourceNotes") to Google Cloud. Formulate explicit database migration scripts, schema adapters, and Private Service Connect (PSC) gateway rules mapped exactly to their data sources (e.g., Teradata-to-BigQuery pipelines or AWS-to-GCP tunnels).
-4. **Organization Context:** Address R&D/Corporate context per their "division" name, and assign clear responsibilities for the Business User ("businessOwner") and Technical User ("technicalOwner") within the next steps!
-5. **Enforce Verified Real Customer Benchmark Citations:** Under NO circumstances should you output generic placeholders like "Global Pharma Co. X" or "Pharma Corp". You MUST extract verified, real-world Google Cloud enterprise reference customers (e.g., "Bayer", "Pfizer", "HCA Healthcare", "Highmark Health", "Moderna", or "Ginkgo Bioworks") and link their exact public Google Cloud case study URL in "citationUrl"!
-6. **Dynamic Technical Introspection History:** You MUST generate an "introspectionHistory" array of 2-4 concrete, dynamic execution log entries detailing specific GCP data federations, API connections, schema parsings, or database socket handshakes mapped exactly to the customer's use case ("useCaseName"), company ("company"), and existing platforms/data stacks ("dataStack", "currentPlatform", "currentDataSource"). Each item must have a realistic "timestamp" (e.g., "14:32:10"), a logging "level" ("INFO", "SUCCESS", "EXEC", or "WARNING"), and a highly specific technical "message". Do not output generic or static logs.
-7. **Executive Summary & What You Gain:** You MUST return an "executiveSummary" string providing a powerful, C-Suite ready leadership narrative explaining exactly why this use case should be funded. You MUST also return a "whatYouGain" array of 3-5 concrete business, regulatory, or operational achievements the enterprise gains.
-8. **Executive Risk / Reward Trade-off Table:** You MUST return a "riskRewardMatrix" array of 4 distinct dimension objects (Knowledge Access, Gemini Adoption, Operating Model, and Risk) comparing their baseline state ("without") against the validated target state ("with") and quantified business gains ("gain").
-9. **30-60-90 Day Roadmap Horizons:** You MUST return a "roadmapHorizons" object containing three key arrays ("day30", "day60", and "day90"), each with 3-4 highly concrete, actionable implementation milestones mapped exactly to the customer's technical environment, security sign-offs, and pilot scope.
+1. **Formulate 4 Master Executive KPI Metrics Directly**: You MUST actively synthesize and return the top 4 KPI metrics at the very top of your JSON output based on your rigorous evaluation of the customer data and CE meeting annotations:
+   - "priorityScore": Precise calculated AI suitability index (number from 0 to 100).
+   - "decision": Actionable investment verdict ("Launch Now" | "Validate Pilot" | "Re-Scope Workload").
+   - "decisionSub": Brief 3-5 word secondary ranking context (e.g. "Pilot ready & Grounded").
+   - "activationImpact": Quantified initial reachable users metric (e.g. "8.5K" or "12.4K").
+   - "activationImpactSub": Brief secondary impact label (e.g. "Initial reachable users").
+   - "pilotAsk": Target implementation timeline derived from CE timeline notes (e.g. "2-4 wks" or "4-6 wks").
+   - "pilotAskSub": Target division or regulatory scope (e.g. "Reg Affairs pilot").
+2. **Analyze Use Case Description:** You MUST analyze the detailed Use Case Description ("useCaseDesc") as your core context anchor. Every recommendation, next step, blocker, and roadmap you formulate must directly address the RAG strategies, document formats, pipelines, and operational needs described there. Do not use generic templates.
+3. **Ingest Custom Annotations:** Sift through all custom free-text meeting annotations provided by the Customer Engineer (e.g., "timelineNotes", "divisionNotes", "lighthouseNotes", "execSponsorNotes", "currentPlatformNotes", "currentDataSourceNotes"). You MUST integrate these live meeting annotations directly into your scoring rationale, objections, and next steps (e.g., if a timeline note specifies a stakeholder freeze, ensure week targets adjust accordingly).
+4. **Existing Workload transition Roadmap:** If "isCurrentUseCase" is "Yes", you MUST structure specific migration recommendations and next steps detailing the transition of their existing workload from their legacy platform ("currentPlatform" and "currentPlatformNotes") and legacy database ("currentDataSource" and "currentDataSourceNotes") to Google Cloud. Formulate explicit database migration scripts, schema adapters, and Private Service Connect (PSC) gateway rules mapped exactly to their data sources (e.g., Teradata-to-BigQuery pipelines or AWS-to-GCP tunnels).
+5. **Organization Context:** Address R&D/Corporate context per their "division" name, and assign clear responsibilities for the Business User ("businessOwner") and Technical User ("technicalOwner") within the next steps!
+6. **Enforce Verified Real Customer Benchmark Citations:** Under NO circumstances should you output generic placeholders like "Global Pharma Co. X" or "Pharma Corp". You MUST extract verified, real-world Google Cloud enterprise reference customers (e.g., "Bayer", "Pfizer", "HCA Healthcare", "Highmark Health", "Moderna", or "Ginkgo Bioworks") and link their exact public Google Cloud case study URL in "citationUrl"!
+7. **Dynamic Technical Introspection History:** You MUST generate an "introspectionHistory" array of 2-4 concrete, dynamic execution log entries detailing specific GCP data federations, API connections, schema parsings, or database socket handshakes mapped exactly to the customer's use case ("useCaseName"), company ("company"), and existing platforms/data stacks ("dataStack", "currentPlatform", "currentDataSource"). Each item must have a realistic "timestamp" (e.g., "14:32:10"), a logging "level" ("INFO", "SUCCESS", "EXEC", or "WARNING"), and a highly specific technical "message". Do not output generic or static logs.
+8. **Executive Summary & What You Gain:** You MUST return an "executiveSummary" string providing a powerful, C-Suite ready leadership narrative explaining exactly why this use case should be funded. You MUST also return a "whatYouGain" array of 3-5 concrete business, regulatory, or operational achievements the enterprise gains.
+9. **Executive Risk / Reward Trade-off Table:** You MUST return a "riskRewardMatrix" array of 4 distinct dimension objects (Knowledge Access, Gemini Adoption, Operating Model, and Risk) comparing their baseline state ("without") against the validated target state ("with") and quantified business gains ("gain").
+10. **30-60-90 Day Roadmap Horizons:** You MUST return a "roadmapHorizons" object containing three key arrays ("day30", "day60", and "day90"), each with 3-4 highly concrete, actionable implementation milestones mapped exactly to the customer's technical environment, security sign-offs, and pilot scope.
 
 Customer Data (with Custom Annotations):
 ${JSON.stringify(formData, null, 2)}
@@ -368,6 +376,13 @@ ${JSON.stringify(scoringContext, null, 2)}
 
 Return a JSON object with the following exact keys:
 {
+  "priorityScore": 88,
+  "decision": "Launch Now",
+  "decisionSub": "Pilot ready & Grounded",
+  "activationImpact": "8.5K",
+  "activationImpactSub": "Initial reachable users",
+  "pilotAsk": "2-4 wks",
+  "pilotAskSub": "Reg Affairs pilot",
   "company": "Company Name (default: Merck)",
   "industry": "Industry Name",
   "timestamp": "ISO date string",
@@ -387,7 +402,7 @@ Return a JSON object with the following exact keys:
     "day90": ["Expand to global adjacent divisions", "Enforce production GCP model pinning", "Compute quantifiable TCO payback benchmarks"]
   },
   "scoring": {
-    "overallFit": number (0-100),
+    "overallFit": 88,
     "verdict": "Strong Fit" | "Good Fit" | "Moderate Fit" | "Low Fit",
     "scores": { "technical": number, "business": number, "migration": number, "timeToValue": number, "risk": number },
     "rationale": "1-2 paragraph detailed scoring summary explaining the strengths and risks, explicitly mentioning how the CE annotations and use case description were evaluated."

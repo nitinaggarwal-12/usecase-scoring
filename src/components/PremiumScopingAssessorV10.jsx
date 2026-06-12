@@ -1163,10 +1163,17 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
     });
 
     const createCustomErrorReport = (reason) => ({
+      priorityScore: 0,
+      decision: "Offline",
+      decisionSub: "Connect Gemini Key",
+      activationImpact: "Disconnected",
+      activationImpactSub: "Verify Credentials",
+      pilotAsk: "Offline",
+      pilotAskSub: "Requires API Key",
       company: customerInfo?.company || "Enterprise Candidate",
       industry: "Custom Evaluation",
       timestamp: new Date().toISOString(),
-      executiveSummary: `❌ [LIVE EVALUATION FAILED]: ${reason}. Please authenticate your Gemini API Key or active GCP Application Default Credentials in the top settings portal. Absolute Data Attestation rule enforced: zero static demo fallback data has been injected into this custom candidate report.`,
+      executiveSummary: `❌ [LIVE EVALUATION FAILED]: ${reason}. Please authenticate your Gemini API Key or active GCP Application Default Credentials in the top settings portal. Absolute Data Attestation rule enforced: zero static demo fallback data or local mathematical numbers have been injected into this custom candidate report.`,
       whatYouGain: [
         "❌ Real-time Google Cloud LLM synthesis offline or quota exceeded.",
         "👉 Secure inline BeyondCorp RAG Rationale extraction pending live connection."
@@ -1174,7 +1181,7 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
       riskRewardMatrix: [
         {
           dimension: "Custom Telemetry Grounding",
-          without: "Unverified mathematical modeling",
+          without: "Unverified execution",
           with: "Authenticated Live Vertex AI execution",
           gain: "Pending GCP tenant authentication"
         }
@@ -1185,16 +1192,10 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
         day90: ["⚠️ Generate immutable 21 CFR Part 11 cryptographic ledgers."]
       },
       scoring: {
-        overallFit: currentScoring.overallPriority,
-        verdict: currentScoring.verdict,
-        scores: {
-          technical: currentScoring.technicalReadinessScore,
-          business: currentScoring.businessValueScore,
-          migration: 75,
-          timeToValue: 75,
-          risk: currentScoring.changeReadinessScore
-        },
-        rationale: `⚠️ Live LLM Synthesis unavailable. The baseline mathematical evaluation scored this candidate workload at ${currentScoring.overallPriority}/100 based purely on your structured intake telemetry.`
+        overallFit: 0,
+        verdict: "Low Fit",
+        scores: { technical: 0, business: 0, migration: 0, timeToValue: 0, risk: 0 },
+        rationale: `⚠️ Live LLM Synthesis unavailable. PURE GEMINI API MODE ENFORCED: Local deterministic mathematical calculation of Priority Scores has been strictly disabled per your exact architectural directives.`
       },
       features: ["⚠️ Live API Disconnected"],
       nextSteps: [
@@ -3464,14 +3465,14 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
 
           {/* Sub-Tab 2: Executive Report matching Screenshot 2 */}
           {reportSubTab === 'executive' && (() => {
-            const pScore = scoringData.overallPriority || 0;
-            const verdict = pScore >= 80 ? 'Launch Now' : (pScore >= 60 ? 'Validate' : (pScore >= 40 ? 'Incubate' : 'Incomplete'));
-            const verdictSub = pScore >= 80 ? 'Pilot ready' : (pScore >= 40 ? 'Review candidate' : 'Assessment pending');
-            const rankSub = pScore >= 80 ? 'Top 1% of portfolio' : (pScore >= 40 ? 'Top 25% candidate' : 'Score evaluation required');
-            const impactVal = pScore > 0 ? (pScore >= 80 ? '8.5K' : '4.2K') : 'TBD';
-            const impactSub = pScore > 0 ? 'Initial reachable users' : 'Answer user impact questions';
-            const pilotAskVal = pScore > 0 ? (pScore >= 80 ? '2–4 wks' : '4–6 wks') : 'Pending';
-            const pilotAskSub = pScore > 0 ? 'Reg Affairs pilot' : 'Complete assessment';
+            const pScore = liveSynthesis?.priorityScore !== undefined ? liveSynthesis.priorityScore : (liveSynthesis?.scoring?.overallFit || 0);
+            const verdict = liveSynthesis?.decision || (pScore >= 80 ? 'Launch Now' : (pScore >= 60 ? 'Validate' : (pScore >= 40 ? 'Incubate' : 'Offline')));
+            const verdictSub = liveSynthesis?.decisionSub || (pScore >= 80 ? 'Pilot ready' : (pScore >= 40 ? 'Review candidate' : 'Connect API'));
+            const rankSub = pScore === 0 ? 'Live AI execution offline' : (pScore >= 80 ? 'Top 1% of portfolio' : 'Score evaluation required');
+            const impactVal = liveSynthesis?.activationImpact || (pScore > 0 ? (pScore >= 80 ? '8.5K' : '4.2K') : 'Offline');
+            const impactSub = liveSynthesis?.activationImpactSub || (pScore > 0 ? 'Initial reachable users' : 'Verify Credentials');
+            const pilotAskVal = liveSynthesis?.pilotAsk || (pScore > 0 ? (pScore >= 80 ? '2–4 wks' : '4–6 wks') : 'Offline');
+            const pilotAskSub = liveSynthesis?.pilotAskSub || (pScore > 0 ? 'Reg Affairs pilot' : 'Requires API Key');
 
             return (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
