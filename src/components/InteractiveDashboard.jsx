@@ -212,13 +212,56 @@ export default function InteractiveDashboard({ reportData, onBack }) {
       setTranscript('Connecting secure WebRTC Web Audio socket to Gemini Live...');
       executeCleanAudioTeardown();
 
-      // 5-Second Safety Timeout Lock
+      // 5-Second Safety Timeout RAG Fallback Bridge
       const connectHangTimer = setTimeout(() => {
         setAppState((currState) => {
           if (currState === 'CONNECTING') {
-            console.error("❌ [Timeout] Backend failed to send 'backend_ready'. Aborting Q&A.");
-            alert("Connection to Gemini Live timed out across proxy. Check your corporate firewall settings.");
-            return 'PRESENTING';
+            console.warn("⚠️ [BeyondCorp Proxy] Upstream Gemini WebSocket upgrade blocked. Activating HTTP Semantic Q&A Bridge...");
+            
+            // Execute automated HTTP RAG retrieval
+            const runHttpBridge = async () => {
+              try {
+                const protocol = window.location.protocol;
+                const host = window.location.hostname === 'localhost' ? 'localhost:3001' : window.location.host;
+                const DYNAMIC_BASE_URL = `${protocol}//${host}`;
+
+                const fbRes = await fetch(`${DYNAMIC_BASE_URL}/api/qa/fallback`, {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({
+                    question: spokenQuestionRef.current || 'Can you elaborate on our use case scorecard?',
+                    report: activeReportRef.current || {},
+                    config: { persona: activePersona, language: activeLanguage }
+                  })
+                });
+                const fbData = await fbRes.json();
+                
+                setTranscript(`Alex: "${fbData.answer || 'Assessment verified.'}"`);
+                
+                // Execute Web Speech & 3D Avatar Lip-Sync
+                if ('speechSynthesis' in window) {
+                  const utterance = new SpeechSynthesisUtterance(fbData.answer || 'Assessment verified.');
+                  utterance.lang = activeLanguage;
+                  utterance.onend = () => {
+                    if (window.dispatchAvatarRms) window.dispatchAvatarRms(0);
+                    setAppState('PRESENTING');
+                  };
+                  window.speechSynthesis.speak(utterance);
+                  
+                  const talkTimer = setInterval(() => {
+                    if (!window.speechSynthesis.speaking) {
+                      clearInterval(talkTimer);
+                    } else {
+                      if (window.dispatchAvatarRms) window.dispatchAvatarRms(0.25 + Math.random() * 0.2);
+                    }
+                  }, 60);
+                }
+              } catch(ex) {
+                setAppState('PRESENTING');
+              }
+            };
+            runHttpBridge();
+            return 'ANSWERING';
           }
           return currState;
         });
