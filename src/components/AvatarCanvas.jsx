@@ -14,9 +14,16 @@ export default function AvatarCanvas({ appState, activePersona }) {
   // Expose Global Window API for immediate cross-thread Lip-Sync ingestion from InteractiveDashboard
   useEffect(() => {
     window.dispatchAvatarBlendshapes = (blendshapesArray) => {
-      if (blendshapesArray && blendshapesArray.length >= 52) {
-        for (let i = 0; i < 52; i++) {
-          blendshapesRef.current[i] = blendshapesArray[i];
+      if (!blendshapesArray) return;
+      for (let i = 0; i < blendshapesArray.length; i++) {
+        const item = blendshapesArray[i];
+        if (typeof item === 'object' && item !== null) {
+          if (item.categoryName === 'jawOpen') blendshapesRef.current[17] = item.score || 0;
+          if (item.categoryName === 'mouthFunnel') blendshapesRef.current[37] = item.score || 0;
+          if (item.categoryName === 'mouthSmileLeft') blendshapesRef.current[28] = item.score || 0;
+          if (item.categoryName === 'mouthSmileRight') blendshapesRef.current[29] = item.score || 0;
+        } else if (typeof item === 'number') {
+          if (i < 52) blendshapesRef.current[i] = item;
         }
       }
     };
@@ -163,17 +170,26 @@ export default function AvatarCanvas({ appState, activePersona }) {
         headMeshRef.current.material.emissiveIntensity = THREE.MathUtils.lerp(headMeshRef.current.material.emissiveIntensity, targetEmissiveIntensity, 0.1);
       }
 
-      // Buttery 60 FPS Real-Time ARKit Blendshape Lip-Sync Morphing
+      // Buttery 60 FPS Real-Time ARKit Blendshape Lip-Sync Procedural Scaling
       if (jawGroupRef.current) {
         const jawOpenWeight = blendshapesRef.current[17] || 0; // ARKit index 17 = jawOpen
         const mouthFunnelWeight = blendshapesRef.current[37] || 0; // ARKit index 37 = mouthFunnel
 
-        // Interpolate Articulated Jaw Position
+        // Interpolate Articulated Jaw Position and Scale
         const targetJawY = -0.15 - (jawOpenWeight * 0.22);
         const targetJawScaleY = 1.0 + (mouthFunnelWeight * 0.8);
 
         jawGroupRef.current.position.y = THREE.MathUtils.lerp(jawGroupRef.current.position.y, targetJawY, 0.25);
         jawGroupRef.current.scale.y = THREE.MathUtils.lerp(jawGroupRef.current.scale.y, targetJawScaleY, 0.25);
+        
+        // Procedurally scale floating halo processing rings and holographic eye optics
+        if (haloRingRef.current) {
+          haloRingRef.current.scale.setScalar(THREE.MathUtils.lerp(haloRingRef.current.scale.x, 1.0 + (jawOpenWeight * 0.35), 0.2));
+        }
+        if (eyesMeshRef.current) {
+          const smileWeight = blendshapesRef.current[28] || 0; // ARKit index 28 = mouthSmileLeft
+          eyesMeshRef.current.scale.y = THREE.MathUtils.lerp(eyesMeshRef.current.scale.y, 1.0 + (smileWeight * 0.45), 0.2);
+        }
       }
 
       renderer.render(scene, camera);

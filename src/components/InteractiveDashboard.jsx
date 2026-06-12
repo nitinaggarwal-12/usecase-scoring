@@ -357,8 +357,14 @@ export default function InteractiveDashboard({ reportData, onBack }) {
             // Execute 3D Avatar lip-syncing
             if (audioToBlendshapesRef.current && window.dispatchAvatarBlendshapes) {
               try {
-                // Intercept resampled 16kHz audio chunks into audioToBlendshapes.process()
-                const blendshapesOutput = audioToBlendshapesRef.current.audioToBlendshapes(float32Data, 16000, actx.currentTime * 1000);
+                // Intercept resampled 16kHz audio chunks into audioToBlendshapes.process() or audioToBlendshapes()
+                let blendshapesOutput = null;
+                if (typeof audioToBlendshapesRef.current.audioToBlendshapes === 'function') {
+                  blendshapesOutput = audioToBlendshapesRef.current.audioToBlendshapes(float32Data, 16000, actx.currentTime * 1000);
+                } else if (typeof audioToBlendshapesRef.current.process === 'function') {
+                  blendshapesOutput = audioToBlendshapesRef.current.process(float32Data, 16000, actx.currentTime * 1000);
+                }
+                
                 if (blendshapesOutput?.audioBlendshapes?.[0]?.blendshapes) {
                   window.dispatchAvatarBlendshapes(blendshapesOutput.audioBlendshapes[0].blendshapes);
                 } else if (window.dispatchAvatarRms) {
