@@ -155,6 +155,8 @@ export default function InteractiveDashboard({ reportData, onBack }) {
       // 2. Open Universal Bi-Directional WebSocket
       const socket = new WebSocket(`${BASE_WS_URL}/api/qa/stream`);
       wsRef.current = socket;
+      // Level 10 Physics Trap Mandate: Explicitly set binaryType to force ArrayBuffer decoding
+      socket.binaryType = "arraybuffer";
 
       socket.onopen = () => {
         // Handshake Race Condition Block: Send setup blob first
