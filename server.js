@@ -377,18 +377,20 @@ app.post('/api/presentation/qa', async (req, res) => {
     const qStr = (question || '').trim().toLowerCase();
     console.log(`📥 [Presentation QA Ingest] Solving C-Suite pushback question: "${question}"`);
 
-    let answerText = "Alex: Excellent question. Based on your full enterprise assessment report and Veeva Vault vector mesh, all regulatory, compliance, and ROI objectives are fully verified.";
+    let answerText = "Excellent question. Based on your full enterprise assessment report and Veeva Vault vector mesh, all regulatory, compliance, and ROI objectives are fully verified.";
     
-    if (qStr.includes('roi') || qStr.includes('financial') || qStr.includes('cost') || qStr.includes('money') || qStr.includes('dollar') || qStr.includes('value') || qStr.includes('budget')) {
-      answerText = "Alex: Excellent financial question. Your Financial Assessment module confirms this strategic multi-modal initiative delivers exactly $1.4M in annual recurring ROI by eliminating 40% of manual triage overhead. The time-to-value is incredibly rapid, locking in tangible returns in just 2 to 3 weeks.";
+    if (qStr.includes('hear') || qStr.includes('hello') || qStr.includes('there') || qStr.includes('hey')) {
+      answerText = "Loud and clear! I can hear you perfectly. I'm Alex, your Virtual Google Cloud CE. What incredible strategic questions can I solve for your board today?";
+    } else if (qStr.includes('roi') || qStr.includes('financial') || qStr.includes('cost') || qStr.includes('money') || qStr.includes('dollar') || qStr.includes('value') || qStr.includes('budget')) {
+      answerText = "Excellent financial question. Your Financial Assessment module confirms this strategic multi-modal initiative delivers exactly $1.4M in annual recurring ROI by eliminating 40% of manual triage overhead. The time-to-value is incredibly rapid, locking in tangible returns in just 2 to 3 weeks.";
     } else if (qStr.includes('technical') || qStr.includes('readiness') || qStr.includes('architecture') || qStr.includes('code') || qStr.includes('tech') || qStr.includes('blocker')) {
-      answerText = "Alex: On the technical side, your baseline Technical Readiness score of 89 reflects flawless agentic API capabilities and modern Cloudtop architecture. The only minor prerequisite is validating your dedicated VPC Service Control egress perimeter for Sharepoint vector ingestion, which our expert FDE team can resolve in under 5 business days.";
+      answerText = "On the technical side, your baseline Technical Readiness score of 89 reflects flawless agentic API capabilities and modern Cloudtop architecture. The only minor prerequisite is validating your dedicated VPC Service Control egress perimeter for Sharepoint vector ingestion, which our expert FDE team can resolve in under 5 business days.";
     } else if (qStr.includes('security') || qStr.includes('privacy') || qStr.includes('data') || qStr.includes('gxp') || qStr.includes('compliance') || qStr.includes('regulatory') || qStr.includes('phi') || qStr.includes('sovereign')) {
-      answerText = "Alex: Regarding security and regulatory sovereignty, our dynamic boundary architecture maintains strict GxP and HIPAA isolation. All LLM extractions and reasoning execute completely inside your dedicated customer tenant with absolute zero customer data retention by Google models.";
+      answerText = "Regarding security and regulatory sovereignty, our dynamic boundary architecture maintains strict GxP and HIPAA isolation. All LLM extractions and reasoning execute completely inside your dedicated customer tenant with absolute zero customer data retention by Google models.";
     } else if (qStr.includes('model') || qStr.includes('gemini') || qStr.includes('governance') || qStr.includes('hallucination') || qStr.includes('ai') || qStr.includes('confident') || qStr.includes('certain')) {
-      answerText = "Alex: Your Model Governance score of 98 guarantees absolute enterprise safety. By leveraging Gemini 2.5 Pro with dual-key cascading and explicit Grounding against your private enterprise documentation, we enforce a zero-hallucination execution framework.";
+      answerText = "Your Model Governance score of 98 guarantees absolute enterprise safety. By leveraging Gemini 2.5 Pro with dual-key cascading and explicit Grounding against your private enterprise documentation, we enforce a zero-hallucination execution framework.";
     } else if (question && question.length > 3) {
-      answerText = `Alex: That is an incredibly astute pushback regarding "${question}". Our live real-time evaluation confirms that your strategic Use Case portfolio is flawlessly aligned with Google Cloud AI best practices, guaranteeing high-margin operational acceleration and absolute C-Suite stakeholder alignment.`;
+      answerText = `That is an incredibly astute pushback regarding "${question}". Our live real-time evaluation confirms that your strategic Use Case portfolio is flawlessly aligned with Google Cloud AI best practices, guaranteeing high-margin operational acceleration and absolute C-Suite stakeholder alignment.`;
     }
 
     // Synthesize High-Fidelity Audio
@@ -536,17 +538,21 @@ wss.on('connection', (wsClient) => {
   wsClient.on('message', (clientMsg) => {
     try {
       if (Buffer.isBuffer(clientMsg)) {
-        // Trap 1 Mandate: Upstream binary 16kHz Int16 raw PCM buffers from mic
-        if (handshakeCompleted && geminiWs && geminiWs.readyState === NodeWebSocket.OPEN) {
-          const mediaFrame = {
-            realtimeInput: {
-              mediaChunks: [{
-                mimeType: "audio/pcm;rate=16000",
-                data: clientMsg.toString('base64')
-              }]
-            }
-          };
-          geminiWs.send(JSON.stringify(mediaFrame));
+        // Encode the raw binary PCM to Base64
+        const base64Audio = clientMsg.toString('base64');
+        
+        // Wrap in the exact Gemini Live schema
+        const inputFrame = {
+          realtimeInput: {
+            mediaChunks: [{
+              mimeType: "audio/pcm;rate=16000",
+              data: base64Audio
+            }]
+          }
+        };
+        
+        if (geminiWs && geminiWs.readyState === NodeWebSocket.OPEN) {
+          geminiWs.send(JSON.stringify(inputFrame));
         }
         return;
       }

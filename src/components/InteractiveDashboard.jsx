@@ -227,13 +227,21 @@ export default function InteractiveDashboard({ reportData, onBack }) {
       const actx = getOrInitAudioContext();
       nextStartTimeRef.current = actx.currentTime;
 
-      const stream = await navigator.mediaDevices.getUserMedia({
-        audio: {
-          echoCancellation: true,
-          noiseSuppression: true,
-          autoGainControl: true
-        }
-      });
+      let stream = null;
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({
+          audio: {
+            echoCancellation: true,
+            noiseSuppression: true,
+            autoGainControl: true
+          }
+        });
+      } catch (micDenialErr) {
+        console.error("Microphone access denied or non-secure HTTP context:", micDenialErr);
+        window.alert("Microphone access denied. Please use localhost or secure HTTPS.");
+        setAppState('PRESENTING');
+        return;
+      }
       micStreamRef.current = stream;
 
       let socketUrl = `${BASE_WS_URL}/api/qa/stream`;
@@ -280,21 +288,15 @@ export default function InteractiveDashboard({ reportData, onBack }) {
 
             scriptNode.onaudioprocess = (audioProcessEvent) => {
               if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN && appState === 'LISTENING') {
-                const inputBuffer = audioProcessEvent.inputBuffer.getChannelData(0);
-                
-                // Frontend Validation 2A: Mic active but emitting empty audio buffers
-                if (!inputBuffer || inputBuffer.length === 0) {
-                  console.warn("⚠️ [Audio Input] Mic is active but emitting empty audio buffers.");
-                  return;
-                }
+                const inputData = audioProcessEvent.inputBuffer.getChannelData(0);
+                if (!inputData || inputData.length === 0) return;
 
-                const int16Array = new Int16Array(inputBuffer.length);
-                for (let i = 0; i < inputBuffer.length; i++) {
-                  const s = Math.max(-1, Math.min(1, inputBuffer[i]));
-                  int16Array[i] = s < 0 ? s * 0x8000 : s * 0x7FFF;
+                const pcmBuffer = new Int16Array(inputData.length);
+                for (let i = 0; i < inputData.length; i++) {
+                  let s = Math.max(-1, Math.min(1, inputData[i]));
+                  pcmBuffer[i] = s < 0 ? s * 0x8000 : s * 0x7FFF;
                 }
-                // Send raw binary raw PCM Int16 buffer over socket
-                wsRef.current.send(int16Array.buffer);
+                wsRef.current.send(pcmBuffer.buffer);
               }
             };
 
