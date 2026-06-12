@@ -3894,7 +3894,7 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
                 <div style={{ width: '100%', height: '750px', border: t.cardBorder, borderRadius: '24px', overflow: 'hidden', background: '#ffffff', boxShadow: 'inset 0 0 20px rgba(0,0,0,0.05)' }}>
                   <iframe 
                     title="Embedded Diagrams.net (Draw.io) Interoperability Canvas"
-                    src="https://embed.diagrams.net/?embed=1&ui=min&spin=1&proto=json&modified=0" 
+                    src="https://app.diagrams.net/?mode=browser&ui=min&splash=0" 
                     style={{ width: '100%', height: '100%', border: 'none' }}
                   />
                 </div>
