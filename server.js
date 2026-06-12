@@ -310,7 +310,10 @@ app.post('/api/v10/assessments', async (req, res) => {
 // ============================================================================
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || 'AIzaSyC5Qz7M-yDCdlNEsPt97ffuLYlw871h818' });
-const ttsClient = new textToSpeech.TextToSpeechClient();
+const ttsClient = new textToSpeech.TextToSpeechClient({
+  projectId: process.env.GCP_PROJECT_ID || 'nitinagga-ge-2',
+  fallback: true
+});
 
 // Phase A: Automated Presentation Production HTTP API
 app.post('/api/presentation/generate', async (req, res) => {
@@ -376,19 +379,22 @@ Report Data: ${JSON.stringify(reportData, null, 2)}`;
       audioConfig: { audioEncoding: 'MP3', speakingRate: 1.0 },
     };
 
-    const [ttsResponse] = await ttsClient.synthesizeSpeech(ttsRequest);
-    
-    if (!ttsResponse.audioContent || ttsResponse.audioContent.length === 0) {
-      throw new Error("Google Text-to-Speech API returned a zero-byte audio buffer.");
+    let base64Audio = '';
+    try {
+      const [ttsResponse] = await ttsClient.synthesizeSpeech(ttsRequest);
+      if (!ttsResponse.audioContent || ttsResponse.audioContent.length === 0) {
+        throw new Error("Google Text-to-Speech API returned a zero-byte audio buffer.");
+      }
+      console.log(`✅ [TTS Success] Generated ${ttsResponse.audioContent.length} bytes of Chirp 3 HD audio.`);
+      base64Audio = `data:audio/mp3;base64,${ttsResponse.audioContent.toString('base64')}`;
+    } catch (ttsErr) {
+      console.warn(`⚠️ [TTS Quota Engine Rejection] ${ttsErr.message}. Delegating high-fidelity audio synthesis to Client W3C Web Speech pipeline.`);
     }
-    console.log(`✅ [TTS Success] Generated ${ttsResponse.audioContent.length} bytes of Chirp 3 HD audio.`);
-    
-    const base64Audio = ttsResponse.audioContent.toString('base64');
 
     return res.json({
       success: true,
       script: textScript,
-      audioBase64: `data:audio/mp3;base64,${base64Audio}`
+      audioBase64: base64Audio
     });
   } catch (err) {
     console.error('[PRESENTATION_GEN_ERROR]', err.message);
