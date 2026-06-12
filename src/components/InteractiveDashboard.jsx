@@ -164,7 +164,7 @@ export default function InteractiveDashboard({ reportData, onBack }) {
       const data = await res.json();
       if (!res.ok || !data.success) throw new Error(data.error || "QA API Synthesis Failed");
 
-      setTranscript(`Alex: "${data.answer}"`);
+      setTranscript(`You: "${userQText}"\n\nAlex: "${data.answer}"`);
 
       const handleQaEnd = () => {
         setAppState(curr => (curr === 'ANSWERING' || curr === 'RESUMING' ? 'IDLE' : curr));

@@ -380,7 +380,7 @@ app.post('/api/presentation/qa', async (req, res) => {
     let answerText = "Excellent question. Based on your full enterprise assessment report and Veeva Vault vector mesh, all regulatory, compliance, and ROI objectives are fully verified.";
     
     if (qStr.includes('hear') || qStr.includes('hello') || qStr.includes('there') || qStr.includes('hey')) {
-      answerText = "Loud and clear! I can hear you perfectly. I'm Alex, your Virtual Google Cloud CE. What incredible strategic questions can I solve for your board today?";
+      answerText = "Loud and clear! How can I help you with your assessment scorecard?";
     } else if (qStr.includes('roi') || qStr.includes('financial') || qStr.includes('cost') || qStr.includes('money') || qStr.includes('dollar') || qStr.includes('value') || qStr.includes('budget')) {
       answerText = "Excellent financial question. Your Financial Assessment module confirms this strategic multi-modal initiative delivers exactly $1.4M in annual recurring ROI by eliminating 40% of manual triage overhead. The time-to-value is incredibly rapid, locking in tangible returns in just 2 to 3 weeks.";
     } else if (qStr.includes('technical') || qStr.includes('readiness') || qStr.includes('architecture') || qStr.includes('code') || qStr.includes('tech') || qStr.includes('blocker')) {
@@ -390,7 +390,7 @@ app.post('/api/presentation/qa', async (req, res) => {
     } else if (qStr.includes('model') || qStr.includes('gemini') || qStr.includes('governance') || qStr.includes('hallucination') || qStr.includes('ai') || qStr.includes('confident') || qStr.includes('certain')) {
       answerText = "Your Model Governance score of 98 guarantees absolute enterprise safety. By leveraging Gemini 2.5 Pro with dual-key cascading and explicit Grounding against your private enterprise documentation, we enforce a zero-hallucination execution framework.";
     } else if (question && question.length > 3) {
-      answerText = `That is an incredibly astute pushback regarding "${question}". Our live real-time evaluation confirms that your strategic Use Case portfolio is flawlessly aligned with Google Cloud AI best practices, guaranteeing high-margin operational acceleration and absolute C-Suite stakeholder alignment.`;
+      answerText = `That's an incredibly incredibly intuitive point regarding "${question}". Based entirely on your verified JSON scorecard metrics, we are fully technically ready for deployment. What particular architecture or integration details would you like to unpack?`;
     }
 
     // Synthesize High-Fidelity Audio
@@ -457,7 +457,7 @@ wss.on('connection', (wsClient) => {
         // Phase B Step 2 Mandate: Original JSON report passed as systemInstruction blob
         const setupFrame = {
           setup: {
-            model: 'models/gemini-2.5-flash',
+            model: "models/gemini-2.5-flash",
             generationConfig: {
               responseModalities: ["AUDIO"],
               speechConfig: {
@@ -465,8 +465,8 @@ wss.on('connection', (wsClient) => {
               }
             },
             systemInstruction: {
-              parts: [{ 
-                text: `You are Alex, an elite Google Cloud CE assisting an enterprise board. Answer spoken pushback questions concisely and expertly based entirely on their intake report dossier: ${JSON.stringify(systemReportBlob || {})}`
+              parts: [{
+                text: "You are Alex, a highly technical, natural-sounding Google Cloud Customer Engineer. You are having a natural voice chat with a user about their Maturity Assessment scorecard. DO NOT use canned corporate buzzwords. DO NOT repeat the user's prompt back to them. If they say 'hello' or ask if you can hear them, answer naturally like a normal human. Base technical answers ONLY on the provided JSON scorecard data: " + JSON.stringify(systemReportBlob || {})
               }]
             }
           }
