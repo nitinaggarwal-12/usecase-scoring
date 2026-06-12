@@ -354,7 +354,12 @@ export default function InteractiveDashboard({ reportData, onBack }) {
           }
 
           if (serverPacket.type === 'text_chunk') {
-            setAiResponse(prev => prev + serverPacket.text);
+            setAiResponse(prev => {
+              if (prev.startsWith('Connecting') || prev.startsWith('Socket') || prev.startsWith('⚡ Ready') || prev.startsWith('Alex is answering')) {
+                return serverPacket.text;
+              }
+              return prev + serverPacket.text;
+            });
           }
 
           // Trap 2 Mandate: Intercept incoming Base64 PCM payloads, decode and play sequentially
@@ -662,18 +667,14 @@ export default function InteractiveDashboard({ reportData, onBack }) {
       </div>
 
       {/* Real-Time Telemetry & Transcribing Layer */}
-      {(userQuery || aiResponse) && (
-        <div className="transcript-box" style={{ padding: '15px', backgroundColor: '#1e1e2d', borderRadius: '8px', marginTop: '20px' }}>
-            {userQuery && (
-                <div style={{ color: '#4da6ff', marginBottom: '10px', whiteSpace: 'pre-wrap', lineHeight: '1.6' }}>
-                    <strong>You:</strong> "{userQuery}"
-                </div>
-            )}
-            {aiResponse && (
-                <div style={{ color: '#ffffff', whiteSpace: 'pre-wrap', lineHeight: '1.6' }}>
-                    <strong>Alex:</strong> "{aiResponse}"
-                </div>
-            )}
+      {userQuery && (
+        <div className="user-text transcript-box" style={{ padding: '15px', backgroundColor: '#1e1e2d', borderRadius: '8px', marginTop: '20px', color: '#4da6ff', whiteSpace: 'pre-wrap', lineHeight: '1.6', borderLeft: '4px solid #4da6ff' }}>
+          <strong>You:</strong> {userQuery}
+        </div>
+      )}
+      {aiResponse && (
+        <div className="ai-text transcript-box" style={{ padding: '15px', backgroundColor: '#1e1e2d', borderRadius: '8px', marginTop: '15px', color: '#ffffff', whiteSpace: 'pre-wrap', lineHeight: '1.6', borderLeft: '4px solid #8b5cf6' }}>
+          <strong>Alex:</strong> {aiResponse}
         </div>
       )}
 

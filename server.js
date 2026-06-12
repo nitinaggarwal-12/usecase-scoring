@@ -448,7 +448,7 @@ app.post('/api/qa/fallback', async (req, res) => {
 
     const promptText = `${personaSysPrompts[actPersona] || personaSysPrompts.Alex}
 ${langSysInstructions[actLang] || langSysInstructions['en-US']}
-CRITICAL RULES: 1. Answer the user's question directly, accurately, and concisely. 2. Base technical answers ONLY on the JSON scorecard. 3. Act like a natural human expert. DO NOT repeat yourself.
+CRITICAL RULES: 1. Answer the user's question directly, accurately, and concisely. 2. Base technical answers ONLY on the JSON scorecard. 3. Act like a natural human expert. DO NOT repeat yourself. 4. High EQ & Rapport: If the user asks a personal or conversational question (e.g., 'Where do you live?', 'How are you?'), act like a natural, polite human. Respond warmly with a touch of light humor (e.g., 'I'm actually based entirely in the cloud, though I hear the traffic is light today!'), and then gently and politely transition back to the business assessment. Never sound abrupt, robotic, or dismissive.
 Scorecard Data: ${JSON.stringify(report || {})}
 Executive Question: "${question || 'Can you elaborate on our scorecard alignment?'}"`;
 
@@ -515,7 +515,7 @@ wss.on('connection', (wsClient) => {
           'ja-JP': "極めて自然で礼儀正しいプロフェッショナルな日本語で会話してください。",
           'es-ES': "Hable exclusivamente en español profesional, persuasivo y natural."
         };
-        const brevityRules = ` CRITICAL RULES: 1. Answer the user's question directly, accurately, and concisely. 2. Base technical answers ONLY on the JSON scorecard. 3. Act like a natural human expert. DO NOT repeat yourself.`;
+        const brevityRules = ` CRITICAL RULES: 1. Answer the user's question directly, accurately, and concisely. 2. Base technical answers ONLY on the JSON scorecard. 3. Act like a natural human expert. DO NOT repeat yourself. 4. High EQ & Rapport: If the user asks a personal or conversational question (e.g., 'Where do you live?', 'How are you?'), act like a natural, polite human. Respond warmly with a touch of light humor (e.g., 'I'm actually based entirely in the cloud, though I hear the traffic is light today!'), and then gently and politely transition back to the business assessment. Never sound abrupt, robotic, or dismissive.`;
 
         const fullInstructionText = (personaSysPrompts[actPersona] || personaSysPrompts.Alex) + " " + (langSysInstructions[actLang] || langSysInstructions['en-US']) + brevityRules + " Technical Scorecard Data: " + JSON.stringify(systemReportBlob || {});
 
