@@ -351,7 +351,22 @@ Report Data: ${JSON.stringify(reportData, null, 2)}`;
         textScript = vertexRes.data.candidates[0].content.parts[0].text;
       }
     } catch (vertexErr) {
-      console.warn("⚠️ [Vertex ADC Fallback] Failed to generate live script via Vertex ADC, utilizing executive blueprint text:", vertexErr.message);
+      console.warn("⚠️ [Vertex ADC Fallback] Vertex failed, pivoting to verified AI Studio Route:", vertexErr.message);
+      try {
+        const fallbackAi = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+        const scriptPrompt = `You are Alex, an elite Google Cloud Principal CE presenting an Executive Use Case Assessment Findings report to a C-Suite board.
+Transform the following report metrics into an engaging, first-person 60-second presenter speech script. Speak naturally with executive confidence, highlight the ROI, architecture alignment, regulatory posture, and blockers, and propose immediate next steps.
+Do NOT include stage directions, markdown, or timestamps—output ONLY the exact spoken words.
+Report Data: ${JSON.stringify(reportData, null, 2)}`;
+
+        const genResult = await fallbackAi.models.generateContent({
+          model: 'gemini-2.5-flash',
+          contents: scriptPrompt
+        });
+        if (genResult.text) textScript = genResult.text;
+      } catch (studioErr) {
+        console.warn("⚠️ [AI Studio Fallback Engine] Retaining executive blueprint text:", studioErr.message);
+      }
     }
 
     // 2. Pass script to Google Cloud Text-to-Speech using en-US-Chirp3-HD-Aoede or Studio
