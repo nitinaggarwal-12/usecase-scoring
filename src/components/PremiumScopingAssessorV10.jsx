@@ -560,6 +560,8 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
       setActiveDimensionId('BV');
     } else if (targetTab === 'technical') {
       setActiveDimensionId('DK');
+    } else if (targetTab === 'scorecard') {
+      setReportSubTab('executive');
     }
     
     try {
@@ -911,6 +913,7 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
             if (storedBuf.customerInfo) setCustomerInfo(storedBuf.customerInfo);
             setLiveSynthesis(storedBuf.liveSynthesis);
             setActiveTab('scorecard');
+            setReportSubTab('executive');
             return;
           }
           
@@ -924,6 +927,7 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
             if (vec.customerInfo) setCustomerInfo(vec.customerInfo);
             if (vec.liveSynthesis) setLiveSynthesis(vec.liveSynthesis);
             setActiveTab('scorecard');
+            setReportSubTab('executive');
             return;
           }
         } catch(e) {}
