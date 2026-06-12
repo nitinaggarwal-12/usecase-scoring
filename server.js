@@ -455,10 +455,15 @@ wss.on('connection', (wsClient) => {
             });
           }
 
-          // Trap 3 & Trap 8 Mandates: Transition unlocking and continuous streaming
+          // Trap 3 & Trap 8 Mandates: Transition unlocking and graceful Gemini socket termination
           if (content.turnComplete) {
-            console.log('[GEMINI_LIVE_SOCKET] Turn complete. Ready for next user VAD spoken query...');
+            console.log('[GEMINI_LIVE_SOCKET] Turn complete. Terminating Gemini connection to enforce single-turn presentation resumption...');
             wsClient.send(JSON.stringify({ type: "turn_complete" }));
+            
+            // Trap 8 Mandate: Gracefully close Gemini socket
+            setTimeout(() => {
+              try { geminiWs?.close(); } catch(e) {}
+            }, 500);
           }
         } catch (parseErr) {
           console.error('[GEMINI_LIVE_PARSE_ERROR]', parseErr.message);

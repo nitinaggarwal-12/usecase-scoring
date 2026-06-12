@@ -299,11 +299,22 @@ export default function InteractiveDashboard({ reportData, onBack }) {
             nextStartTimeRef.current += audioBuffer.duration;
           }
 
-          // Trap 3 Mandate: Parse turnComplete flag to keep mic open for multi-turn executive Q&A
+          // Trap 3 Mandate: Parse turnComplete flag to execute RESUMING transition and resume main presentation
           if (serverPacket.type === 'turn_complete') {
-            console.log("✅ [Turn Success] Gemini turn complete signal received. Mic remains open for follow-up query.");
-            setAppState('LISTENING');
-            setTranscript('⚡ Alex is listening... Speak your next strategic follow-up question.');
+            console.log("✅ [Turn Success] Gemini turn complete signal received. Executing RESUMING transition...");
+            setAppState('RESUMING');
+            setTranscript('Question resolved. Resuming executive brief...');
+            executeCleanAudioTeardown();
+
+            setTimeout(() => {
+              if (audioElemRef.current) {
+                audioElemRef.current.play();
+                setAppState('PRESENTING');
+                setTranscript('');
+              } else {
+                setAppState('IDLE');
+              }
+            }, 800);
           }
 
           if (serverPacket.type === 'error') {
