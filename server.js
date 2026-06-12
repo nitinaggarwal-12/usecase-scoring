@@ -407,7 +407,7 @@ wss.on('connection', (wsClient) => {
           setup: {
             model: "models/gemini-2.5-flash",
             generationConfig: {
-              responseModalities: ["AUDIO", "TEXT"],
+              responseModalities: ["AUDIO"],
               speechConfig: {
                 voiceConfig: { prebuiltVoiceConfig: { voiceName: "Aoede" } }
               }
