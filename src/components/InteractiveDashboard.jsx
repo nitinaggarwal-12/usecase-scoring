@@ -284,8 +284,9 @@ export default function InteractiveDashboard({ reportData, onBack }) {
       const actx = getOrInitAudioContext();
       nextStartTimeRef.current = actx.currentTime;
 
+      const activeRepId = activeReportRef.current?.id || 'novartis_v5';
       const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-      const wsUrl = `${protocol}//${window.location.host}/api/qa/stream`;
+      const wsUrl = `${protocol}//${window.location.host}/api/qa/stream?reportId=${encodeURIComponent(activeRepId)}`;
       
       const socket = new WebSocket(wsUrl);
       wsRef.current = socket;

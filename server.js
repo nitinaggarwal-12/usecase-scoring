@@ -104,6 +104,12 @@ const pool = new pg.Pool({
   host: '/var/run/postgresql'
 });
 
+// Resilient Phase 3 Connection Pool for Live C-Suite WebSocket Scorecard Ingestion
+const dbPool = new pg.Pool({
+  connectionString: process.env.DATABASE_URL || 'postgres://postgres:password@localhost:5432/virtual_ce_db',
+  host: process.env.DATABASE_URL ? undefined : '/var/run/postgresql'
+});
+
 // Automated Database Schema Bootstrapping Middleware
 const bootstrapDatabaseSchema = async () => {
   try {
@@ -119,7 +125,24 @@ const bootstrapDatabaseSchema = async () => {
         created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
       );
     `);
-    console.log('[DB_BOOTSTRAP] Automated PostgreSQL v10_assessments schema verification completed successfully.');
+    await dbPool.query(`
+      CREATE TABLE IF NOT EXISTS client_assessments (
+        report_id VARCHAR(255) PRIMARY KEY,
+        scorecard_data JSONB,
+        created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+      );
+    `);
+    
+    // Seed default demo reports if empty
+    await dbPool.query(`
+      INSERT INTO client_assessments (report_id, scorecard_data)
+      VALUES 
+        ('default_demo_report', '{"company": "Novartis Pharma AG", "useCase": "Autonomous AI Assessment", "verdict": "Launch Now", "priorityScore": 95}'),
+        ('novartis_v5', '{"company": "Novartis Pharma AG", "useCase": "Clinical Trials Auto-Scoring", "verdict": "Launch Now", "priorityScore": 92}'),
+        ('sanofi_v5', '{"company": "Sanofi S.A.", "useCase": "Pharmacovigilance Automation", "verdict": "Incubate & Validate", "priorityScore": 88}')
+      ON CONFLICT (report_id) DO NOTHING;
+    `);
+    console.log('[DB_BOOTSTRAP] Automated PostgreSQL v10_assessments and client_assessments schema verification complete.');
   } catch (err) {
     console.warn('[DB_BOOTSTRAP_WARN] Native DB schema bootstrap skipped or offline. Falling back to robust dual-write flat files:', err.message);
   }
@@ -207,7 +230,6 @@ app.post('/api/v10/assessments', async (req, res) => {
     scoringVector: targetVector
   };
 
-  let pgSuccess = false;
   try {
     await pool.query(
       `INSERT INTO v10_assessments (id, company, use_case, domain, priority_score, verdict, scoring_vector, created_at)
@@ -221,6 +243,13 @@ app.post('/api/v10/assessments', async (req, res) => {
          scoring_vector = EXCLUDED.scoring_vector,
          created_at = NOW()`,
       [targetId, targetCompany, targetUseCase, targetDomain, targetScore, targetVerdict, JSON.stringify(targetVector)]
+    );
+    await dbPool.query(
+      `INSERT INTO client_assessments (report_id, scorecard_data)
+       VALUES ($1, $2)
+       ON CONFLICT (report_id) DO UPDATE SET
+         scorecard_data = EXCLUDED.scorecard_data`,
+      [targetId, JSON.stringify(newEntry)]
     );
     pgSuccess = true;
   } catch (err) {
@@ -446,10 +475,22 @@ app.post('/api/qa/fallback', async (req, res) => {
       'es-ES': "Responda de forma concisa y exclusivamente en español profesional y natural."
     };
 
+    const activeRepId = report?.id || req.body.reportId || 'default_demo_report';
+    let liveScorecard = report || {};
+    try {
+      const dbRes = await dbPool.query(
+        'SELECT scorecard_data FROM client_assessments WHERE report_id = $1',
+        [activeRepId]
+      );
+      if (dbRes.rows[0]?.scorecard_data) {
+        liveScorecard = dbRes.rows[0].scorecard_data;
+      }
+    } catch(dbErr) {}
+
     const promptText = `${personaSysPrompts[actPersona] || personaSysPrompts.Alex}
 ${langSysInstructions[actLang] || langSysInstructions['en-US']}
 CRITICAL RULES: 1. Answer the user's question directly, accurately, and concisely. 2. Base technical answers ONLY on the JSON scorecard. 3. Act like a natural human expert. DO NOT repeat yourself. 4. High EQ & Rapport: If the user asks a personal or conversational question (e.g., 'Where do you live?', 'How are you?'), act like a natural, polite human. Respond warmly with a touch of light humor (e.g., 'I'm actually based entirely in the cloud, though I hear the traffic is light today!'), and then gently and politely transition back to the business assessment. Never sound abrupt, robotic, or dismissive.
-Scorecard Data: ${JSON.stringify(report || {})}
+Scorecard Data: ${JSON.stringify(liveScorecard)}
 Executive Question: "${question || 'Can you elaborate on our scorecard alignment?'}"`;
 
     const fallbackAi = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || ['AQ.', 'Ab8RN6Ib', '12L9Qun0', 'kfyFVzma', 'gU2zViLb', 'EXpQToB1', 'kvM2UBhDtg'].join('') });
@@ -473,9 +514,13 @@ const httpServer = app.listen(PORT, () => {
 // Phase B: Universal Bi-Directional WebSocket Router for Gemini Live RAG Barge-In
 const wss = new WebSocketServer({ server: httpServer, path: '/api/qa/stream' });
 
-wss.on('connection', (wsClient) => {
+wss.on('connection', (wsClient, req) => {
   console.log('[WS_ROUTER] New enterprise stakeholder Q&A session connected.');
   console.log(`🔌 [WS Ingest] Session verified. ReadyState: ${wsClient.readyState}`);
+  
+  // Extract the ID sent from the React frontend (e.g., ws://.../stream?reportId=novartis_v5)
+  const reqUrl = req ? new URL(req.url, `http://${req.headers.host || 'localhost'}`) : null;
+  const activeReportId = reqUrl ? reqUrl.searchParams.get('reportId') || 'default_demo_report' : 'default_demo_report';
   let geminiWs = null;
   let handshakeCompleted = false;
 
@@ -603,7 +648,7 @@ wss.on('connection', (wsClient) => {
     }
   };
 
-  wsClient.on('message', (clientMsg) => {
+  wsClient.on('message', async (clientMsg) => {
     try {
       if (Buffer.isBuffer(clientMsg)) {
         // Encode the raw binary PCM to Base64
@@ -628,7 +673,25 @@ wss.on('connection', (wsClient) => {
       const clientObj = JSON.parse(clientMsg.toString('utf8'));
 
       if (clientObj.type === 'setup') {
-        initGeminiLiveSocket(clientObj.report || {}, clientObj.config || {});
+        const targetRepId = clientObj.report?.id || activeReportId;
+        let liveScorecard = clientObj.report || {};
+        
+        try {
+          // Fetch the live JSONB scorecard from PostgreSQL
+          const dbResult = await dbPool.query(
+            'SELECT scorecard_data FROM client_assessments WHERE report_id = $1', 
+            [targetRepId]
+          );
+          
+          if (dbResult.rows[0]?.scorecard_data) {
+            liveScorecard = dbResult.rows[0].scorecard_data;
+            console.log(`✅ [PostgreSQL RAG] Live PostgreSQL scorecard ingestion successful for report: ${targetRepId}`);
+          }
+        } catch (dbError) {
+          console.error("❌ [Database Error] Failed to fetch live scorecard:", dbError.message);
+        }
+
+        initGeminiLiveSocket(liveScorecard, clientObj.config || {});
       }
     } catch (err) {
       console.error('[CLIENT_WS_MESSAGE_ERROR]', err.message);
