@@ -1390,10 +1390,14 @@ export default function PremiumScopingAssessorV10({ onBackToLanding, globalTheme
       prioritySum += pillarRawScore * (pillar.weight / 100);
     });
 
-    const computedScore = Math.round(prioritySum);
     setAnswers(randomAnswers);
-
-    persistToSavedAssessments(candidate.company, fullUseCase, computedScore, randomAnswers);
+    setActiveTab('intake');
+    try {
+      const hashObj = window.location.hash || '';
+      const params = new URLSearchParams(hashObj.split('?')[1] || '');
+      params.set('view', 'intake');
+      window.location.hash = `#portfolio-intelligence-v10?${params.toString()}`;
+    } catch(e) {}
   };
 
   return (
