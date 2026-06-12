@@ -31,9 +31,13 @@ app.post('/api/v10/synthesize', async (req, res) => {
     const model = body.model || query.model || 'gemini-1.5-pro';
 
     // Branch A: Direct Gemini Developer API Key integration (Completely standalone & CORS-free!)
-    if (apiKey && apiKey.startsWith('AIza')) {
+    if (apiKey && (apiKey.startsWith('AIza') || apiKey.startsWith('AQ.'))) {
       const cleanKey = apiKey.trim();
-      const aiStudioUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${cleanKey}`;
+      let mappedAiModel = model;
+      if (model.includes('3.1') || model.includes('pro')) mappedAiModel = 'gemini-1.5-pro';
+      else if (model.includes('3.5') || model.includes('flash')) mappedAiModel = 'gemini-1.5-flash';
+
+      const aiStudioUrl = `https://generativelanguage.googleapis.com/v1beta/models/${mappedAiModel}:generateContent?key=${cleanKey}`;
       
       if (query.ping === 'true') {
         const pingRes = await fetch(aiStudioUrl, {
