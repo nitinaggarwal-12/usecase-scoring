@@ -448,7 +448,10 @@ app.post('/api/qa/fallback', async (req, res) => {
 
     const promptText = `${personaSysPrompts[actPersona] || personaSysPrompts.Alex}
 ${langSysInstructions[actLang] || langSysInstructions['en-US']}
-Do not repeat their query. Provide an incisive, confident 30-second expert response based exactly on their report scorecard.
+CRITICAL RULES:
+1. Be extremely concise. Keep answers to 1 or 2 sentences maximum.
+2. DO NOT recite or summarize the entire scorecard unprompted.
+3. If the user asks a simple question like 'hello', 'hey', 'are you there', or 'can you hear me', just say 'Loud and clear! What would you like to know about our assessment?'
 Scorecard Data: ${JSON.stringify(report || {})}
 Executive Question: "${question || 'Can you elaborate on our scorecard alignment?'}"`;
 
@@ -515,7 +518,14 @@ wss.on('connection', (wsClient) => {
           'ja-JP': "極めて自然で礼儀正しいプロフェッショナルな日本語で会話してください。",
           'es-ES': "Hable exclusivamente en español profesional, persuasivo y natural."
         };
-        const fullInstructionText = (personaSysPrompts[actPersona] || personaSysPrompts.Alex) + " " + (langSysInstructions[actLang] || langSysInstructions['en-US']) + " DO NOT repeat their queries. Answer naturally like a real human. Scorecard Data: " + JSON.stringify(systemReportBlob || {});
+        const brevityRules = `
+CRITICAL RULES:
+1. Be extremely concise. Keep answers to 1 or 2 sentences maximum.
+2. DO NOT recite or summarize the entire scorecard unprompted.
+3. If the user asks a simple question like 'hello', 'hey', 'are you there', or 'can you hear me', just say 'Loud and clear! What would you like to know about our assessment?'
+4. Answer naturally like a real human in a boardroom Q&A session. Do not use canned corporate buzzwords.`;
+
+        const fullInstructionText = (personaSysPrompts[actPersona] || personaSysPrompts.Alex) + " " + (langSysInstructions[actLang] || langSysInstructions['en-US']) + brevityRules + " Technical Scorecard Data: " + JSON.stringify(systemReportBlob || {});
 
         const setupFrame = {
           setup: {

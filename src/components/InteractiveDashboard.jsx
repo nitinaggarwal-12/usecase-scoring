@@ -664,12 +664,14 @@ export default function InteractiveDashboard({ reportData, onBack }) {
 
       {/* Real-Time Telemetry & Transcribing Visual Box */}
       {transcript && (
-        <div style={{ background: '#1e293b', borderLeft: '4px solid #f59e0b', padding: '1.25rem 1.75rem', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', animation: 'fadeIn 0.3s' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-            <AlertCircle size={20} color="#f59e0b" />
-            <span style={{ fontSize: '1.05rem', fontWeight: 700, color: '#f8fafc' }}>{transcript}</span>
+        <div style={{ background: '#1e293b', borderLeft: '4px solid #f59e0b', padding: '1.25rem 1.75rem', borderRadius: '16px', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', animation: 'fadeIn 0.3s', margin: '1rem 0' }}>
+          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem', flex: 1 }}>
+            <AlertCircle size={20} color="#f59e0b" style={{ marginTop: '0.2rem', flexShrink: 0 }} />
+            <div style={{ fontSize: '1.05rem', fontWeight: 700, color: '#f8fafc', whiteSpace: 'pre-wrap', lineHeight: '1.6', wordBreak: 'break-word' }}>
+              {transcript}
+            </div>
           </div>
-          <span style={{ fontSize: '0.8rem', color: '#94a3b8', fontWeight: 800, background: '#0f172a', padding: '0.35rem 0.85rem', borderRadius: '100px', border: '1px solid #334155' }}>
+          <span style={{ fontSize: '0.8rem', color: '#94a3b8', fontWeight: 800, background: '#0f172a', padding: '0.35rem 0.85rem', borderRadius: '100px', border: '1px solid #334155', flexShrink: 0, marginLeft: '1rem', alignSelf: 'center' }}>
             WebRTC Dual Audio Pipeline Active
           </span>
         </div>
