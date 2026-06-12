@@ -301,7 +301,10 @@ async function findAndExecuteWorkingModel(candidateKeys, promptPayload, onLog = 
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            contents: [{ role: "user", parts: [{ text: "PING" }] }]
+            contents: [{ role: "user", parts: [{ text: "PING" }] }],
+            apiKey: tenant.key,
+            projectId: tenant.project,
+            gcpToken: candidateKeys?.gcpToken
           })
         });
         if (!pingRes.ok) {
