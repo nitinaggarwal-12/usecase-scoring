@@ -32,7 +32,7 @@ app.post('/api/v10/synthesize', async (req, res) => {
   try {
     const body = req.body || {};
     const query = req.query || {};
-    const apiKey = body.apiKey || query.apiKey || req.headers['x-gemini-api-key'] || '';
+    const apiKey = body.apiKey || query.apiKey || req.headers['x-gemini-api-key'] || process.env.GEMINI_API_KEY || 'AIzaSyC5Qz7M-yDCdlNEsPt97ffuLYlw871h818';
     const model = body.model || query.model || 'gemini-1.5-pro';
 
     let lastErrorMessage = 'No valid authentication keys provided';
