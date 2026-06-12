@@ -208,6 +208,18 @@ export default function InteractiveDashboard({ reportData, onBack }) {
       setTranscript('Connecting secure WebRTC Web Audio socket to Gemini Live...');
       executeCleanAudioTeardown();
 
+      // 5-Second Safety Timeout Lock
+      const connectHangTimer = setTimeout(() => {
+        setAppState((currState) => {
+          if (currState === 'CONNECTING') {
+            console.error("❌ [Timeout] Backend failed to send 'backend_ready'. Aborting Q&A.");
+            alert("Connection to Gemini Live timed out across proxy. Check your corporate firewall settings.");
+            return 'PRESENTING';
+          }
+          return currState;
+        });
+      }, 5000);
+
       // Native Browser Speech Recognition Architecture
       const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
       if (SpeechRecognition) {
@@ -222,7 +234,7 @@ export default function InteractiveDashboard({ reportData, onBack }) {
             const transcriptText = Array.from(evt.results).map(r => r[0].transcript).join('');
             setSpokenQuestion(transcriptText);
             spokenQuestionRef.current = transcriptText;
-            setTranscript(`You: "${transcriptText}"`);
+            setTranscript(`You: "${transcriptText}"\n\n`);
           };
 
           rec.start();
@@ -232,12 +244,11 @@ export default function InteractiveDashboard({ reportData, onBack }) {
       const actx = getOrInitAudioContext();
       nextStartTimeRef.current = actx.currentTime;
 
-      let socketUrl = `${BASE_WS_URL}/api/qa/stream`;
-      if (window.location.hostname.includes('googlers.com') && !window.location.hostname.includes('proxy')) {
-        socketUrl = `ws://${window.location.hostname}:3001/api/qa/stream`;
-      }
+      const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+      const host = window.location.hostname === 'localhost' ? 'localhost:3001' : window.location.host;
+      const wsUrl = `${protocol}//${host}/api/qa/stream`;
       
-      const socket = new WebSocket(socketUrl);
+      const socket = new WebSocket(wsUrl);
       wsRef.current = socket;
       socket.binaryType = "arraybuffer";
 
@@ -257,6 +268,7 @@ export default function InteractiveDashboard({ reportData, onBack }) {
 
           // Trap 13 Mandate: Handshake completed successfully, activate mic downsampling loop
           if (serverPacket.type === 'handshake_complete' || serverPacket.type === 'backend_ready') {
+            clearTimeout(connectHangTimer);
             console.log("✅ [Backend Ready] Upstream Gemini Live connection fully open. Requesting physical microphone tracks...");
             setAppState('LISTENING');
             setTranscript('⚡ Ready! Speak your strategic pushback question clearly into the microphone...');
@@ -305,6 +317,9 @@ export default function InteractiveDashboard({ reportData, onBack }) {
             setTranscript(curr => {
               if (curr.startsWith('Connecting') || curr.startsWith('Socket') || curr.startsWith('⚡ Ready') || curr.startsWith('Alex is answering')) {
                 return `Alex: "${serverPacket.text}"`;
+              }
+              if (curr.endsWith('\n\n')) {
+                return curr + `Alex: "${serverPacket.text}"`;
               }
               return curr + serverPacket.text;
             });
