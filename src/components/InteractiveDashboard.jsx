@@ -299,22 +299,32 @@ export default function InteractiveDashboard({ reportData, onBack }) {
             nextStartTimeRef.current += audioBuffer.duration;
           }
 
-          // Trap 3 Mandate: Parse turnComplete flag to execute RESUMING transition and resume main presentation
+          // Trap 3 Mandate: Parse turnComplete flag, compute Web Audio drain latency, and smoothly resume main presentation
           if (serverPacket.type === 'turn_complete') {
-            console.log("✅ [Turn Success] Gemini turn complete signal received. Executing RESUMING transition...");
-            setAppState('RESUMING');
-            setTranscript('Question resolved. Resuming executive brief...');
-            executeCleanAudioTeardown();
-
+            console.log("✅ [Turn Success] Gemini turn complete signal received. Computing high-precision Web Audio drain latency...");
+            
+            // Calculate how many seconds of audio are still waiting to play in the physical speakers queue
+            const timeRemaining = Math.max(0, nextStartTimeRef.current - actx.currentTime);
+            console.log(`⌛ [Queue Drain Lock] Suspending teardown for exactly ${timeRemaining.toFixed(2)}s until physical audio playback completes...`);
+            
+            // Wait for the queue to physically finish playing out loud
             setTimeout(() => {
-              if (audioElemRef.current) {
-                audioElemRef.current.play();
-                setAppState('PRESENTING');
-                setTranscript('');
-              } else {
-                setAppState('IDLE');
-              }
-            }, 800);
+              // NOW execute the teardown
+              setAppState('RESUMING');
+              setTranscript('Question beautifully resolved. Resuming executive brief...');
+              executeCleanAudioTeardown();
+
+              // Smoothly resume main presentation
+              setTimeout(() => {
+                if (audioElemRef.current) {
+                  audioElemRef.current.play();
+                  setAppState('PRESENTING');
+                  setTranscript('');
+                } else {
+                  setAppState('IDLE');
+                }
+              }, 500);
+            }, timeRemaining * 1000);
           }
 
           if (serverPacket.type === 'error') {
