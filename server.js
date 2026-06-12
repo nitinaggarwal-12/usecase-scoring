@@ -370,58 +370,6 @@ Report Data: ${JSON.stringify(reportData, null, 2)}`;
   }
 });
 
-// Phase A Step 2: Intelligent Semantic Presentation Q&A Ingestion Endpoint
-app.post('/api/presentation/qa', async (req, res) => {
-  try {
-    const { question, report } = req.body || {};
-    const qStr = (question || '').trim().toLowerCase();
-    console.log(`📥 [Presentation QA Ingest] Solving C-Suite pushback question: "${question}"`);
-
-    let answerText = "Excellent question. Based on your full enterprise assessment report and Veeva Vault vector mesh, all regulatory, compliance, and ROI objectives are fully verified.";
-    
-    if (qStr.includes('hear') || qStr.includes('hello') || qStr.includes('there') || qStr.includes('hey')) {
-      answerText = "Loud and clear! How can I help you with your assessment scorecard?";
-    } else if (qStr.includes('roi') || qStr.includes('financial') || qStr.includes('cost') || qStr.includes('money') || qStr.includes('dollar') || qStr.includes('value') || qStr.includes('budget')) {
-      answerText = "Excellent financial question. Your Financial Assessment module confirms this strategic multi-modal initiative delivers exactly $1.4M in annual recurring ROI by eliminating 40% of manual triage overhead. The time-to-value is incredibly rapid, locking in tangible returns in just 2 to 3 weeks.";
-    } else if (qStr.includes('technical') || qStr.includes('readiness') || qStr.includes('architecture') || qStr.includes('code') || qStr.includes('tech') || qStr.includes('blocker')) {
-      answerText = "On the technical side, your baseline Technical Readiness score of 89 reflects flawless agentic API capabilities and modern Cloudtop architecture. The only minor prerequisite is validating your dedicated VPC Service Control egress perimeter for Sharepoint vector ingestion, which our expert FDE team can resolve in under 5 business days.";
-    } else if (qStr.includes('security') || qStr.includes('privacy') || qStr.includes('data') || qStr.includes('gxp') || qStr.includes('compliance') || qStr.includes('regulatory') || qStr.includes('phi') || qStr.includes('sovereign')) {
-      answerText = "Regarding security and regulatory sovereignty, our dynamic boundary architecture maintains strict GxP and HIPAA isolation. All LLM extractions and reasoning execute completely inside your dedicated customer tenant with absolute zero customer data retention by Google models.";
-    } else if (qStr.includes('model') || qStr.includes('gemini') || qStr.includes('governance') || qStr.includes('hallucination') || qStr.includes('ai') || qStr.includes('confident') || qStr.includes('certain')) {
-      answerText = "Your Model Governance score of 98 guarantees absolute enterprise safety. By leveraging Gemini 2.5 Pro with dual-key cascading and explicit Grounding against your private enterprise documentation, we enforce a zero-hallucination execution framework.";
-    } else if (question && question.length > 3) {
-      answerText = `That's an incredibly incredibly intuitive point regarding "${question}". Based entirely on your verified JSON scorecard metrics, we are fully technically ready for deployment. What particular architecture or integration details would you like to unpack?`;
-    }
-
-    // Synthesize High-Fidelity Audio
-    const ttsRequest = {
-      input: { text: answerText },
-      voice: { languageCode: 'en-US', name: 'en-US-Studio-O' },
-      audioConfig: { audioEncoding: 'MP3', speakingRate: 1.0 },
-    };
-
-    let base64Audio = '';
-    try {
-      const [ttsResponse] = await ttsClient.synthesizeSpeech(ttsRequest);
-      if (ttsResponse && ttsResponse.audioContent && ttsResponse.audioContent.length > 0) {
-        console.log(`✅ [QA TTS Success] Generated ${ttsResponse.audioContent.length} bytes of Chirp 3 HD audio.`);
-        base64Audio = `data:audio/mp3;base64,${ttsResponse.audioContent.toString('base64')}`;
-      }
-    } catch (ttsErr) {
-      console.warn(`⚠️ [QA TTS Quota Rejection] ${ttsErr.message}. Delegating QA audio synthesis to Client W3C Web Speech pipeline.`);
-    }
-
-    return res.json({
-      success: true,
-      answer: answerText,
-      audioBase64: base64Audio
-    });
-  } catch (err) {
-    console.error('[PRESENTATION_QA_ERROR]', err.message);
-    return res.status(500).json({ error: err.message });
-  }
-});
-
 // Instantiate HTTP Server
 const httpServer = app.listen(PORT, () => {
   console.log(`[SYS_INIT] Native PostgreSQL + Dual-Write Express Microservice active on port ${PORT}`);
@@ -459,7 +407,7 @@ wss.on('connection', (wsClient) => {
           setup: {
             model: "models/gemini-2.5-flash",
             generationConfig: {
-              responseModalities: ["AUDIO"],
+              responseModalities: ["AUDIO", "TEXT"],
               speechConfig: {
                 voiceConfig: { prebuiltVoiceConfig: { voiceName: "Aoede" } }
               }
@@ -489,7 +437,7 @@ wss.on('connection', (wsClient) => {
             return;
           }
 
-          // Trap 2 Mandate: Upstream Gemini sends Base64 encoded raw PCM, route to React
+          // Trap 2 Mandate: Upstream Gemini sends Base64 encoded raw PCM and text chunks, route to React
           if (content.modelTurn && content.modelTurn.parts) {
             content.modelTurn.parts.forEach(part => {
               if (part.inlineData && part.inlineData.data) {
@@ -498,18 +446,19 @@ wss.on('connection', (wsClient) => {
                   data: part.inlineData.data
                 }));
               }
+              if (part.text) {
+                wsClient.send(JSON.stringify({
+                  type: "text_chunk",
+                  text: part.text
+                }));
+              }
             });
           }
 
-          // Trap 3 & Trap 8 Mandates: Transition unlocking and graceful socket termination
+          // Trap 3 & Trap 8 Mandates: Transition unlocking and continuous streaming
           if (content.turnComplete) {
-            console.log('[GEMINI_LIVE_SOCKET] Turn complete. Informing React UI engine...');
+            console.log('[GEMINI_LIVE_SOCKET] Turn complete. Ready for next user VAD spoken query...');
             wsClient.send(JSON.stringify({ type: "turn_complete" }));
-            
-            // Trap 8 Mandate: Gracefully terminate Gemini socket upon task completion
-            setTimeout(() => {
-              try { geminiWs?.close(); } catch(e) {}
-            }, 500);
           }
         } catch (parseErr) {
           console.error('[GEMINI_LIVE_PARSE_ERROR]', parseErr.message);

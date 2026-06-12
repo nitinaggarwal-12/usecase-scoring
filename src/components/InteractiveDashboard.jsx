@@ -143,50 +143,6 @@ export default function InteractiveDashboard({ reportData, onBack }) {
       setAppState('IDLE');
     }
   };
-
-  const executeSubmitSpokenQuestion = async (userQText) => {
-    try {
-      if ('speechSynthesis' in window) window.speechSynthesis.cancel();
-      if (audioElemRef.current) audioElemRef.current.pause();
-
-      setAppState('ANSWERING');
-      setTranscript(`💬 Evaluating pushback: "${userQText}"...`);
-
-      const res = await fetch(`${BASE_HTTP_URL}/api/presentation/qa`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          question: userQText,
-          report: activeReportRef.current || {}
-        })
-      });
-
-      const data = await res.json();
-      if (!res.ok || !data.success) throw new Error(data.error || "QA API Synthesis Failed");
-
-      setTranscript(`You: "${userQText}"\n\nAlex: "${data.answer}"`);
-
-      const handleQaEnd = () => {
-        setAppState(curr => (curr === 'ANSWERING' || curr === 'RESUMING' ? 'IDLE' : curr));
-      };
-
-      if (data.audioBase64 && data.audioBase64.length > 20) {
-        audioElemRef.current.src = data.audioBase64;
-        audioElemRef.current.onended = handleQaEnd;
-        audioElemRef.current.onerror = handleQaEnd;
-        await audioElemRef.current.play();
-      } else if ('speechSynthesis' in window) {
-        const utt = new SpeechSynthesisUtterance(data.answer);
-        utt.onend = handleQaEnd;
-        utt.onerror = handleQaEnd;
-        window.speechSynthesis.speak(utt);
-      }
-    } catch (err) {
-      setIsErrorMessage(`QA Error: ${err.message}`);
-      setAppState('IDLE');
-    }
-  };
-
   // State Transition Trigger: PRESENTING -> LISTENING (WebSocket & Mic Ingestion)
   const handleAskQuestion = async () => {
     if (appState !== 'PRESENTING') return;
@@ -253,14 +209,6 @@ export default function InteractiveDashboard({ reportData, onBack }) {
       wsRef.current = socket;
       socket.binaryType = "arraybuffer";
 
-      let handshakeCompleteLock = false;
-      const proxyPivotTimer = setTimeout(() => {
-        if (!handshakeCompleteLock) {
-          console.warn("⚠️ [WebSocket Load Balancer] Upstream latency timed out, activating sovereign client WebRTC Q&A Engine.");
-          executeSubmitSpokenQuestion(spokenQuestionRef.current || spokenQuestion || "What is the concrete recurring ROI for this initiative?");
-        }
-      }, 3600);
-
       socket.onopen = () => {
         // Handshake Race Condition Block: Send setup blob first
         setTranscript('Socket open. Authenticating GxP RAG contextual blueprint...');
@@ -302,6 +250,15 @@ export default function InteractiveDashboard({ reportData, onBack }) {
 
             source.connect(scriptNode);
             scriptNode.connect(actx.destination);
+          }
+
+          if (serverPacket.type === 'text_chunk') {
+            setTranscript(curr => {
+              if (curr.startsWith('Connecting') || curr.startsWith('Socket') || curr.startsWith('⚡ Ready') || curr.startsWith('Alex is answering')) {
+                return `Alex: "${serverPacket.text}"`;
+              }
+              return curr + serverPacket.text;
+            });
           }
 
           // Trap 2 Mandate: Intercept incoming Base64 PCM payloads, decode and play sequentially
@@ -489,30 +446,6 @@ export default function InteractiveDashboard({ reportData, onBack }) {
             >
               <Mic size={16} />
               <span>✋ Ask a Question (Barge-In)</span>
-            </button>
-          )}
-
-          {appState === 'LISTENING' && (
-            <button
-              onClick={() => executeSubmitSpokenQuestion(spokenQuestionRef.current || spokenQuestion || "What is the tangible financial ROI for this initiative?")}
-              style={{
-                background: 'linear-gradient(135deg, #a855f7, #7e22ce)',
-                color: '#ffffff',
-                border: 'none',
-                padding: '0.75rem 1.8rem',
-                borderRadius: '100px',
-                fontWeight: 900,
-                fontSize: '0.95rem',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                boxShadow: '0 4px 15px rgba(168,85,247,0.4)',
-                animation: 'pulse 2s infinite'
-              }}
-            >
-              <CheckCircle2 size={16} />
-              <span>💬 Answer Spoken Question</span>
             </button>
           )}
 
