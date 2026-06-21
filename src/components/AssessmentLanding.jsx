@@ -62,7 +62,26 @@ export default function AssessmentLanding({
       whenUsed: "During the first discovery meeting with new prospective customers or when initiating scoping for a newly identified generative AI business opportunity.",
       benefits: "Standardizes customer qualification, provides architectural grounding context, and automatically feeds down-stream multi-agent scoring evaluations.",
       posture: "Verifies compliance perimeters early by logging HIPAA/GDPR constraints, current cloud sovereignty needs, and required CMEK encryption boundaries."
+    },
+    option11: {
+      title: "Agentic AI & Multi-Agent Maturity Assessor (v11)",
+      subtitle: "Measure multi-agent orchestration reliability, planning reasoning loops, and state machine persistence.",
+      whatIs: "A comprehensive technical diagnostic assessing agentic capabilities, loop safety, back-off recoverability, and multi-agent teamwork patterns. Grounded in advanced cognitive reasoning architectures.",
+      targetUser: "Chief AI Officers, Principal Agentic Architects, Lead Systems Integrators, and Cognitive Software Engineers.",
+      whenUsed: "Prior to launching production-grade autonomous agent clusters, multi-agent orchestrations, or complex stateful LangGraph/Semantic Kernel reasoning loops.",
+      benefits: "Identifies loop starvation risks, optimizes token consumption per agent execution, and establishes robust guardrails for agentic self-repair and tool execution.",
+      posture: "Strengthens autonomous compliance by validating tool-use permissions, sandboxing agent executions, and enforcing strict human-in-the-loop (HITL) overrides."
+    },
+    option12: {
+      title: "Enterprise Readiness & GxP Compliance Scoping Assessor (v12)",
+      subtitle: "Audit biopharma enterprise readiness, FDA 21 CFR Part 11 validation, and sovereign network isolation.",
+      whatIs: "The ultimate enterprise readiness scoping suite built for highly regulated perimeters. Evaluates zero-trust data ingestion pipelines, cryptographically signed audit ledgers, and secure Vertex AI sovereign environments.",
+      targetUser: "Vice Presidents of Clinical Quality, Lead Regulatory Officers, Cloud Security Directors, and Merck-Novartis Engagement Partners.",
+      whenUsed: "Prior to executing GxP compliance reviews, submitting regulatory dossiers, or launching validated clinical co-pilots in sovereign enterprise zones.",
+      benefits: "Guarantees 100% complete audit attestation, eliminates manual compliance verification overhead by 90%, and provides a clear 4-week validation roadmap.",
+      posture: "Secures regulated pipelines through immutable audit logs, strict role-based access control (RBAC), and hardware key cryptographic signing."
     }
+
   };
 
   const meta = contentMap[framework] || contentMap.option5;
