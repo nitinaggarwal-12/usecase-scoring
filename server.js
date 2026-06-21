@@ -101,7 +101,8 @@ app.post('/api/v10/synthesize', async (req, res) => {
 
 // Native PostgreSQL Pool (Peer Unix Domain Socket Auth)
 const pool = new pg.Pool({
-  host: '/var/run/postgresql'
+  connectionString: process.env.DATABASE_URL || 'postgres://postgres:password@localhost:5432/virtual_ce_db',
+  host: process.env.DATABASE_URL ? undefined : '/var/run/postgresql'
 });
 
 // Resilient Phase 3 Connection Pool for Live C-Suite WebSocket Scorecard Ingestion
@@ -109,6 +110,7 @@ const dbPool = new pg.Pool({
   connectionString: process.env.DATABASE_URL || 'postgres://postgres:password@localhost:5432/virtual_ce_db',
   host: process.env.DATABASE_URL ? undefined : '/var/run/postgresql'
 });
+
 
 // Automated Database Schema Bootstrapping Middleware
 const bootstrapDatabaseSchema = async () => {
