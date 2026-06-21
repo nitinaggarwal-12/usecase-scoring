@@ -29,6 +29,19 @@ __pycache__/
 *.pyc
 
 # Local Test Scripts & Certs
-test_api.js
-test_vertex.js
+test_*.js
+probe_*.js
+scratch_*.js
+scratch_*.cjs
+platform_daemon.js
+list_ai_models.js
 localhost*.pem
+
+# Local Credentials and Configs
+.env
+.env.*
+gcp-key.json
+nitinagga-ge*.json
+gemini_credentials_*.json
+
+

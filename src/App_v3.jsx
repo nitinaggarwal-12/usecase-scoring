@@ -1,4 +1,6 @@
+import './utils/hmrGuard';
 import { useState, useEffect, useRef } from 'react';
+
 import { Sparkles, AlertTriangle, X } from 'lucide-react';
 import Sidebar from './components/Sidebar';
 import LandingPage from './components/LandingPage';
@@ -23,10 +25,9 @@ import UnifiedScopingAssessor from './components/UnifiedScopingAssessor';
 import PremiumScopingAssessorV9 from './components/PremiumScopingAssessorV9';
 import PremiumLandingPageV10 from './components/PremiumLandingPageV10';
 import PremiumScopingAssessorV10 from './components/PremiumScopingAssessorV10';
-import PremiumScopingAssessorV11 from './components/PremiumScopingAssessorV11';
+import PremiumScopingAssessorV11 from './components/PremiumScopingAssessorV11_v3';
 import PremiumScopingAssessorV12 from './components/PremiumScopingAssessorV12';
 import AssessmentLanding from './components/AssessmentLanding';
-
 import { generateReportData } from './services/aiService';
 import './index.css';
 
@@ -42,10 +43,10 @@ const mapMaturityToTechnicalReport = (maturityReport, fData) => {
     return p ? (p.currentAverage / 5.0) * 100 : 60;
   };
 
-  const technical = getPillarScore("Architecture") || getPillarScore("Data") || (exec.technicalReadiness / 5.0) * 100 || 60;
-  const business = getPillarScore("Strategic") || (exec.businessReadiness / 5.0) * 100 || 60;
-  const migration = getPillarScore("Execution") || 55;
-  const timeToValue = getPillarScore("Execution") || 65;
+  const technical = getPillarScore("Architecture") || getPillarScore("Data") || getPillarScore("Intelligence") || (exec.technicalReadiness / 5.0) * 100 || 60;
+  const business = getPillarScore("User Experience") || getPillarScore("Strategic") || (exec.businessReadiness / 5.0) * 100 || 60;
+  const migration = getPillarScore("Runtime") || getPillarScore("Execution") || 55;
+  const timeToValue = getPillarScore("Data") || getPillarScore("Execution") || 65;
   const risk = getPillarScore("Security") || 70;
 
   const overallFit = Math.round(
@@ -100,7 +101,7 @@ const mapMaturityToTechnicalReport = (maturityReport, fData) => {
           title: "GxP Regulatory & Model Lineage Audit Gap",
           desc: "Maturity assessment identified critical perimeters around regulatory logging. Prompts and responses require automated GCP continuous re-validation pipelines."
         });
-      } else if (name.includes("Data")) {
+      } else if (name.includes("Data") || name.includes("Semantic")) {
         blockers.push({
           id: "block_data",
           category: "Technical",
@@ -108,7 +109,7 @@ const mapMaturityToTechnicalReport = (maturityReport, fData) => {
           title: "Siloed Multi-Cloud Data Ingestion Friction",
           desc: "Merck molecular data resides across fragmented Snowflake tables and AWS S3 lakes without unified Private Service Connect endpoints."
         });
-      } else if (name.includes("Architecture")) {
+      } else if (name.includes("Architecture") || name.includes("Runtime")) {
         blockers.push({
           id: "block_arch",
           category: "Technical",
@@ -123,6 +124,22 @@ const mapMaturityToTechnicalReport = (maturityReport, fData) => {
           severity: "Medium",
           title: "Undefined Scientific/FTE Performance Benchmarks",
           desc: "Operational deployment lacks concrete metrics to track RAG speedups, document accuracy improvements, or user feedback."
+        });
+      } else if (name.includes("User Experience") || name.includes("HITL")) {
+        blockers.push({
+          id: "block_ux",
+          category: "User Experience",
+          severity: "Medium",
+          title: "Siloed UX & Missing Event-Driven HITL Gates",
+          desc: "Maturity assessment identified friction in native workspace integration and exception-handling dormancy controls, risking process disruption."
+        });
+      } else if (name.includes("Intelligence") || name.includes("Regulatory")) {
+        blockers.push({
+          id: "block_intel",
+          category: "Compliance",
+          severity: "Critical",
+          title: "Rigid Model Lock-In & Hallucination Risks",
+          desc: "Scoping identified hardcoded model APIs and prompt-bloated brand rules. Requires unified Model Garden routing and medical safety audit agents."
         });
       }
     } else {
@@ -220,6 +237,21 @@ const mapMaturityToTechnicalReport = (maturityReport, fData) => {
 };
 
 export default function App() {
+  // Dynamic Cache-Busting Service Worker Unregister Hook
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(registrations => {
+        if (registrations.length > 0) {
+          console.log("🧹 Detected active Service Worker. Unregistering to bust static asset cache...");
+          Promise.all(registrations.map(r => r.unregister())).then(() => {
+            console.log("✅ Service Workers unregistered successfully. Reloading page...");
+            window.location.reload();
+          });
+        }
+      });
+    }
+  }, []);
+
   const [formData, setFormData] = useState(() => {
     try {
       const draft = localStorage.getItem('gemini_active_draft');
@@ -511,7 +543,6 @@ export default function App() {
           setActiveFramework('option12');
           const isLandingOnly = !query || query.trim() === '' || query.includes('view=saved_library');
           setViewMode(isLandingOnly ? 'landing' : 'assessor');
-
         } else if (route === 'premium-assessor') {
           setActiveFramework('option9');
           setViewMode((viewMode === 'landing' && !query?.includes('action=start') && !query?.includes('session=')) ? 'landing' : 'home');
@@ -561,7 +592,7 @@ export default function App() {
             if (sessId) {
               setActiveSessionId(sessId);
               const session = sessions.find(s => s.id === sessId);
-              if (session && (session.framework === 'option5' || session.framework === 'option6')) {
+              if (session && (session.framework === 'option5' || session.framework === 'option6' || session.framework === 'option11' || session.framework === 'option12')) {
                 setActiveFramework(session.framework);
               } else {
                 setActiveFramework('option5');
@@ -578,7 +609,7 @@ export default function App() {
             if (sessId) {
               setActiveSessionId(sessId);
               const session = sessions.find(s => s.id === sessId);
-              if (session && (session.framework === 'option5' || session.framework === 'option6')) {
+              if (session && (session.framework === 'option5' || session.framework === 'option6' || session.framework === 'option11' || session.framework === 'option12')) {
                 setActiveFramework(session.framework);
               }
             }
@@ -749,6 +780,12 @@ export default function App() {
       } else {
         newHash = `#maturity-assessor${sessId ? `?session=${sessId}` : ''}`;
       }
+    } else if (activeFramework === 'option11') {
+      const sessId = activeSessionId;
+      newHash = `#agentic-maturity-v11${sessId ? `?session=${sessId}` : ''}`;
+    } else if (activeFramework === 'option12') {
+      const sessId = activeSessionId;
+      newHash = `#agentic-maturity-v12${sessId ? `?session=${sessId}` : ''}`;
     } else if (activeFramework === 'option7') {
       const sessId = activeSessionId;
       if (viewMode === 'report') {
@@ -756,14 +793,7 @@ export default function App() {
       } else {
         newHash = `#agentic-discovery${sessId ? `?session=${sessId}` : ''}`;
       }
-    } else if (activeFramework === 'option11') {
-      const sessId = activeSessionId;
-      newHash = `#agentic-maturity-v11${sessId ? `?session=${sessId}` : ''}`;
-    } else if (activeFramework === 'option12') {
-      const sessId = activeSessionId;
-      newHash = `#agentic-maturity-v12${sessId ? `?session=${sessId}` : ''}`;
     } else {
-
       // Option 1 routes
       if (viewMode === 'report' && activeSessionId) {
         newHash += `?session=${activeSessionId}`;
@@ -771,6 +801,10 @@ export default function App() {
     }
 
     if (window.location.hash !== newHash) {
+      // Guard: If we are starting a new assessment or loading a demo preset, do not overwrite the hash!
+      if (window.location.hash.includes('action=start') || window.location.hash.includes('preset=')) {
+        return;
+      }
       window.location.hash = newHash;
     }
   }, [viewMode, activeFramework, activeSessionId]);
@@ -840,9 +874,14 @@ export default function App() {
     }
   };
 
-  const handleFieldChange = (field, val) => {
+  const handleFieldChange = (fieldOrObj, val) => {
     setFormData(prev => {
-      const nextFormData = { ...prev, [field]: val };
+      let nextFormData;
+      if (typeof fieldOrObj === 'object' && fieldOrObj !== null) {
+        nextFormData = { ...prev, ...fieldOrObj };
+      } else {
+        nextFormData = { ...prev, [fieldOrObj]: val };
+      }
       
       try {
         localStorage.setItem('gemini_active_draft', JSON.stringify(nextFormData));
@@ -857,12 +896,12 @@ export default function App() {
               if (lastIdx >= 0) {
                 nextVersions[lastIdx] = {
                   ...nextVersions[lastIdx],
-                  formData: { ...nextVersions[lastIdx].formData, [field]: val }
+                  formData: { ...nextVersions[lastIdx].formData, ...(typeof fieldOrObj === 'object' && fieldOrObj !== null ? fieldOrObj : { [fieldOrObj]: val }) }
                 };
               }
               return {
                 ...s,
-                formData: { ...s.formData, [field]: val },
+                formData: { ...s.formData, ...(typeof fieldOrObj === 'object' && fieldOrObj !== null ? fieldOrObj : { [fieldOrObj]: val }) },
                 versions: nextVersions
               };
             }
@@ -871,9 +910,7 @@ export default function App() {
           return updated;
         });
 
-        // 🧠 Auto-Regenerate Assessment Report inside Background Task on Meaningful Changes!
-        // We exclude purely UI logging fields like 'introspectionHistory' to avoid infinite loops!
-        if (field !== 'introspectionHistory') {
+        if (typeof fieldOrObj !== 'object' || !fieldOrObj.introspectionHistory) {
           if (regenerationDebounceRef.current) {
             clearTimeout(regenerationDebounceRef.current);
           }
@@ -1158,7 +1195,8 @@ export default function App() {
         }
         return s;
       });
-      alert(`✅ Maturity Scoping for ${metadata.customerName} updated successfully to ${nextVer}!\nAssessment ID: ${versionId}`);
+      alert(`✅ Maturity Scoping for ${metadata.customerName} updated successfully to ${nextVer}!
+Assessment ID: ${versionId}`);
     } else {
       const newSessId = 'sess_' + Date.now();
       targetSessId = newSessId;
@@ -1190,10 +1228,12 @@ export default function App() {
       
       updated = [newSession, ...sessions];
       setActiveSessionId(newSessId); // Lock session focus!
-      alert(`✅ Initial Maturity Scoping for ${metadata.customerName} saved successfully!\nAssessment ID: ${versionId}`);
+      alert(`✅ Initial Maturity Scoping for ${metadata.customerName} saved successfully!
+Assessment ID: ${versionId}`);
     }
 
-    window.history.replaceState(null, '', `#maturity-assessor?session=${targetSessId}`);
+    const hashRoute = activeFramework === 'option12' ? 'agentic-maturity-v12' : activeFramework === 'option11' ? 'agentic-maturity-v11' : 'maturity-assessor';
+    window.history.replaceState(null, '', `#${hashRoute}?session=${targetSessId}`);
     setFormData(metadata);
     setReportData(report);
     setSessions(updated);
@@ -1260,7 +1300,7 @@ export default function App() {
     setFormData(fData);
     setReportData(rData);
 
-    if (session.framework === 'option5' || session.framework === 'option6') {
+    if (session.framework === 'option5' || session.framework === 'option6' || session.framework === 'option11' || session.framework === 'option12') {
       setActiveFramework(session.framework || 'option5');
       setViewMode('report');
     } else {
@@ -1573,7 +1613,7 @@ export default function App() {
         onFrameworkChange={(fw) => {
           setActiveFramework(fw);
           setActiveSessionId(null);
-          if (['option5', 'option6', 'option7', 'option8', 'option9', 'option10', 'intake'].includes(fw)) {
+          if (['option5', 'option6', 'option7', 'option8', 'option9', 'option10', 'option11', 'option12', 'intake'].includes(fw)) {
             setViewMode('landing');
             window.location.hash = `#landing-${fw}`;
           } else {
@@ -1595,7 +1635,7 @@ export default function App() {
           onFrameworkChange={(fw) => {
             setActiveFramework(fw);
             setActiveSessionId(null);
-            if (['option5', 'option6', 'option7', 'option8', 'option9', 'option10', 'intake'].includes(fw)) {
+            if (['option5', 'option6', 'option7', 'option8', 'option9', 'option10', 'option11', 'option12', 'intake'].includes(fw)) {
               setViewMode('landing');
               window.location.hash = `#landing-${fw}`;
             } else {
@@ -1612,7 +1652,7 @@ export default function App() {
           }}
         />
 
-        <main className="main-content" style={activeFramework === 'option10' ? { padding: 0, margin: 0, maxWidth: '100%' } : undefined}>
+        <main className="main-content" style={['option10', 'option11', 'option12'].includes(activeFramework) ? { padding: 0, margin: 0, maxWidth: '100%' } : undefined}>
           {viewMode === 'permissions' ? (
             <PermissionsPortal />
           ) : viewMode === 'chat_history' ? (
@@ -1641,7 +1681,7 @@ export default function App() {
                 window.location.hash = `#portfolio-intelligence-v10?id=${tile.id}&preset=${tile.presetKey || 'ai_scanned_custom'}&company=${encodeURIComponent(tile.company || 'Novartis Oncology')}&useCase=${encodeURIComponent(tile.useCase || tile.title || 'GMAX Pricing Agent')}`;
               }}
             />
-          ) : (activeFramework === 'option10' || viewMode === 'assessor') ? (
+          ) : (activeFramework === 'option10') ? (
             <PremiumScopingAssessorV10 
               globalTheme={globalTheme}
               apiKey={apiKey}
@@ -1691,10 +1731,10 @@ export default function App() {
                   window.location.hash = '#agentic-report';
                 } else if (activeFramework === 'option11') {
                   setViewMode('assessor');
-                  window.location.hash = '#agentic-maturity-v11?id=demo_merck_preset&preset=merck_preset';
+                  window.location.hash = `#agentic-maturity-v11?id=demo_merck_preset&preset=merck_preset`;
                 } else if (activeFramework === 'option12') {
                   setViewMode('assessor');
-                  window.location.hash = '#agentic-maturity-v12?id=demo_merck_preset&preset=merck_preset';
+                  window.location.hash = `#agentic-maturity-v12?id=demo_merck_preset&preset=merck_preset`;
                 } else {
                   setViewMode('report');
                   window.location.hash = '#maturity-report';
@@ -1712,6 +1752,18 @@ export default function App() {
               apiKey={apiKey}
               gcpToken={gcpToken}
             />
+          ) : activeFramework === 'option8' ? (
+            <UnifiedScopingAssessor 
+              activeSessionId={activeSessionId} 
+              apiKey={apiKey}
+              gcpToken={gcpToken}
+            />
+          ) : activeFramework === 'option2' ? (
+            <InteractiveDiscoveryFramework sessions={sessions} />
+          ) : activeFramework === 'option3' ? (
+            <FdeEngagementModelV3 />
+          ) : activeFramework === 'option4' ? (
+            <ArchitectureCanvas />
           ) : activeFramework === 'option11' ? (
             <PremiumScopingAssessorV11 
               globalTheme={globalTheme}
@@ -1726,24 +1778,15 @@ export default function App() {
             <PremiumScopingAssessorV12 
               globalTheme={globalTheme}
               apiKey={apiKey}
+              gcpToken={gcpToken}
               onBackToLanding={() => {
                 setViewMode('landing');
                 window.location.hash = '#landing-option12';
               }}
+              onSaveSession={handleSaveMaturitySession}
+              activeSessionId={activeSessionId}
+              sessions={sessions}
             />
-
-          ) : activeFramework === 'option8' ? (
-            <UnifiedScopingAssessor 
-              activeSessionId={activeSessionId} 
-              apiKey={apiKey}
-              gcpToken={gcpToken}
-            />
-          ) : activeFramework === 'option2' ? (
-            <InteractiveDiscoveryFramework sessions={sessions} />
-          ) : activeFramework === 'option3' ? (
-            <FdeEngagementModelV3 />
-          ) : activeFramework === 'option4' ? (
-            <ArchitectureCanvas />
           ) : activeFramework === 'option5' || activeFramework === 'option6' ? (
             <MaturityAssessor 
               sessions={sessions} 

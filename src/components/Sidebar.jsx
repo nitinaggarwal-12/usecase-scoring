@@ -122,6 +122,29 @@ export default function Sidebar({
             Portfolio Intelligence (v10)
           </span>
         </button>
+
+        <button
+          onClick={() => onFrameworkChange('option11')}
+          className={`sidebar-btn ${activeFramework === 'option11' ? 'active' : ''}`}
+        >
+          <Sparkles size={17} style={{ color: 'var(--google-purple)' }} />
+          <span style={{ fontWeight: activeFramework === 'option11' ? 800 : 600 }}>Agentic Maturity (v11)</span>
+        </button>
+
+        <button
+          onClick={() => onFrameworkChange('option12')}
+          className={`sidebar-btn ${activeFramework === 'option12' ? 'active' : ''}`}
+          style={{
+            background: activeFramework === 'option12' ? 'linear-gradient(90deg, rgba(59,130,246,0.22), rgba(6,182,212,0.22))' : 'transparent',
+            borderLeft: activeFramework === 'option12' ? '3px solid #3b82f6' : 'none'
+          }}
+        >
+          <Sparkles size={17} style={{ color: '#3b82f6', animation: activeFramework === 'option12' ? 'pulse 1.5s infinite' : 'none' }} />
+          <span style={{ fontWeight: activeFramework === 'option12' ? 850 : 700, color: activeFramework === 'option12' ? '#3b82f6' : 'inherit' }}>
+            Enterprise Readiness (v12)
+          </span>
+        </button>
+
       </div>
 
       {/* Category: Governance & Collaboration */}
