@@ -1726,11 +1726,15 @@ export default function App() {
             <PremiumScopingAssessorV12 
               globalTheme={globalTheme}
               apiKey={apiKey}
+              activeSessionId={activeSessionId}
+              sessions={sessions}
+              onSaveSession={handleSaveMaturitySession}
               onBackToLanding={() => {
                 setViewMode('landing');
                 window.location.hash = '#landing-option12';
               }}
             />
+
 
           ) : activeFramework === 'option8' ? (
             <UnifiedScopingAssessor 
