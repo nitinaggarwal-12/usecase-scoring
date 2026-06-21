@@ -1641,7 +1641,8 @@ export default function App() {
                 window.location.hash = `#portfolio-intelligence-v10?id=${tile.id}&preset=${tile.presetKey || 'ai_scanned_custom'}&company=${encodeURIComponent(tile.company || 'Novartis Oncology')}&useCase=${encodeURIComponent(tile.useCase || tile.title || 'GMAX Pricing Agent')}`;
               }}
             />
-          ) : (activeFramework === 'option10' || viewMode === 'assessor') ? (
+          ) : (activeFramework === 'option10' && viewMode === 'assessor') ? (
+
             <PremiumScopingAssessorV10 
               globalTheme={globalTheme}
               apiKey={apiKey}
