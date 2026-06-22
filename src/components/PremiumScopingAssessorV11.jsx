@@ -614,19 +614,112 @@ const PRESET_CANDIDATES = [
   { company: 'AstraZeneca Global', useCaseName: 'Oncology Clinical Protocol QA Agent', domain: 'R&D / Clinical' }
 ];
 
-export default function PremiumScopingAssessorV11({ onBackToLanding, globalTheme = 'dark', apiKey = '', apiKey2 = '', gcpToken = '' }) {
+const getDeterministicPreset = (sessionId) => {
+  const isMerck = !sessionId || sessionId.includes('merck') || sessionId.includes('demo_merck_preset');
+  
+  const customerInfo = {
+    company: isMerck ? 'Novartis CMC Operations' : 'Pfizer Oncology Research',
+    useCaseName: isMerck ? 'Dossier Automation Assistant [CSR_V11]' : 'Clinical Trial Protocol Generator [V11]',
+    domain: isMerck ? 'Quality & Compliance' : 'Clinical Development',
+    runtime: 'Google Cloud Vertex AI',
+    connectors: isMerck 
+      ? ['Veeva Vault GxP Docs', 'BigQuery Zero-ETL Feature Store'] 
+      : ['Medidata Rave REST API', 'BigQuery Omnishare', 'Veeva Vault GxP Docs']
+  };
+
+  const getStableNumber = (str, min, max) => {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    const range = max - min + 1;
+    return min + (Math.abs(hash) % range);
+  };
+
+  const scores = {};
+  V11_PILLARS.forEach(p => {
+    p.questions.forEach(q => {
+      const curr = getStableNumber(q.id + "_current", 2, 4);
+      const fut = Math.min(5, curr + getStableNumber(q.id + "_future", 1, 2));
+
+      const techPain = [];
+      if (q.technicalPainpoints && q.technicalPainpoints.length > 0) {
+        const idx1 = getStableNumber(q.id + "_tech1", 0, q.technicalPainpoints.length - 1);
+        techPain.push(q.technicalPainpoints[idx1]);
+        if (q.technicalPainpoints.length > 2) {
+          const idx2 = getStableNumber(q.id + "_tech2", 0, q.technicalPainpoints.length - 1);
+          if (idx1 !== idx2) {
+            techPain.push(q.technicalPainpoints[idx2]);
+          }
+        }
+      }
+
+      const bizPain = [];
+      if (q.businessPainpoints && q.businessPainpoints.length > 0) {
+        const idx1 = getStableNumber(q.id + "_biz1", 0, q.businessPainpoints.length - 1);
+        bizPain.push(q.businessPainpoints[idx1]);
+        if (q.businessPainpoints.length > 2) {
+          const idx2 = getStableNumber(q.id + "_biz2", 0, q.businessPainpoints.length - 1);
+          if (idx1 !== idx2) {
+            bizPain.push(q.businessPainpoints[idx2]);
+          }
+        }
+      }
+
+      scores[q.id] = {
+        current: curr,
+        future: fut,
+        techPain,
+        bizPain,
+        comments: `Audited ${q.dimension} compliance. Verification shows solid alignment with native VPC Service Controls. Plan to implement automated GxP logging.`,
+        skipped: false
+      };
+    });
+  });
+
+  return { scores, customerInfo };
+};
+
+export default function PremiumScopingAssessorV11({ onBackToLanding, globalTheme = 'dark', apiKey = '', apiKey2 = '', gcpToken = '', activeSessionId, sessions = [] }) {
   const [activeTab, setActiveTab] = useState('intake');
   const [reportSubTab, setReportSubTab] = useState('executive');
   
-  const [customerInfo, setCustomerInfo] = useState({
-    company: '',
-    useCaseName: '',
-    domain: '',
-    runtime: 'Google Cloud Vertex AI',
-    connectors: []
+  const [customerInfo, setCustomerInfo] = useState(() => {
+    const defaultInfo = {
+      company: '',
+      useCaseName: '',
+      domain: '',
+      runtime: 'Google Cloud Vertex AI',
+      connectors: []
+    };
+    if (activeSessionId) {
+      if (activeSessionId.includes('preset') || activeSessionId === 'demo_merck_preset') {
+        return getDeterministicPreset(activeSessionId).customerInfo;
+      }
+      try {
+        const cached = JSON.parse(localStorage.getItem('v11_saved_tiles') || '[]');
+        const matched = cached.find(x => x.id === activeSessionId);
+        if (matched && matched.scoringVector && matched.scoringVector.customerInfo) {
+          return matched.scoringVector.customerInfo;
+        }
+      } catch (e) {}
+    }
+    return defaultInfo;
   });
 
   const [scores, setScores] = useState(() => {
+    if (activeSessionId) {
+      if (activeSessionId.includes('preset') || activeSessionId === 'demo_merck_preset') {
+        return getDeterministicPreset(activeSessionId).scores;
+      }
+      try {
+        const cached = JSON.parse(localStorage.getItem('v11_saved_tiles') || '[]');
+        const matched = cached.find(x => x.id === activeSessionId);
+        if (matched && matched.scoringVector && matched.scoringVector.scores) {
+          return matched.scoringVector.scores;
+        }
+      } catch (e) {}
+    }
     const initial = {};
     V11_PILLARS.forEach(p => {
       p.questions.forEach(q => {
@@ -669,6 +762,16 @@ export default function PremiumScopingAssessorV11({ onBackToLanding, globalTheme
     }
     return count + activeQuestionIdx + 1;
   };
+
+  // Synchronously trigger AI Scoping Report compilation on fresh preset mount
+  useEffect(() => {
+    if (activeSessionId && (activeSessionId.includes('preset') || activeSessionId === 'demo_merck_preset') && !liveSynthesis) {
+      setActiveTab('scorecard');
+      setReportSubTab('executive');
+      const timer = setTimeout(() => handleRunLiveGeminiAssessment(), 600);
+      return () => clearTimeout(timer);
+    }
+  }, [activeSessionId, liveSynthesis]);
 
   // --------------------------------------------------------------------------
   // Theme-Aware Color Tokens (Synchronized with global CSS variables!)
@@ -942,6 +1045,7 @@ export default function PremiumScopingAssessorV11({ onBackToLanding, globalTheme
       const hashObj = window.location.hash || '';
       const params = new URLSearchParams(hashObj.split('?')[1] || '');
       const idParam = params.get('id');
+      if (idParam && (idParam.includes('preset') || idParam === 'demo_merck_preset')) return;
       const presetParam = params.get('preset');
       
       let matchedTile = null;
