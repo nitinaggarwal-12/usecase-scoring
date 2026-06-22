@@ -1685,10 +1685,8 @@ export default function App() {
                   setViewMode('home');
                   window.location.hash = '#premium-assessor?action=start';
                 } else if (activeFramework === 'option11') {
-                  setViewMode('assessor');
                   window.location.hash = `#agentic-maturity-v11?id=assessment_${Date.now()}&action=start`;
                 } else if (activeFramework === 'option12') {
-                  setViewMode('assessor');
                   window.location.hash = `#agentic-maturity-v12?id=assessment_${Date.now()}&action=start`;
                 } else {
                   setViewMode('home');
@@ -1705,10 +1703,8 @@ export default function App() {
                   setViewMode('report');
                   window.location.hash = '#agentic-report';
                 } else if (activeFramework === 'option11') {
-                  setViewMode('assessor');
                   window.location.hash = '#agentic-maturity-v11?id=demo_merck_preset&preset=merck_preset';
                 } else if (activeFramework === 'option12') {
-                  setViewMode('assessor');
                   window.location.hash = '#agentic-maturity-v12?id=demo_merck_preset&preset=merck_preset';
                 } else {
                   setViewMode('report');
