@@ -1074,7 +1074,7 @@ export default function PremiumScopingAssessorV11({ onBackToLanding, globalTheme
 
     try {
       const activeKey = (apiKey || localStorage.getItem('gemini_api_key') || window.__VITE_ACTIVE_API_KEY__ || '').trim();
-      const response = await generateMaturityReport(scores, customerInfo, activeKey);
+      const response = await generateMaturityReport(customerInfo, scores, activeKey);
       
       const liveGenReport = response.report || response;
       setLiveSynthesis(liveGenReport);
