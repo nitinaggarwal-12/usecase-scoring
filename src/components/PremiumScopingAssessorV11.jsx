@@ -2020,8 +2020,8 @@ With a high priority score of **${score}**, we recommend launching a **${scoring
                 </button>
               </div>
             ) : (
-              
-              /* Main Split Dossier View */
+              <>
+
               <div style={{ display: 'flex', gap: '1rem', flex: 1, minHeight: '380px' }}>
                 
                 {/* Left Column: Dynamic Leadership Briefing */}
@@ -2173,7 +2173,7 @@ With a high priority score of **${score}**, we recommend launching a **${scoring
                   })}
                 </div>
               </div>
-
+              </>
             )}
 
           </div>

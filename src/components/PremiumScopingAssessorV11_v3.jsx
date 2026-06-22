@@ -970,7 +970,8 @@ export default function PremiumScopingAssessorV11({ onBackToLanding, globalTheme
   const handleTogglePainPoint = (type, point) => {
     setScores(prev => {
       const qObj = prev[activeQuestionId] || {};
-      const list = type === 'tech' ? (qObj.techPain || []) : (qObj.bizPain || []);
+      const list = type === 'tech' ? (qObj.techPain || []) : (
+              <>qObj.bizPain || []);
       const nextList = list.includes(point) ? list.filter(x => x !== point) : [...list, point];
       return {
         ...prev,
@@ -1556,6 +1557,7 @@ export default function PremiumScopingAssessorV11({ onBackToLanding, globalTheme
               🚀 View Report Blueprint
             </button>
           ) : (
+              <>
             <button
               onClick={() => handleTabSwitch('intake')}
               style={{
@@ -1739,6 +1741,7 @@ export default function PremiumScopingAssessorV11({ onBackToLanding, globalTheme
                           </span>
                         </div>
                       ) : (
+              <>
                         <span style={{ fontSize: '0.62rem', color: colors.textMuted }}>N/A</span>
                       )}
                     </div>
@@ -1778,6 +1781,7 @@ export default function PremiumScopingAssessorV11({ onBackToLanding, globalTheme
                           </span>
                         </div>
                       ) : (
+              <>
                         <span style={{ fontSize: '0.62rem', color: colors.textMuted }}>N/A</span>
                       )}
                     </div>
