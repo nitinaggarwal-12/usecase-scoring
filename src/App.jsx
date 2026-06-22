@@ -1738,6 +1738,9 @@ export default function App() {
               globalTheme={globalTheme}
               apiKey={apiKey}
               gcpToken={gcpToken}
+              activeSessionId={activeSessionId}
+              sessions={sessions}
+              onSaveSession={handleSaveMaturitySession}
               onBackToLanding={() => {
                 setViewMode('landing');
                 window.location.hash = '#landing-option11';
