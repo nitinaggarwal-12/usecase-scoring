@@ -436,6 +436,69 @@ V12_PILLARS.forEach(p => {
   });
 });
 
+const getDeterministicPreset = (sessionId) => {
+  const isMerck = !sessionId || sessionId.includes('merck') || sessionId.includes('demo_merck_preset');
+  
+  const customerInfo = {
+    company: isMerck ? 'Novartis CMC Operations' : 'Pfizer Oncology Research',
+    useCaseName: isMerck ? 'Dossier Automation Assistant [CSR_V12]' : 'Clinical Trial Protocol Generator [V12]',
+    domain: isMerck ? 'Quality & Compliance' : 'Clinical Development',
+    runtime: 'Google Cloud Vertex AI',
+    connectors: isMerck 
+      ? ['Veeva Vault GxP Docs', 'BigQuery Zero-ETL Feature Store'] 
+      : ['Medidata Rave REST API', 'BigQuery Omnishare', 'Veeva Vault GxP Docs']
+  };
+
+  const getStableNumber = (str, min, max) => {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    const range = max - min + 1;
+    return min + (Math.abs(hash) % range);
+  };
+
+  const scores = {};
+  FLAT_QUESTIONS.forEach(q => {
+    const curr = getStableNumber(q.id + "_current", 1, 3);
+    const fut = getStableNumber(q.id + "_future", 4, 5);
+
+    const techPain = [];
+    if (q.technicalPainpoints && q.technicalPainpoints.length > 0) {
+      const idx1 = getStableNumber(q.id + "_tech1", 0, q.technicalPainpoints.length - 1);
+      techPain.push(q.technicalPainpoints[idx1]);
+      if (q.technicalPainpoints.length > 2) {
+        const idx2 = getStableNumber(q.id + "_tech2", 0, q.technicalPainpoints.length - 1);
+        if (idx1 !== idx2) {
+          techPain.push(q.technicalPainpoints[idx2]);
+        }
+      }
+    }
+
+    const bizPain = [];
+    if (q.businessPainpoints && q.businessPainpoints.length > 0) {
+      const idx1 = getStableNumber(q.id + "_biz1", 0, q.businessPainpoints.length - 1);
+      bizPain.push(q.businessPainpoints[idx1]);
+      if (q.businessPainpoints.length > 2) {
+        const idx2 = getStableNumber(q.id + "_biz2", 0, q.businessPainpoints.length - 1);
+        if (idx1 !== idx2) {
+          bizPain.push(q.businessPainpoints[idx2]);
+        }
+      }
+    }
+
+    scores[q.id] = {
+      current: curr,
+      future: fut,
+      techPain,
+      bizPain,
+      comments: `Audited ${q.name} compliance. Verification shows solid alignment with native VPC Service Controls. Plan to implement automated GxP logging.`
+    };
+  });
+
+  return { scores, customerInfo };
+};
+
 export default function PremiumScopingAssessorV12({ 
   onBackToLanding, 
   globalTheme = 'light', 
@@ -448,15 +511,36 @@ export default function PremiumScopingAssessorV12({
   const [activeTab, setActiveTab] = useState('intake');
   const [reportPage, setReportPage] = useState('summary'); // 'summary' | 'matrix' | 'blueprints' | 'sandbox' | 'benchmarks' | 'roadmap' | 'gxp_validation' | 'whatif'
   
-  const [customerInfo, setCustomerInfo] = useState({
-    company: 'Novartis CMC Operations',
-    useCaseName: 'Dossier Automation Assistant [CSR_V12]',
-    domain: 'Quality & Compliance',
-    runtime: 'Google Cloud Vertex AI',
-    connectors: ['Veeva Vault GxP Docs', 'BigQuery Zero-ETL Feature Store']
+  const [customerInfo, setCustomerInfo] = useState(() => {
+    const defaultInfo = {
+      company: 'Novartis CMC Operations',
+      useCaseName: 'Dossier Automation Assistant [CSR_V12]',
+      domain: 'Quality & Compliance',
+      runtime: 'Google Cloud Vertex AI',
+      connectors: ['Veeva Vault GxP Docs', 'BigQuery Zero-ETL Feature Store']
+    };
+    if (activeSessionId) {
+      if (activeSessionId.includes('preset') || activeSessionId === 'demo_merck_preset') {
+        return getDeterministicPreset(activeSessionId).customerInfo;
+      }
+      try {
+        const cached = localStorage.getItem(`v12_customer_info_${activeSessionId}`);
+        if (cached) return JSON.parse(cached);
+      } catch (e) {}
+    }
+    return defaultInfo;
   });
 
   const [scores, setScores] = useState(() => {
+    if (activeSessionId) {
+      if (activeSessionId.includes('preset') || activeSessionId === 'demo_merck_preset') {
+        return getDeterministicPreset(activeSessionId).scores;
+      }
+      try {
+        const cached = localStorage.getItem(`v12_scores_${activeSessionId}`);
+        if (cached) return JSON.parse(cached);
+      } catch (e) {}
+    }
     const initial = {};
     FLAT_QUESTIONS.forEach(q => {
       initial[q.id] = {
@@ -502,6 +586,7 @@ export default function PremiumScopingAssessorV12({
   // Phase A: Immediate Synchronous Rehydration on Mount (Prevents form resets & keeps view mode!)
   useEffect(() => {
     if (!activeSessionId) return;
+    if (activeSessionId.includes('preset') || activeSessionId === 'demo_merck_preset') return;
 
     try {
       // Synchronously restore scores from local cache to prevent empty screen flashes!
@@ -536,6 +621,7 @@ export default function PremiumScopingAssessorV12({
   // Phase B: Asynchronous Database Alignment (Aligns local state with database once network fetch completes)
   useEffect(() => {
     if (!activeSessionId || !sessions || sessions.length === 0) return;
+    if (activeSessionId.includes('preset') || activeSessionId === 'demo_merck_preset') return;
 
     const dbSession = sessions.find(s => s.id === activeSessionId);
     if (!dbSession || !dbSession.versions || dbSession.versions.length === 0) return;
@@ -573,6 +659,7 @@ export default function PremiumScopingAssessorV12({
   // Phase C: Write-through Cache (Saves state locally on any change to back up Phase A rehydration)
   useEffect(() => {
     if (!activeSessionId) return;
+    if (activeSessionId.includes('preset') || activeSessionId === 'demo_merck_preset') return;
     try {
       localStorage.setItem(`v12_scores_${activeSessionId}`, JSON.stringify(scores));
       localStorage.setItem(`v12_customer_info_${activeSessionId}`, JSON.stringify(customerInfo));
@@ -607,6 +694,7 @@ export default function PremiumScopingAssessorV12({
   // 3. Save active report view page locally (transient view state)
   useEffect(() => {
     if (!activeSessionId) return;
+    if (activeSessionId.includes('preset') || activeSessionId === 'demo_merck_preset') return;
     localStorage.setItem(`v12_report_page_${activeSessionId}`, reportPage);
   }, [reportPage, activeSessionId]);
 
