@@ -225,7 +225,7 @@ export const V11_PILLARS = [
         topic: 'Claims Grounding & Sourcing: How are approved medical claims sourced and mapped?',
         options: [
           { score: 30, text: '1. Manual: Manual copy/paste from master spreadsheets.' },
-          { score: 50, text: '2. Siloed: Point-in-point static exports of claims databases.' },
+          { score: 50, text: '2. Siloed: Point-in-time static exports of claims databases.' },
           { score: 75, text: '3. Integrated: Custom API webhooks periodically sync data but lack citation mapping.' },
           { score: 95, text: '4. Agentic: Agentic RAG acts as the claims repository, auto-matching copy to approved Vault IDs.' },
           { score: 100, text: '5. Strategic: Direct integration via Model Context Protocol (MCP) queries live databases natively.' }
@@ -426,7 +426,7 @@ export const V11_PILLARS = [
           'No history of system prompt changes', 
           'High risk of unauthorized hotfixes',
           'Slow deployment cycles for updates',
-          'Friction between developers and prompt engineering'
+          'Friction between developers and prompt engineers'
         ],
         technicalPainpoints: [
           'No version control for prompts', 
@@ -454,7 +454,7 @@ export const V11_PILLARS = [
           { score: 50, text: '2. Siloed: Basic application logs capture raw API payloads; post-generation flags identify expired data.' },
           { score: 75, text: '3. Integrated: The system tracks asset fragments and uses daily automated sync scripts.' },
           { score: 95, text: '4. Agentic: Cryptographic IDs map agents to policies; real-time semantic caching drops claims mid-flight.' },
-          { score: 100, text: '5. Strategic: Native trace integration visually replay execution spans alongside immutable GxP logs.' }
+          { score: 100, text: '5. Strategic: Native trace integration visually replays execution spans alongside immutable GxP logs.' }
         ],
         businessPainpoints: [
           'No record of reasoning or data lineage', 
@@ -479,7 +479,7 @@ export const V11_PILLARS = [
           { score: 30, text: '1. Manual: Reliance on consumer-grade LLM safety filters.' },
           { score: 50, text: '2. Siloed: Standard REST API Gateways lacking AI token inspection.' },
           { score: 75, text: '3. Integrated: Custom regex filters scrubbing PII before model hits.' },
-          { score: 95, text: '4. Agentic: Model Armor enforces prompt safety filters dynamically.' },
+          { score: 95, text: '4. Agentic: Enterprise AI proxies enforcing Model Armor protections.' },
           { score: 100, text: '5. Strategic: Zero-Trust ecosystem verifying every internal cross-agent API call.' }
         ],
         businessPainpoints: [
@@ -682,6 +682,7 @@ const getDeterministicPreset = (sessionId) => {
 
 export default function PremiumScopingAssessorV11({ onBackToLanding, globalTheme = 'dark', apiKey = '', apiKey2 = '', gcpToken = '', activeSessionId, sessions = [] }) {
   const [activeTab, setActiveTab] = useState('intake');
+  const [activeDimensionId, setActiveDimensionId] = useState('BV');
   const [reportSubTab, setReportSubTab] = useState('executive');
   
   const [customerInfo, setCustomerInfo] = useState(() => {
@@ -763,32 +764,22 @@ export default function PremiumScopingAssessorV11({ onBackToLanding, globalTheme
     return count + activeQuestionIdx + 1;
   };
 
-  // Synchronously trigger AI Scoping Report compilation on fresh preset mount
-  useEffect(() => {
-    if (activeSessionId && (activeSessionId.includes('preset') || activeSessionId === 'demo_merck_preset') && !liveSynthesis) {
-      setActiveTab('scorecard');
-      setReportSubTab('executive');
-      const timer = setTimeout(() => handleRunLiveGeminiAssessment(), 600);
-      return () => clearTimeout(timer);
-    }
-  }, [activeSessionId, liveSynthesis]);
-
   // --------------------------------------------------------------------------
-  // Theme-Aware Color Tokens (Synchronized with global CSS variables!)
+  // Dynamic Light Theme Boardroom Palette (Premium Slate System)
   // --------------------------------------------------------------------------
   const colors = {
-    bgMain: 'var(--bg-primary)',         // Theme-responsive background
-    sidebarBg: 'var(--bg-surface)',      // Theme-responsive sidebar
-    cardBg: 'var(--bg-surface)',         // Theme-responsive card
-    borderLight: 'var(--border-color)',   // Theme-responsive border
-    textDark: 'var(--text-primary)',     // Theme-responsive primary text
-    textMuted: 'var(--text-secondary)',   // Theme-responsive secondary text
-    accentBlue: '#2563eb',               // Brand Royal Blue
-    accentBlueLight: 'rgba(37, 99, 235, 0.08)', // Theme-friendly translucent accent
-    borderOrange: '#ea580c',             // Vibrant Orange (Current State Active)
-    bgOrangeLight: 'rgba(234, 88, 12, 0.08)', // Theme-friendly translucent orange
-    borderGreen: '#16a34a',              // Rich Green (Target State Active)
-    bgGreenLight: 'rgba(22, 163, 74, 0.08)', // Theme-friendly translucent green
+    bgMain: '#f8fafc',         // Off-white slate background
+    sidebarBg: '#ffffff',      // Pure white sidebar
+    cardBg: '#ffffff',         // Pure white card
+    borderLight: '#e2e8f0',    // Light grey border
+    textDark: '#0f172a',       // Near black text
+    textMuted: '#64748b',      // Warm slate grey text
+    accentBlue: '#2563eb',     // Brand Royal Blue
+    accentBlueLight: '#eff6ff',// Soft blue background
+    borderOrange: '#ea580c',   // Vibrant Orange (Current State Active)
+    bgOrangeLight: '#fff7ed',  // Soft Orange background
+    borderGreen: '#16a34a',    // Rich Green (Target State Active)
+    bgGreenLight: '#f0fdf4',   // Soft Green background
     purpleGradient: 'linear-gradient(135deg, #4f46e5, #9333ea)' // Royal purple/magenta
   };
 
@@ -985,6 +976,111 @@ export default function PremiumScopingAssessorV11({ onBackToLanding, globalTheme
 
     setScores(randomScores);
     setActiveTab('intake');
+  };
+
+  // --------------------------------------------------------------------------
+  // Preset Loading Logic
+  // --------------------------------------------------------------------------
+  const handleLoadPreset = (presetKey, customUseCase = '', customCompany = '') => {
+    let baseAnswers = {};
+    let finalCompany = customCompany;
+    let finalUseCase = customUseCase;
+    let finalDomain = 'R&D / Clinical';
+
+    const useCaseLower = (customUseCase || '').toLowerCase();
+
+    if (presetKey === 'submission_copilot' || useCaseLower.includes('dossier') || useCaseLower.includes('submission') || useCaseLower.includes('merck')) {
+      baseAnswers = {
+        Q1: 4, Q2: 4, Q3: 3, Q4: 4, Q5: 4, Q6: 3, Q7: 4, Q8: 3, Q9: 4, Q10: 4,
+        Q11: 4, Q12: 4, Q13: 4, Q14: 4, Q15: 3, Q16: 4, Q17: 4, Q18: 3, Q19: 4, Q20: 4, Q21: 4
+      };
+      finalCompany = customCompany || 'Merck & Co. Enterprise';
+      finalUseCase = customUseCase || 'BeyondCorp OData Clinical Search Federation';
+      finalDomain = 'R&D / Clinical';
+    } else if (presetKey === 'quality_investigator' || useCaseLower.includes('quality') || useCaseLower.includes('pharmacovigilance') || useCaseLower.includes('novartis')) {
+      baseAnswers = {
+        Q1: 3, Q2: 4, Q3: 3, Q4: 3, Q5: 4, Q6: 4, Q7: 3, Q8: 4, Q9: 3, Q10: 3,
+        Q11: 4, Q12: 3, Q13: 3, Q14: 4, Q15: 4, Q16: 3, Q17: 4, Q18: 3, Q19: 4, Q20: 3, Q21: 4
+      };
+      finalCompany = customCompany || 'Novartis Pharma AG';
+      finalUseCase = customUseCase || 'Global Pharmacovigilance Quality Inspector';
+      finalDomain = 'Quality & Compliance';
+    } else if (useCaseLower.includes('financial') || useCaseLower.includes('sap') || useCaseLower.includes('pfizer')) {
+      baseAnswers = {
+        Q1: 4, Q2: 3, Q3: 4, Q4: 4, Q5: 3, Q6: 4, Q7: 4, Q8: 3, Q9: 4, Q10: 4,
+        Q11: 3, Q12: 4, Q13: 4, Q14: 3, Q15: 4, Q16: 4, Q17: 4, Q18: 3, Q19: 4, Q20: 4, Q21: 4
+      };
+      finalCompany = customCompany || 'Pfizer Inc.';
+      finalUseCase = customUseCase || 'SAP S/4HANA Autonomous Financial Reconciliation';
+      finalDomain = 'Finance & Operations';
+    } else if (useCaseLower.includes('sop') || useCaseLower.includes('manufacturing') || useCaseLower.includes('demand') || useCaseLower.includes('sanofi')) {
+      baseAnswers = {
+        Q1: 3, Q2: 4, Q3: 3, Q4: 4, Q5: 4, Q6: 4, Q7: 3, Q8: 4, Q9: 3, Q10: 3,
+        Q11: 4, Q12: 3, Q13: 4, Q14: 4, Q15: 4, Q16: 3, Q17: 4, Q18: 3, Q19: 3, Q20: 3, Q21: 4
+      };
+      finalCompany = customCompany || 'Sanofi S.A.';
+      finalUseCase = customUseCase || 'Supply Chain Autonomous Demand Forecasting';
+      finalDomain = 'Supply Chain';
+    } else if (useCaseLower.includes('oncology') || useCaseLower.includes('astrazeneca')) {
+      baseAnswers = {
+        Q1: 4, Q2: 4, Q3: 3, Q4: 4, Q5: 4, Q6: 3, Q7: 4, Q8: 3, Q9: 4, Q10: 4,
+        Q11: 4, Q12: 3, Q13: 4, Q14: 4, Q15: 4, Q16: 3, Q17: 4, Q18: 3, Q19: 4, Q20: 4, Q21: 4
+      };
+      finalCompany = customCompany || 'AstraZeneca Global';
+      finalUseCase = customUseCase || 'Oncology Clinical Protocol QA Agent';
+      finalDomain = 'R&D / Clinical';
+    } else {
+      const charMod = customUseCase ? customUseCase.length % 3 : 0;
+      baseAnswers = {
+        Q1: 3 + (charMod === 0 ? 1 : 0), Q2: 3 + (charMod === 1 ? 1 : 0), Q3: 2 + (charMod === 2 ? 1 : 0), Q4: 4,
+        Q5: 3 + (charMod === 1 ? 1 : 0), Q6: 3, Q7: 3 + (charMod === 0 ? 1 : 0), Q8: 4, Q9: 3, Q10: 3 + (charMod === 2 ? 1 : 0),
+        Q11: 4, Q12: 3, Q13: 3, Q14: 4, Q15: 3, Q16: 3, Q17: 4, Q18: 3, Q19: 4, Q20: 3, Q21: 3
+      };
+      finalCompany = customCompany || 'GSK Bio-Pharma';
+      finalUseCase = customUseCase || 'Clinical Study Report (CSR) De-identifying Copilot';
+      finalDomain = 'Commercial Ops';
+    }
+
+    const mappedScores = {};
+    V11_PILLARS.forEach(p => {
+      p.questions.forEach(q => {
+        const index = p.questions.indexOf(q);
+        const overallIdx = V11_PILLARS.slice(0, V11_PILLARS.indexOf(p)).reduce((acc, curr) => acc + curr.questions.length, 0) + index + 1;
+        const oldKey = `Q${overallIdx}`;
+        
+        const val = baseAnswers[oldKey] || baseAnswers[q.id] || 3;
+        const targetVal = Math.min(5, val + 1);
+
+        const techPain = [];
+        if (val <= 3 && q.technicalPainpoints?.length > 0) {
+          techPain.push(q.technicalPainpoints[0]);
+          techPain.push(q.technicalPainpoints[1]);
+        }
+        const bizPain = [];
+        if (val <= 3 && q.businessPainpoints?.length > 0) {
+          bizPain.push(q.businessPainpoints[0]);
+          bizPain.push(q.businessPainpoints[1]);
+        }
+
+        mappedScores[q.id] = {
+          current: val,
+          future: targetVal,
+          techPain,
+          bizPain,
+          comments: `Dynamic GxP baseline established for ${q.dimension} scoring matrix.`,
+          skipped: false
+        };
+      });
+    });
+
+    setScores(mappedScores);
+    setCustomerInfo({
+      company: finalCompany,
+      useCaseName: finalUseCase,
+      domain: finalDomain,
+      runtime: 'Google Cloud Vertex AI',
+      connectors: ['Veeva Vault GxP Docs', 'BigQuery Zero-ETL Feature Store', 'Microsoft SharePoint']
+    });
   };
 
   // --------------------------------------------------------------------------
@@ -1227,143 +1323,81 @@ export default function PremiumScopingAssessorV11({ onBackToLanding, globalTheme
   };
 
   // --------------------------------------------------------------------------
-  // JSX RENDERING ENGINE (ROW-BASED CSS GRID AUTO-STRETCH ARCHITECTURE!)
+  // Dynamic Leadership Narrative Generator (Tailored to active workload!)
+  // --------------------------------------------------------------------------
+  const generatedBriefing = useMemo(() => {
+    const cName = customerInfo.company || 'Enterprise Client';
+    const uName = customerInfo.useCaseName || 'Strategic AI Scoping Workload';
+    const domain = customerInfo.domain || 'Digital Transformation';
+    const score = scoringData.overallPriority;
+
+    if (liveSynthesis && liveSynthesis.executiveBriefing) {
+      return liveSynthesis.executiveBriefing;
+    }
+
+    return `### ⚡ Executive Co-Selling Briefing: ${cName} [Priority: ${score}/100]
+
+This executive dossier verifies immediate pilot funding readiness for the **${uName}** initiative within **${cName}'s ${domain} division**. 
+
+By orchestrating Gemini 1.5 Pro models over a fully grounded, regulatory-compliant workspace and federated data connector mesh, the enterprise eliminates 40 hours of manual, redundant overhead per workflow cycle. The deployment provides a secure GxP boundary that completely isolates patient PII/PHI, unlocking an annual commercial net labor value of **${scoringData.activationImpact}** with strict compliance audits.
+
+With a high priority score of **${score}**, we recommend launching a **${scoringData.pilotAsk}** immediately. This will establish a secure sandboxed environment to validate compliance gates, trace data provenance natively, and secure final Quality Unit sign-off before full-scale commercialization.`;
+  }, [customerInfo, scoringData, liveSynthesis]);
+
+  const generatedGains = useMemo(() => {
+    const cName = customerInfo.company || 'Enterprise Client';
+    const uName = customerInfo.useCaseName || 'Strategic AI Scoping';
+
+    if (liveSynthesis && Array.isArray(liveSynthesis.keyGains)) {
+      return liveSynthesis.keyGains;
+    }
+
+    return [
+      `Quantified commercial labor value unlock of ${scoringData.activationImpact} across active teams.`,
+      `Sovereign mTLS data federation mesh preventing tenant crossing and exfiltration.`,
+      `FDA simultaneous audio/visual prominence and Fair Balance rules natively synchronized.`,
+      `Immutable trace telemetry logging all agent reasoning and exact claims provenance.`,
+      `Automated Client-Side Cloud DLP masking preventing HIPAA patient PHI leaks.`
+    ];
+  }, [customerInfo, scoringData, liveSynthesis]);
+
+  // --------------------------------------------------------------------------
+  // JSX RENDERING ENGINE (100% LIGHT-THEMED VIEWPORT-STRETCHED AUDIT BOARD)
   // --------------------------------------------------------------------------
   return (
-    <div className="premium-assessor-v11-container">
-      
-      {/* Dynamic CSS Stylesheet Block (Enforces Dynamic Row-Grid Sizing & Theme Transitions) */}
-      <style>{`
-        /* Parent Layout Container */
-        .premium-assessor-v11-container {
-          display: flex;
-          background: var(--bg-primary);
-          color: var(--text-primary);
-          font-family: 'Inter', sans-serif;
-          gap: 0.85rem;
-          padding: 1rem;
-          box-sizing: border-box;
-          min-height: 100vh;
-          width: 100%;
-          overflow-x: hidden;
-          transition: background-color 0.2s, color 0.2s;
-        }
-        @media (max-width: 960px) {
-          .premium-assessor-v11-container {
-            flex-direction: column;
-            padding: 0.55rem;
-            gap: 0.55rem;
-          }
-        }
-
-        /* Sidebar Panel (Theme-responsive floating card with elegant padding) */
-        .v11-sidebar {
-          width: 235px;
-          background: var(--bg-surface);
-          border: 1px solid var(--border-color);
-          border-radius: 12px;
-          padding: 0.85rem 0.85rem 1.25rem 0.85rem;
-          display: flex;
-          flex-direction: column;
-          gap: 0.85rem;
-          flex-shrink: 0;
-          box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03);
-          box-sizing: border-box;
-          height: fit-content;
-          transition: background-color 0.2s, border-color 0.2s;
-        }
-        @media (max-width: 960px) {
-          .v11-sidebar {
-            width: 100%;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 0.6rem;
-            padding: 0.85rem 0.85rem 1rem 0.85rem;
-          }
-        }
-
-        /* Main Workspace area wrapper */
-        .v11-main-area {
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          box-sizing: border-box;
-          width: 100%;
-          overflow: hidden;
-        }
-
-        /* Main Scrutiny Card */
-        .v11-intake-card {
-          background: var(--bg-surface);
-          border: 1px solid var(--border-color);
-          border-radius: 12px;
-          padding: 0.85rem;
-          display: flex;
-          flex-direction: column;
-          gap: 0.65rem;
-          box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03);
-          box-sizing: border-box;
-          height: fit-content;
-          width: 100%;
-          transition: background-color 0.2s, border-color 0.2s;
-        }
-
-        /* Column Header with clean bottom margin (FIX: Prevents card touching headers) */
-        .v11-column-header {
-          font-size: 0.62rem;
-          font-weight: 850;
-          color: var(--text-primary);
-          border-bottom: 2px solid var(--text-primary);
-          padding-bottom: 0.25rem;
-          display: block;
-          margin-bottom: 0.15rem;
-        }
-
-        /* Symmetric Matrix Buttons & Cards with Dynamic Auto-Height Stretching */
-        .v11-matrix-box {
-          text-align: left;
-          padding: 0.35rem 0.5rem;
-          border-radius: 6px;
-          font-size: 0.62rem;
-          line-height: 1.25;
-          transition: all 0.15s;
-          min-height: 54px; /* Dynamic: Can grow taller to fit wrapped text! */
-          display: flex;
-          align-items: center;
-          box-sizing: border-box;
-          overflow: hidden;
-          width: 100%;
-        }
-
-        /* Pulsing Glow Progress Bar (FIX: Live dynamic feel) */
-        .v11-progress-bar-fill {
-          height: 100%;
-          background: #2563eb;
-          position: relative;
-          overflow: hidden;
-          border-radius: 100px;
-          transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .v11-progress-bar-fill::after {
-          content: '';
-          position: absolute;
-          top: 0; left: 0; right: 0; bottom: 0;
-          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-          animation: v11-progress-pulse 2.5s infinite;
-        }
-        @keyframes v11-progress-pulse {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(100%); }
-        }
-      `}</style>
-
-      {/* LEFT SIDEBAR PANEL (Responsive Floating Card) */}
-      <aside className="v11-sidebar">
-        
-        {/* Top Section (Header & Pillars) */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', flex: '1 1 auto' }}>
+    <div 
+      className="premium-assessor-v11-container"
+      style={{
+        background: colors.bgMain,
+        color: colors.textDark,
+        fontFamily: "'Inter', sans-serif",
+        height: 'calc(100vh - 80px)', // Stretch perfectly to fill vertical viewport height
+        maxHeight: 'calc(100vh - 80px)',
+        display: 'flex',
+        overflow: 'hidden', // Eradicate browser page-level scrollbars completely
+        position: 'relative',
+        padding: '0.4rem 0.6rem', // Tight, crisp boardroom padding
+        boxSizing: 'border-box'
+      }}
+    >
+      {/* LEFT SIDEBAR PANEL (Stretches 100% vertically to eliminate bottom empty space!) */}
+      <aside
+        style={{
+          width: '235px',
+          background: colors.sidebarBg,
+          border: `1px solid ${colors.borderLight}`,
+          borderRadius: '12px', // Beautiful matching card boundary
+          padding: '0.85rem',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between', // Keeps operations pinned cleanly at bottom of panel
+          flexShrink: 0,
+          height: '100%', // Stretch perfectly to meet bottom viewport edge
+          boxSizing: 'border-box',
+          zIndex: 10
+        }}
+      >
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
           {/* Header Identity */}
           <div>
             <h2 style={{ fontSize: '0.74rem', fontWeight: 900, color: colors.textDark, textTransform: 'uppercase', letterSpacing: '0.5px', margin: '0 0 0.15rem 0' }}>
@@ -1372,9 +1406,8 @@ export default function PremiumScopingAssessorV11({ onBackToLanding, globalTheme
             <span style={{ fontSize: '0.62rem', color: colors.textMuted }}>
               {getOverallQuestionIndex()} of 21 topics audited
             </span>
-            {/* Pulsing glow progress bar container */}
-            <div style={{ height: '5px', background: 'var(--border-color)', borderRadius: '100px', marginTop: '0.3rem', overflow: 'hidden' }}>
-              <div className="v11-progress-bar-fill" style={{ width: `${Math.round((getOverallQuestionIndex() / 21) * 100)}%` }}></div>
+            <div style={{ height: '4px', background: '#e2e8f0', borderRadius: '100px', marginTop: '0.3rem', overflow: 'hidden' }}>
+              <div style={{ width: `${Math.round((getOverallQuestionIndex() / 21) * 100)}%`, height: '100%', background: colors.accentBlue }}></div>
             </div>
           </div>
 
@@ -1392,7 +1425,7 @@ export default function PremiumScopingAssessorV11({ onBackToLanding, globalTheme
                     justifyContent: 'space-between',
                     padding: '0.4rem 0.55rem',
                     borderRadius: '6px',
-                    background: isActive ? 'var(--bg-primary)' : 'transparent',
+                    background: isActive ? '#f1f5f9' : 'transparent',
                     cursor: 'pointer',
                     transition: 'all 0.15s'
                   }}
@@ -1414,18 +1447,19 @@ export default function PremiumScopingAssessorV11({ onBackToLanding, globalTheme
           </div>
         </div>
 
-        {/* Sync & Action Section */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', borderTop: `1px solid var(--border-color)`, paddingTop: '0.75rem' }}>
+        {/* Sidebar Operations Footer (Anchored neatly at panel bottom, no overflow) */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', borderTop: `1px solid ${colors.borderLight}`, paddingTop: '0.75rem' }}>
+          
           {/* Offline Sync Controls */}
           <div>
             <span style={{ fontSize: '0.52rem', fontWeight: 800, color: colors.textMuted, textTransform: 'uppercase', display: 'block', marginBottom: '0.2rem' }}>
               OFFLINE SHEET SYNC
             </span>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.3rem' }}>
-              <button style={{ background: 'var(--bg-surface)', border: `1px solid var(--border-color)`, color: colors.accentBlue, borderRadius: '4px', padding: '0.2rem 0', fontSize: '0.62rem', fontWeight: 800, cursor: 'pointer' }}>
+              <button style={{ background: '#ffffff', border: `1px solid ${colors.borderLight}`, color: colors.accentBlue, borderRadius: '4px', padding: '0.2rem 0', fontSize: '0.62rem', fontWeight: 800, cursor: 'pointer' }}>
                 📥 Export
               </button>
-              <button style={{ background: 'var(--bg-surface)', border: `1px solid var(--border-color)`, color: '#16a34a', borderRadius: '4px', padding: '0.2rem 0', fontSize: '0.62rem', fontWeight: 800, cursor: 'pointer' }}>
+              <button style={{ background: '#ffffff', border: `1px solid ${colors.borderLight}`, color: '#16a34a', borderRadius: '4px', padding: '0.2rem 0', fontSize: '0.62rem', fontWeight: 800, cursor: 'pointer' }}>
                 📤 Import
               </button>
             </div>
@@ -1436,7 +1470,7 @@ export default function PremiumScopingAssessorV11({ onBackToLanding, globalTheme
             <button
               onClick={handleAutoFillRandom}
               style={{
-                background: 'var(--bg-surface)',
+                background: '#ffffff',
                 border: '1px solid #c084fc',
                 color: '#9333ea',
                 borderRadius: '4px',
@@ -1482,7 +1516,7 @@ export default function PremiumScopingAssessorV11({ onBackToLanding, globalTheme
             <button
               onClick={() => handleTabSwitch('intake')}
               style={{
-                background: 'var(--bg-surface)',
+                background: '#ffffff',
                 border: `1px solid ${colors.accentBlue}`,
                 color: colors.accentBlue,
                 borderRadius: '4px',
@@ -1499,15 +1533,37 @@ export default function PremiumScopingAssessorV11({ onBackToLanding, globalTheme
         </div>
       </aside>
 
-      {/* RIGHT MAIN WORKSPACE AREA */}
-      <main className="v11-main-area">
+      {/* RIGHT WORKSPACE AREA (Stretches 100% vertically to eliminate bottom empty space!) */}
+      <main 
+        style={{ 
+          flex: 1, 
+          padding: '0 0 0 0.85rem', 
+          display: 'flex', 
+          flexDirection: 'column', 
+          height: '100%', // Stretches perfectly to fill the vertical canvas
+          boxSizing: 'border-box',
+          overflow: 'hidden' 
+        }}
+      >
         
         {/* VIEW 1: INTAKE 4-COLUMN SCRUTINY WORKSPACE */}
         {activeTab === 'intake' && (
-          <div className="v11-intake-card">
+          <div 
+            style={{ 
+              background: colors.cardBg,
+              border: `1px solid ${colors.borderLight}`,
+              borderRadius: '12px', // Beautiful dashboard card boundary
+              padding: '0.85rem',
+              display: 'flex', 
+              flexDirection: 'column', 
+              height: '100%', // Expand card to fill vertical canvas beautifully
+              boxSizing: 'border-box',
+              overflow: 'hidden'
+            }}
+          >
             
             {/* Topic Pillar Title bar */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: `1px solid var(--border-color)`, paddingBottom: '0.35rem', flexShrink: 0, marginBottom: '0.2rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: `1px solid ${colors.borderLight}`, paddingBottom: '0.35rem', flexShrink: 0, marginBottom: '0.4rem' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                 <span style={{ fontSize: '0.72rem', fontWeight: 900, color: colors.textDark }}>
                   📊 {activePillar.name}
@@ -1556,7 +1612,7 @@ export default function PremiumScopingAssessorV11({ onBackToLanding, globalTheme
             </div>
 
             {/* Active Topic Header */}
-            <div style={{ flexShrink: 0, marginBottom: '0.45rem' }}>
+            <div style={{ flexShrink: 0, marginBottom: '0.5rem' }}>
               <span style={{ fontSize: '0.58rem', fontWeight: 900, color: colors.accentBlue, textTransform: 'uppercase', display: 'block', letterSpacing: '0.5px', marginBottom: '0.05rem' }}>
                 TOPIC INDEX STRATEGIC.{getOverallQuestionIndex()} ASSESSMENT SCRUTINY:
               </span>
@@ -1565,153 +1621,179 @@ export default function PremiumScopingAssessorV11({ onBackToLanding, globalTheme
               </h2>
             </div>
 
-            {/* Restructured Symmetrical Grid Body (100% Symmetrical, 100% Dynamic Auto-Height) */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem', flexShrink: 0 }}>
+            {/* 4-COLUMN COMPLIANCE AUDIT MATRIX GRID (Perfect Symmetrical Sizing: 54px box heights!) */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.5rem', flexShrink: 0, marginBottom: '0.6rem' }}>
               
-              {/* Grid Header Row (Spatially aligned with boxes) */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.5rem', marginBottom: '0.2rem' }}>
-                <span className="v11-column-header">CURRENT STATE *</span>
-                <span className="v11-column-header">FUTURE STATE *</span>
-                <span className="v11-column-header">TECHNICAL PAINPOINTS *</span>
-                <span className="v11-column-header">BUSINESS PAINPOINTS *</span>
+              {/* COLUMN 1: CURRENT STATE */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                <span style={{ fontSize: '0.62rem', fontWeight: 850, color: colors.textDark, borderBottom: `2px solid ${colors.textDark}`, paddingBottom: '0.1rem', display: 'block' }}>
+                  CURRENT STATE *
+                </span>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                  {activeQuestion.options.map((opt, idx) => {
+                    const isSelected = (scores[activeQuestionId]?.current || 3) === (idx + 1);
+                    return (
+                      <button
+                        key={idx}
+                        onClick={() => handleSelectCurrentLevel(idx + 1)}
+                        style={{
+                          textAlign: 'left',
+                          padding: '0.25rem 0.45rem',
+                          borderRadius: '6px',
+                          background: isSelected ? colors.bgOrangeLight : colors.cardBg,
+                          border: isSelected ? `2px solid ${colors.borderOrange}` : `1px solid ${colors.borderLight}`,
+                          color: isSelected ? colors.borderOrange : colors.textDark,
+                          fontSize: '0.62rem',
+                          fontWeight: isSelected ? 800 : 500,
+                          cursor: 'pointer',
+                          lineHeight: 1.25,
+                          transition: 'all 0.15s',
+                          height: '54px', // Hardlocked exact symmetrical height
+                          display: 'flex',
+                          alignItems: 'center', // Centered text vertically
+                          boxSizing: 'border-box',
+                          overflow: 'hidden'
+                        }}
+                      >
+                        {opt.text}
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
 
-              {/* 5 Symmetrical Option Rows (Each row stretches its children to matching heights!) */}
-              {[0, 1, 2, 3, 4].map(rowIdx => {
-                const opt = activeQuestion.options[rowIdx];
-                const techPoint = activeQuestion.technicalPainpoints?.[rowIdx];
-                const bizPoint = activeQuestion.businessPainpoints?.[rowIdx];
+              {/* COLUMN 2: FUTURE STATE */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                <span style={{ fontSize: '0.62rem', fontWeight: 850, color: colors.textDark, borderBottom: `2px solid ${colors.textDark}`, paddingBottom: '0.1rem', display: 'block' }}>
+                  FUTURE STATE *
+                </span>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                  {activeQuestion.options.map((opt, idx) => {
+                    const isSelected = (scores[activeQuestionId]?.future || 4) === (idx + 1);
+                    return (
+                      <button
+                        key={idx}
+                        onClick={() => handleSelectTargetLevel(idx + 1)}
+                        style={{
+                          textAlign: 'left',
+                          padding: '0.25rem 0.45rem',
+                          borderRadius: '6px',
+                          background: isSelected ? colors.bgGreenLight : colors.cardBg,
+                          border: isSelected ? `2px solid ${colors.borderGreen}` : `1px solid ${colors.borderLight}`,
+                          color: isSelected ? colors.borderGreen : colors.textDark,
+                          fontSize: '0.62rem',
+                          fontWeight: isSelected ? 800 : 500,
+                          cursor: 'pointer',
+                          lineHeight: 1.25,
+                          transition: 'all 0.15s',
+                          height: '54px', // Hardlocked exact symmetrical height
+                          display: 'flex',
+                          alignItems: 'center', // Centered text vertically
+                          boxSizing: 'border-box',
+                          overflow: 'hidden'
+                        }}
+                      >
+                        {opt.text}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
 
-                const isCurrentSelected = (scores[activeQuestionId]?.current || 3) === (rowIdx + 1);
-                const isTargetSelected = (scores[activeQuestionId]?.future || 4) === (rowIdx + 1);
-                const isTechChecked = scores[activeQuestionId]?.techPain?.includes(techPoint);
-                const isBizChecked = scores[activeQuestionId]?.bizPain?.includes(bizPoint);
+              {/* COLUMN 3: TECHNICAL PAINPOINTS */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                <span style={{ fontSize: '0.62rem', fontWeight: 850, color: colors.textDark, borderBottom: `2px solid ${colors.textDark}`, paddingBottom: '0.1rem', display: 'block' }}>
+                  TECHNICAL PAINPOINTS *
+                </span>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                  {activeQuestion.technicalPainpoints?.map(point => {
+                    const isChecked = scores[activeQuestionId]?.techPain?.includes(point);
+                    return (
+                      <div
+                        key={point}
+                        onClick={() => handleTogglePainPoint('tech', point)}
+                        style={{
+                          padding: '0.25rem 0.45rem',
+                          borderRadius: '6px',
+                          background: isChecked ? colors.accentBlueLight : colors.cardBg,
+                          border: isChecked ? `2px solid ${colors.accentBlue}` : `1px solid ${colors.borderLight}`,
+                          color: isChecked ? colors.accentBlue : colors.textDark,
+                          fontSize: '0.62rem',
+                          fontWeight: isChecked ? 850 : 500,
+                          cursor: 'pointer',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '0.3rem',
+                          lineHeight: 1.2,
+                          transition: 'all 0.15s',
+                          height: '54px', // Hardlocked exact symmetrical height
+                          boxSizing: 'border-box',
+                          overflow: 'hidden'
+                        }}
+                      >
+                        {/* pointerEvents: 'none' guarantees flawless parent click capture */}
+                        <input 
+                          type="checkbox" 
+                          checked={isChecked} 
+                          readOnly 
+                          style={{ cursor: 'pointer', margin: 0, pointerEvents: 'none' }} 
+                        />
+                        <span style={{ pointerEvents: 'none' }}>{point}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
 
-                return (
-                  <div 
-                    key={rowIdx} 
-                    style={{ 
-                      display: 'grid', 
-                      gridTemplateColumns: 'repeat(4, 1fr)', 
-                      gap: '0.5rem', 
-                      alignItems: 'stretch' // NATIVE CSS MAGIC: All 4 boxes in this row match height!
-                    }}
-                  >
-                    {/* 1. Current State Card */}
-                    <button
-                      onClick={() => handleSelectCurrentLevel(rowIdx + 1)}
-                      className="v11-matrix-box"
-                      style={{
-                        background: isCurrentSelected ? colors.bgOrangeLight : colors.cardBg,
-                        border: isCurrentSelected ? `2px solid ${colors.borderOrange}` : `1px solid var(--border-color)`,
-                        color: isCurrentSelected ? colors.borderOrange : colors.textDark,
-                        fontWeight: isCurrentSelected ? 800 : 500,
-                        cursor: 'pointer'
-                      }}
-                    >
-                      {opt.text}
-                    </button>
-
-                    {/* 2. Future State Card */}
-                    <button
-                      onClick={() => handleSelectTargetLevel(rowIdx + 1)}
-                      className="v11-matrix-box"
-                      style={{
-                        background: isTargetSelected ? colors.bgGreenLight : colors.cardBg,
-                        border: isTargetSelected ? `2px solid ${colors.borderGreen}` : `1px solid var(--border-color)`,
-                        color: isTargetSelected ? colors.borderGreen : colors.textDark,
-                        fontWeight: isTargetSelected ? 800 : 500,
-                        cursor: 'pointer'
-                      }}
-                    >
-                      {opt.text}
-                    </button>
-
-                    {/* 3. Technical Pain Point Card */}
-                    <div
-                      onClick={() => techPoint && handleTogglePainPoint('tech', techPoint)}
-                      className="v11-matrix-box"
-                      style={{
-                        background: isTechChecked ? colors.accentBlueLight : colors.cardBg,
-                        border: isTechChecked ? `2px solid ${colors.accentBlue}` : `1px solid var(--border-color)`,
-                        color: isTechChecked ? colors.accentBlue : colors.textDark,
-                        cursor: techPoint ? 'pointer' : 'default',
-                        opacity: techPoint ? 1 : 0.4
-                      }}
-                    >
-                      {techPoint ? (
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', width: '100%', height: '100%', pointerEvents: 'none' }}>
-                          <div 
-                            style={{
-                              width: '14px',
-                              height: '14px',
-                              border: isTechChecked ? `2px solid ${colors.accentBlue}` : '1.5px solid #cbd5e1',
-                              borderRadius: '4px',
-                              background: isTechChecked ? colors.accentBlue : 'var(--bg-surface)',
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                              transition: 'all 0.2s',
-                              flexShrink: 0
-                            }}
-                          >
-                            {isTechChecked && <Check size={10} strokeWidth={4} color="#ffffff" />}
-                          </div>
-                          <span style={{ fontSize: '0.62rem', fontWeight: isTechChecked ? 850 : 550, color: isTechChecked ? colors.accentBlue : colors.textDark, lineHeight: 1.2 }}>
-                            {techPoint}
-                          </span>
-                        </div>
-                      ) : (
-                        <span style={{ fontSize: '0.62rem', color: colors.textMuted }}>N/A</span>
-                      )}
-                    </div>
-
-                    {/* 4. Business Pain Point Card */}
-                    <div
-                      onClick={() => bizPoint && handleTogglePainPoint('biz', bizPoint)}
-                      className="v11-matrix-box"
-                      style={{
-                        background: isBizChecked ? colors.accentBlueLight : colors.cardBg,
-                        border: isBizChecked ? `2px solid ${colors.accentBlue}` : `1px solid var(--border-color)`,
-                        color: isBizChecked ? colors.accentBlue : colors.textDark,
-                        cursor: bizPoint ? 'pointer' : 'default',
-                        opacity: bizPoint ? 1 : 0.4
-                      }}
-                    >
-                      {bizPoint ? (
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', width: '100%', height: '100%', pointerEvents: 'none' }}>
-                          <div 
-                            style={{
-                              width: '14px',
-                              height: '14px',
-                              border: isBizChecked ? `2px solid ${colors.accentBlue}` : '1.5px solid #cbd5e1',
-                              borderRadius: '4px',
-                              background: isBizChecked ? colors.accentBlue : 'var(--bg-surface)',
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                              transition: 'all 0.2s',
-                              flexShrink: 0
-                            }}
-                          >
-                            {isBizChecked && <Check size={10} strokeWidth={4} color="#ffffff" />}
-                          </div>
-                          <span style={{ fontSize: '0.62rem', fontWeight: isBizChecked ? 850 : 550, color: isBizChecked ? colors.accentBlue : colors.textDark, lineHeight: 1.2 }}>
-                            {bizPoint}
-                          </span>
-                        </div>
-                      ) : (
-                        <span style={{ fontSize: '0.62rem', color: colors.textMuted }}>N/A</span>
-                      )}
-                    </div>
-                  </div>
-                );
-              })}
+              {/* COLUMN 4: BUSINESS PAINPOINTS */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                <span style={{ fontSize: '0.62rem', fontWeight: 850, color: colors.textDark, borderBottom: `2px solid ${colors.textDark}`, paddingBottom: '0.1rem', display: 'block' }}>
+                  BUSINESS PAINPOINTS *
+                </span>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                  {activeQuestion.businessPainpoints?.map(point => {
+                    const isChecked = scores[activeQuestionId]?.bizPain?.includes(point);
+                    return (
+                      <div
+                        key={point}
+                        onClick={() => handleTogglePainPoint('biz', point)}
+                        style={{
+                          padding: '0.25rem 0.45rem',
+                          borderRadius: '6px',
+                          background: isChecked ? colors.accentBlueLight : colors.cardBg,
+                          border: isChecked ? `2px solid ${colors.accentBlue}` : `1px solid ${colors.borderLight}`,
+                          color: isChecked ? colors.accentBlue : colors.textDark,
+                          fontSize: '0.62rem',
+                          fontWeight: isChecked ? 850 : 500,
+                          cursor: 'pointer',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '0.3rem',
+                          lineHeight: 1.2,
+                          transition: 'all 0.15s',
+                          height: '54px', // Hardlocked exact symmetrical height
+                          boxSizing: 'border-box',
+                          overflow: 'hidden'
+                        }}
+                      >
+                        {/* pointerEvents: 'none' guarantees flawless parent click capture */}
+                        <input 
+                          type="checkbox" 
+                          checked={isChecked} 
+                          readOnly 
+                          style={{ cursor: 'pointer', margin: 0, pointerEvents: 'none' }} 
+                        />
+                        <span style={{ pointerEvents: 'none' }}>{point}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
 
             </div>
 
-            {/* Bottom Auditor Notes Area (Theme-responsive clean padding) */}
-            <div style={{ background: colors.cardBg, border: `1px solid var(--border-color)`, borderRadius: '6px', padding: '0.5rem 0.65rem 0.65rem 0.65rem', display: 'flex', flexDirection: 'column', gap: '0.15rem', flexShrink: 0, marginBottom: '0.15rem' }}>
+            {/* Bottom Auditor Notes Area */}
+            <div style={{ background: colors.cardBg, border: `1px solid ${colors.borderLight}`, borderRadius: '6px', padding: '0.4rem 0.6rem', display: 'flex', flexDirection: 'column', gap: '0.15rem', flexShrink: 0, marginBottom: '0.4rem' }}>
               <span style={{ fontSize: '0.62rem', fontWeight: 900, color: colors.textDark, letterSpacing: '0.5px' }}>
                 NOTES & COMMENTS BOX *
               </span>
@@ -1721,12 +1803,11 @@ export default function PremiumScopingAssessorV11({ onBackToLanding, globalTheme
                 placeholder="Type legal, GxP, or data provenance constraints noted during the customer interview..."
                 style={{
                   width: '100%',
-                  height: '40px', 
+                  height: '40px', // Compact height
                   border: 'none',
                   outline: 'none',
                   fontSize: '0.68rem',
                   color: colors.textDark,
-                  background: 'transparent',
                   fontFamily: 'inherit',
                   lineHeight: 1.25,
                   resize: 'none'
@@ -1734,15 +1815,15 @@ export default function PremiumScopingAssessorV11({ onBackToLanding, globalTheme
               />
             </div>
 
-            {/* Navigation Footer (Clean spacing) */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: `1px solid var(--border-color)`, paddingTop: '0.45rem', marginTop: '0.85rem', flexShrink: 0 }}>
+            {/* Navigation Footer (Pushed tightly to the bottom of the card) */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: `1px solid ${colors.borderLight}`, paddingTop: '0.35rem', flexShrink: 0, marginTop: 'auto' }}>
               <button
                 onClick={handlePrevQuestion}
                 disabled={activePillarIdx === 0 && activeQuestionIdx === 0}
                 style={{
-                  background: 'var(--bg-surface)',
+                  background: '#ffffff',
                   color: colors.accentBlue,
-                  border: `1px solid var(--border-color)`,
+                  border: `1px solid ${colors.borderLight}`,
                   borderRadius: '4px',
                   padding: '0.3rem 0.75rem',
                   fontSize: '0.68rem',
@@ -1761,7 +1842,7 @@ export default function PremiumScopingAssessorV11({ onBackToLanding, globalTheme
               <button
                 onClick={handleNextQuestion}
                 style={{
-                  background: getOverallQuestionIndex() === 21 ? 'var(--border-color)' : colors.accentBlue,
+                  background: getOverallQuestionIndex() === 21 ? '#e2e8f0' : colors.accentBlue,
                   color: getOverallQuestionIndex() === 21 ? colors.textMuted : '#ffffff',
                   border: 'none',
                   borderRadius: '4px',
@@ -1775,6 +1856,226 @@ export default function PremiumScopingAssessorV11({ onBackToLanding, globalTheme
                 Next →
               </button>
             </div>
+
+          </div>
+        )}
+
+        {/* VIEW 2: AI STREAMING EVALUATION TERMINAL */}
+        {geminiStreamingState.active && (
+          <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(5,7,12,0.95)', zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
+            <div style={{ width: '100%', maxWidth: '650px', background: '#090d16', border: '1px solid rgba(56,189,248,0.25)', borderRadius: '12px', padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem', boxShadow: '0 10px 30px rgba(56,189,248,0.2)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyBetween: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.08)', paddingBottom: '0.5rem' }}>
+                <span style={{ fontSize: '0.85rem', fontWeight: 800, color: '#38bdf8', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                  <Terminal size={14} /> Gemini 3.5 Real-Time Scoping
+                </span>
+                <span style={{ fontSize: '0.62rem', background: '#e11d48', color: '#fff', padding: '0.15rem 0.5rem', borderRadius: '100px', fontWeight: 900, animation: 'pulse 1s infinite' }}>
+                  STREAMING LIVE
+                </span>
+              </div>
+
+              {/* Progress Counters */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.75rem' }}>
+                <div style={{ background: 'rgba(255,255,255,0.02)', padding: '0.5rem', borderRadius: '6px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                  <span style={{ fontSize: '0.6rem', color: '#94a3b8', textTransform: 'uppercase', display: 'block' }}>Inference Speed</span>
+                  <span style={{ fontSize: '0.95rem', fontWeight: 900, color: '#38bdf8' }}>{geminiStreamingState.tokensPerSec} Tokens/s</span>
+                </div>
+                <div style={{ background: 'rgba(255,255,255,0.02)', padding: '0.5rem', borderRadius: '6px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                  <span style={{ fontSize: '0.6rem', color: '#94a3b8', textTransform: 'uppercase', display: 'block' }}>Network Latency</span>
+                  <span style={{ fontSize: '0.95rem', fontWeight: 900, color: '#10b981' }}>{geminiStreamingState.latencyMs} ms</span>
+                </div>
+                <div style={{ background: 'rgba(255,255,255,0.02)', padding: '0.5rem', borderRadius: '6px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                  <span style={{ fontSize: '0.6rem', color: '#94a3b8', textTransform: 'uppercase', display: 'block' }}>Grounding RAG</span>
+                  <span style={{ fontSize: '0.95rem', fontWeight: 900, color: '#e0f2fe' }}>2 Chunks Mapped</span>
+                </div>
+              </div>
+
+              {/* Terminal Logs Box */}
+              <div style={{ background: '#030712', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '6px', padding: '0.75rem', height: '180px', overflowY: 'auto', fontFamily: "'Courier New', Courier, monospace", fontSize: '0.65rem', display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
+                {geminiStreamingState.logs.map((log, lIdx) => (
+                  <div key={lIdx} style={{ color: log.includes('[SUCCESS]') ? '#10b981' : log.includes('[ERROR]') ? '#ef4444' : '#94a3b8' }}>
+                    {log}
+                  </div>
+                ))}
+              </div>
+
+              {/* Progress Steps Indicators */}
+              <div style={{ display: 'flex', justifyBetween: 'space-between', fontSize: '0.7rem' }}>
+                <span style={{ color: geminiStreamingState.currentStep >= 1 ? '#38bdf8' : '#94a3b8' }}>1. Init</span>
+                <span style={{ color: geminiStreamingState.currentStep >= 2 ? '#38bdf8' : '#94a3b8' }}>2. Vector Map</span>
+                <span style={{ color: geminiStreamingState.currentStep >= 3 ? '#38bdf8' : '#94a3b8' }}>3. Secure Tunnel</span>
+                <span style={{ color: geminiStreamingState.currentStep >= 4 ? '#38bdf8' : '#94a3b8' }}>4. Model Attend</span>
+                <span style={{ color: geminiStreamingState.currentStep >= 5 ? '#38bdf8' : '#94a3b8' }}>5. Synthesis</span>
+              </div>
+
+            </div>
+          </div>
+        )}
+
+        {/* VIEW 3: EXECUTIVE DOSSIER & SCORECARD VIEW */}
+        {activeTab === 'scorecard' && !geminiStreamingState.active && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', flex: 1, overflowY: 'auto' }}>
+            
+            {/* Top Scorecard KPIs Banner */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1rem', flexShrink: 0 }}>
+              
+              {/* Card 1: Decision */}
+              <div style={{ background: colors.cardBg, border: `1px solid ${colors.borderLight}`, borderRadius: '12px', padding: '1rem', display: 'flex', flexDirection: 'column' }}>
+                <span style={{ fontSize: '0.65rem', fontWeight: 850, color: colors.textMuted, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                  DECISION RECOMMENDATION
+                </span>
+                <span style={{ fontSize: '1.75rem', fontWeight: 900, color: scoringData.decision === 'Launch Now' ? '#16a34a' : scoringData.decision === 'Fund Incubator' ? colors.accentBlue : '#dc2626', margin: '0.2rem 0' }}>
+                  {scoringData.decision}
+                </span>
+                <span style={{ fontSize: '0.72rem', color: colors.textMuted }}>
+                  {scoringData.decision === 'Launch Now' ? 'Pilot Ready & Grounded' : scoringData.decision === 'Fund Incubator' ? 'Perform P0 Feasibility' : 'Review Compliance Metrics'}
+                </span>
+              </div>
+
+              {/* Card 2: Priority Score */}
+              <div style={{ background: colors.cardBg, border: `1px solid ${colors.borderLight}`, borderRadius: '12px', padding: '1rem', display: 'flex', flexDirection: 'column' }}>
+                <span style={{ fontSize: '0.65rem', fontWeight: 850, color: colors.textMuted, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                  PRIORITY SCORING INDEX
+                </span>
+                <span style={{ fontSize: '1.75rem', fontWeight: 900, color: colors.accentBlue, margin: '0.2rem 0' }}>
+                  {scoringData.overallPriority}
+                </span>
+                <span style={{ fontSize: '0.72rem', color: colors.textMuted }}>
+                  Weighted portfolio ranking matrix
+                </span>
+              </div>
+
+              {/* Card 3: Activation Impact */}
+              <div style={{ background: colors.cardBg, border: `1px solid ${colors.borderLight}`, borderRadius: '12px', padding: '1rem', display: 'flex', flexDirection: 'column' }}>
+                <span style={{ fontSize: '0.65rem', fontWeight: 850, color: colors.textMuted, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                  ESTIMATED VALUE CAPTURE
+                </span>
+                <span style={{ fontSize: '1.75rem', fontWeight: 900, color: colors.textDark, margin: '0.2rem 0' }}>
+                  {scoringData.activationImpact}
+                </span>
+                <span style={{ fontSize: '0.72rem', color: colors.textMuted }}>
+                  Annual commercial labor unlock
+                </span>
+              </div>
+
+              {/* Card 4: Pilot Timeframe */}
+              <div style={{ background: colors.cardBg, border: `1px solid ${colors.borderLight}`, borderRadius: '12px', padding: '1rem', display: 'flex', flexDirection: 'column' }}>
+                <span style={{ fontSize: '0.65rem', fontWeight: 850, color: colors.textMuted, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                  RECOMMENDED TIME GAP
+                </span>
+                <span style={{ fontSize: '1.75rem', fontWeight: 900, color: colors.accentBlue, margin: '0.2rem 0' }}>
+                  {scoringData.pilotAsk}
+                </span>
+                <span style={{ fontSize: '0.72rem', color: colors.textMuted }}>
+                  Operational regulatory deployment
+                </span>
+              </div>
+
+            </div>
+
+            {/* Assessment Pending Safe Guard Screen */}
+            {scoringData.overallPriority === 0 ? (
+              <div style={{ background: colors.cardBg, border: `1px solid ${colors.borderLight}`, borderRadius: '12px', padding: '3rem 2rem', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', flex: 1 }}>
+                <div style={{ width: '60px', height: '60px', borderRadius: '50%', background: '#fee2e2', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem' }}>
+                  <span style={{ fontSize: '1.75rem' }}>📋</span>
+                </div>
+                <h2 style={{ fontSize: '1.5rem', fontWeight: 900, margin: '0 0 0.75rem 0', color: colors.textDark }}>
+                  Discovery Intake Assessment Pending
+                </h2>
+                <p style={{ fontSize: '0.85rem', color: colors.textMuted, maxWidth: '480px', lineHeight: 1.5, margin: '0 0 1.5rem 0' }}>
+                  No discovery intake questions have been completed (Priority Score: 0). Please answer the evaluation questionnaire to dynamically synthesize authenticated C-suite narratives, risk/reward trade-offs, and multi-agent implementation roadmaps.
+                </p>
+                <button
+                  onClick={() => handleTabSwitch('intake')}
+                  style={{
+                    background: 'linear-gradient(135deg, #ef4444, #dc2626)',
+                    color: '#ffffff',
+                    border: 'none',
+                    padding: '0.75rem 2rem',
+                    borderRadius: '100px',
+                    fontSize: '0.85rem',
+                    fontWeight: 900,
+                    cursor: 'pointer',
+                    boxShadow: '0 4px 15px rgba(239,68,68,0.4)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.4rem'
+                  }}
+                >
+                  ⚡ Start Discovery Assessment Now
+                </button>
+              </div>
+            ) : (
+              
+              /* Main Split Dossier View */
+              <div style={{ display: 'flex', gap: '1rem', flex: 1, minHeight: '380px' }}>
+                
+                {/* Left Column: Dynamic Leadership Briefing */}
+                <div style={{ width: '60%', background: colors.cardBg, border: `1px solid ${colors.borderLight}`, borderRadius: '12px', padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyBetween: 'space-between', borderBottom: `1px solid ${colors.borderLight}`, paddingBottom: '0.5rem' }}>
+                    <span style={{ fontSize: '0.75rem', fontWeight: 850, color: colors.accentBlue, textTransform: 'uppercase', letterSpacing: '0.5px', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                      <Sparkles size={13} /> Strategic C-Suite Narrative
+                    </span>
+                    <span style={{ fontSize: '0.62rem', background: '#eff6ff', color: colors.accentBlue, padding: '0.15rem 0.5rem', borderRadius: '100px', fontWeight: 800 }}>
+                      Grounded AI Insight
+                    </span>
+                  </div>
+                  
+                  {/* Executive Briefing Text Content */}
+                  <div style={{ fontSize: '0.8rem', color: colors.textDark, lineHeight: 1.6, overflowY: 'auto', flex: 1, whiteSpace: 'pre-wrap' }}>
+                    {generatedBriefing.split('\n\n').map((para, pIdx) => {
+                      if (para.startsWith('###')) {
+                        return <h3 key={pIdx} style={{ fontSize: '0.9rem', color: colors.accentBlue, fontWeight: 900, margin: '1rem 0 0.5rem 0' }}>{para.replace('###', '').trim()}</h3>;
+                      }
+                      return <p key={pIdx} style={{ margin: '0 0 0.75rem 0' }}>{para}</p>;
+                    })}
+                  </div>
+                </div>
+
+                {/* Right Column: Strategic Gains & Next Steps Roadmap */}
+                <div style={{ width: '40%', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                  
+                  {/* Card 1: Key Value Gains */}
+                  <div style={{ background: colors.cardBg, border: `1px solid ${colors.borderLight}`, borderRadius: '12px', padding: '1rem', display: 'flex', flexDirection: 'column', gap: '0.75rem', flex: 1 }}>
+                    <span style={{ fontSize: '0.7rem', fontWeight: 850, color: colors.accentBlue, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                      Key Strategic Gains ({customerInfo.company || 'Enterprise'})
+                    </span>
+                    
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem', overflowY: 'auto', flex: 1 }}>
+                      {generatedGains.map((gain, gIdx) => (
+                        <div key={gIdx} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.4rem', fontSize: '0.72rem', color: colors.textDark }}>
+                          <span style={{ color: '#16a34a', fontWeight: 900, marginTop: '0.1rem' }}>✓</span>
+                          <span>{gain}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Card 2: Strategic Roll-out Roadmap */}
+                  <div style={{ background: colors.cardBg, border: `1px solid ${colors.borderLight}`, borderRadius: '12px', padding: '1rem', display: 'flex', flexDirection: 'column', gap: '0.5rem', flexShrink: 0 }}>
+                    <span style={{ fontSize: '0.7rem', fontWeight: 850, color: colors.accentBlue, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                      Implementation Roll-out Roadmap
+                    </span>
+                    
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem', marginTop: '0.2rem' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                        <span style={{ width: '15px', height: '15px', borderRadius: '50%', background: colors.accentBlue, color: '#ffffff', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.55rem', fontWeight: 950 }}>1</span>
+                        <span style={{ fontSize: '0.72rem', color: colors.textDark, fontWeight: 750 }}>Phase 1: GxP Sandbox setup (Weeks 1-2)</span>
+                      </div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                        <span style={{ width: '15px', height: '15px', borderRadius: '50%', background: '#e2e8f0', color: colors.textMuted, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.55rem', fontWeight: 950 }}>2</span>
+                        <span style={{ fontSize: '0.72rem', color: colors.textMuted }}>Phase 2: Live Grounding & Vector Integration</span>
+                      </div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                        <span style={{ width: '15px', height: '15px', borderRadius: '50%', background: '#e2e8f0', color: colors.textMuted, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.55rem', fontWeight: 950 }}>3</span>
+                        <span style={{ fontSize: '0.72rem', color: colors.textMuted }}>Phase 3: Quality Unit Audit & Releases</span>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+            )}
 
           </div>
         )}
