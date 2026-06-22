@@ -1207,7 +1207,17 @@ export default function App() {
       alert(`✅ Initial Maturity Scoping for ${metadata.customerName} saved successfully!\nAssessment ID: ${versionId}`);
     }
 
-    window.history.replaceState(null, '', `#maturity-assessor?session=${targetSessId}`);
+    let redirectHash = `#maturity-assessor?session=${targetSessId}`;
+    if (activeFramework === 'option11') {
+      redirectHash = `#agentic-maturity-v11?session=${targetSessId}`;
+    } else if (activeFramework === 'option12') {
+      redirectHash = `#agentic-maturity-v12?session=${targetSessId}`;
+    } else if (activeFramework === 'option5' || activeFramework === 'option6') {
+      redirectHash = viewMode === 'report' 
+        ? `#maturity-report?session=${targetSessId}`
+        : `#maturity-assessor?session=${targetSessId}`;
+    }
+    window.history.replaceState(null, '', redirectHash);
     setFormData(metadata);
     setReportData(report);
     setSessions(updated);
