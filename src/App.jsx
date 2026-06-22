@@ -507,10 +507,24 @@ export default function App() {
           setActiveFramework('option11');
           const isLandingOnly = !query || query.trim() === '' || query.includes('view=saved_library');
           setViewMode(isLandingOnly ? 'landing' : 'assessor');
+          if (query) {
+            const params = new URLSearchParams(query);
+            const sessId = params.get('session') || params.get('id');
+            if (sessId) {
+              setActiveSessionId(sessId);
+            }
+          }
         } else if (route === 'agentic-maturity-v12') {
           setActiveFramework('option12');
           const isLandingOnly = !query || query.trim() === '' || query.includes('view=saved_library');
           setViewMode(isLandingOnly ? 'landing' : 'assessor');
+          if (query) {
+            const params = new URLSearchParams(query);
+            const sessId = params.get('session') || params.get('id');
+            if (sessId) {
+              setActiveSessionId(sessId);
+            }
+          }
 
         } else if (route === 'premium-assessor') {
           setActiveFramework('option9');
