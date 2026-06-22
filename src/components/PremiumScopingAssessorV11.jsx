@@ -1433,7 +1433,7 @@ With a high priority score of **${score}**, we recommend launching a **${scoring
               return (
                 <div
                   key={pillar.id}
-                  onClick={() => { setActivePillarIdx(idx); setActiveQuestionIdx(0); }}
+                  onClick={() => { setActivePillarIdx(idx); setActiveQuestionIdx(0); handleTabSwitch('intake'); }}
                   style={{
                     display: 'flex',
                     alignItems: 'center',
