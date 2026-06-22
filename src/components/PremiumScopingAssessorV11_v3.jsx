@@ -1178,7 +1178,26 @@ export default function PremiumScopingAssessorV11({ onBackToLanding, globalTheme
 
     try {
       const activeKey = (apiKey || localStorage.getItem('gemini_api_key') || window.__VITE_ACTIVE_API_KEY__ || '').trim();
-      const response = await generateMaturityReport(customerInfo, scores, activeKey);
+      const formattedPayload = V11_PILLARS.map(pillar => {
+        return {
+          pillar: pillar.name,
+          results: pillar.questions.map(q => {
+            const qScore = scores[q.id] || {};
+            return {
+              id: q.id,
+              topic: q.topic,
+              currentScore: typeof qScore.current === 'number' ? qScore.current : null,
+              futureScore: typeof qScore.future === 'number' ? qScore.future : null,
+              notes: qScore.comments || '',
+              technicalPainpoints: qScore.techPain || [],
+              businessPainpoints: qScore.bizPain || [],
+              skipped: !!qScore.skipped
+            };
+          })
+        };
+      });
+
+      const response = await generateMaturityReport(customerInfo, formattedPayload, activeKey);
       
       const liveGenReport = response.report || response;
       setLiveSynthesis(liveGenReport);
