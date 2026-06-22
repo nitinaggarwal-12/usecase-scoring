@@ -614,6 +614,23 @@ const PRESET_CANDIDATES = [
   { company: 'AstraZeneca Global', useCaseName: 'Oncology Clinical Protocol QA Agent', domain: 'R&D / Clinical' }
 ];
 
+const getBlankScores = () => {
+  const initial = {};
+  V11_PILLARS.forEach(p => {
+    p.questions.forEach(q => {
+      initial[q.id] = {
+        current: null,
+        future: null,
+        techPain: [],
+        bizPain: [],
+        comments: '',
+        skipped: false
+      };
+    });
+  });
+  return initial;
+};
+
 const getDeterministicPreset = (sessionId) => {
   const isMerck = !sessionId || sessionId.includes('merck') || sessionId.includes('demo_merck_preset');
   
@@ -680,7 +697,7 @@ const getDeterministicPreset = (sessionId) => {
   return { scores, customerInfo };
 };
 
-export default function PremiumScopingAssessorV11({ onBackToLanding, globalTheme = 'dark', apiKey = '', apiKey2 = '', gcpToken = '', activeSessionId, sessions = [] }) {
+export default function PremiumScopingAssessorV11({ onBackToLanding, globalTheme = 'dark', apiKey = '', apiKey2 = '', gcpToken = '', activeSessionId, sessions = [], onSaveSession }) {
   const [activeTab, setActiveTab] = useState('intake');
   const [activeDimensionId, setActiveDimensionId] = useState('BV');
   const [reportSubTab, setReportSubTab] = useState('executive');
@@ -697,13 +714,13 @@ export default function PremiumScopingAssessorV11({ onBackToLanding, globalTheme
       if (activeSessionId.includes('preset') || activeSessionId === 'demo_merck_preset') {
         return getDeterministicPreset(activeSessionId).customerInfo;
       }
-      try {
-        const cached = JSON.parse(localStorage.getItem('v11_saved_tiles') || '[]');
-        const matched = cached.find(x => x.id === activeSessionId);
-        if (matched && matched.scoringVector && matched.scoringVector.customerInfo) {
-          return matched.scoringVector.customerInfo;
+      const matched = sessions.find(x => x.id === activeSessionId);
+      if (matched) {
+        const latestVer = matched.versions && matched.versions.length > 0 ? matched.versions[matched.versions.length - 1] : null;
+        if (latestVer && latestVer.formData) {
+          return latestVer.formData;
         }
-      } catch (e) {}
+      }
     }
     return defaultInfo;
   });
@@ -713,31 +730,29 @@ export default function PremiumScopingAssessorV11({ onBackToLanding, globalTheme
       if (activeSessionId.includes('preset') || activeSessionId === 'demo_merck_preset') {
         return getDeterministicPreset(activeSessionId).scores;
       }
-      try {
-        const cached = JSON.parse(localStorage.getItem('v11_saved_tiles') || '[]');
-        const matched = cached.find(x => x.id === activeSessionId);
-        if (matched && matched.scoringVector && matched.scoringVector.scores) {
-          return matched.scoringVector.scores;
+      const matched = sessions.find(x => x.id === activeSessionId);
+      if (matched) {
+        const latestVer = matched.versions && matched.versions.length > 0 ? matched.versions[matched.versions.length - 1] : null;
+        if (latestVer && latestVer.scores) {
+          return latestVer.scores;
         }
-      } catch (e) {}
+      }
     }
-    const initial = {};
-    V11_PILLARS.forEach(p => {
-      p.questions.forEach(q => {
-        initial[q.id] = {
-          current: null,
-          future: null,
-          techPain: [],
-          bizPain: [],
-          comments: '',
-          skipped: false
-        };
-      });
-    });
-    return initial;
+    return getBlankScores();
   });
 
-  const [liveSynthesis, setLiveSynthesis] = useState(null);
+  const [liveSynthesis, setLiveSynthesis] = useState(() => {
+    if (activeSessionId && !activeSessionId.includes('preset') && activeSessionId !== 'demo_merck_preset') {
+      const matched = sessions.find(x => x.id === activeSessionId);
+      if (matched) {
+        const latestVer = matched.versions && matched.versions.length > 0 ? matched.versions[matched.versions.length - 1] : null;
+        if (latestVer && latestVer.rawResponse) {
+          return latestVer.rawResponse.report || latestVer.rawResponse;
+        }
+      }
+    }
+    return null;
+  });
   const [currency, setCurrency] = useState('USD');
   
   // Wizard Question Indexing
