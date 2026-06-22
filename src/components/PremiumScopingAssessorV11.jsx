@@ -1433,7 +1433,7 @@ With a high priority score of **${score}**, we recommend launching a **${scoring
               return (
                 <div
                   key={pillar.id}
-                  onClick={() => { setActivePillarIdx(idx); setActiveQuestionIdx(0); handleTabSwitch('intake'); }}
+                  onClick={() => { setActivePillarIdx(idx); setActiveQuestionIdx(0); }}
                   style={{
                     display: 'flex',
                     alignItems: 'center',
@@ -2090,6 +2090,90 @@ With a high priority score of **${score}**, we recommend launching a **${scoring
                 </div>
 
               </div>
+
+              {/* NEW: Interactive Pillar Deep-Dive Scrutiny Ledger */}
+              <div style={{ background: colors.cardBg, border: `1px solid ${colors.borderLight}`, borderRadius: '12px', padding: '1.5rem', marginTop: '1rem', display: 'flex', flexDirection: 'column', gap: '1rem', flexShrink: 0 }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: `1px solid ${colors.borderLight}`, paddingBottom: '0.5rem' }}>
+                  <span style={{ fontSize: '0.78rem', fontWeight: 900, color: colors.accentBlue, textTransform: 'uppercase', letterSpacing: '0.5px', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                    🔍 Pillar Deep-Dive: {activePillar.name} ({getPillarProgress(activePillar)} Completed)
+                  </span>
+                  <span style={{ fontSize: '0.62rem', background: colors.accentBlueLight, color: colors.accentBlue, padding: '0.15rem 0.5rem', borderRadius: '100px', fontWeight: 800 }}>
+                    Auditor Scrutiny Ledger
+                  </span>
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                  {activePillar.questions.map((q, qIdx) => {
+                    const qScore = scores[q.id] || {};
+                    const currentOpt = q.options[(qScore.current || 1) - 1];
+                    const targetOpt = q.options[(qScore.future || 1) - 1];
+
+                    return (
+                      <div key={q.id} style={{ background: 'var(--bg-surface)', border: `1px solid var(--border-color)`, borderRadius: '8px', padding: '1rem', display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                          <h4 style={{ fontSize: '0.78rem', fontWeight: 800, margin: 0, color: colors.textDark }}>
+                            {qIdx + 1}. {q.topic}
+                          </h4>
+                          <span style={{ fontSize: '0.55rem', color: colors.textMuted, fontWeight: 700 }}>
+                            ID: {q.id}
+                          </span>
+                        </div>
+
+                        {/* Current vs Target Comparison */}
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', background: colors.bgMain, padding: '0.5rem', borderRadius: '6px' }}>
+                          <div>
+                            <span style={{ fontSize: '0.55rem', fontWeight: 800, color: colors.borderOrange, textTransform: 'uppercase', display: 'block', marginBottom: '0.15rem' }}>Current Capability (L{qScore.current || 'N/A'})</span>
+                            <span style={{ fontSize: '0.68rem', color: colors.textDark }}>{currentOpt ? currentOpt.text : 'Not Assessed'}</span>
+                          </div>
+                          <div>
+                            <span style={{ fontSize: '0.55rem', fontWeight: 800, color: colors.borderGreen, textTransform: 'uppercase', display: 'block', marginBottom: '0.15rem' }}>Target Capability (L{qScore.future || 'N/A'})</span>
+                            <span style={{ fontSize: '0.68rem', color: colors.textDark }}>{targetOpt ? targetOpt.text : 'Not Assessed'}</span>
+                          </div>
+                        </div>
+
+                        {/* Pain Points & Notes */}
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', fontSize: '0.68rem' }}>
+                          {/* Left: Pain Points */}
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                            <span style={{ fontSize: '0.55rem', fontWeight: 800, color: colors.textMuted, textTransform: 'uppercase' }}>Identified Pain Points</span>
+                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.25rem', marginTop: '0.1rem' }}>
+                              {(!qScore.techPain?.length && !qScore.bizPain?.length) ? (
+                                <span style={{ color: colors.textMuted, fontStyle: 'italic', fontSize: '0.62rem' }}>No operational pain points flagged.</span>
+                              ) : (
+                                <>
+                                  {qScore.techPain?.map((p, pIdx) => (
+                                    <span key={pIdx} style={{ background: 'rgba(59,130,246,0.1)', color: '#3b82f6', border: '1px solid rgba(59,130,246,0.2)', padding: '0.1rem 0.35rem', borderRadius: '3px', fontSize: '0.58rem', fontWeight: 700 }}>
+                                      ⚡ Tech: {p}
+                                    </span>
+                                  ))}
+                                  {qScore.bizPain?.map((p, pIdx) => (
+                                    <span key={pIdx} style={{ background: 'rgba(236,72,153,0.1)', color: '#ec4899', border: '1px solid rgba(236,72,153,0.2)', padding: '0.1rem 0.35rem', borderRadius: '3px', fontSize: '0.58rem', fontWeight: 700 }}>
+                                      💼 Biz: {p}
+                                    </span>
+                                  ))}
+                                </>
+                              )}
+                            </div>
+                          </div>
+
+                          {/* Right: Comments */}
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                            <span style={{ fontSize: '0.55rem', fontWeight: 800, color: colors.textMuted, textTransform: 'uppercase' }}>Auditor Context & Notes</span>
+                            {qScore.comments ? (
+                              <p style={{ margin: '0.1rem 0 0 0', fontStyle: 'italic', color: colors.textDark, lineHeight: 1.3, background: colors.bgMain, padding: '0.35rem', borderRadius: '4px', borderLeft: `3px solid ${colors.accentBlue}` }}>
+                                "{qScore.comments}"
+                              </p>
+                            ) : (
+                              <span style={{ color: colors.textMuted, fontStyle: 'italic', fontSize: '0.62rem', marginTop: '0.1rem' }}>No qualitative notes recorded.</span>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
             )}
 
           </div>

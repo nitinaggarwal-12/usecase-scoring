@@ -1462,7 +1462,7 @@ export default function PremiumScopingAssessorV11({ onBackToLanding, globalTheme
               return (
                 <div
                   key={pillar.id}
-                  onClick={() => { setActivePillarIdx(idx); setActiveQuestionIdx(0); handleTabSwitch('intake'); }}
+                  onClick={() => { setActivePillarIdx(idx); setActiveQuestionIdx(0); }}
                   style={{
                     display: 'flex',
                     alignItems: 'center',
