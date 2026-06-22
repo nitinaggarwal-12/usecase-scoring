@@ -725,8 +725,8 @@ export default function PremiumScopingAssessorV11({ onBackToLanding, globalTheme
     V11_PILLARS.forEach(p => {
       p.questions.forEach(q => {
         initial[q.id] = {
-          current: 3,
-          future: 4,
+          current: null,
+          future: null,
           techPain: [],
           bizPain: [],
           comments: '',
@@ -803,7 +803,7 @@ export default function PremiumScopingAssessorV11({ onBackToLanding, globalTheme
         const questionBaseScore = (cur * 15) + (gapModifier * 10);
         
         pillarRawScore += Math.min(100, questionBaseScore) / pillarQuestionsCount;
-        if (scoreObj.current !== undefined) totalQuestionsAnswered++;
+        if (scoreObj.current !== undefined && scoreObj.current !== null) totalQuestionsAnswered++;
       });
 
       prioritySum += pillarRawScore * (pillar.weight / 100);
@@ -1631,7 +1631,7 @@ With a high priority score of **${score}**, we recommend launching a **${scoring
                 </span>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
                   {activeQuestion.options.map((opt, idx) => {
-                    const isSelected = (scores[activeQuestionId]?.current || 3) === (idx + 1);
+                    const isSelected = scores[activeQuestionId]?.current === (idx + 1);
                     return (
                       <button
                         key={idx}
@@ -1669,7 +1669,7 @@ With a high priority score of **${score}**, we recommend launching a **${scoring
                 </span>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
                   {activeQuestion.options.map((opt, idx) => {
-                    const isSelected = (scores[activeQuestionId]?.future || 4) === (idx + 1);
+                    const isSelected = scores[activeQuestionId]?.future === (idx + 1);
                     return (
                       <button
                         key={idx}
