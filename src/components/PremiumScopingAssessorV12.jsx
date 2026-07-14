@@ -1409,14 +1409,15 @@ export default function PremiumScopingAssessorV12({
                 className={`v12-sidebar-nav-item ${reportPage === 'sandbox' ? 'active' : ''}`}
               >
                 <Sliders size={15} />
-                <span>4. Financial Sandbox</span>
+                <span>4. Composable Sandbox</span>
               </div>
               <div 
-                onClick={() => setReportPage('benchmarks')} 
-                className={`v12-sidebar-nav-item ${reportPage === 'benchmarks' ? 'active' : ''}`}
+                onClick={() => setReportPage('governance')} 
+                className={`v12-sidebar-nav-item ${reportPage === 'governance' ? 'active' : ''}`}
+                style={{ borderLeftColor: colors.accentTeal, color: reportPage === 'governance' ? colors.accentTeal : '#475569' }}
               >
-                <Globe size={15} />
-                <span>5. Sovereign Benchmarks</span>
+                <ShieldCheck size={15} style={{ color: colors.accentTeal }} />
+                <span>5. Governance & Operations</span>
               </div>
               <div 
                 onClick={() => setReportPage('roadmap')} 
@@ -1424,54 +1425,6 @@ export default function PremiumScopingAssessorV12({
               >
                 <Calendar size={15} />
                 <span>6. Execution Roadmap</span>
-              </div>
-              <div 
-                onClick={() => setReportPage('gxp_validation')} 
-                className={`v12-sidebar-nav-item ${reportPage === 'gxp_validation' ? 'active' : ''}`}
-                style={{ borderLeftColor: colors.accentTeal, color: reportPage === 'gxp_validation' ? colors.accentTeal : '#475569' }}
-              >
-                <ShieldCheck size={15} style={{ color: colors.accentTeal }} />
-                <span>7. Continuous GxP Monitor</span>
-              </div>
-              <div 
-                onClick={() => setReportPage('whatif')} 
-                className={`v12-sidebar-nav-item ${reportPage === 'whatif' ? 'active' : ''}`}
-                style={{ borderLeftColor: colors.accentTeal, color: reportPage === 'whatif' ? colors.accentTeal : '#475569' }}
-              >
-                <Sliders size={15} style={{ color: colors.accentTeal }} />
-                <span>8. Composable What-If Sandbox</span>
-              </div>
-              <div 
-                onClick={() => setReportPage('analytics')} 
-                className={`v12-sidebar-nav-item ${reportPage === 'analytics' ? 'active' : ''}`}
-                style={{ borderLeftColor: colors.accentTeal, color: reportPage === 'analytics' ? colors.accentTeal : '#475569' }}
-              >
-                <TrendingUp size={15} style={{ color: colors.accentTeal }} />
-                <span>9. McKinsey-Gartner Analytics</span>
-              </div>
-              <div 
-                onClick={() => setReportPage('operational')} 
-                className={`v12-sidebar-nav-item ${reportPage === 'operational' ? 'active' : ''}`}
-                style={{ borderLeftColor: colors.accentTeal, color: reportPage === 'operational' ? colors.accentTeal : '#475569' }}
-              >
-                <Users size={15} style={{ color: colors.accentTeal }} />
-                <span>10. C-Suite Operational Readiness</span>
-              </div>
-              <div 
-                onClick={() => setReportPage('moonshot')} 
-                className={`v12-sidebar-nav-item ${reportPage === 'moonshot' ? 'active' : ''}`}
-                style={{ borderLeftColor: colors.accentTeal, color: reportPage === 'moonshot' ? colors.accentTeal : '#475569' }}
-              >
-                <Layers size={15} style={{ color: colors.accentTeal }} />
-                <span>11. Merck Moonshot Layers</span>
-              </div>
-              <div 
-                onClick={() => setReportPage('resilience')} 
-                className={`v12-sidebar-nav-item ${reportPage === 'resilience' ? 'active' : ''}`}
-                style={{ borderLeftColor: colors.accentTeal, color: reportPage === 'resilience' ? colors.accentTeal : '#475569' }}
-              >
-                <ShieldCheck size={15} style={{ color: colors.accentTeal }} />
-                <span>12. Ecosystem Resilience Report</span>
               </div>
             </>
           )}
@@ -1817,15 +1770,9 @@ export default function PremiumScopingAssessorV12({
                   {reportPage === 'summary' && "Target Architecture Mitigates FDA Risk While Accelerating Jan 2027 MVP."}
                   {reportPage === 'matrix' && "Core Deficits in Legacy Infrastructure Require Agentic Remediation."}
                   {reportPage === 'blueprints' && "Federated Data Mesh & Zero-Trust Gateways Secure the Agentic Swarm."}
-                  {reportPage === 'sandbox' && "Agent-Frameworks Slash System Integrator (SI) Costs by 60%."}
-                  {reportPage === 'benchmarks' && "Emerging U.S. State AI Laws Require Immediate Architectural Adaptation."}
+                  {reportPage === 'sandbox' && "Composable Architecture Sandbox: TCO & Resilience Simulator."}
+                  {reportPage === 'governance' && "Enterprise Regulatory Audits, Talent Mapping & Peer Benchmarks."}
                   {reportPage === 'roadmap' && "90-Day Execution Roadmap to Secure January 2027 MVP."}
-                  {reportPage === 'gxp_validation' && "GAMP 5 Day-2 Telemetry: Continuous AI Control & Drift Audit."}
-                  {reportPage === 'whatif' && "Composable What-If Sandbox: Dynamic Vendor Scenarios."}
-                  {reportPage === 'analytics' && "McKinsey-Gartner Analytical Strategy Frameworks."}
-                  {reportPage === 'operational' && "C-Suite Operational Readiness: Legal Risk & Talent Mapping."}
-                  {reportPage === 'moonshot' && "Merck Moonshot Layers: 9-Layer Composable Architecture."}
-                  {reportPage === 'resilience' && "Ecosystem Resilience: What-If Day-Two Architecture Audit."}
                 </h1>
               </div>
               <div style={{ display: 'flex', gap: '0.45rem', flexShrink: 0 }}>
@@ -2559,291 +2506,549 @@ export default function PremiumScopingAssessorV12({
             {/* =========================================================================
             // PAGE 4: THE FINANCIAL SANDBOX (SPLIT-SCREEN BUILD VS BUY CONTRAST)
             // ========================================================================= */}
-            {reportPage === 'sandbox' && (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', flex: 1, minHeight: 0 }}>
-                
-                {/* Control Panel: Simulator Toggles & Budget Slider */}
-                <div className="v12-card-glass" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.85rem', padding: '0.6rem 1rem', flexShrink: 0 }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                    <Sliders size={18} style={{ color: colors.accentTeal }} />
-                    <span style={{ fontSize: '0.72rem', fontWeight: 900, color: '#0f172a', letterSpacing: '0.5px' }}>SCENARIO SIMULATOR CONTROLS:</span>
-                  </div>
+            {reportPage === 'sandbox' && (() => {
+              // Extract active sandbox selections from state
+              const selectedOrch = whatIfOrch || 'google';
+              const selectedId = whatIfIdentity || 'entra';
+              const selectedFed = whatIfFederation || 'mcp';
+              const selectedStore = whatIfStorage || 'adobe';
 
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '1.2rem', flexWrap: 'wrap' }}>
-                    
-                    {/* Architectural Toggle: Buy vs Build */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
-                      <span style={{ fontSize: '0.68rem', fontWeight: 800, color: '#0f172a' }}>Target State Path:</span>
-                      <select
-                        value={buyVsBuildSelection}
-                        onChange={e => setBuyVsBuildSelection(e.target.value)}
-                        style={{ background: '#ffffff', border: '1px solid rgba(15,23,42,0.15)', borderRadius: '4px', fontSize: '0.65rem', color: '#0f172a', padding: '0.2rem', outline: 'none', cursor: 'pointer', fontWeight: 800 }}
-                      >
-                        <option value="buy">Veeva Native / AWS Bedrock [BUY]</option>
-                        <option value="build">Google Custom Mesh [BUILD]</option>
-                      </select>
-                    </div>
+              // Dynamic evaluation engine for Ecosystem Resilience
+              let verdictTitle = '';
+              let verdictText = '';
+              let busScore = 'Med';
+              let busRationale = '';
+              let watchdogScore = 'Med';
+              let watchdogRationale = '';
+              let magmaScore = 'Med';
+              let magmaRationale = '';
+              let synergies = [];
+              let friction = [];
+              let recommendation = '';
 
-                    {/* Toggle: Cross-Platform Orchestration */}
-                    <label style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', fontSize: '0.68rem', fontWeight: 800, color: '#0f172a', cursor: 'pointer' }}>
-                      <input 
-                        type="checkbox" 
-                        checked={crossPlatformOrch}
-                        onChange={e => setCrossPlatformOrch(e.target.checked)}
-                        style={{ accentColor: colors.accentTeal }}
-                      />
-                      <span>Cross-Platform Orchestration (Adobe + SAP)</span>
-                    </label>
+              // Check for Scenario A: Google All-In Native Stack
+              const isGoogleNativeStack = selectedOrch === 'google' && selectedId === 'google_id' && selectedFed === 'google_bq' && selectedStore === 's3';
+              
+              // Check for Scenario B: Highly Regulated Composable Stack
+              const isRegulatedComposable = selectedOrch === 'aws' && selectedId === 'ping' && selectedFed === 'databricks_data' && selectedStore === 'veeva_promomats';
 
-                    {/* Slider: SI Budget */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                      <span style={{ fontSize: '0.68rem', fontWeight: 800, color: '#0f172a' }}>SI Budget Cap:</span>
-                      <input 
-                        type="range" 
-                        min="150" 
-                        max="500" 
-                        step="10"
-                        value={siBudgetSlider}
-                        onChange={e => setSiBudgetSlider(Number(e.target.value))}
-                        style={{ width: '100px', accentColor: colors.accentTeal, cursor: 'pointer' }}
-                      />
-                      <span style={{ fontSize: '0.68rem', fontWeight: 900, color: siBudgetSlider < 220 ? colors.accentCoral : colors.accentTeal }}>${siBudgetSlider}K</span>
-                    </div>
+              // Check for Scenario C: Creative & Agentic Hybrid
+              const isCreativeHybrid = selectedOrch === 'azure' && selectedId === 'okta' && selectedFed === 'mcp' && selectedStore === 'adobe';
 
-                  </div>
-                </div>
+              if (isGoogleNativeStack) {
+                verdictTitle = '✓ STABLE DAY-ONE VALUE (NATIVE HIGH SYNERGY)';
+                verdictText = 'This native Google Cloud architecture achieves near-zero integration debt and flawless day-two governance. By running managed agentic meshes over BigQuery data lakes, the swarm communicates with maximum fidelity, eliminating custom translation middleware and loop risks.';
+                busScore = 'High';
+                busRationale = 'Native Vertex AI routing and BigQuery zero-ETL integration guarantee absolute context fidelity across all agent hops.';
+                watchdogScore = 'High';
+                watchdogRationale = 'Vertex AI Model Armor provides out-of-the-box Policy-as-Code interception, preventing tokenomics loops and safety leaks.';
+                magmaScore = 'High';
+                magmaRationale = 'BigQuery semantic tables and Vertex AI Search facilitate unified, systemic learning across the multi-agent swarm.';
+                synergies = [
+                  'Google Cloud Identity + Vertex AI: Seamless IAM token propagation, cutting implementation overhead by 40%.',
+                  'BigQuery Zero-ETL + Gemini: Real-time clinical claims grounding with zero data replication lag.'
+                ];
+                friction = [
+                  'Content Workflow Friction: High-fidelity creative assets stored in Google Cloud Storage may face sync latency with external Adobe design systems.',
+                  'Ecosystem Lock-in: Going all-in on the native Google stack reduces cross-cloud flexibility, although it maximizes speed-to-value.'
+                ];
+                recommendation = 'Proceed immediately. This native stack represents the fastest, most secure, and most cost-effective path to a GxP-compliant production deployment.';
+              } 
+              else if (isRegulatedComposable) {
+                verdictTitle = '⚠️ STABLE DAY-TWO GOVERNANCE (HIGH COMPLIANCE CEILING)';
+                verdictText = 'This architecture delivers maximum compliance and governance (98/100 GxP ceiling) suitable for strict clinical environments. However, it carries substantial integration debt. Linking Bedrock, Ping, and Databricks requires custom API adapters, increasing maintenance debt.';
+                busScore = 'Med';
+                busRationale = 'Custom translation wrappers between Bedrock and Databricks introduce minor context degradation during multi-agent hops.';
+                watchdogScore = 'High';
+                watchdogRationale = 'Veeva Vault and Ping Identity provide rigid, GxP-validated access gates, but custom watchdog loops are needed for Bedrock.';
+                magmaScore = 'High';
+                magmaRationale = 'Databricks Unity Catalog provides excellent, centralized data governance and systemic learning hooks.';
+                synergies = [
+                  'Databricks + Bedrock: Strong custom fine-tuning capabilities over proprietary clinical datasets.',
+                  'Veeva Vault + Ping Identity: Highly secure federated authentication, matching strict MLR guidelines.'
+                ];
+                friction = [
+                  'High Integration Debt: Linking Bedrock, Ping, and Databricks requires custom API adapters, increasing maintenance debt.',
+                  'Tokenomics Vulnerability: Lacking an active watchdog gateway exposes the system to runaway agent loops during peak MLR review times.'
+                ];
+                recommendation = 'Pivot or Introduce Middleware. We strongly recommend introducing a dedicated API Gateway (like Kong AI Gateway) to act as a secure Watchdog layer before proceeding.';
+              } 
+              else if (isCreativeHybrid) {
+                verdictTitle = '✓ EXCELLENT CREATIVE VELOCITY (AGILE HYBRID)';
+                verdictText = 'This stack provides outstanding creative workflow velocity and flexible identity management, making it highly attractive for marketing swarms. However, data federation may suffer from minor latency if legacy data sources lack native MCP support.';
+                busScore = 'High';
+                busRationale = 'Model Context Protocol (MCP) standardizes model-to-data communication, ensuring excellent fidelity.';
+                watchdogScore = 'Med';
+                watchdogRationale = 'Azure AI Studio provides robust safety filters, but lacks automated tokenomics circuit breakers for custom swarms.';
+                magmaScore = 'Med';
+                magmaRationale = 'Okta provides excellent federated identity, but memory schemas are fragmented across Adobe AEM and Azure storage.';
+                synergies = [
+                  'Okta + Azure OpenAI: Flexible, federated access control across external creative agencies.',
+                  'MCP Data Connectors: Standardized data schema reduces pipeline development overhead by 30%.'
+                ];
+                friction = [
+                  'Audit Trail Fragmentation: Splitting execution traces between Azure Cloud logs and Okta consensus trails requires complex consolidation.',
+                  'Adobe Latency: Direct webhook queries to Adobe AEM assets from external clouds introduce occasional network latency.'
+                ];
+                recommendation = 'Standardize the Middleware. Ensure all custom connectors implement the Model Context Protocol (MCP) strictly to minimize data pipeline fragmentation.';
+              } 
+              else {
+                verdictTitle = '✓ CUSTOM COMPOSABLE STACK (DYNAMIC EVALUATION)';
+                verdictText = 'You have configured a custom federated architecture. Below is a dynamic assessment of your integration points, calculated based on standard enterprise middleware performance and biopharma regulatory compliance patterns.';
+                busScore = selectedOrch === 'google' || selectedOrch === 'aws' ? 'High' : 'Med';
+                busRationale = `Selected orchestration (${selectedOrch}) provides baseline event synchronization, but cross-cloud mapping may degrade context.`;
+                watchdogScore = selectedId === 'ping' || selectedId === 'entra' ? 'High' : 'Med';
+                watchdogRationale = `Identity federation using ${selectedId} secures token propagation. Ensure policy-as-code filters are enabled.`;
+                magmaScore = selectedFed === 'mcp' || selectedFed === 'google_bq' ? 'High' : 'Med';
+                magmaRationale = `Data federation via ${selectedFed} provides reliable access schemas. Monitor tool execution latency.`;
+                synergies = [
+                  `Hybrid Integration: Utilizing ${selectedOrch} with ${selectedStore} enables decoupled operational flows.`,
+                  `Secure Identity propagation: ${selectedId} secures token mapping across external agent perimeters.`
+                ];
+                friction = [
+                  `Multi-cloud latency overhead from custom wrappers.`,
+                  `Manual compliance review steps required due to fragmented log perimeters.`
+                ];
+                recommendation = 'Validate the integration. Run automated connection tests between your orchestration engine and metadata endpoints to verify token longevity.';
+              }
 
-                {/* Split-Screen Scenario Comparison Tool */}
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.85rem', flex: 1, minHeight: 0 }}>
+              return (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', flex: 1, minHeight: 0 }}>
                   
-                  {/* Left Column: Veeva Native / AWS Bedrock (Buy) */}
-                  <div 
-                    className="v12-card-glass" 
-                    style={{ 
-                      display: 'flex', 
-                      flexDirection: 'column', 
-                      gap: '0.65rem', 
-                      background: crossPlatformOrch ? 'rgba(225, 29, 72, 0.02)' : '#ffffff', 
-                      border: crossPlatformOrch ? `2px solid ${colors.accentCoral}` : '1px solid rgba(15, 23, 42, 0.08)',
-                      transition: 'all 0.2s',
-                      boxShadow: crossPlatformOrch ? '0 4px 20px rgba(225, 29, 72, 0.05)' : 'none'
-                    }}
-                  >
-                    <div style={{ borderBottom: '1px solid rgba(15,23,42,0.08)', paddingBottom: '0.35rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <span style={{ fontSize: '0.74rem', fontWeight: 950, color: crossPlatformOrch ? colors.accentCoral : '#0f172a' }}>VEEVA NATIVE / AWS BEDROCK [BUY]</span>
-                      <span style={{ fontSize: '0.52rem', background: '#f1f5f9', color: '#475569', padding: '0.05rem 0.35rem', borderRadius: '3px', fontWeight: 800 }}>OUT-OF-THE-BOX</span>
+                  {/* Controls Card */}
+                  <div className="v12-card-glass" style={{ padding: '0.65rem 1rem', display: 'flex', flexDirection: 'column', gap: '0.6rem', flexShrink: 0 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+                        <Sliders size={15} style={{ color: colors.accentTeal }} />
+                        <span style={{ fontSize: '0.7rem', fontWeight: 900, color: '#0f172a', letterSpacing: '0.5px' }}>COMPOSABLE SANDBOX DESIGNER</span>
+                      </div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+                        <span style={{ fontSize: '0.65rem', fontWeight: 800, color: '#0f172a' }}>Path Type:</span>
+                        <select
+                          value={buyVsBuildSelection}
+                          onChange={e => setBuyVsBuildSelection(e.target.value)}
+                          style={{ background: '#ffffff', border: '1px solid rgba(15,23,42,0.15)', borderRadius: '4px', fontSize: '0.62rem', color: '#0f172a', padding: '0.15rem', outline: 'none', cursor: 'pointer', fontWeight: 800 }}
+                        >
+                          <option value="buy">Veeva Native / AWS Bedrock [BUY]</option>
+                          <option value="build">Google Custom Mesh [BUILD]</option>
+                        </select>
+                      </div>
                     </div>
 
-                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.55rem', overflowY: 'auto' }} className="v12-scrollable">
+                    {/* Symmetrical Grid of dropdowns and sliders */}
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.55rem', borderTop: '1px solid rgba(15,23,42,0.06)', paddingTop: '0.55rem' }}>
                       
-                      <div style={{ background: '#f8fafc', borderRadius: '6px', padding: '0.45rem', border: '1px solid rgba(15, 23, 42, 0.08)', fontSize: '0.65rem' }}>
-                        <div style={{ fontWeight: 800, color: '#d97706', marginBottom: '0.2rem' }}>Core AWS Components</div>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.15rem', textAlign: 'left', color: '#475569' }}>
-                          <div>• Vault PromoMats AI native integration</div>
-                          <div>• Amazon Bedrock managed APIs (200K token limits)</div>
-                          <div>• AWS Step Functions for sequential state orchestration</div>
-                        </div>
+                      {/* Orchestration */}
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.15rem' }}>
+                        <label style={{ fontSize: '0.55rem', color: '#475569', fontWeight: 800 }}>ORCHESTRATION ENGINE</label>
+                        <select 
+                          value={whatIfOrch} 
+                          onChange={e => setWhatIfOrch(e.target.value)}
+                          style={{ background: '#ffffff', border: '1px solid rgba(15,23,42,0.12)', borderRadius: '4px', fontSize: '0.62rem', color: '#0f172a', padding: '0.2rem', outline: 'none', fontWeight: 700 }}
+                        >
+                          <option value="google">Google Sentinel Mesh</option>
+                          <option value="aws">AWS Step Functions</option>
+                          <option value="azure">Azure AI Studio</option>
+                          <option value="kong">Kong AI Gateway</option>
+                        </select>
                       </div>
 
-                      <div style={{ background: '#f8fafc', borderRadius: '6px', padding: '0.45rem', border: '1px solid rgba(15, 23, 42, 0.08)', fontSize: '0.65rem' }}>
-                        <div style={{ fontWeight: 800, color: colors.accentTeal, marginBottom: '0.2rem' }}>AWS Performance Metrics</div>
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.35rem', textAlign: 'left' }}>
-                          <div>• AWS-Veeva Latency: <strong style={{ color: '#0f172a' }}>450ms</strong></div>
-                          <div>• Guardrails False-Positives: <strong style={{ color: '#0f172a' }}>1.8%</strong></div>
-                        </div>
+                      {/* Identity */}
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.15rem' }}>
+                        <label style={{ fontSize: '0.55rem', color: '#475569', fontWeight: 800 }}>IDENTITY PROVIDER</label>
+                        <select 
+                          value={whatIfIdentity} 
+                          onChange={e => setWhatIfIdentity(e.target.value)}
+                          style={{ background: '#ffffff', border: '1px solid rgba(15,23,42,0.12)', borderRadius: '4px', fontSize: '0.62rem', color: '#0f172a', padding: '0.2rem', outline: 'none', fontWeight: 700 }}
+                        >
+                          <option value="entra">Microsoft Entra ID</option>
+                          <option value="google_id">Google Cloud Identity</option>
+                          <option value="okta">Okta Identity Cloud</option>
+                          <option value="ping">Ping Identity</option>
+                        </select>
                       </div>
 
-                      {crossPlatformOrch && (
-                        <div style={{ background: 'rgba(225, 29, 72, 0.05)', border: `1.2px solid ${colors.accentCoral}`, borderRadius: '6px', padding: '0.45rem', fontSize: '0.65rem', display: 'flex', alignItems: 'flex-start', gap: '0.35rem' }}>
-                          <ShieldAlert size={16} style={{ color: colors.accentCoral, flexShrink: 0, marginTop: '0.05rem' }} />
-                          <div>
-                            <span style={{ fontWeight: 900, color: colors.accentCoral, display: 'block' }}>⚠️ SILOED LIMITATION DETECTED</span>
-                            <span style={{ color: '#0f172a', display: 'block', marginTop: '0.1rem', lineHeight: 1.3 }}>
-                              Veeva Native agents run strictly inside the Vault perimeter. Swapping models outside Bedrock is restricted, and pushing metadata to external Adobe supply chains is blocked without heavy bespoke middleware.
-                            </span>
-                          </div>
-                        </div>
-                      )}
+                      {/* Data Federation */}
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.15rem' }}>
+                        <label style={{ fontSize: '0.55rem', color: '#475569', fontWeight: 800 }}>DATA FEDERATION SCHEMAS</label>
+                        <select 
+                          value={whatIfFederation} 
+                          onChange={e => setWhatIfFederation(e.target.value)}
+                          style={{ background: '#ffffff', border: '1px solid rgba(15,23,42,0.12)', borderRadius: '4px', fontSize: '0.62rem', color: '#0f172a', padding: '0.2rem', outline: 'none', fontWeight: 700 }}
+                        >
+                          <option value="mcp">Model Context Protocol (MCP)</option>
+                          <option value="google_bq">BigQuery Zero-ETL</option>
+                          <option value="databricks_data">Databricks Unity</option>
+                          <option value="snowflake">Snowflake Secure Share</option>
+                        </select>
+                      </div>
+
+                      {/* Storage */}
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.15rem' }}>
+                        <label style={{ fontSize: '0.55rem', color: '#475569', fontWeight: 800 }}>STORAGE SYSTEM</label>
+                        <select 
+                          value={whatIfStorage} 
+                          onChange={e => setWhatIfStorage(e.target.value)}
+                          style={{ background: '#ffffff', border: '1px solid rgba(15,23,42,0.12)', borderRadius: '4px', fontSize: '0.62rem', color: '#0f172a', padding: '0.2rem', outline: 'none', fontWeight: 700 }}
+                        >
+                          <option value="veeva_promomats">Veeva Vault PromoMats</option>
+                          <option value="adobe">Adobe Experience Manager</option>
+                          <option value="s3">Google Cloud Storage / S3</option>
+                          <option value="local_disk">Local Database Storage</option>
+                        </select>
+                      </div>
 
                     </div>
+
+                    {/* Secondary Sliders Row */}
+                    <div style={{ display: 'flex', gap: '1.5rem', borderTop: '1px solid rgba(15,23,42,0.06)', paddingTop: '0.55rem', flexWrap: 'wrap' }}>
+                      <label style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.65rem', fontWeight: 800, color: '#0f172a', cursor: 'pointer' }}>
+                        <input 
+                          type="checkbox" 
+                          checked={crossPlatformOrch}
+                          onChange={e => setCrossPlatformOrch(e.target.checked)}
+                          style={{ accentColor: colors.accentTeal }}
+                        />
+                        <span>Cross-Platform Orchestration (Adobe + SAP)</span>
+                      </label>
+
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+                        <span style={{ fontSize: '0.65rem', fontWeight: 800, color: '#0f172a' }}>SI Budget Cap:</span>
+                        <input 
+                          type="range" 
+                          min="150" 
+                          max="500" 
+                          step="10"
+                          value={siBudgetSlider}
+                          onChange={e => setSiBudgetSlider(Number(e.target.value))}
+                          style={{ width: '90px', accentColor: colors.accentTeal, cursor: 'pointer' }}
+                        />
+                        <span style={{ fontSize: '0.65rem', fontWeight: 900, color: siBudgetSlider < 220 ? colors.accentCoral : colors.accentTeal }}>${siBudgetSlider}K</span>
+                      </div>
+                    </div>
+
                   </div>
 
-                  {/* Right Column: Custom Gemini Orchestration Mesh (Build) */}
-                  <div 
-                    className="v12-card-glass" 
-                    style={{ 
-                      display: 'flex', 
-                      flexDirection: 'column', 
-                      gap: '0.65rem', 
-                      background: siBudgetSlider < 220 ? 'rgba(225, 29, 72, 0.02)' : crossPlatformOrch ? 'rgba(13, 148, 136, 0.02)' : '#ffffff', 
-                      border: siBudgetSlider < 220 ? `2px solid ${colors.accentCoral}` : crossPlatformOrch ? `2px solid ${colors.accentTeal}` : '1px solid rgba(15, 23, 42, 0.08)',
-                      transition: 'all 0.2s',
-                      boxShadow: siBudgetSlider < 220 ? 'none' : crossPlatformOrch ? '0 4px 20px rgba(13, 148, 136, 0.05)' : 'none'
-                    }}
-                  >
-                    <div style={{ borderBottom: '1px solid rgba(15,23,42,0.08)', paddingBottom: '0.35rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <span style={{ fontSize: '0.74rem', fontWeight: 950, color: siBudgetSlider < 220 ? colors.accentCoral : colors.accentTeal }}>CUSTOM GEMINI ORCHESTRATION MESH [BUILD]</span>
-                      <span style={{ fontSize: '0.52rem', background: 'rgba(13, 148, 136, 0.1)', color: colors.accentTeal, padding: '0.05rem 0.35rem', borderRadius: '3px', fontWeight: 800 }}>FEDERATED SWARM</span>
-                    </div>
-
-                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.55rem', overflowY: 'auto' }} className="v12-scrollable">
-                      
-                      <div style={{ background: '#f8fafc', borderRadius: '6px', padding: '0.45rem', border: '1px solid rgba(15, 23, 42, 0.08)', fontSize: '0.65rem' }}>
-                        <div style={{ fontWeight: 800, color: colors.accentTeal, marginBottom: '0.2rem' }}>Core Google Components</div>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.15rem', textAlign: 'left', color: '#475569' }}>
-                          <div>• Gemini Enterprise Agent Platform and Managed APIs</div>
-                          <div>• Firestore context rehydration & event-driven dormancy</div>
-                          <div>• NotebookLM secure federated retrieval (85,000-user footprint)</div>
-                        </div>
+                  {/* Split Screen Simulator Comparison / Results */}
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.85rem', flex: 1, minHeight: 0 }}>
+                    
+                    {/* Left Pane: TCO & Capability Detail */}
+                    <div className="v12-card-glass" style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', background: '#ffffff' }}>
+                      <div style={{ borderBottom: '1px solid rgba(15,23,42,0.08)', paddingBottom: '0.35rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <span style={{ fontSize: '0.7rem', fontWeight: 950, color: colors.accentTeal }}>TCO & INTEGRATION METRICS</span>
+                        <span style={{ fontSize: '0.52rem', background: 'rgba(13, 148, 136, 0.1)', color: colors.accentTeal, padding: '0.05rem 0.35rem', borderRadius: '3px', fontWeight: 800 }}>LIVE ANALYSIS</span>
                       </div>
 
-                      <div style={{ background: '#f8fafc', borderRadius: '6px', padding: '0.45rem', border: '1px solid rgba(15, 23, 42, 0.08)', fontSize: '0.65rem' }}>
-                        <div style={{ fontWeight: 800, color: colors.accentTeal, marginBottom: '0.2rem' }}>Google Performance Metrics</div>
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.35rem', textAlign: 'left' }}>
-                          <div>• MCP Fetch Latency: <strong style={{ color: '#0f172a' }}>120ms</strong></div>
-                          <div>• Model Armor Sanitization: <strong style={{ color: '#0f172a' }}>22ms</strong></div>
+                      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.55rem', overflowY: 'auto' }} className="v12-scrollable">
+                        
+                        <div style={{ background: '#f8fafc', borderRadius: '6px', padding: '0.45rem', border: '1px solid rgba(15, 23, 42, 0.08)', fontSize: '0.65rem' }}>
+                          <div style={{ fontWeight: 800, color: colors.accentTeal, marginBottom: '0.2rem' }}>Dynamic Stack Evaluation</div>
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem', textAlign: 'left', color: '#475569' }}>
+                            <div>• Orchestrator API Latency: <strong style={{ color: '#0f172a' }}>{selectedOrch === 'google' ? '120ms' : selectedOrch === 'aws' ? '450ms' : '280ms'}</strong></div>
+                            <div>• Identity Handshake Security: <strong style={{ color: '#0f172a' }}>{selectedId === 'entra' || selectedId === 'google_id' ? '🔒 High-Security SSO' : '⚠️ Custom Token'}</strong></div>
+                            <div>• Data pipeline schema: <strong style={{ color: '#0f172a' }}>{selectedFed === 'mcp' ? 'Model Context Protocol (Open)' : 'Bespoke Wrappers'}</strong></div>
+                          </div>
                         </div>
-                      </div>
 
-                      {siBudgetSlider < 220 ? (
-                        <div style={{ background: 'rgba(225, 29, 72, 0.05)', border: `1.2px solid ${colors.accentCoral}`, borderRadius: '6px', padding: '0.45rem', fontSize: '0.65rem', display: 'flex', alignItems: 'flex-start', gap: '0.35rem' }}>
-                          <ShieldAlert size={16} style={{ color: colors.accentCoral, flexShrink: 0, marginTop: '0.05rem' }} />
-                          <div>
-                            <span style={{ fontWeight: 900, color: colors.accentCoral, display: 'block' }}>❌ FAILURE: INSUFFICIENT BUDGET FOR BUILD</span>
-                            <span style={{ color: '#0f172a', display: 'block', marginTop: '0.1rem', lineHeight: 1.3 }}>
-                              Developing a custom federated orchestration mesh requires at least **$220K in SI build budget** to cover custom connectors and GxP validation. Drag SI Budget up to revive Google Custom Mesh.
+                        {/* Buy vs Build Contrast Alert */}
+                        {buyVsBuildSelection === 'build' && siBudgetSlider < 220 ? (
+                          <div style={{ background: 'rgba(225, 29, 72, 0.05)', border: `1.2px solid ${colors.accentCoral}`, borderRadius: '6px', padding: '0.45rem', fontSize: '0.62rem', display: 'flex', alignItems: 'flex-start', gap: '0.35rem' }}>
+                            <ShieldAlert size={16} style={{ color: colors.accentCoral, flexShrink: 0 }} />
+                            <div>
+                              <span style={{ fontWeight: 900, color: colors.accentCoral, display: 'block' }}>❌ FAILURE: INSUFFICIENT BUDGET FOR BUILD</span>
+                              <span style={{ color: '#0f172a', display: 'block', marginTop: '0.1rem', lineHeight: 1.3 }}>
+                                Developing a custom federated orchestration mesh requires at least **$220K in SI build budget** to cover custom connectors and GxP validation. Drag SI Budget up to revive Google Custom Mesh.
+                              </span>
+                            </div>
+                          </div>
+                        ) : buyVsBuildSelection === 'buy' && crossPlatformOrch ? (
+                          <div style={{ background: 'rgba(225, 29, 72, 0.05)', border: `1.2px solid ${colors.accentCoral}`, borderRadius: '6px', padding: '0.45rem', fontSize: '0.62rem', display: 'flex', alignItems: 'flex-start', gap: '0.35rem' }}>
+                            <ShieldAlert size={16} style={{ color: colors.accentCoral, flexShrink: 0 }} />
+                            <div>
+                              <span style={{ fontWeight: 900, color: colors.accentCoral, display: 'block' }}>⚠️ SILOED LIMITATION DETECTED</span>
+                              <span style={{ color: '#0f172a', display: 'block', marginTop: '0.1rem', lineHeight: 1.3 }}>
+                                Veeva Native agents run strictly inside the Vault perimeter. Swapping models outside Bedrock is restricted, and pushing metadata to external Adobe supply chains is blocked without heavy bespoke middleware.
+                              </span>
+                            </div>
+                          </div>
+                        ) : (
+                          <div style={{ background: 'rgba(13, 148, 136, 0.02)', border: `1.2px solid ${colors.accentTeal}`, borderRadius: '6px', padding: '0.45rem', fontSize: '0.62rem' }}>
+                            <span style={{ fontWeight: 900, color: colors.accentTeal, display: 'block' }}>✓ VALID ARCHITECTURE COMBINATION</span>
+                            <span style={{ color: '#475569', display: 'block', marginTop: '0.08rem' }}>
+                              All system interfaces are clear. Integration debt is estimated at **{buyVsBuildSelection === 'build' ? 'Low' : 'Minimal'}** with standard APIs.
                             </span>
                           </div>
-                        </div>
-                      ) : (
-                        <div style={{ background: '#f8fafc', padding: '0.45rem', borderRadius: '4px', border: '1px solid rgba(15, 23, 42, 0.08)', fontSize: '0.65rem' }}>
-                          <span style={{ fontSize: '0.52rem', color: '#475569', fontWeight: 800, display: 'block' }}>REMEDIATION & FRICTION FLAGS</span>
-                          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.15rem', marginTop: '0.2rem', color: '#475569' }}>
-                            <div>• <strong style={{ color: colors.accentAmber }}>High CapEx</strong> required for initial custom orchestration mesh development.</div>
-                            <div>• <strong style={{ color: colors.accentAmber }}>Maintenance Debt</strong> of managing custom API wrappers for legacy mainframes.</div>
+                        )}
+
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.45rem' }}>
+                          <div style={{ background: '#f8fafc', padding: '0.45rem', borderRadius: '4px', border: '1px solid rgba(15,23,42,0.06)' }}>
+                            <span style={{ fontSize: '0.5rem', color: '#64748b', display: 'block' }}>CAPEX ESTIMATE</span>
+                            <span style={{ fontSize: '0.85rem', fontWeight: 950, color: '#0f172a' }}>${buyVsBuildSelection === 'build' ? '180K' : '65K'}</span>
+                          </div>
+                          <div style={{ background: '#f8fafc', padding: '0.45rem', borderRadius: '4px', border: '1px solid rgba(15,23,42,0.06)' }}>
+                            <span style={{ fontSize: '0.5rem', color: '#64748b', display: 'block' }}>OPEX ESTIMATE</span>
+                            <span style={{ fontSize: '0.85rem', fontWeight: 950, color: '#0f172a' }}>${buyVsBuildSelection === 'build' ? '45K/yr' : '110K/yr'}</span>
                           </div>
                         </div>
-                      )}
 
+                      </div>
                     </div>
+
+                    {/* Right Pane: Ecosystem Resilience Verdict */}
+                    <div className="v12-card-glass" style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', background: '#ffffff' }}>
+                      <div style={{ borderBottom: '1px solid rgba(15,23,42,0.08)', paddingBottom: '0.35rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <span style={{ fontSize: '0.7rem', fontWeight: 950, color: colors.accentTeal }}>ECOSYSTEM RESILIENCE AUDIT</span>
+                        <span style={{ fontSize: '0.52rem', color: '#475569' }}>McKinsey & Co. Standard</span>
+                      </div>
+
+                      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.55rem', overflowY: 'auto' }} className="v12-scrollable">
+                        <div style={{ padding: '0.4rem', background: 'rgba(15, 23, 42, 0.02)', borderRadius: '4px', border: '1px solid rgba(15,23,42,0.06)' }}>
+                          <span style={{ fontSize: '0.6rem', fontWeight: 900, color: colors.accentTeal, display: 'block' }}>{verdictTitle}</span>
+                          <p style={{ fontSize: '0.58rem', color: '#475569', margin: '0.1rem 0 0 0', lineHeight: 1.35 }}>{verdictText}</p>
+                        </div>
+
+                        {/* Three Pillars score summary */}
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.35rem', margin: '0.15rem 0' }}>
+                          <div style={{ background: '#f8fafc', padding: '0.35rem', borderRadius: '4px', border: '1px solid rgba(15,23,42,0.06)', textAlign: 'center' }}>
+                            <span style={{ fontSize: '0.48rem', color: '#64748b', display: 'block' }}>BUSINESS SYNERGY</span>
+                            <span style={{ fontSize: '0.7rem', fontWeight: 900, color: busScore === 'High' ? '#16a34a' : '#d97706' }}>{busScore}</span>
+                          </div>
+                          <div style={{ background: '#f8fafc', padding: '0.35rem', borderRadius: '4px', border: '1px solid rgba(15,23,42,0.06)', textAlign: 'center' }}>
+                            <span style={{ fontSize: '0.48rem', color: '#64748b', display: 'block' }}>WATCHDOG GOV</span>
+                            <span style={{ fontSize: '0.7rem', fontWeight: 900, color: watchdogScore === 'High' ? '#16a34a' : '#d97706' }}>{watchdogScore}</span>
+                          </div>
+                          <div style={{ background: '#f8fafc', padding: '0.35rem', borderRadius: '4px', border: '1px solid rgba(15,23,42,0.06)', textAlign: 'center' }}>
+                            <span style={{ fontSize: '0.7rem', fontWeight: 900, color: magmaScore === 'High' ? '#16a34a' : '#d97706' }}>{magmaScore}</span>
+                          </div>
+                        </div>
+
+                        {/* Synergies & Friction Lists */}
+                        <div style={{ fontSize: '0.58rem' }}>
+                          <div style={{ fontWeight: 800, color: '#16a34a', marginBottom: '0.1rem' }}>✓ System Synergies</div>
+                          {synergies.map((s, idx) => (
+                            <div key={idx} style={{ color: '#475569', marginBottom: '0.1rem' }}>• {s}</div>
+                          ))}
+                        </div>
+
+                        <div style={{ fontSize: '0.58rem' }}>
+                          <div style={{ fontWeight: 800, color: colors.accentCoral, marginBottom: '0.1rem' }}>⚠️ Friction & Debt Flags</div>
+                          {friction.map((f, idx) => (
+                            <div key={idx} style={{ color: '#475569', marginBottom: '0.1rem' }}>• {f}</div>
+                          ))}
+                        </div>
+
+                        <div style={{ background: '#f8fafc', padding: '0.4rem', borderRadius: '4px', border: '1px solid rgba(15,23,42,0.08)', fontSize: '0.58rem', marginTop: '0.2rem' }}>
+                          <strong>McKinsey Recommendation:</strong> {recommendation}
+                        </div>
+
+                      </div>
+                    </div>
+
                   </div>
 
                 </div>
-
-              </div>
-            )}
+              );
+            })()}
 
             {/* =========================================================================
-            // PAGE 5: SOVEREIGN BENCHMARKS & GLOBAL AI REGULATORY ROUTER
+            // PAGE 5: GOVERNANCE & OPERATIONS (GxP AND REGULATORY DEFENSES)
             // ========================================================================= */}
-            {reportPage === 'benchmarks' && (
+            {reportPage === 'governance' && (
               <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '0.85rem', flex: 1, minHeight: 0 }}>
                 
-                <div className="v12-card-glass" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', height: '100%', minHeight: '320px' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid rgba(15,23,42,0.08)', paddingBottom: '0.35rem' }}>
-                    <span style={{ fontSize: '0.7rem', fontWeight: 900, color: '#0f172a', letterSpacing: '0.5px' }}>INTERACTIVE DATA SOVEREIGNTY GLOBE</span>
+                {/* Left Column: GAMP 5 Telemetry & Talent Mapping */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', height: '100%', minHeight: 0, overflowY: 'auto' }} className="v12-scrollable">
+                  
+                  {/* GxP Speedometers */}
+                  <div className="v12-card-glass" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.85rem', flexShrink: 0, padding: '0.65rem' }}>
                     
-                    <div style={{ display: 'flex', gap: '0.2rem' }}>
-                      <button 
-                        onClick={() => setSelectedRegion('germany')}
-                        style={{ background: selectedRegion === 'germany' ? colors.accentTeal : '#f1f5f9', border: '1px solid rgba(15, 23, 42, 0.08)', color: selectedRegion === 'germany' ? '#fff' : '#0f172a', borderRadius: '4px', padding: '0.15rem 0.45rem', fontSize: '0.58rem', fontWeight: 800, cursor: 'pointer' }}
-                      >
-                        Germany (EU)
-                      </button>
-                      <button 
-                        onClick={() => setSelectedRegion('texas')}
-                        style={{ background: selectedRegion === 'texas' ? colors.accentTeal : '#f1f5f9', border: '1px solid rgba(15, 23, 42, 0.08)', color: selectedRegion === 'texas' ? '#fff' : '#0f172a', borderRadius: '4px', padding: '0.15rem 0.45rem', fontSize: '0.58rem', fontWeight: 800, cursor: 'pointer' }}
-                      >
-                        Texas (US)
-                      </button>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+                      <svg width="45" height="45" viewBox="0 0 60 60" style={{ transform: 'rotate(-90deg)', flexShrink: 0 }}>
+                        <circle cx="30" cy="30" r="24" fill="none" stroke="rgba(15,23,42,0.03)" strokeWidth="4" />
+                        <circle cx="30" cy="30" r="24" fill="none" stroke={colors.accentTeal} strokeWidth="4" strokeDasharray="150" strokeDashoffset="132" />
+                      </svg>
+                      <div>
+                        <span style={{ fontSize: '0.5rem', color: '#475569', fontWeight: 800, textTransform: 'uppercase', display: 'block' }}>Agent Actions Drift</span>
+                        <span style={{ fontSize: '0.85rem', fontWeight: 950, color: colors.accentTeal }}>0.12 <span style={{ fontSize: '0.55rem', color: '#94a3b8' }}>/ 5.0</span></span>
+                        <span style={{ fontSize: '0.45rem', color: '#16a34a', display: 'block' }}>✓ FDA Boundary Ok</span>
+                      </div>
                     </div>
-                  </div>
 
-                  <div style={{ flex: 1, position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    
-                    <svg viewBox="0 0 300 220" style={{ width: '100%', height: '100%', background: '#f8fafc', borderRadius: '6px', border: '1px solid rgba(15, 23, 42, 0.08)' }}>
-                      <path d="M 30,50 L 80,40 L 90,80 L 50,110 L 30,80 Z" fill="rgba(15, 23, 42, 0.01)" stroke="rgba(15, 23, 42, 0.08)" strokeWidth="1" />
-                      <text x="45" y="65" fill="#475569" fontSize="6" fontWeight="bold">US-East (Virginia)</text>
-
-                      <path d="M 180,40 L 230,30 L 240,70 L 190,90 Z" fill="rgba(15, 23, 42, 0.01)" stroke="rgba(15, 23, 42, 0.08)" strokeWidth="1" />
-                      <text x="190" y="55" fill="#475569" fontSize="6" fontWeight="bold">EU (Frankfurt)</text>
-
-                      {selectedRegion === 'germany' ? (
-                        <>
-                          <path d="M 90,50 Q 150,20 210,45" fill="none" stroke={colors.accentTeal} strokeWidth="1.5" strokeDasharray="3" style={{ filter: 'drop-shadow(0 2px 4px rgba(13,148,136,0.2))' }} />
-                          <circle cx="210" cy="45" r="5" fill={colors.accentTeal} />
-                          <text x="175" y="38" fill={colors.accentTeal} fontSize="5.5" fontWeight="900">Frankfurt Server Cluster Isolated</text>
-                        </>
-                      ) : (
-                        <>
-                          <path d="M 90,50 Q 60,60 50,75" fill="none" stroke={colors.accentTeal} strokeWidth="1.5" strokeDasharray="3" style={{ filter: 'drop-shadow(0 2px 4px rgba(13,148,136,0.2))' }} />
-                          <circle cx="50" cy="75" r="5" fill={colors.accentTeal} />
-                          <text x="25" y="88" fill={colors.accentTeal} fontSize="5.5" fontWeight="900">US-East Servers Routing Active</text>
-                        </>
-                      )}
-                    </svg>
-
-                    <div style={{ position: 'absolute', bottom: '8px', left: '8px', right: '8px', zIndex: 10 }}>
-                      {selectedRegion === 'germany' ? (
-                        <div className="v12-card-glass" style={{ border: '1px solid rgba(225, 29, 72, 0.25)', background: 'rgba(225, 29, 72, 0.02)', padding: '0.45rem' }}>
-                          <span style={{ fontSize: '0.62rem', fontWeight: 950, color: colors.accentCoral, display: 'flex', alignItems: 'center', gap: '0.2rem' }}>
-                            <ShieldAlert size={12} /> 2026 EU AI ACT ARTICLE 52 HIGH-RISK WARNING
-                          </span>
-                          <p style={{ fontSize: '0.58rem', color: '#0f172a', margin: '0.1rem 0 0 0', lineHeight: 1.3 }}>
-                            *Frankfurt Server Isolation Active*. Algorithmic behavioral profiling and biometric emotion tracking features have been **automatically disabled** to comply with high-risk classification rules. 6% global revenue penalty avoided.
-                          </p>
-                        </div>
-                      ) : (
-                        <div className="v12-card-glass" style={{ border: '1px solid rgba(13, 148, 136, 0.25)', background: 'rgba(13, 148, 136, 0.02)', padding: '0.45rem' }}>
-                          <span style={{ fontSize: '0.62rem', fontWeight: 950, color: colors.accentTeal, display: 'flex', alignItems: 'center', gap: '0.2rem' }}>
-                            <ShieldCheck size={12} /> U.S. STATE ALGORITHMIC TRANSPARENCY DISCLOSURES
-                          </span>
-                          <p style={{ fontSize: '0.58rem', color: '#0f172a', margin: '0.1rem 0 0 0', lineHeight: 1.3 }}>
-                            *US-East Routing Active*. Dynamic consumer opt-out metadata and state-mandated algorithmic transparency disclosures have been programmatically appended to the creative campaign asset prior to release.
-                          </p>
-                        </div>
-                      )}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+                      <svg width="45" height="45" viewBox="0 0 60 60" style={{ transform: 'rotate(-90deg)', flexShrink: 0 }}>
+                        <circle cx="30" cy="30" r="24" fill="none" stroke="rgba(15,23,42,0.03)" strokeWidth="4" />
+                        <circle cx="30" cy="30" r="24" fill="none" stroke={colors.accentAmber} strokeWidth="4" strokeDasharray="150" strokeDashoffset="25" />
+                      </svg>
+                      <div>
+                        <span style={{ fontSize: '0.5rem', color: '#475569', fontWeight: 800, textTransform: 'uppercase', display: 'block' }}>Validated Envelope</span>
+                        <span style={{ fontSize: '0.85rem', fontWeight: 950, color: colors.accentAmber }}>96.8%</span>
+                        <span style={{ fontSize: '0.45rem', color: '#475569', display: 'block' }}>GAMP 5 Category 4</span>
+                      </div>
                     </div>
 
                   </div>
+
+                  {/* MLR Accuracy Chart */}
+                  <div className="v12-card-glass" style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', minHeight: '150px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(15, 23, 42, 0.08)', paddingBottom: '0.25rem', alignItems: 'center' }}>
+                      <span style={{ fontSize: '0.62rem', fontWeight: 950, color: '#0f172a', letterSpacing: '0.5px' }}>6-MONTH AUTOMATED MLR ACCURACY</span>
+                    </div>
+                    <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <svg viewBox="0 0 300 110" style={{ width: '100%', height: '100%', background: '#f8fafc', borderRadius: '6px' }}>
+                        <line x1="25" y1="10" x2="290" y2="10" stroke="rgba(15,23,42,0.04)" />
+                        <line x1="25" y1="50" x2="290" y2="50" stroke="rgba(15,23,42,0.04)" />
+                        <line x1="25" y1="90" x2="290" y2="90" stroke="rgba(15,23,42,0.04)" />
+                        <path d="M 25,20 L 75,30 L 125,45 L 175,70 L 225,82 L 290,92" fill="none" stroke={colors.accentTeal} strokeWidth="2" />
+                        <path d="M 25,82 L 75,85 L 125,84 L 175,88 L 225,89 L 290,90" fill="none" stroke={colors.accentCoral} strokeWidth="1.5" strokeDasharray="2" />
+                        <text x="30" y="102" fill={colors.accentTeal} fontSize="6" fontWeight="bold">False Positives</text>
+                        <text x="160" y="102" fill={colors.accentCoral} fontSize="6" fontWeight="bold">False Negatives (&lt; 1%)</text>
+                      </svg>
+                    </div>
+                  </div>
+
+                  {/* Skills Mapping Bench Contrast */}
+                  <div className="v12-card-glass" style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
+                    <span style={{ fontSize: '0.65rem', fontWeight: 950, color: '#0f172a', letterSpacing: '0.5px', borderBottom: '1px solid rgba(15, 23, 42, 0.08)', paddingBottom: '0.2rem' }}>ORGANIZATIONAL TALENT CONTRAST</span>
+                    
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+                      <div>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.62rem', fontWeight: 800, marginBottom: '0.1rem' }}>
+                          <span>Python & MCP Mesh Development</span>
+                          <span style={{ color: colors.accentAmber }}>80% Talent Gap</span>
+                        </div>
+                        <div style={{ display: 'flex', height: '8px', background: 'rgba(15,23,42,0.03)', borderRadius: '100px', border: '1px solid rgba(15,23,42,0.06)', overflow: 'hidden' }}>
+                          <div style={{ width: '20%', background: colors.accentTeal }} />
+                          <div style={{ width: '80%', background: colors.accentAmber }} />
+                        </div>
+                      </div>
+                      <div>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.62rem', fontWeight: 800, marginBottom: '0.1rem' }}>
+                          <span>Veeva Admin Config</span>
+                          <span style={{ color: '#16a34a' }}>✓ 100% Ready</span>
+                        </div>
+                        <div style={{ display: 'flex', height: '8px', background: 'rgba(15,23,42,0.03)', borderRadius: '100px', border: '1px solid rgba(15,23,42,0.06)', overflow: 'hidden' }}>
+                          <div style={{ width: '85%', background: colors.accentTeal }} />
+                          <div style={{ width: '15%', background: '#94a3b8' }} />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
                 </div>
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+                {/* Right Column: Sovereignty Globe, Privacy Risk & Competitors */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', height: '100%', minHeight: 0, overflowY: 'auto' }} className="v12-scrollable">
                   
-                  <div className="v12-card-glass" style={{ display: 'flex', gap: '0.75rem', background: '#ffffff', borderLeft: `3.5px solid ${colors.accentCoral}` }}>
-                    <ShieldAlert size={24} style={{ color: colors.accentCoral, flexShrink: 0, marginTop: '0.1rem' }} />
-                    <div>
-                      <span style={{ fontSize: '0.7rem', fontWeight: 950, color: colors.accentCoral, display: 'block', textTransform: 'uppercase' }}>
-                        Palo Alto "Pickle-in-the-Middle" Threat
-                      </span>
-                      <p style={{ fontSize: '0.64rem', color: '#475569', margin: '0.15rem 0 0 0', lineHeight: 1.35 }}>
-                        Recent open-source supply chain vulnerabilities in huggingface python models highlight the absolute necessity of VPC-SC database sandbox isolation. Standard public routing APIs present egress threats.
-                      </p>
+                  {/* Sovereignty Globe Card */}
+                  <div className="v12-card-glass" style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem', minHeight: '220px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid rgba(15,23,42,0.08)', paddingBottom: '0.25rem' }}>
+                      <span style={{ fontSize: '0.65rem', fontWeight: 900, color: '#0f172a' }}>DATA SOVEREIGNTY SCHEMAS</span>
+                      <div style={{ display: 'flex', gap: '0.2rem' }}>
+                        <button 
+                          onClick={() => setSelectedRegion('germany')}
+                          style={{ background: selectedRegion === 'germany' ? colors.accentTeal : '#f1f5f9', border: 'none', color: selectedRegion === 'germany' ? '#fff' : '#0f172a', borderRadius: '4px', padding: '0.1rem 0.35rem', fontSize: '0.55rem', fontWeight: 800, cursor: 'pointer' }}
+                        >
+                          Germany (EU)
+                        </button>
+                        <button 
+                          onClick={() => setSelectedRegion('texas')}
+                          style={{ background: selectedRegion === 'texas' ? colors.accentTeal : '#f1f5f9', border: 'none', color: selectedRegion === 'texas' ? '#fff' : '#0f172a', borderRadius: '4px', padding: '0.1rem 0.35rem', fontSize: '0.55rem', fontWeight: 800, cursor: 'pointer' }}
+                        >
+                          Texas (US)
+                        </button>
+                      </div>
+                    </div>
+
+                    <div style={{ flex: 1, position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '110px' }}>
+                      <svg viewBox="0 0 300 160" style={{ width: '100%', height: '100%', background: '#f8fafc', borderRadius: '6px' }}>
+                        <path d="M 30,30 L 80,20 L 90,60 L 50,90 Z" fill="rgba(15,23,42,0.01)" stroke="rgba(15, 23, 42, 0.08)" />
+                        <path d="M 180,30 L 230,20 L 240,50 L 190,70 Z" fill="rgba(15,23,42,0.01)" stroke="rgba(15, 23, 42, 0.08)" />
+                        {selectedRegion === 'germany' ? (
+                          <>
+                            <path d="M 90,30 Q 150,5 210,25" fill="none" stroke={colors.accentTeal} strokeWidth="1.5" strokeDasharray="3" />
+                            <circle cx="210" cy="25" r="4" fill={colors.accentTeal} />
+                          </>
+                        ) : (
+                          <>
+                            <path d="M 90,30 Q 60,40 50,55" fill="none" stroke={colors.accentTeal} strokeWidth="1.5" strokeDasharray="3" />
+                            <circle cx="50" cy="55" r="4" fill={colors.accentTeal} />
+                          </>
+                        )}
+                      </svg>
+                      
+                      <div style={{ position: 'absolute', bottom: '4px', left: '4px', right: '4px' }}>
+                        {selectedRegion === 'germany' ? (
+                          <div style={{ border: '1px solid rgba(225, 29, 72, 0.2)', background: 'rgba(225, 29, 72, 0.02)', padding: '0.35rem', borderRadius: '4px', fontSize: '0.55rem' }}>
+                            <span style={{ color: colors.accentCoral, fontWeight: 900 }}>⚠️ 2026 EU AI ACT HIGH-RISK WARNING</span>
+                            <span style={{ color: '#0f172a', display: 'block', marginTop: '0.05rem', lineHeight: 1.25 }}>
+                              Behavioral tracking disabled to avoid 6% global revenue penalty under EU Article 52.
+                            </span>
+                          </div>
+                        ) : (
+                          <div style={{ border: '1px solid rgba(13, 148, 136, 0.2)', background: 'rgba(13, 148, 136, 0.02)', padding: '0.35rem', borderRadius: '4px', fontSize: '0.55rem' }}>
+                            <span style={{ color: colors.accentTeal, fontWeight: 900 }}>✓ U.S. TRANSPARENCY ROUTING ACTIVE</span>
+                            <span style={{ color: '#0f172a', display: 'block', marginTop: '0.05rem', lineHeight: 1.25 }}>
+                              Opt-out metadata programmatically appended per state-level rules.
+                            </span>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
 
-                  <div className="v12-card-glass" style={{ display: 'flex', gap: '0.75rem', background: '#ffffff', borderLeft: `3.5px solid ${colors.accentAmber}` }}>
-                    <AlertTriangle size={24} style={{ color: colors.accentAmber, flexShrink: 0, marginTop: '0.1rem' }} />
-                    <div>
-                      <span style={{ fontSize: '0.7rem', fontWeight: 950, color: colors.accentAmber, display: 'block', textTransform: 'uppercase' }}>
-                        FDA 2026 Quality Unit Auditing Warning
-                      </span>
-                      <p style={{ fontSize: '0.64rem', color: '#475569', margin: '0.15rem 0 0 0', lineHeight: 1.35 }}>
-                        The FDA recently issued formal warnings to biopharma firms delegating MLR review tasks to models without cryptographically locked digital signatures. The "Purolea Precedent" requires physical consensus logs.
-                      </p>
+                  {/* Privacy Risk Thermometer */}
+                  <div className="v12-card-glass" style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(15, 23, 42, 0.08)', paddingBottom: '0.2rem', alignItems: 'center' }}>
+                      <span style={{ fontSize: '0.65rem', fontWeight: 950, color: '#0f172a' }}>PATIENT PRIVACY THERMOMETERS</span>
+                      <label style={{ display: 'flex', alignItems: 'center', gap: '0.2rem', fontSize: '0.55rem', fontWeight: 800, cursor: 'pointer' }}>
+                        <input 
+                          type="checkbox" 
+                          checked={njAuditTrailEnabled}
+                          onChange={e => setNjAuditTrailEnabled(e.target.checked)}
+                          style={{ accentColor: colors.accentTeal }}
+                        />
+                        <span>Audit Trail</span>
+                      </label>
+                    </div>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.65rem', padding: '0.2rem 0', alignItems: 'center' }}>
+                      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.15rem' }}>
+                        <span style={{ fontSize: '0.52rem', fontWeight: 900 }}>NJ S-1515 ADS BILL</span>
+                        <div style={{ width: '12px', height: '40px', background: '#e2e8f0', borderRadius: '100px', overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
+                          <div style={{ width: '100%', height: njAuditTrailEnabled ? '25%' : '90%', background: njAuditTrailEnabled ? colors.accentTeal : colors.accentCoral }} />
+                        </div>
+                        <span style={{ fontSize: '0.55rem', fontWeight: 900, color: njAuditTrailEnabled ? colors.accentTeal : colors.accentCoral }}>
+                          {njAuditTrailEnabled ? "COMPLIANT" : "❌ HIGH RISK"}
+                        </span>
+                      </div>
+
+                      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.15rem' }}>
+                        <span style={{ fontSize: '0.52rem', fontWeight: 900 }}>EU AI ACT SEC 52</span>
+                        <div style={{ width: '12px', height: '40px', background: '#e2e8f0', borderRadius: '100px', overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
+                          <div style={{ width: '100%', height: '35%', background: colors.accentTeal }} />
+                        </div>
+                        <span style={{ fontSize: '0.55rem', fontWeight: 900, color: colors.accentTeal }}>COMPLIANT</span>
+                      </div>
                     </div>
                   </div>
 
-                  <div className="v12-card-glass" style={{ display: 'flex', gap: '0.75rem', background: '#ffffff', borderLeft: `3.5px solid ${colors.accentTeal}` }}>
-                    <Award size={24} style={{ color: colors.accentTeal, flexShrink: 0, marginTop: '0.1rem' }} />
-                    <div>
-                      <span style={{ fontSize: '0.7rem', fontWeight: 950, color: colors.accentTeal, display: 'block', textTransform: 'uppercase' }}>
-                        McKinsey Data: ROI of Trust
-                      </span>
-                      <p style={{ fontSize: '0.64rem', color: '#475569', margin: '0.15rem 0 0 0', lineHeight: 1.35 }}>
-                        Organizations that establish robust agentic compliance perimeters early see an average of **55% higher productivity gains** and **3.2x faster GTM cycles** than firms stuck in manual MLR validation.
-                      </p>
-                    </div>
+                  {/* Peer Benchmarks */}
+                  <div className="v12-card-glass" style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
+                    <span style={{ fontSize: '0.65rem', fontWeight: 950, color: '#0f172a', borderBottom: '1px solid rgba(15, 23, 42, 0.08)', paddingBottom: '0.2rem' }}>PHARMA PEER ADOPTION</span>
+                    <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.58rem', textAlign: 'left' }}>
+                      <tbody>
+                        <tr style={{ borderBottom: '1px solid rgba(15,23,42,0.04)' }}>
+                          <td style={{ padding: '0.2rem', fontWeight: 800 }}>Pfizer Oncology</td>
+                          <td style={{ padding: '0.2rem', color: '#475569' }}>GCP Custom Mesh</td>
+                          <td style={{ padding: '0.2rem', color: '#16a34a', fontWeight: 700 }}>✓ GxP Validated</td>
+                        </tr>
+                        <tr style={{ borderBottom: '1px solid rgba(15,23,42,0.04)' }}>
+                          <td style={{ padding: '0.2rem', fontWeight: 800 }}>Novartis Commercial</td>
+                          <td style={{ padding: '0.2rem', color: '#475569' }}>AWS + Veeva</td>
+                          <td style={{ padding: '0.2rem', color: '#16a34a', fontWeight: 700 }}>✓ GxP Validated</td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
 
                 </div>
@@ -2852,7 +3057,7 @@ export default function PremiumScopingAssessorV12({
             )}
 
             {/* =========================================================================
-            // PAGE 6: RECOMMENDATIONS, PARALLEL MLR ROUTER & ENTERPRISE IAM
+            // PAGE 6: THE 90-DAY EXECUTION ROADMAP
             // ========================================================================= */}
             {reportPage === 'roadmap' && (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', flex: 1, minHeight: 0 }}>
@@ -2920,7 +3125,7 @@ export default function PremiumScopingAssessorV12({
                     </div>
 
                     {mlrSimActive && (
-                      <div className="v12-card-glass" style={{ position: 'absolute', right: '65px', top: '25px', bottom: '10px', width: '150px', background: 'rgba(255,255,255,0.95)', border: `1.2px solid ${colors.accentTeal}`, padding: '0.35rem', display: 'flex', flexDirection: 'column', justifyContent: 'center', textAlign: 'center', gap: '0.15rem' }}>
+                      <div className="v12-card-glass" style={{ position: 'absolute', right: '65px', top: '25px', bottom: '10px', width: '150px', background: 'rgba(255,255,255,0.95)', border: `1.2px solid ${colors.accentTeal}`, padding: '0.35rem', display: 'flex', flexDirection: 'column', justifycontent: 'center', textAlign: 'center', gap: '0.15rem' }}>
                         <span style={{ fontSize: '0.5rem', color: '#475569', fontWeight: 800 }}>PARALLEL AGENTIC VELOCITY</span>
                         <span style={{ fontSize: '0.85rem', fontWeight: 950, color: colors.accentTeal }}>{mlrTimer > 0 ? `${mlrTimer}s` : "Shattering..."}</span>
                         <span style={{ fontSize: '0.48rem', color: '#0f172a' }}>Human Manual: 14 Days</span>
@@ -3000,2024 +3205,6 @@ export default function PremiumScopingAssessorV12({
                     >
                       Request Technical Spike / PoC
                     </button>
-                  </div>
-
-                </div>
-
-              </div>
-            )}
-
-            {/* =========================================================================
-            // PAGE 7: GAMP 5 CONTINUOUS GXP VALIDATION COMMAND CENTER
-            // ========================================================================= */}
-            {reportPage === 'gxp_validation' && (
-              <div style={{ display: 'grid', gridTemplateColumns: '1.3fr 1fr', gap: '0.85rem', flex: 1, minHeight: 0 }}>
-                
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', height: '100%', minHeight: 0 }}>
-                  
-                  {/* Symmetrical COU Speedometer Dials */}
-                  <div className="v12-card-glass" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.85rem', flexShrink: 0, height: '120px' }}>
-                    
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-                      <svg width="60" height="60" viewBox="0 0 60 60" style={{ transform: 'rotate(-90deg)', flexShrink: 0 }}>
-                        <circle cx="30" cy="30" r="24" fill="none" stroke="rgba(15,23,42,0.03)" strokeWidth="4" />
-                        <circle cx="30" cy="30" r="24" fill="none" stroke={colors.accentTeal} strokeWidth="4" strokeDasharray="150" strokeDashoffset="132" style={{ transition: 'stroke-dashoffset 0.3s' }} />
-                      </svg>
-                      <div>
-                        <span style={{ fontSize: '0.52rem', color: '#475569', fontWeight: 800, textTransform: 'uppercase', display: 'block' }}>Agent Actions Drift</span>
-                        <span style={{ fontSize: '1rem', fontWeight: 950, color: colors.accentTeal }}>0.12 <span style={{ fontSize: '0.65rem', color: '#94a3b8' }}>/ 5.0</span></span>
-                        <span style={{ fontSize: '0.48rem', color: '#16a34a', display: 'block', marginTop: '0.05rem' }}>✓ Within FDA Validated Boundary</span>
-                      </div>
-                    </div>
-
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-                      <svg width="60" height="60" viewBox="0 0 60 60" style={{ transform: 'rotate(-90deg)', flexShrink: 0 }}>
-                        <circle cx="30" cy="30" r="24" fill="none" stroke="rgba(15,23,42,0.03)" strokeWidth="4" />
-                        <circle cx="30" cy="30" r="24" fill="none" stroke={colors.accentAmber} strokeWidth="4" strokeDasharray="150" strokeDashoffset="25" />
-                      </svg>
-                      <div>
-                        <span style={{ fontSize: '0.52rem', color: '#475569', fontWeight: 800, textTransform: 'uppercase', display: 'block' }}>Validated Envelope</span>
-                        <span style={{ fontSize: '1rem', fontWeight: 950, color: colors.accentAmber }}>96.8%</span>
-                        <span style={{ fontSize: '0.48rem', color: '#475569', display: 'block', marginTop: '0.05rem' }}>FDA GAMP 5 Category 4 Shield</span>
-                      </div>
-                    </div>
-
-                  </div>
-
-                  {/* False Positive/Negative Trackers Line Graph */}
-                  <div className="v12-card-glass" style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.45rem', minHeight: '180px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(15, 23, 42, 0.08)', paddingBottom: '0.25rem', alignItems: 'center' }}>
-                      <span style={{ fontSize: '0.65rem', fontWeight: 950, color: '#0f172a', letterSpacing: '0.5px' }}>6-MONTH AUTOMATED MLR ACCURACY TREND</span>
-                      <span style={{ fontSize: '0.52rem', color: '#475569' }}>False Positives vs. False Negatives (%)</span>
-                    </div>
-
-                    <div style={{ flex: 1, position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                      <svg viewBox="0 0 300 130" style={{ width: '100%', height: '100%', background: '#f8fafc', borderRadius: '6px' }}>
-                        <line x1="25" y1="10" x2="290" y2="10" stroke="rgba(15,23,42,0.04)" />
-                        <line x1="25" y1="60" x2="290" y2="60" stroke="rgba(15,23,42,0.04)" />
-                        <line x1="25" y1="110" x2="290" y2="110" stroke="rgba(15,23,42,0.04)" />
-
-                        <path 
-                          d="M 25,20 L 75,30 L 125,50 L 175,80 L 225,95 L 290,105" 
-                          fill="none" 
-                          stroke={colors.accentTeal} 
-                          strokeWidth="2" 
-                          style={{ filter: 'drop-shadow(0 2px 4px rgba(13,148,136,0.2))' }}
-                        />
-                        <path 
-                          d="M 25,95 L 75,100 L 125,98 L 175,105 L 225,107 L 290,108" 
-                          fill="none" 
-                          stroke={colors.accentCoral} 
-                          strokeWidth="1.5" 
-                          strokeDasharray="2"
-                        />
-
-                        <text x="35" y="125" fill={colors.accentTeal} fontSize="6" fontWeight="bold">False Positives (Decreasing)</text>
-                        <text x="160" y="125" fill={colors.accentCoral} fontSize="6" fontWeight="bold">False Negatives (Stable &lt; 1%)</text>
-                      </svg>
-                    </div>
-                  </div>
-
-                </div>
-
-                {/* Symmetrical Right Panel: GAMP 5 Telemetry & Failover Mitigation */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', height: '100%', minHeight: 0 }}>
-                  
-                  {/* Sovereign Guardrails Comparison Panel */}
-                  <div className="v12-card-glass" style={{ flex: 1.2, display: 'flex', flexDirection: 'column', gap: '0.45rem', background: '#ffffff' }}>
-                    <span style={{ fontSize: '0.65rem', fontWeight: 900, color: colors.accentTeal, letterSpacing: '0.5px' }}>SOVEREIGN GUARDRAILS COMPARISON</span>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem', overflowY: 'auto' }} className="v12-scrollable">
-                      <div style={{ background: '#f8fafc', borderRadius: '6px', padding: '0.4rem', border: '1px solid rgba(15, 23, 42, 0.08)' }}>
-                        <h4 style={{ margin: 0, fontSize: '0.68rem', fontWeight: 900, color: colors.accentTeal }}>Google Vertex Model Armor</h4>
-                        <span style={{ fontSize: '0.58rem', color: '#475569', display: 'block', marginTop: '0.1rem', lineHeight: 1.3 }}>
-                          Natively scrubs PII/PHI and blocks off-label medical claims in under **22ms** before prompts ever route to core models.
-                        </span>
-                      </div>
-                      <div style={{ background: '#f8fafc', borderRadius: '6px', padding: '0.4rem', border: '1px solid rgba(15, 23, 42, 0.08)' }}>
-                        <h4 style={{ margin: 0, fontSize: '0.68rem', fontWeight: 900, color: colors.accentAmber }}>AWS Bedrock Guardrails</h4>
-                        <span style={{ fontSize: '0.58rem', color: '#475569', display: 'block', marginTop: '0.1rem', lineHeight: 1.3 }}>
-                          Rigid regex-based compliance scrubbing, lacking spatial/ontology-aware metadata tagging.
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Active-Active Failover Mitigation Strategy Card */}
-                  <div className="v12-card-glass" style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.45rem', background: 'rgba(13, 148, 136, 0.02)', border: `1.2px solid ${colors.accentTeal}` }}>
-                    <span style={{ fontSize: '0.65rem', fontWeight: 900, color: colors.accentTeal, letterSpacing: '0.5px' }}>ACTIVE-ACTIVE FAILOVER MITIGATION (GAMP 5)</span>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem', fontSize: '0.62rem', color: '#475569', lineHeight: 1.35 }}>
-                      <div>• <strong style={{ color: '#0f172a' }}>Primary Risk</strong>: Foundation model endpoint failure or regional cloud outage.</div>
-                      <div>• <strong style={{ color: '#0f172a' }}>Mitigation Action</strong>: Active-active cross-region failover between GCP US-East (Virginia) and GCP US-Central (Iowa).</div>
-                      <div>• <strong style={{ color: '#0f172a' }}>Success Metric</strong>: **RTO &lt; 4 minutes** with zero session data loss during active MLR reviews.</div>
-                    </div>
-                  </div>
-
-                </div>
-
-              </div>
-            )}
-
-            {/* =========================================================================
-            // PAGE 12: ECOSYSTEM RESILIENCE REPORT (DYNAMIC ARCHITECTURAL AUDIT)
-            // ========================================================================= */}
-            {reportPage === 'resilience' && (() => {
-              // Extract active sandbox selections from state
-              const selectedOrch = whatIfOrch || 'google';
-              const selectedId = whatIfIdentity || 'entra';
-              const selectedFed = whatIfFederation || 'mcp';
-              const selectedStore = whatIfStorage || 'adobe';
-
-              // Dynamic evaluation engine for McKinsey Resilience Report
-              let verdictTitle = '';
-              let verdictText = '';
-              let busScore = 'Med';
-              let busRationale = '';
-              let watchdogScore = 'Med';
-              let watchdogRationale = '';
-              let magmaScore = 'Med';
-              let magmaRationale = '';
-              let synergies = [];
-              let friction = [];
-              let recommendation = '';
-
-              // Check for Scenario A: Google All-In Native Stack
-              const isGoogleNativeStack = selectedOrch === 'google' && selectedId === 'google_id' && selectedFed === 'google_bq' && selectedStore === 's3';
-              
-              // Check for Scenario B: Highly Regulated Composable Stack
-              const isRegulatedComposable = selectedOrch === 'aws' && selectedId === 'ping' && selectedFed === 'databricks_data' && selectedStore === 'veeva_promomats';
-
-              // Check for Scenario C: Creative & Agentic Hybrid
-              const isCreativeHybrid = selectedOrch === 'azure' && selectedId === 'okta' && selectedFed === 'mcp' && selectedStore === 'adobe';
-
-              if (isGoogleNativeStack) {
-                verdictTitle = '✓ STABLE DAY-ONE VALUE (NATIVE HIGH SYNERGY)';
-                verdictText = 'This native Google Cloud architecture achieves near-zero integration debt and flawless day-two governance. By running managed agentic meshes over BigQuery data lakes, the swarm communicates with maximum fidelity, eliminating custom translation middleware and loop risks.';
-                busScore = 'High';
-                busRationale = 'Native Vertex AI routing and BigQuery zero-ETL integration guarantee absolute context fidelity across all agent hops.';
-                watchdogScore = 'High';
-                watchdogRationale = 'Vertex AI Model Armor provides out-of-the-box Policy-as-Code interception, preventing tokenomics loops and safety leaks.';
-                magmaScore = 'High';
-                magmaRationale = 'BigQuery semantic tables and Vertex AI Search facilitate unified, systemic learning across the multi-agent swarm.';
-                synergies = [
-                  'Google Cloud Identity + Vertex AI: Seamless IAM token propagation, cutting implementation overhead by 40%.',
-                  'BigQuery Zero-ETL + Gemini: Real-time clinical claims grounding with zero data replication lag.'
-                ];
-                friction = [
-                  'Content Workflow Friction: High-fidelity creative assets stored in Google Cloud Storage may face sync latency with external Adobe design systems.',
-                  'Ecosystem Lock-in: Going all-in on the native Google stack reduces cross-cloud flexibility, although it maximizes speed-to-value.'
-                ];
-                recommendation = 'Proceed immediately. This native stack represents the fastest, most secure, and most cost-effective path to a GxP-compliant production deployment.';
-              } 
-              else if (isRegulatedComposable) {
-                verdictTitle = '⚠️ STABLE DAY-TWO GOVERNANCE (HIGH COMPLIANCE CEILING)';
-                verdictText = 'This architecture delivers maximum compliance and governance (98/100 GxP ceiling) suitable for strict clinical environments. However, it carries substantial integration debt. Linking Bedrock, Ping, and Databricks requires custom API adapters, increasing maintenance debt.';
-                busScore = 'Med';
-                busRationale = 'Custom translation wrappers between Bedrock and Databricks introduce minor context degradation during multi-agent hops.';
-                watchdogScore = 'High';
-                watchdogRationale = 'Veeva Vault and Ping Identity provide rigid, GxP-validated access gates, but custom watchdog loops are needed for Bedrock.';
-                magmaScore = 'High';
-                magmaRationale = 'Databricks Unity Catalog provides excellent, centralized data governance and systemic learning hooks.';
-                synergies = [
-                  'Databricks + Bedrock: Strong custom fine-tuning capabilities over proprietary clinical datasets.',
-                  'Veeva Vault + Ping Identity: Highly secure federated authentication, matching strict MLR guidelines.'
-                ];
-                friction = [
-                  'High Integration Debt: Linking Bedrock, Ping, and Databricks requires custom API adapters, increasing maintenance debt.',
-                  'Tokenomics Vulnerability: Lacking an active watchdog gateway exposes the system to runaway agent loops during peak MLR review times.'
-                ];
-                recommendation = 'Pivot or Introduce Middleware. We strongly recommend introducing a dedicated API Gateway (like Kong AI Gateway) to act as a secure Watchdog layer before proceeding.';
-              } 
-              else if (isCreativeHybrid) {
-                verdictTitle = '✓ EXCELLENT CREATIVE VELOCITY (AGILE HYBRID)';
-                verdictText = 'This stack provides outstanding creative workflow velocity and flexible identity management, making it highly attractive for marketing swarms. However, data federation may suffer from minor latency if legacy data sources lack native MCP support.';
-                busScore = 'High';
-                busRationale = 'Model Context Protocol (MCP) standardizes model-to-data communication, ensuring excellent fidelity.';
-                watchdogScore = 'Med';
-                watchdogRationale = 'Azure AI Studio provides robust safety filters, but lacks automated tokenomics circuit breakers for custom swarms.';
-                magmaScore = 'Med';
-                magmaRationale = 'Okta provides excellent federated identity, but memory schemas are fragmented across Adobe AEM and Azure storage.';
-                synergies = [
-                  'Okta + Azure OpenAI: Flexible, federated access control across external creative agencies.',
-                  'MCP + Adobe GenStudio: Direct, real-time creative asset and design system metadata indexing.'
-                ];
-                friction = [
-                  'Data Federation Latency: Potential indexing friction if legacy claims databases do not natively support MCP ports.',
-                  'Identity Fragment: Separate identity directories between Okta and Azure tenant boundaries require custom sync intervals.'
-                ];
-                recommendation = 'Proceed with Caution. Introduce a dedicated vector claims database (like BigQuery) to ground the MCP layer and prevent compliance drift.';
-              } 
-              else {
-                // Default / Composable Custom evaluation
-                verdictTitle = '⚠️ RISKS DAY-TWO CHAOS (HIGH INTEGRATION DEBT)';
-                verdictText = 'While highly composable, this custom stack carries substantial integration debt and lacks a unified watchdog governance layer. Swapping disparate vendors across all 4 pillars increases API translation overhead, exposing the swarm to tokenomics loops and context drift.';
-                busScore = 'Low';
-                busRationale = `Custom translation middleware between ${selectedOrch.toUpperCase()} and ${selectedFed.toUpperCase()} increases data loss risks during multi-agent hops.`;
-                watchdogScore = 'Low';
-                watchdogRationale = `Lacks a unified Policy-as-Code security gateway. Running ${selectedOrch.toUpperCase()} without managed guardrails requires writing thousands of lines of custom loop code.`;
-                magmaScore = 'Med';
-                magmaRationale = `Multi-graph memory is siloed between ${selectedFed.toUpperCase()} and ${selectedStore.toUpperCase()}, restricting systemic learning across the swarm.`;
-                synergies = [
-                  'Agile Vendor Choice: Custom selection avoids vendor lock-in, allowing procurement to negotiate rates.',
-                  'Specialized Pillars: Each component represents a best-of-breed solution for its specific technical silo.'
-                ];
-                friction = [
-                  `API Translation Debt: Integrating ${selectedOrch.toUpperCase()} with ${selectedFed.toUpperCase()} requires manual API wrappers, increasing maintenance debt.`,
-                  `Runaway Tokenomics Risk: Lacking an active Watchdog gateway exposes the swarm to infinite loop risks during peak MLR review hours.`
-                ];
-                recommendation = 'Pivot to Native or Introduce a Gateway. We strongly recommend migrating to Kong AI Gateway or Google Vertex AI to establish a secure, GxP-validated Watchdog layer.';
-              }
-
-              return (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', flex: 1, minHeight: 0 }}>
-                  
-                  {/* Executive Summary Card */}
-                  <div className="v12-card-glass" style={{ borderLeft: `4px solid ${busScore === 'High' ? colors.accentTeal : colors.accentCoral}`, background: '#ffffff', padding: '0.8rem 1.2rem', flexShrink: 0 }}>
-                    <span style={{ fontSize: '0.55rem', color: '#475569', fontWeight: 800, textTransform: 'uppercase', display: 'block', letterSpacing: '0.5px' }}>
-                      WHAT-IF ECOSYSTEM RESILIENCE AUDIT
-                    </span>
-                    <h3 style={{ margin: '0.15rem 0 0.35rem 0', fontSize: '0.92rem', fontWeight: 950, color: busScore === 'High' ? colors.accentTeal : colors.accentCoral }}>
-                      {verdictTitle}
-                    </h3>
-                    <p style={{ margin: 0, fontSize: '0.72rem', color: '#475569', lineHeight: 1.45 }}>
-                      {verdictText}
-                    </p>
-                  </div>
-
-                  {/* Symmetrical Split: Ecosystem Health Matrix vs. Synergy & Friction Feed */}
-                  <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '0.85rem', flex: 1, minHeight: 0 }}>
-                    
-                    {/* Left Column: Ecosystem Health Matrix */}
-                    <div className="v12-card-glass" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', height: '100%' }}>
-                      <span style={{ fontSize: '0.65rem', fontWeight: 950, color: '#0f172a', letterSpacing: '0.5px', borderBottom: '1px solid rgba(15,23,42,0.08)', paddingBottom: '0.3rem', display: 'block' }}>
-                        DIGITAL WORKFORCE HEALTH MATRIX
-                      </span>
-
-                      <div style={{ flex: 1, display: 'flex', alignItems: 'center' }}>
-                        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.68rem', textAlign: 'left' }}>
-                          <thead>
-                            <tr style={{ borderBottom: '2px solid rgba(15,23,42,0.1)', color: '#475569', fontWeight: 800 }}>
-                              <th style={{ padding: '0.45rem' }}>ECOSYSTEM METRIC</th>
-                              <th style={{ padding: '0.45rem', textAlign: 'center', width: '80px' }}>SCORE</th>
-                              <th style={{ padding: '0.45rem' }}>ARCHITECTURAL RATIONALE</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            
-                            {/* Bus Context Fidelity */}
-                            <tr style={{ borderBottom: '1px solid rgba(15,23,42,0.06)' }}>
-                              <td style={{ padding: '0.6rem 0.45rem', fontWeight: 800, color: '#0f172a' }}>
-                                Bus Context Fidelity
-                              </td>
-                              <td style={{ padding: '0.6rem 0.45rem', textAlign: 'center' }}>
-                                <span style={{ 
-                                  fontSize: '0.55rem', 
-                                  background: busScore === 'High' ? 'rgba(13, 148, 136, 0.1)' : busScore === 'Med' ? 'rgba(217, 119, 6, 0.1)' : 'rgba(225, 29, 72, 0.1)', 
-                                  color: busScore === 'High' ? colors.accentTeal : busScore === 'Med' ? colors.accentAmber : colors.accentCoral, 
-                                  padding: '0.1rem 0.4rem', 
-                                  borderRadius: '3px', 
-                                  fontWeight: 900 
-                                }}>
-                                  {busScore.toUpperCase()}
-                                </span>
-                              </td>
-                              <td style={{ padding: '0.6rem 0.45rem', color: '#475569', lineHeight: 1.3 }}>
-                                {busRationale}
-                              </td>
-                            </tr>
-
-                            {/* Watchdog Autonomy */}
-                            <tr style={{ borderBottom: '1px solid rgba(15,23,42,0.06)' }}>
-                              <td style={{ padding: '0.6rem 0.45rem', fontWeight: 800, color: '#0f172a' }}>
-                                Watchdog Autonomy
-                              </td>
-                              <td style={{ padding: '0.6rem 0.45rem', textAlign: 'center' }}>
-                                <span style={{ 
-                                  fontSize: '0.55rem', 
-                                  background: watchdogScore === 'High' ? 'rgba(13, 148, 136, 0.1)' : watchdogScore === 'Med' ? 'rgba(217, 119, 6, 0.1)' : 'rgba(225, 29, 72, 0.1)', 
-                                  color: watchdogScore === 'High' ? colors.accentTeal : watchdogScore === 'Med' ? colors.accentAmber : colors.accentCoral, 
-                                  padding: '0.1rem 0.4rem', 
-                                  borderRadius: '3px', 
-                                  fontWeight: 900 
-                                }}>
-                                  {watchdogScore.toUpperCase()}
-                                </span>
-                              </td>
-                              <td style={{ padding: '0.6rem 0.45rem', color: '#475569', lineHeight: 1.3 }}>
-                                {watchdogRationale}
-                              </td>
-                            </tr>
-
-                            {/* MAGMA Readiness */}
-                            <tr style={{ borderBottom: '1px solid rgba(15,23,42,0.06)' }}>
-                              <td style={{ padding: '0.6rem 0.45rem', fontWeight: 800, color: '#0f172a' }}>
-                                MAGMA Readiness
-                              </td>
-                              <td style={{ padding: '0.6rem 0.45rem', textAlign: 'center' }}>
-                                <span style={{ 
-                                  fontSize: '0.55rem', 
-                                  background: magmaScore === 'High' ? 'rgba(13, 148, 136, 0.1)' : magmaScore === 'Med' ? 'rgba(217, 119, 6, 0.1)' : 'rgba(225, 29, 72, 0.1)', 
-                                  color: magmaScore === 'High' ? colors.accentTeal : magmaScore === 'Med' ? colors.accentAmber : colors.accentCoral, 
-                                  padding: '0.1rem 0.4rem', 
-                                  borderRadius: '3px', 
-                                  fontWeight: 900 
-                                }}>
-                                  {magmaScore.toUpperCase()}
-                                </span>
-                              </td>
-                              <td style={{ padding: '0.6rem 0.45rem', color: '#475569', lineHeight: 1.3 }}>
-                                {magmaRationale}
-                              </td>
-                            </tr>
-
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-
-                    {/* Right Column: Active Synergy & Friction Feed */}
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', height: '100%', minHeight: 0 }}>
-                      
-                      {/* Synergies Card */}
-                      <div className="v12-card-glass" style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.45rem', overflowY: 'auto' }} className="v12-scrollable">
-                        <span style={{ fontSize: '0.62rem', fontWeight: 950, color: colors.accentTeal, letterSpacing: '0.5px' }}>
-                          ACTIVE SYSTEM SYNERGIES
-                        </span>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem', marginTop: '0.15rem' }}>
-                          {synergies.map((item, idx) => (
-                            <div key={idx} style={{ display: 'flex', gap: '0.35rem', fontSize: '0.65rem', color: '#475569', lineHeight: 1.35 }}>
-                              <span style={{ fontWeight: 900, color: colors.accentTeal }}>✓</span>
-                              <span>{item}</span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Friction & Risks Card */}
-                      <div className="v12-card-glass" style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.45rem', overflowY: 'auto' }} className="v12-scrollable">
-                        <span style={{ fontSize: '0.62rem', fontWeight: 950, color: colors.accentCoral, letterSpacing: '0.5px' }}>
-                          ECOSYSTEM FRICTION & RISKS
-                        </span>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem', marginTop: '0.15rem' }}>
-                          {friction.map((item, idx) => (
-                            <div key={idx} style={{ display: 'flex', gap: '0.35rem', fontSize: '0.65rem', color: '#475569', lineHeight: 1.35 }}>
-                              <span style={{ fontWeight: 900, color: colors.accentCoral }}>⚠️</span>
-                              <span>{item}</span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Strategic Recommendation Card */}
-                      <div className="v12-card-glass" style={{ flex: 0.8, display: 'flex', flexDirection: 'column', gap: '0.35rem', background: 'rgba(13, 148, 136, 0.02)', border: `1.2px solid ${colors.accentTeal}` }}>
-                        <span style={{ fontSize: '0.62rem', fontWeight: 950, color: colors.accentTeal, letterSpacing: '0.5px' }}>
-                          THE C-SUITE RECOMMENDATION
-                        </span>
-                        <p style={{ margin: 0, fontSize: '0.65rem', color: '#0f172a', lineHeight: 1.4, fontWeight: 700 }}>
-                          {recommendation}
-                        </p>
-                      </div>
-
-                    </div>
-
-                  </div>
-
-                </div>
-              );
-            })()}
-
-            {/* =========================================================================
-            // PAGE 11: MERCK MOONSHOT LAYERS (9-LAYER COMPOSABLE ARCHITECTURE COMPARISON)
-            // ========================================================================= */}
-            {reportPage === 'moonshot' && (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', flex: 1, minHeight: 0 }}>
-                
-                <div style={{ display: 'grid', gridTemplateColumns: '1.1fr 1.3fr', gap: '0.85rem', flex: 1, minHeight: 0 }}>
-                  
-                  {/* Left Column: Vertical Accordion of 9 Moonshot Layers */}
-                  <div className="v12-card-glass" style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem', height: '100%', overflowY: 'auto' }} className="v12-scrollable">
-                    <span style={{ fontSize: '0.65rem', fontWeight: 950, color: colors.accentTeal, letterSpacing: '0.5px', borderBottom: '1px solid rgba(15,23,42,0.08)', paddingBottom: '0.35rem', display: 'block' }}>
-                      THE 9 CORE ARCHITECTURAL MOONSHOT LAYERS
-                    </span>
-
-                    {(() => {
-                      const layers = [
-                        { id: 1, name: '1. Experience Layer (UI)', rec: 'Adobe GenStudio + Google A2UI' },
-                        { id: 2, name: '2. Context & Semantic Layer', rec: 'Google Sentinel + ADK SkillToolset' },
-                        { id: 3, name: '3. Claims Library & Data Platform', rec: 'Databricks & Veeva via MCP' },
-                        { id: 4, name: '4. Cognitive Engine (LLM)', rec: 'Google Model Garden (Gemini 3.1 Pro)' },
-                        { id: 5, name: '5. Orchestration Runtime', rec: 'ADK 2.0 on Agent Runtime' },
-                        { id: 6, name: '6. Trace & State Storage', rec: 'Cloud Trace + Firestore (via ADK)' },
-                        { id: 7, name: '7. API Security Gateway', rec: 'Kong AI Gateway (Strict GA)' },
-                        { id: 8, name: '8. Downstream Review', rec: 'Frame.io & Veeva via ADK HITL' },
-                        { id: 9, name: '9. ModelOps & Quality', rec: 'ADK Eval Framework' }
-                      ];
-
-                      return (
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem', marginTop: '0.2rem' }}>
-                          {layers.map(layer => {
-                            const isExpanded = expandedMoonshotLayerId === layer.id;
-                            return (
-                              <div
-                                key={layer.id}
-                                onClick={() => setExpandedMoonshotLayerId(layer.id)}
-                                style={{
-                                  padding: '0.55rem 0.75rem',
-                                  borderRadius: '6px',
-                                  background: isExpanded ? 'rgba(13, 148, 136, 0.05)' : '#f8fafc',
-                                  border: isExpanded ? `1.5px solid ${colors.accentTeal}` : '1px solid rgba(15, 23, 42, 0.08)',
-                                  cursor: 'pointer',
-                                  transition: 'all 0.15s ease'
-                                }}
-                                className="v12-table-row-hover"
-                              >
-                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                  <span style={{ fontSize: '0.72rem', fontWeight: 900, color: isExpanded ? colors.accentTeal : '#0f172a' }}>
-                                    {layer.name}
-                                  </span>
-                                  <span style={{ fontSize: '0.52rem', background: isExpanded ? 'rgba(13, 148, 136, 0.15)' : 'rgba(15,23,42,0.04)', color: isExpanded ? colors.accentTeal : '#475569', padding: '0.08rem 0.35rem', borderRadius: '3px', fontWeight: 850 }}>
-                                    {isExpanded ? 'ACTIVE' : 'SELECT'}
-                                  </span>
-                                </div>
-                                <div style={{ fontSize: '0.58rem', color: '#475569', marginTop: '0.15rem' }}>
-                                  Recommendation: <strong style={{ color: '#0f172a' }}>{layer.rec}</strong>
-                                </div>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      );
-                    })()}
-                  </div>
-
-                  {/* Right Column: Comparative Analytical Panels */}
-                  {(() => {
-                    const layersData = {
-                      1: {
-                        name: '1. Experience Layer (UI)',
-                        adobe: { pros: 'GenStudio provides a ready-made, risk-free creative workspace.', cons: 'Closed ecosystem; extremely difficult to surface backend multi-agent telemetry natively.' },
-                        aws: { pros: 'Total custom design freedom.', cons: 'Zero out-of-the-box UI frameworks. Requires a 100% custom frontend application build, blowing up the timeline.' },
-                        gcp: { pros: 'Supports A2UI protocol to dynamically stream generative UIs directly from the agent backend.', cons: 'Requires configuring the ADK backend to stream the correct JSON components.' },
-                        rec: 'Adobe GenStudio + Google A2UI',
-                        benefits: 'Keeps marketers in their familiar Adobe tools while natively streaming agent telemetry and compliance dashboards to their screens without custom frontend coding.',
-                        journey: [
-                          "Marketer logs into Adobe GenStudio to initiate a campaign.",
-                          "Marketer inputs a natural language brief into the Gemini Enterprise App interface.",
-                          "Developer configuration ensures the backend agent streams dynamic A2UI components (progress trackers, compliance scorecards) directly back to the UI.",
-                          "Marketer interacts with these generative A2UI components to tweak targeting and review initial asset frameworks without leaving the creative workspace."
-                        ]
-                      },
-                      2: {
-                        name: '2. Context & Semantic Layer',
-                        adobe: { pros: 'Brand Intelligence enforces visual standards effectively.', cons: 'Incapable of parsing unstructured clinical rules or L3 strategic guidelines.' },
-                        aws: { pros: 'Amazon Neptune offers a highly mature knowledge graph database.', cons: 'Requires building a custom regulatory rules engine from scratch.' },
-                        gcp: { pros: 'Sentinel provides a pre-trained rules proxy; ADK SkillToolset loads specific rules on demand.', cons: 'Standard enterprise data ingestion cycles apply.' },
-                        rec: 'Google Sentinel + ADK SkillToolset',
-                        benefits: 'Avoids custom database builds entirely. Progressively loads MLR rules only when needed, which slashes LLM token costs and latency during the generation phase.',
-                        journey: [
-                          'Marketer provides the strategic campaign guidelines and L3 parameters in the brief.',
-                          'Developer configures ADK SkillToolset to encapsulate complex MLR and Pharma rules as on-demand skills.',
-                          'Backend Agent queries Google Sentinel to fetch the precise historical context and user preferences for the specific asset.',
-                          'Backend Agent selectively activates the required rules via progressive disclosure to evaluate the brief while keeping token costs low.'
-                        ]
-                      },
-                      3: {
-                        name: '3. Claims Library & Data Platform',
-                        adobe: { pros: 'Brand Library holds visual assets.', cons: 'Lacks a clinical claims registry or GxP vector search capabilities.' },
-                        aws: { pros: 'Databricks (Data Genie) handles the enterprise data layer effectively.', cons: 'Sits outside the core AI loop, requiring custom RAG pipelines to connect.' },
-                        gcp: { pros: 'Native support for the Model Context Protocol (MCP) to access enterprise data directly.', cons: 'Requires exposing Databricks/Veeva as MCP servers first.' },
-                        rec: 'Databricks & Veeva via MCP',
-                        benefits: 'Eliminates custom API webhook code. It securely connects the agent swarm directly to your existing Databricks and Veeva instances as standardized services.',
-                        journey: [
-                          'Developer registers Databricks (Data Genie) and Veeva PromoMats as MCP servers.',
-                          'Marketer selects an audience segment (e.g., "pediatricians") via a drop-down menu in the UI.',
-                          'Backend Agent queries the Databricks MCP server to retrieve the approved audience data profile.',
-                          'Backend Agent queries the Veeva MCP server to fetch the exact, validated medical claims and citations required for that specific audience.'
-                        ]
-                      },
-                      4: {
-                        name: '4. Cognitive Engine (LLM)',
-                        adobe: { pros: 'Firefly Services API is the market leader for visual asset generation.', cons: 'Lacks a foundational text reasoning model for deep regulatory and HTML syntax audits.' },
-                        aws: { pros: 'Amazon Bedrock aggregates multiple third-party models to prevent lock-in.', cons: 'Adds cross-cloud network latency between the orchestration engine and the models.' },
-                        gcp: { pros: 'Model Garden hosts Gemini 3.1 Pro (1M-token context) and Anthropic Claude.', cons: 'Requires enterprise rate-limit management.' },
-                        rec: 'Google Model Garden',
-                        benefits: 'Provides the massive 1M-token context window needed to swallow 30-page IVAs whole, while retaining model agnosticism via Claude without leaving the orchestration cloud.',
-                        journey: [
-                          'Marketer selects the asset type (e.g., a massive 30-page Interactive Visual Aid) for generation.',
-                          'Backend Agent passes the entire IVA context, audience data, and MLR rules to Gemini 3.1 Pro via the Model Garden.',
-                          'Gemini 3.1 Pro utilizes its 1M-token window to conduct simultaneous deep regulatory audits, copy generation, and syntax checks.',
-                          'Backend Agent delegates visual generation tasks to Adobe Firefly to produce the required creative imagery.'
-                        ]
-                      },
-                      5: {
-                        name: '5. Orchestration Runtime',
-                        adobe: { pros: 'Workfront offers top-tier enterprise project tracking.', cons: 'It is a monolithic task manager, not an autonomous agent runtime.' },
-                        aws: { pros: 'LangGraph on AgentCore utilizes mature serverless computing primitives.', cons: 'Requires managing custom infrastructure and manually handling agent state logic.' },
-                        gcp: { pros: 'ADK 2.0 Graph Workflows run natively on managed Agent Runtime with event-driven dormancy gates.', cons: 'ADK 2.0 introduces a learning curve for teams used to writing custom Python loops.' },
-                        rec: 'ADK 2.0 on Agent Runtime',
-                        benefits: 'Event-driven dormancy gates handle multi-day MLR pauses autonomously. The agents sleep and wake up natively, saving massive custom AWS EventBridge development time.',
-                        journey: [
-                          "Developer writes and deploys the ADK 2.0 Graph Workflow code natively to Google's managed Agent Runtime.",
-                          'Marketer hits "Generate," triggering the multi-agent swarm (Spelling Agent, Medical Agent, Brand Agent) to evaluate the asset in parallel.',
-                          "Backend Agent routes tasks deterministically; if a human review is needed, the ADK event-driven dormancy gate automatically hibernates the workflow.",
-                          "Platform Engineer relies on the Agent Runtime to handle all auto-scaling and infrastructure provisioning transparently."
-                        ]
-                      },
-                      6: {
-                        name: '6. Trace & State Storage',
-                        adobe: { pros: 'Content Fragments track Adobe-specific modular content.', cons: 'Mathematically incompatible with backend multi-agent execution logs and cryptographic traces.' },
-                        aws: { pros: 'DynamoDB is a highly scalable, enterprise-approved NoSQL database.', cons: 'Requires manually designing complex JSON partition schemas and mapping LLM memory states.' },
-                        gcp: { pros: 'Cloud Trace provides deep observability; ADK Durable Memory natively snaps state to Firestore.', cons: 'Requires basic cloud partition alignment.' },
-                        rec: 'Cloud Trace + Firestore (via ADK)',
-                        benefits: 'Zero custom schema design required. It natively writes agent state to Firestore and pushes execution spans to Cloud Trace for instant, out-of-the-box visual debugging.',
-                        journey: [
-                          'Backend Agent initiates a session and assigns a cryptographic SPIFFE ID via Agent Identity to track all actions.',
-                          'Backend Agent natively snaps its execution state, memory, and LLM context to Google Cloud Firestore without custom serialization.',
-                          'Platform Engineer utilizes Google Cloud Trace to visually monitor the execution spans, tool calls, and debug any workflow bottlenecks in real-time.',
-                          'MLR Reviewer benefits from an unbroken, auditable chain of evidence proving how the AI arrived at a specific claim.'
-                        ]
-                      },
-                      7: {
-                        name: '7. API Security Gateway',
-                        adobe: { pros: 'N/A.', cons: 'Does not offer an enterprise generative AI security gateway.' },
-                        aws: { pros: 'API Gateway handles standard REST routing reliably.', cons: 'Lacks native AI prompt sanitization and PII tracking out of the box.' },
-                        gcp: { pros: 'Agent Gateway natively manages tool access and Model Armor policies.', cons: 'Agent Gateway is currently in Private Preview and is too risky for a January launch.' },
-                        rec: 'Kong AI Gateway (Strict GA)',
-                        benefits: 'Fully GA and enterprise-tested. It handles prompt safety, PII scrubbing, and multi-model routing securely today without relying on unreleased preview software.',
-                        journey: [
-                          "Platform Engineer maintains Kong AI Gateway as the primary enterprise proxy.",
-                          "Marketer's prompts and file uploads pass through Kong for real-time safety filtering and PII scrubbing before reaching the LLM.",
-                          "Developer integrates internal Agent-to-Agent API calls through Kong to ensure all AI communications adhere to existing corporate networking policies.",
-                          "Platform Engineer monitors token usage, prompt injection attempts, and model routing fallbacks through Kong's centralized dashboard."
-                        ]
-                      },
-                      8: {
-                        name: '8. Downstream Review',
-                        adobe: { pros: 'Frame.io and Veeva Vault are approved, risk-free enterprise systems of record.', cons: 'Requires building custom API webhooks for feedback loops.' },
-                        aws: { pros: 'Strong API capabilities.', cons: 'Zero native content-review interfaces or pause mechanisms built in.' },
-                        gcp: { pros: 'ADK Human-in-the-Loop (HITL) automatically catches workflow exceptions to pause agents.', cons: "Building a legal UI in Google duplicates Veeva's functionality." },
-                        rec: 'Frame.io & Veeva via ADK HITL',
-                        benefits: 'Agents automatically hibernate during Frame.io or Veeva human reviews and wake up seamlessly upon approval with zero idle compute costs.',
-                        journey: [
-                          'Backend Agent compiles the final target HTML and places placeholder jobs in Frame.io and Veeva Vault.',
-                          'Backend Agent triggers the ADK Human-in-the-Loop (HITL) mechanism, safely pausing execution and costing zero compute.',
-                          'Creative Designer logs into Frame.io to execute visual micro-edits on the generated assets.',
-                          'MLR Reviewer logs into Veeva Vault to conduct the final medical review and apply electronic signatures.',
-                          'Backend Agent receives the approval webhook, wakes up autonomously, and finalizes the asset for deployment.'
-                        ]
-                      },
-                      9: {
-                        name: '9. ModelOps & Quality',
-                        adobe: { pros: 'Excellent for visual and creative asset review.', cons: 'Not applicable for programmatic LLM reasoning evaluation.' },
-                        aws: { pros: 'Deep custom logging capabilities.', cons: 'Requires building a custom evaluation harness from scratch to test multi-agent loops.' },
-                        gcp: { pros: 'ADK Eval Framework provides out-of-the-box local simulation testing for LLMs-as-a-judge.', cons: 'Requires developers to write the initial eval test cases.' },
-                        rec: 'ADK Eval Framework',
-                        benefits: "Replaces the need for custom eval harnesses. It allows developers to locally simulate multi-day idle times and test the agent's reasoning before deploying anything to production.",
-                        journey: [
-                          "Developer utilizes the agents-cli eval run framework locally to write test cases for the agent swarm.",
-                          "Developer simulates the entire Marketer-to-MLR journey, including multi-day idle delays, to ensure the state machine holds up.",
-                          "Developer runs LLM-as-a-judge deterministic tests to verify that the agents strictly adhere to the brand and MLR rubrics.",
-                          "Platform Engineer reviews the eval metrics and confidently promotes the workflow into the production Agent Runtime."
-                        ]
-                      }
-                    };
-
-                    const currentLayer = layersData[expandedMoonshotLayerId];
-
-                    return (
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', height: '100%', overflowY: 'auto' }} className="v12-scrollable">
-                        
-                        {/* Rec Banner */}
-                        <div className="v12-card-glass" style={{ borderLeft: `3.5px solid ${colors.accentTeal}`, background: 'rgba(13, 148, 136, 0.03)', padding: '0.6rem 0.85rem' }}>
-                          <span style={{ fontSize: '0.55rem', color: '#475569', fontWeight: 800, textTransform: 'uppercase', display: 'block' }}>
-                            FINAL RECOMMENDATION FOR {currentLayer.name.toUpperCase()}
-                          </span>
-                          <h3 style={{ margin: '0.1rem 0 0 0', fontSize: '1rem', fontWeight: 950, color: colors.accentTeal }}>
-                            {currentLayer.rec}
-                          </h3>
-                        </div>
-
-                        {/* Pros & Cons side-by-side columns */}
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0.65rem' }}>
-                          
-                          {/* Adobe */}
-                          <div className="v12-card-glass" style={{ background: '#ffffff', fontSize: '0.65rem' }}>
-                            <div style={{ fontWeight: 900, color: '#0f172a', borderBottom: '1px solid rgba(15,23,42,0.06)', paddingBottom: '0.2rem', marginBottom: '0.35rem' }}>Adobe System</div>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem', color: '#475569' }}>
-                              <div>🟢 <strong style={{ color: '#0f172a' }}>Pros:</strong> {currentLayer.adobe.pros}</div>
-                              <div>🔴 <strong style={{ color: '#0f172a' }}>Cons:</strong> {currentLayer.adobe.cons}</div>
-                            </div>
-                          </div>
-
-                          {/* AWS */}
-                          <div className="v12-card-glass" style={{ background: '#ffffff', fontSize: '0.65rem' }}>
-                            <div style={{ fontWeight: 900, color: '#0f172a', borderBottom: '1px solid rgba(15,23,42,0.06)', paddingBottom: '0.2rem', marginBottom: '0.35rem' }}>AWS Platform</div>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem', color: '#475569' }}>
-                              <div>🟢 <strong style={{ color: '#0f172a' }}>Pros:</strong> {currentLayer.aws.pros}</div>
-                              <div>🔴 <strong style={{ color: '#0f172a' }}>Cons:</strong> {currentLayer.aws.cons}</div>
-                            </div>
-                          </div>
-
-                          {/* Google Cloud */}
-                          <div className="v12-card-glass" style={{ background: 'rgba(13, 148, 136, 0.01)', border: `1.2px solid ${colors.accentTeal}`, fontSize: '0.65rem' }}>
-                            <div style={{ fontWeight: 900, color: colors.accentTeal, borderBottom: '1px solid rgba(13,148,136,0.08)', paddingBottom: '0.2rem', marginBottom: '0.35rem' }}>Google Cloud [2026 Stack]</div>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem', color: '#475569' }}>
-                              <div>🟢 <strong style={{ color: '#0f172a' }}>Pros:</strong> {currentLayer.gcp.pros}</div>
-                              <div>🔴 <strong style={{ color: '#0f172a' }}>Cons:</strong> {currentLayer.gcp.cons}</div>
-                            </div>
-                          </div>
-
-                        </div>
-
-                        {/* Symmetrical split: Core Benefits vs. User Journey */}
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: '0.85rem' }}>
-                          
-                          {/* Core Benefits */}
-                          <div className="v12-card-glass" style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
-                            <span style={{ fontSize: '0.62rem', fontWeight: 900, color: '#475569', letterSpacing: '0.5px' }}>CORE BUSINESS & GxP BENEFITS</span>
-                            <p style={{ margin: 0, fontSize: '0.68rem', color: '#475569', lineHeight: 1.45 }}>
-                              {currentLayer.benefits}
-                            </p>
-                          </div>
-
-                          {/* User Journey */}
-                          <div className="v12-card-glass" style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
-                            <span style={{ fontSize: '0.62rem', fontWeight: 900, color: '#475569', letterSpacing: '0.5px' }}>SOLUTION APPROACH & USER JOURNEY</span>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
-                              {currentLayer.journey.map((step, idx) => (
-                                <div key={idx} style={{ display: 'flex', gap: '0.35rem', fontSize: '0.65rem', color: '#475569', lineHeight: 1.35 }}>
-                                  <span style={{ fontWeight: 900, color: colors.accentTeal, flexShrink: 0 }}>{idx + 1}.</span>
-                                  <span>{step}</span>
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-
-                        </div>
-
-                      </div>
-                    );
-                  })()}
-
-                </div>
-
-              </div>
-            )}
-
-            {/* =========================================================================
-            // PAGE 10: C-SUITE OPERATIONAL READINESS & LEGAL RISK
-            // ========================================================================= */}
-            {reportPage === 'operational' && (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', flex: 1, minHeight: 0 }}>
-                
-                {/* Upper Row Symmetrical Split: Talent Mapping vs. Legal Risk */}
-                <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '0.85rem', flex: 1.2, minHeight: 0 }}>
-                  
-                  {/* 1. Talent & Resource Skill Mapping */}
-                  <div className="v12-card-glass" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', height: '100%', minHeight: '260px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(15, 23, 42, 0.08)', paddingBottom: '0.3rem', alignItems: 'center' }}>
-                      <span style={{ fontSize: '0.68rem', fontWeight: 950, color: '#0f172a', letterSpacing: '0.5px' }}>ORGANIZATIONAL SKILLS BENCH CONTRAST</span>
-                      <span style={{ fontSize: '0.55rem', color: '#475569' }}>Talent hours needed vs. Upskilling bench</span>
-                    </div>
-
-                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifycontent: 'space-around', gap: '0.45rem', padding: '0.35rem 0' }}>
-                      
-                      {/* Skill 1: Python/MCP Developers */}
-                      <div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.65rem', fontWeight: 800, marginBottom: '0.15rem' }}>
-                          <span>Python & MCP Mesh Architecture (Google Build)</span>
-                          <span style={{ color: colors.accentAmber }}>Requires 2 High-Price Hires / 6 Weeks Upskill</span>
-                        </div>
-                        <div style={{ display: 'flex', height: '10px', background: 'rgba(15,23,42,0.03)', borderRadius: '100px', border: '1px solid rgba(15,23,42,0.06)', overflow: 'hidden' }}>
-                          <div style={{ width: '20%', background: colors.accentTeal, borderRadius: '100px 0 0 100px' }} title="Current internal bench" />
-                          <div style={{ width: '80%', background: colors.accentAmber }} title="Additional skill hours needed" />
-                        </div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.52rem', color: '#64748b', marginTop: '0.05rem' }}>
-                          <span>Current Bench: 20%</span>
-                          <span>Strategic Gap: 80%</span>
-                        </div>
-                      </div>
-
-                      {/* Skill 2: Veeva Admins */}
-                      <div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.65rem', fontWeight: 800, marginBottom: '0.15rem' }}>
-                          <span>Veeva Admin & Bedrock Configuration (AWS Buy)</span>
-                          <span style={{ color: '#16a34a' }}>✓ 100% Upskilled Bench Available</span>
-                        </div>
-                        <div style={{ display: 'flex', height: '10px', background: 'rgba(15,23,42,0.03)', borderRadius: '100px', border: '1px solid rgba(15,23,42,0.06)', overflow: 'hidden' }}>
-                          <div style={{ width: '85%', background: colors.accentTeal, borderRadius: '100px 0 0 100px' }} />
-                          <div style={{ width: '15%', background: '#94a3b8' }} />
-                        </div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.52rem', color: '#64748b', marginTop: '0.05rem' }}>
-                          <span>Current Bench: 85%</span>
-                          <span>Strategic Gap: 15%</span>
-                        </div>
-                      </div>
-
-                    </div>
-
-                    <div style={{ background: '#f8fafc', padding: '0.45rem', borderRadius: '4px', border: '1px solid rgba(15,23,42,0.08)', fontSize: '0.62rem', color: '#475569', lineHeight: 1.35 }}>
-                      <strong>Talent Conclusion:</strong> Choosing the custom *Google Mesh* requires hiring 2 specialized AI engineers or upskilling 3 team members, whereas the *Veeva/AWS Native* route leverages your existing, certified internal Veeva administrators.
-                    </div>
-                  </div>
-
-                  {/* 2. Legal & Patient Privacy Risk Thermometers */}
-                  <div className="v12-card-glass" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', height: '100%', minHeight: '260px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(15, 23, 42, 0.08)', paddingBottom: '0.3rem', alignItems: 'center' }}>
-                      <span style={{ fontSize: '0.68rem', fontWeight: 950, color: '#0f172a', letterSpacing: '0.5px' }}>PATIENT PRIVACY & LEGAL RISK THERMOMETER</span>
-                      
-                      <label style={{ display: 'flex', alignItems: 'center', gap: '0.2rem', fontSize: '0.58rem', fontWeight: 800, color: '#0f172a', cursor: 'pointer' }}>
-                        <input 
-                          type="checkbox" 
-                          checked={njAuditTrailEnabled}
-                          onChange={e => setNjAuditTrailEnabled(e.target.checked)}
-                          style={{ accentColor: colors.accentTeal }}
-                        />
-                        <span>Algorithmic Audit Trail</span>
-                      </label>
-                    </div>
-
-                    <div style={{ flex: 1, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.85rem', padding: '0.35rem 0' }}>
-                      
-                      {/* Thermometer 1: NJ S-1515 */}
-                      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', gap: '0.25rem', relative: 'relative' }}>
-                        <span style={{ fontSize: '0.55rem', fontWeight: 900, color: '#0f172a' }}>NJ S-1515 ADS BILL</span>
-                        
-                        {/* Vertical Thermometer */}
-                        <div style={{ width: '16px', height: '80px', background: '#e2e8f0', borderRadius: '100px', border: '1px solid rgba(15,23,42,0.15)', relative: 'relative', overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
-                          <div 
-                            style={{ 
-                              width: '100%', 
-                              height: njAuditTrailEnabled ? '25%' : '90%', 
-                              background: njAuditTrailEnabled ? colors.accentTeal : colors.accentCoral, 
-                              borderRadius: '100px',
-                              transition: 'height 0.3s ease, background-color 0.3s'
-                            }} 
-                          />
-                        </div>
-                        <span style={{ fontSize: '0.62rem', fontWeight: 900, color: njAuditTrailEnabled ? colors.accentTeal : colors.accentCoral }}>
-                          {njAuditTrailEnabled ? "✓ COMPLIANT" : "❌ HIGH LIABILITY"}
-                        </span>
-                      </div>
-
-                      {/* Thermometer 2: EU AI Act */}
-                      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', gap: '0.25rem' }}>
-                        <span style={{ fontSize: '0.55rem', fontWeight: 900, color: '#0f172a' }}>EU AI ACT SECTION 52</span>
-                        
-                        {/* Vertical Thermometer */}
-                        <div style={{ width: '16px', height: '80px', background: '#e2e8f0', borderRadius: '100px', border: '1px solid rgba(15,23,42,0.15)', relative: 'relative', overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
-                          <div style={{ width: '100%', height: '35%', background: colors.accentTeal, borderRadius: '100px' }} />
-                        </div>
-                        <span style={{ fontSize: '0.62rem', fontWeight: 900, color: colors.accentTeal }}>✓ COMPLIANT</span>
-                      </div>
-
-                    </div>
-
-                    {!njAuditTrailEnabled && (
-                      <div style={{ background: 'rgba(225, 29, 72, 0.05)', border: `1.2px solid ${colors.accentCoral}`, borderRadius: '6px', padding: '0.45rem', fontSize: '0.62rem', display: 'flex', alignItems: 'flex-start', gap: '0.3rem' }}>
-                        <ShieldAlert size={15} style={{ color: colors.accentCoral, flexShrink: 0, marginTop: '0.05rem' }} />
-                        <div>
-                          <span style={{ fontWeight: 950, color: colors.accentCoral, display: 'block' }}>⚠️ NJ S-1515 REGULATORY BLOCKER</span>
-                          <span style={{ color: '#0f172a', display: 'block', marginTop: '0.08rem', lineHeight: 1.3 }}>
-                            Disabling the algorithmic audit trail violates New Jersey Automated Decision Systems Act Section 4. **Exposes Merck to penalties up to $250K/day.** Toggle "Algorithmic Audit Trail" ON to remediate liability.
-                          </span>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-
-                </div>
-
-                {/* Lower Row: Change Management Friction Index & Peer Benchmarks */}
-                <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '0.85rem', flex: 1, minHeight: 0 }}>
-                  
-                  {/* 3. Change Management Friction Index */}
-                  <div className="v12-card-glass" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', height: '100%', minHeight: '180px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(15, 23, 42, 0.08)', paddingBottom: '0.3rem', alignItems: 'center' }}>
-                      <span style={{ fontSize: '0.68rem', fontWeight: 950, color: '#0f172a', letterSpacing: '0.5px' }}>END-USER CHANGE MANAGEMENT FRICTION INDEX</span>
-                      <span style={{ fontSize: '0.55rem', color: '#475569' }}>Friction score on a scale of 1-10</span>
-                    </div>
-
-                    <div style={{ flex: 1, display: 'grid', gridTemplateColumns: '1.3fr 1fr', gap: '0.85rem', alignItems: 'center' }}>
-                      
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
-                        <span style={{ fontSize: '0.62rem', fontWeight: 800, color: '#475569' }}>Select End-User Deployment Channel:</span>
-                        
-                        {/* Selector Radio Group */}
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-                          <label style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.65rem', color: '#0f172a', cursor: 'pointer' }}>
-                            <input 
-                              type="radio" 
-                              name="changeMgt" 
-                              checked={changeManagementOption === 'portal'}
-                              onChange={() => setChangeManagementOption('portal')}
-                              style={{ accentColor: colors.accentTeal }}
-                            />
-                            <span>Separate Standalone Web Portal</span>
-                          </label>
-                          
-                          <label style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.65rem', color: '#0f172a', cursor: 'pointer' }}>
-                            <input 
-                              type="radio" 
-                              name="changeMgt" 
-                              checked={changeManagementOption === 'teams'}
-                              onChange={() => setChangeManagementOption('teams')}
-                              style={{ accentColor: colors.accentTeal }}
-                            />
-                            <span>Embedded in Microsoft Teams (Direct Webhook)</span>
-                          </label>
-
-                          <label style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.65rem', color: '#0f172a', cursor: 'pointer' }}>
-                            <input 
-                              type="radio" 
-                              name="changeMgt" 
-                              checked={changeManagementOption === 'veeva'}
-                              onChange={() => setChangeManagementOption('veeva')}
-                              style={{ accentColor: colors.accentTeal }}
-                            />
-                            <span>Native in Veeva PromoMats Workspace</span>
-                          </label>
-                        </div>
-                      </div>
-
-                      {/* Interactive Dial Score Display */}
-                      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: '#f8fafc', border: '1px solid rgba(15,23,42,0.08)', borderRadius: '6px', padding: '0.65rem', textAlign: 'center' }}>
-                        <span style={{ fontSize: '0.5rem', color: '#475569', fontWeight: 800 }}>FRICTION INDEX</span>
-                        <span style={{ 
-                          fontSize: '1.6rem', 
-                          fontWeight: 950, 
-                          color: changeManagementOption === 'portal' ? colors.accentCoral : changeManagementOption === 'teams' ? colors.accentTeal : colors.accentTeal 
-                        }}>
-                          {changeManagementOption === 'portal' ? '8.2' : changeManagementOption === 'teams' ? '2.4' : '3.8'}
-                          <span style={{ fontSize: '0.78rem', color: '#94a3b8', fontWeight: 700 }}> / 10</span>
-                        </span>
-                        <span style={{ fontSize: '0.52rem', color: '#64748b', display: 'block', marginTop: '0.15rem', lineHeight: 1.3 }}>
-                          {changeManagementOption === 'portal' && "Requires extensive staff retraining ($450K budget)."}
-                          {changeManagementOption === 'teams' && "Invisible integration. Zero retraining required."}
-                          {changeManagementOption === 'veeva' && "Minor staff adjustment. Native workspace flow."}
-                        </span>
-                      </div>
-
-                    </div>
-                  </div>
-
-                  {/* 4. Peer Competitor Benchmarks Comparison */}
-                  <div className="v12-card-glass" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', height: '100%', minHeight: '180px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(15, 23, 42, 0.08)', paddingBottom: '0.3rem', alignItems: 'center' }}>
-                      <span style={{ fontSize: '0.68rem', fontWeight: 950, color: '#0f172a', letterSpacing: '0.5px' }}>PEER BENCHMARK COMPARISON</span>
-                      <span style={{ fontSize: '0.55rem', color: '#475569' }}>Pharma Peer Adoption</span>
-                    </div>
-
-                    <div style={{ flex: 1, overflowY: 'auto' }} className="v12-scrollable">
-                      <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.65rem', textAlign: 'left' }}>
-                        <thead>
-                          <tr style={{ borderBottom: '1px solid rgba(15,23,42,0.08)', color: '#475569', fontWeight: 800 }}>
-                            <th style={{ padding: '0.3rem' }}>PEER PHARMA</th>
-                            <th style={{ padding: '0.3rem' }}>ARCHITECTURE</th>
-                            <th style={{ padding: '0.3rem', textAlign: 'center' }}>ACTIVE USERS</th>
-                            <th style={{ padding: '0.3rem', textAlign: 'center' }}>COMPLIANCE STATUS</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {[
-                            { peer: 'Pfizer Global Oncology', arch: 'GCP Custom Mesh', users: '65,000', status: '✓ GxP Validated' },
-                            { peer: 'Novartis Commercial', arch: 'AWS Bedrock + Veeva', users: '45,000', status: '✓ GxP Validated' },
-                            { peer: 'Roche Diagnostics', arch: 'Hybrid AWS / GCP', users: '30,000', status: '⚠️ Audit Pending' }
-                          ].map((row, i) => (
-                            <tr key={i} style={{ borderBottom: '1px solid rgba(15,23,42,0.04)' }}>
-                              <td style={{ padding: '0.35rem 0.3rem', fontWeight: 800, color: '#0f172a' }}>{row.peer}</td>
-                              <td style={{ padding: '0.35rem 0.3rem', color: '#475569' }}>{row.arch}</td>
-                              <td style={{ padding: '0.35rem 0.3rem', textAlign: 'center', color: '#0f172a' }}>{row.users}</td>
-                              <td style={{ padding: '0.35rem 0.3rem', textAlign: 'center', color: row.status.includes('✓') ? '#16a34a' : colors.accentCoral, fontWeight: 700 }}>{row.status}</td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-
-                </div>
-
-              </div>
-            )}
-
-            {/* =========================================================================
-            // PAGE 9: MCKINSEY-GARTNER ANALYTICAL STRATEGY FRAMEWORKS
-            // ========================================================================= */}
-            {reportPage === 'analytics' && (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', flex: 1, minHeight: 0 }}>
-                
-                {/* Symmetrical Header Sub-Navigation Bar */}
-                <div className="v12-card-glass" style={{ display: 'flex', padding: '0.35rem', gap: '0.25rem', flexShrink: 0 }}>
-                  {[
-                    { id: 'hype', label: '1. Gartner Hype Cycle' },
-                    { id: 'capabilities', label: '2. Critical Capabilities (Harvey Balls)' },
-                    { id: 'horizons', label: '3. McKinsey Three Horizons' },
-                    { id: 'wave', label: '4. Forrester Wave Model' },
-                    { id: 'wardley', label: '5. Wardley Strategic Map' },
-                    { id: 'radar', label: '6. Future-Proofing Radar' },
-                    { id: 'progress', label: '7. Future Workflow Progress' },
-                    { id: 'exception', label: '8. Workload Exception Gate' }
-                  ].map(tab => (
-                    <button
-                      key={tab.id}
-                      onClick={() => {
-                        setActiveFrameworkTab(tab.id);
-                        setHoveredFrameworkItem(null);
-                      }}
-                      style={{
-                        flex: 1,
-                        background: activeFrameworkTab === tab.id ? 'rgba(13, 148, 136, 0.08)' : 'transparent',
-                        border: 'none',
-                        borderRadius: '6px',
-                        padding: '0.45rem 0',
-                        fontSize: '0.65rem',
-                        fontWeight: 900,
-                        color: activeFrameworkTab === tab.id ? colors.accentTeal : '#475569',
-                        cursor: 'pointer',
-                        textTransform: 'uppercase',
-                        transition: 'all 0.15s ease'
-                      }}
-                    >
-                      {tab.label}
-                    </button>
-                  ))}
-                </div>
-
-                {/* Main Interactive Sandbox Content */}
-                <div style={{ display: 'grid', gridTemplateColumns: '1.35fr 1fr', gap: '0.85rem', flex: 1, minHeight: 0 }}>
-                  
-                  {/* Left Column: Framework Visual Canvas */}
-                  <div className="v12-card-glass" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', height: '100%', minHeight: '320px' }}>
-                    
-                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(15,23,42,0.08)', paddingBottom: '0.35rem', alignItems: 'center' }}>
-                      <span style={{ fontSize: '0.7rem', fontWeight: 950, color: '#0f172a', letterSpacing: '0.5px' }}>
-                        {activeFrameworkTab === 'hype' && "GARTNER EMERGENCE HYPE CYCLE"}
-                        {activeFrameworkTab === 'capabilities' && "CRITICAL USE-CASE CAPABILITIES MATRIX"}
-                        {activeFrameworkTab === 'horizons' && "MCKINSEY THREE HORIZONS OF Enterprise Growth"}
-                        {activeFrameworkTab === 'wave' && "FORRESTER WAVE: STRATEGY VS. CURRENT OFFERING"}
-                        {activeFrameworkTab === 'wardley' && "WARDLEY EVOLUTION & VALUE CHAIN MAP"}
-                      </span>
-                      <span style={{ fontSize: '0.58rem', color: '#475569' }}>
-                        {activeFrameworkTab === 'capabilities' ? "Harvey Ball grading" : "Hover components for strategic details"}
-                      </span>
-                    </div>
-
-                    <div style={{ flex: 1, position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f8fafc', border: '1px solid rgba(15, 23, 42, 0.08)', borderRadius: '6px', overflow: 'hidden' }}>
-                      
-                      {/* 1. Gartner Hype Cycle */}
-                      {activeFrameworkTab === 'hype' && (
-                        <svg viewBox="0 0 320 220" style={{ width: '100%', height: '100%' }}>
-                          {/* Gartner Hype Curve Path */}
-                          <path 
-                            d="M 10,200 Q 60,180 80,40 T 130,160 Q 180,120 230,80 T 310,65" 
-                            fill="none" 
-                            stroke="#0d9488" 
-                            strokeWidth="2.5" 
-                            style={{ filter: 'drop-shadow(0 2px 4px rgba(13,148,136,0.2))' }}
-                          />
-                          
-                          {/* Phase Dividers */}
-                          <line x1="80" y1="10" x2="80" y2="210" stroke="rgba(15,23,42,0.04)" strokeDasharray="2" />
-                          <line x1="130" y1="10" x2="130" y2="210" stroke="rgba(15,23,42,0.04)" strokeDasharray="2" />
-                          <line x1="200" y1="10" x2="200" y2="210" stroke="rgba(15,23,42,0.04)" strokeDasharray="2" />
-
-                          {/* Phase Labels */}
-                          <text x="25" y="215" fill="#94a3b8" fontSize="5" fontWeight="bold">Innovation Trigger</text>
-                          <text x="85" y="15" fill="#94a3b8" fontSize="5" fontWeight="bold">Peak of Inflated Expectations</text>
-                          <text x="135" y="215" fill="#94a3b8" fontSize="5" fontWeight="bold">Trough of Disillusionment</text>
-                          <text x="205" y="15" fill="#94a3b8" fontSize="5" fontWeight="bold">Slope of Enlightenment</text>
-
-                          {/* Interactive Node 1: Swarms */}
-                          <g 
-                            style={{ cursor: 'pointer' }}
-                            onMouseEnter={() => setHoveredFrameworkItem({ name: 'Multi-Agent Swarms', phase: 'Innovation Trigger', readiness: '2-3 Years', desc: 'Autonomous swarms coordinate medical, legal, and regulatory checks in parallel. High potential for timeline acceleration, but requires strict validation parameters to clear GxP perimeters.' })}
-                            onMouseLeave={() => setHoveredFrameworkItem(null)}
-                          >
-                            <circle cx="65" cy="110" r="5" fill="#e11d48" stroke="#fff" strokeWidth="1" />
-                            <text x="73" y="112" fill="#0f172a" fontSize="5.5" fontWeight="bold">Agent Swarms</text>
-                          </g>
-
-                          {/* Interactive Node 2: Chatbots */}
-                          <g 
-                            style={{ cursor: 'pointer' }}
-                            onMouseEnter={() => setHoveredFrameworkItem({ name: 'Standalone LLM Chatbots', phase: 'Peak of Inflated Expectations', readiness: '5+ Years (for MLR)', desc: 'General-purpose LLM interfaces lack domain-specific clinical grounding. Highly prone to compliance hallucinations, rendering them unsuitable for direct, un-audited MLR workflows.' })}
-                            onMouseLeave={() => setHoveredFrameworkItem(null)}
-                          >
-                            <circle cx="95" cy="65" r="5" fill="#d97706" stroke="#fff" strokeWidth="1" />
-                            <text x="103" y="62" fill="#0f172a" fontSize="5.5" fontWeight="bold">Standalone Chatbots</text>
-                          </g>
-
-                          {/* Interactive Node 3: RAG */}
-                          <g 
-                            style={{ cursor: 'pointer' }}
-                            onMouseEnter={() => setHoveredFrameworkItem({ name: 'Retrieval-Augmented Generation (RAG)', phase: 'Slope of Enlightenment', readiness: '1 Year (Active Dev)', desc: 'Grounds model outputs directly in approved Veeva clinical claim vaults. Minimizes hallucinations and serves as the core foundation for automated compliance review.' })}
-                            onMouseLeave={() => setHoveredFrameworkItem(null)}
-                          >
-                            <circle cx="215" cy="95" r="5" fill="#0d9488" stroke="#fff" strokeWidth="1" />
-                            <text x="223" y="98" fill="#0f172a" fontSize="5.5" fontWeight="bold">Clinical RAG</text>
-                          </g>
-
-                          {/* Interactive Node 4: API Gateways */}
-                          <g 
-                            style={{ cursor: 'pointer' }}
-                            onMouseEnter={() => setHoveredFrameworkItem({ name: 'Deterministic API Gateways (Kong)', phase: 'Plateau of Productivity', readiness: 'Immediate (Production Active)', desc: 'Enforces mTLS, token rate-limiting, and deep semantic PII/PHI scrubbing. Extremely stable, GxP-validated, and vital for secure external cloud transitions.' })}
-                            onMouseLeave={() => setHoveredFrameworkItem(null)}
-                          >
-                            <circle cx="290" cy="68" r="5" fill="#1e293b" stroke="#fff" strokeWidth="1" />
-                            <text x="245" y="62" fill="#0f172a" fontSize="5.5" fontWeight="bold">Kong API Gateway</text>
-                          </g>
-                        </svg>
-                      )}
-
-                      {/* 2. Critical Capabilities Matrix */}
-                      {activeFrameworkTab === 'capabilities' && (
-                        <div style={{ width: '100%', height: '100%', padding: '1rem', display: 'flex', alignItems: 'center' }}>
-                          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.68rem', textAlign: 'left' }}>
-                            <thead>
-                              <tr style={{ borderBottom: '2px solid rgba(15,23,42,0.1)', color: '#475569', fontWeight: 800 }}>
-                                <th style={{ padding: '0.45rem' }}>CRITICAL USE CASE</th>
-                                <th style={{ padding: '0.45rem', textAlign: 'center' }}>VEEVA NATIVE</th>
-                                <th style={{ padding: '0.45rem', textAlign: 'center' }}>AWS BEDROCK</th>
-                                <th style={{ padding: '0.45rem', textAlign: 'center' }}>GOOGLE VERTEX</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {[
-                                { case: 'FDA 21 CFR Part 11 Audit Trails', veeva: '🌕 (Complete)', aws: '🌔 (Strong)', gcp: '🌓 (Requires Wrapper)' },
-                                { case: 'Adobe GenStudio Metadata Injection', veeva: '🌑 (No Integration)', aws: '🌓 (Custom Glue)', gcp: '🌕 (Native MCP/API)' },
-                                { case: 'EU AI Act Geofencing & Safeguards', veeva: '🌔 (Frankfurt Option)', aws: '🌕 (Strong)', gcp: '🌕 (Vertex Model Armor)' },
-                                { case: 'Real-Time Vector Claims Grounding', veeva: '🌓 (Basic Search)', aws: '🌔 (Kendra Link)', gcp: '🌕 (Zero-ETL BigQuery)' }
-                              ].map((row, i) => (
-                                <tr key={i} style={{ borderBottom: '1px solid rgba(15,23,42,0.06)' }}>
-                                  <td style={{ padding: '0.55rem', fontWeight: 700, color: '#0f172a' }}>{row.case}</td>
-                                  <td style={{ padding: '0.55rem', textAlign: 'center', color: '#0d9488', fontWeight: 800 }}>{row.veeva}</td>
-                                  <td style={{ padding: '0.55rem', textAlign: 'center', color: '#0d9488', fontWeight: 800 }}>{row.aws}</td>
-                                  <td style={{ padding: '0.55rem', textAlign: 'center', color: '#0d9488', fontWeight: 800 }}>{row.gcp}</td>
-                                </tr>
-                              ))}
-                            </tbody>
-                          </table>
-                        </div>
-                      )}
-
-                      {/* 3. McKinsey Three Horizons of Growth */}
-                      {activeFrameworkTab === 'horizons' && (
-                        <svg viewBox="0 0 320 220" style={{ width: '100%', height: '100%' }}>
-                          {/* Horizon 3 Stacked Area Fill */}
-                          <path d="M 10,210 Q 90,200 150,160 T 310,40 L 310,210 Z" fill="rgba(139, 92, 246, 0.05)" />
-                          {/* Horizon 2 Stacked Area Fill */}
-                          <path d="M 10,210 Q 90,180 160,110 T 310,95 L 310,210 Z" fill="rgba(245, 158, 11, 0.05)" />
-                          {/* Horizon 1 Stacked Area Fill */}
-                          <path d="M 10,210 Q 80,110 160,70 T 310,140 L 310,210 Z" fill="rgba(13, 148, 136, 0.05)" />
-
-                          {/* Horizon Dividers */}
-                          <path d="M 10,210 Q 80,110 160,70 T 310,140" fill="none" stroke="#0d9488" strokeWidth="2" />
-                          <path d="M 10,210 Q 90,180 160,110 T 310,95" fill="none" stroke="#d97706" strokeWidth="2" />
-                          <path d="M 10,210 Q 90,200 150,160 T 310,40" fill="none" stroke="#7c3aed" strokeWidth="2" />
-
-                          {/* Symmetrical Clickable Dots */}
-                          <g 
-                            style={{ cursor: 'pointer' }}
-                            onMouseEnter={() => setHoveredFrameworkItem({ name: 'Horizon 1: Defend & Extend', phase: 'MVP Go-Live (Jan 2027)', readiness: 'Focus: MLR Text Automation', desc: 'Deploy out-of-the-box Veeva Native AI or a basic Google Vertex API Gateway to automate static text claims verification, slashing initial compliance latency by 40%.' })}
-                            onMouseLeave={() => setHoveredFrameworkItem(null)}
-                          >
-                            <circle cx="80" cy="115" r="5" fill="#0d9488" stroke="#fff" strokeWidth="1" />
-                            <text x="65" y="100" fill="#0d9488" fontSize="5" fontWeight="bold">Horizon 1: MVP</text>
-                          </g>
-
-                          <g 
-                            style={{ cursor: 'pointer' }}
-                            onMouseEnter={() => setHoveredFrameworkItem({ name: 'Horizon 2: Emerging Opportunities', phase: 'Strategic Expansion (2028)', readiness: 'Focus: Agentic Orchestration', desc: 'Transition from single prompts to autonomous agent swarms. Connect Adobe GenStudio and Workfront campaign briefs directly to automate metadata tagging and routing.' })}
-                            onMouseLeave={() => setHoveredFrameworkItem(null)}
-                          >
-                            <circle cx="170" cy="112" r="5" fill="#d97706" stroke="#fff" strokeWidth="1" />
-                            <text x="145" y="98" fill="#d97706" fontSize="5" fontWeight="bold">Horizon 2: Swarms</text>
-                          </g>
-
-                          <g 
-                            style={{ cursor: 'pointer' }}
-                            onMouseEnter={() => setHoveredFrameworkItem({ name: 'Horizon 3: Transformative Vision', phase: 'Long-Term Scale (2030)', readiness: 'Focus: Predictive Supply Chain', desc: 'Establish an autonomous content supply chain. Harness real-time localized HCP interaction data to programmatically generate and validate compliance campaigns globally.' })}
-                            onMouseLeave={() => setHoveredFrameworkItem(null)}
-                          >
-                            <circle cx="250" cy="78" r="5" fill="#7c3aed" stroke="#fff" strokeWidth="1" />
-                            <text x="225" y="65" fill="#7c3aed" fontSize="5" fontWeight="bold">Horizon 3: Autonomous</text>
-                          </g>
-
-                          <text x="15" y="25" fill="#64748b" fontSize="6" fontWeight="bold">Y-AXIS: STRATEGIC ENTERPRISE VALUE</text>
-                          <text x="200" y="200" fill="#64748b" fontSize="6" fontWeight="bold">X-AXIS: TIMELINE (2026 - 2030)</text>
-                        </svg>
-                      )}
-
-                      {/* 4. Forrester Wave Model */}
-                      {activeFrameworkTab === 'wave' && (
-                        <svg viewBox="0 0 320 220" style={{ width: '100%', height: '100%' }}>
-                          {/* Forrester Arc Lines (Leaders, Strong Performers, Contenders) */}
-                          <path d="M 280,210 A 200,200 0 0,0 60,20" fill="none" stroke="rgba(15,23,42,0.04)" strokeWidth="1" />
-                          <path d="M 280,210 A 130,130 0 0,0 130,70" fill="none" stroke="rgba(15,23,42,0.04)" strokeWidth="1.5" />
-                          
-                          {/* Quadrant Text Labels */}
-                          <text x="260" y="30" fill="#94a3b8" fontSize="6" fontWeight="bold" textAnchor="end">LEADERS</text>
-                          <text x="180" y="70" fill="#94a3b8" fontSize="5.5" fontWeight="bold">STRONG PERFORMERS</text>
-                          <text x="110" y="130" fill="#94a3b8" fontSize="5" fontWeight="bold">CONTENDERS</text>
-
-                          {/* Bubble 1: Google */}
-                          <g 
-                            style={{ cursor: 'pointer' }}
-                            onMouseEnter={() => setHoveredFrameworkItem({ name: 'Google Cloud Vertex AI', phase: 'Forrester Leader (Massive Presence)', readiness: 'Strategy: 4.8 | Offering: 4.6', desc: 'Combines highly scalable enterprise agent platform APIs with BigQuery zero-ETL data lakes. Giant bubble reflects massive global market presence and zero-trust credentials.' })}
-                            onMouseLeave={() => setHoveredFrameworkItem(null)}
-                          >
-                            <circle cx="240" cy="65" r="14" fill="#0d9488" opacity="0.8" stroke="#fff" strokeWidth="1.5" style={{ filter: 'drop-shadow(0 2px 4px rgba(13,148,136,0.15))' }} />
-                            <text x="240" y="67" fill="#fff" fontSize="5" fontWeight="bold" textAnchor="middle">Google</text>
-                          </g>
-
-                          {/* Bubble 2: AWS */}
-                          <g 
-                            style={{ cursor: 'pointer' }}
-                            onMouseEnter={() => setHoveredFrameworkItem({ name: 'Amazon Web Services (Bedrock)', phase: 'Forrester Leader (Massive Presence)', readiness: 'Strategy: 4.5 | Offering: 4.3', desc: 'Offers excellent model stability and broad foundational gardens. High enterprise presence (large bubble), but restricted model swapping outside Bedrock boundaries.' })}
-                            onMouseLeave={() => setHoveredFrameworkItem(null)}
-                          >
-                            <circle cx="210" cy="95" r="13" fill="#1e293b" opacity="0.8" stroke="#fff" strokeWidth="1.5" />
-                            <text x="210" y="97" fill="#fff" fontSize="5" fontWeight="bold" textAnchor="middle">AWS</text>
-                          </g>
-
-                          {/* Bubble 3: Veeva */}
-                          <g 
-                            style={{ cursor: 'pointer' }}
-                            onMouseEnter={() => setHoveredFrameworkItem({ name: 'Veeva Vault Native AI', phase: 'Strong Performer (Niche Focus)', readiness: 'Strategy: 3.8 | Offering: 4.0', desc: 'Deep vertical integration within pharmaceutical GxP perimeters. Moderate market presence bubble; restricted cross-cloud orchestration.' })}
-                            onMouseLeave={() => setHoveredFrameworkItem(null)}
-                          >
-                            <circle cx="170" cy="140" r="9" fill="#d97706" opacity="0.8" stroke="#fff" strokeWidth="1" />
-                            <text x="170" y="142" fill="#fff" fontSize="4.5" fontWeight="bold" textAnchor="middle">Veeva</text>
-                          </g>
-
-                          {/* Bubble 4: Startups */}
-                          <g 
-                            style={{ cursor: 'pointer' }}
-                            onMouseEnter={() => setHoveredFrameworkItem({ name: 'Bespoke AI Orchestrator Startup', phase: 'Contender / Niche (Small Presence)', readiness: 'Strategy: 4.2 | Offering: 2.8', desc: 'Provides highly customized orchestration hooks, but carries massive operational and security risks. Tiny bubble reflects low market footprint.' })}
-                            onMouseLeave={() => setHoveredFrameworkItem(null)}
-                          >
-                            <circle cx="90" cy="165" r="5" fill="#e11d48" opacity="0.8" stroke="#fff" strokeWidth="1" />
-                            <text x="98" y="167" fill="#0f172a" fontSize="4.5" fontWeight="bold">Startups</text>
-                          </g>
-
-                          <text x="15" y="25" fill="#64748b" fontSize="6" fontWeight="bold">Y-AXIS: CURRENT OFFERING SUITABILITY</text>
-                          <text x="200" y="212" fill="#64748b" fontSize="6" fontWeight="bold">X-AXIS: ARCHITECTURAL STRATEGY</text>
-                        </svg>
-                      )}
-
-                      {/* 5. Wardley Mapping */}
-                      {activeFrameworkTab === 'wardley' && (
-                        <svg viewBox="0 0 320 220" style={{ width: '100%', height: '100%' }}>
-                          {/* Evolution Phases Grid */}
-                          <line x1="80" y1="10" x2="80" y2="200" stroke="rgba(15,23,42,0.04)" />
-                          <line x1="160" y1="10" x2="160" y2="200" stroke="rgba(15,23,42,0.04)" />
-                          <line x1="240" y1="10" x2="240" y2="200" stroke="rgba(15,23,42,0.04)" />
-
-                          {/* Evolution Labels */}
-                          <text x="40" y="210" fill="#94a3b8" fontSize="5.5" fontWeight="bold" textAnchor="middle">Genesis</text>
-                          <text x="120" y="210" fill="#94a3b8" fontSize="5.5" fontWeight="bold" textAnchor="middle">Custom Built</text>
-                          <text x="200" y="210" fill="#94a3b8" fontSize="5.5" fontWeight="bold" textAnchor="middle">Product</text>
-                          <text x="280" y="210" fill="#94a3b8" fontSize="5.5" fontWeight="bold" textAnchor="middle">Commodity</text>
-
-                          {/* Wardley Components */}
-                          {/* Component 1: Cloud Compute */}
-                          <g 
-                            style={{ cursor: 'pointer' }}
-                            onMouseEnter={() => setHoveredFrameworkItem({ name: 'GCP/AWS Cloud Compute & Storage', phase: 'Commodity Utilities', readiness: 'Maturity: High (Out-of-the-Box)', desc: 'Standard cloud infrastructure is a pure commodity. Proves we should never waste SI budget building this layers from scratch.' })}
-                            onMouseLeave={() => setHoveredFrameworkItem(null)}
-                          >
-                            <circle cx="280" cy="180" r="5" fill="#1e293b" stroke="#fff" strokeWidth="1" />
-                            <text x="270" y="172" fill="#0f172a" fontSize="5.5" fontWeight="bold" textAnchor="end">Cloud Compute</text>
-                          </g>
-
-                          {/* Component 2: LLM Models */}
-                          <g 
-                            style={{ cursor: 'pointer' }}
-                            onMouseEnter={() => setHoveredFrameworkItem({ name: 'LLM Foundational Models (Gemini/Claude)', phase: 'Product (Transitioning to Commodity)', readiness: 'Maturity: Moderate-High', desc: 'Foundation models are rapidly evolving from specialized products into utility commodities. The value lies in orchestration, not model training.' })}
-                            onMouseLeave={() => setHoveredFrameworkItem(null)}
-                          >
-                            <circle cx="210" cy="110" r="5" fill="#d97706" stroke="#fff" strokeWidth="1" />
-                            <text x="200" y="102" fill="#0f172a" fontSize="5.5" fontWeight="bold" textAnchor="end">Foundational Models</text>
-                          </g>
-
-                          {/* Component 3: Pharma Agentic MLR */}
-                          <g 
-                            style={{ cursor: 'pointer' }}
-                            onMouseEnter={() => setHoveredFrameworkItem({ name: 'Pharma Agentic MLR Routing Engine', phase: 'Custom Built (High Value)', readiness: 'Maturity: Low (Bespoke Logic)', desc: 'The core business value layer. Requires custom agent architecture to map compliance rules natively. Proves exactly where SI development hours must be spent.' })}
-                            onMouseLeave={() => setHoveredFrameworkItem(null)}
-                          >
-                            <circle cx="120" cy="40" r="6" fill="#0d9488" stroke="#fff" strokeWidth="1.5" style={{ filter: 'drop-shadow(0 2px 4px rgba(13,148,136,0.2))' }} />
-                            <text x="130" y="42" fill="#0d9488" fontSize="6" fontWeight="900">Custom MLR Routing ★</text>
-                          </g>
-
-                          {/* Dependency Lines */}
-                          <line x1="120" y1="46" x2="210" y2="104" stroke="rgba(15,23,42,0.15)" strokeWidth="1" strokeDasharray="2" />
-                          <line x1="210" y1="116" x2="280" y2="174" stroke="rgba(15,23,42,0.15)" strokeWidth="1" strokeDasharray="2" />
-
-                          <text x="15" y="25" fill="#64748b" fontSize="6" fontWeight="bold">Y-AXIS: VALUE TO USER / COMPILATION LEVEL</text>
-                        </svg>
-                      )}
-
-                      {/* 6. Future-Proofing Radar Chart (Google ARD vs. AWS/Veeva Locked) */}
-                      {activeFrameworkTab === 'radar' && (
-                        <svg viewBox="0 0 320 220" style={{ width: '100%', height: '100%' }}>
-                          {/* Radial Background Grid */}
-                          <polygon points="160,20 260,90 220,190 100,190 60,90" fill="none" stroke="rgba(15,23,42,0.04)" strokeWidth="1" />
-                          <polygon points="160,50 235,100 205,170 115,170 85,100" fill="none" stroke="rgba(15,23,42,0.04)" strokeWidth="1" />
-                          <polygon points="160,80 210,110 190,150 130,150 110,110" fill="none" stroke="rgba(15,23,42,0.04)" strokeWidth="1" />
-
-                          {/* Vertices Axis Lines */}
-                          <line x1="160" y1="100" x2="160" y2="20" stroke="rgba(15,23,42,0.06)" />
-                          <line x1="160" y1="100" x2="260" y2="90" stroke="rgba(15,23,42,0.06)" />
-                          <line x1="160" y1="100" x2="220" y2="190" stroke="rgba(15,23,42,0.06)" />
-                          <line x1="160" y1="100" x2="100" y2="190" stroke="rgba(15,23,42,0.06)" />
-                          <line x1="160" y1="100" x2="60" y2="90" stroke="rgba(15,23,42,0.06)" />
-
-                          {/* Axis Labels */}
-                          <text x="160" y="15" fill="#475569" fontSize="5.5" fontWeight="bold" textAnchor="middle">Dynamic Discovery</text>
-                          <text x="268" y="93" fill="#475569" fontSize="5.5" fontWeight="bold">Federated Grounding</text>
-                          <text x="225" y="198" fill="#475569" fontSize="5.5" fontWeight="bold">UI Embeddability</text>
-                          <text x="95" y="198" fill="#475569" fontSize="5.5" fontWeight="bold" textAnchor="end">Security Identity</text>
-                          <text x="52" y="93" fill="#475569" fontSize="5.5" fontWeight="bold" textAnchor="end">Ecosystem Lock-in</text>
-
-                          {/* Polygon 1: Google ARD Stack (Teal - High Flexibility) */}
-                          <polygon 
-                            points="160,25 255,92 215,182 106,181 65,85" 
-                            fill="rgba(13, 148, 136, 0.08)" 
-                            stroke="#0d9488" 
-                            strokeWidth="2" 
-                            style={{ cursor: 'pointer', filter: 'drop-shadow(0 2px 4px rgba(13,148,136,0.2))' }}
-                            onMouseEnter={() => setHoveredFrameworkItem({ name: 'Google Cloud ARD Stack', phase: 'Composable Ecosystem (High Flexibility)', readiness: 'Overall Score: 94%', desc: 'Google Cloud Agentic specifications (ARD, MCP, A2UI) provide unparalleled flexibility. Eliminates static API wrappers via self-assembling discoverable mesh, keeping vendor lock-in to an absolute minimum.' })}
-                            onMouseLeave={() => setHoveredFrameworkItem(null)}
-                          />
-
-                          {/* Polygon 2: AWS/Veeva Locked Stack (Orange - Siloed) */}
-                          <polygon 
-                            points="160,68 210,95 181,130 112,125 120,92" 
-                            fill="rgba(217, 119, 6, 0.05)" 
-                            stroke="#d97706" 
-                            strokeWidth="1.5" 
-                            style={{ cursor: 'pointer' }}
-                            onMouseEnter={() => setHoveredFrameworkItem({ name: 'AWS / Veeva Locked Stack', phase: 'Siloed Ecosystem (High Lock-in)', readiness: 'Overall Score: 42%', desc: 'Relying strictly on native Veeva AI or static AWS Bedrock APIs locks the architecture into proprietary rails. Restricts dynamic discoverability and requires extensive custom middleware to sync with external Adobe content supply chains.' })}
-                            onMouseLeave={() => setHoveredFrameworkItem(null)}
-                          />
-                        </svg>
-                      )}
-
-                      {/* 7. Progressive Horizontal Stage Chart (Future Workflow Progress) */}
-                      {activeFrameworkTab === 'progress' && (
-                        <svg viewBox="0 0 320 220" style={{ width: '100%', height: '100%' }}>
-                          {/* Chevron Stage Background Track */}
-                          <rect x="10" y="100" width="300" height="20" rx="4" fill="rgba(15,23,42,0.03)" />
-                          
-                          {/* Connected Chevron Stages */}
-                          {[
-                            { id: 1, name: 'Create/Gather Rules', x: 15, w: 50, color: colors.accentTeal },
-                            { id: 2, name: 'Owner Approval', x: 75, w: 50, color: colors.accentTeal },
-                            { id: 3, name: 'Embed Rules', x: 135, w: 50, color: colors.accentTeal },
-                            { id: 4, name: 'Test History', x: 195, w: 50, color: colors.accentTeal },
-                            { id: 5, name: 'Create Asset', x: 255, w: 50, color: colors.accentTeal }
-                          ].map((stage, i) => (
-                            <g 
-                              key={stage.id}
-                              style={{ cursor: 'pointer' }}
-                              onMouseEnter={() => setHoveredFrameworkItem({ 
-                                name: `${stage.id}. Stage: ${stage.name}`, 
-                                phase: 'Operational Milestone', 
-                                readiness: i < 3 ? 'Active In-Scope' : 'Day-Two Integration', 
-                                desc: `Progressive workflow migration. By shifting compliance rules to the start of creative generation, we eliminate downstream legal bottlenecks. Currently modeling: ${stage.name}.` 
-                              })}
-                              onMouseLeave={() => setHoveredFrameworkItem(null)}
-                            >
-                              {/* Connector arrow */}
-                              {i > 0 && (
-                                <line x1={stage.x - 10} y1="110" x2={stage.x} y2="110" stroke={colors.accentTeal} strokeWidth="1.5" strokeDasharray="2" />
-                              )}
-                              
-                              {/* Stage circle node */}
-                              <circle cx={stage.x + 25} cy="110" r="10" fill={stage.color} stroke="#fff" strokeWidth="1.5" />
-                              <text x={stage.x + 25} y="112" fill="#fff" fontSize="6" fontWeight="bold" textAnchor="middle">{stage.id}</text>
-                              
-                              {/* Label text */}
-                              <text 
-                                x={stage.x + 25} 
-                                y="132" 
-                                fill="#0f172a" 
-                                fontSize="4.8" 
-                                fontWeight="bold" 
-                                textAnchor="middle"
-                                style={{ transform: 'rotate(-15deg)', transformOrigin: `${stage.x + 25}px 132px` }}
-                              >
-                                {stage.name}
-                              </text>
-                            </g>
-                          ))}
-                          
-                          <text x="160" y="35" fill="#475569" fontSize="6.5" fontWeight="bold" textAnchor="middle">THE FUTURE-STATE COMPLIANCE WORKFLOW</text>
-                          <text x="160" y="48" fill="#94a3b8" fontSize="5" fontWeight="bold" textAnchor="middle">Rules-First Shift-Left Progression Pipeline</text>
-                        </svg>
-                      )}
-
-                      {/* 8. Exception Gate Distribution Chart (Pie Chart) */}
-                      {activeFrameworkTab === 'exception' && (
-                        <svg viewBox="0 0 320 220" style={{ width: '100%', height: '100%' }}>
-                          {/* 85% Sector (Automated Pass) - Large sector */}
-                          <path 
-                            d="M 160,110 L 160,50 A 60,60 0 1,1 110,145 Z" 
-                            fill="rgba(13, 148, 136, 0.85)" 
-                            stroke="#fff" 
-                            strokeWidth="1.5"
-                            style={{ cursor: 'pointer' }}
-                            onMouseEnter={() => setHoveredFrameworkItem({
-                              name: 'Automated Compliance Pass (85%)',
-                              phase: 'Standard Compliance Engine',
-                              readiness: 'Target State Velocity',
-                              desc: '85% of standard promotional content (static banners, simple emails, text adjustments) bypasses manual review and is instantly certified by the digital GxP rule engine.'
-                            })}
-                            onMouseLeave={() => setHoveredFrameworkItem(null)}
-                          />
-                          
-                          {/* 15% Sector (Flagged Exceptions) - Small slice */}
-                          <path 
-                            d="M 160,110 L 110,145 A 60,60 0 0,1 160,50 Z" 
-                            fill="rgba(239, 68, 68, 0.85)" 
-                            stroke="#fff" 
-                            strokeWidth="1.5"
-                            style={{ cursor: 'pointer' }}
-                            onMouseEnter={() => setHoveredFrameworkItem({
-                              name: 'Flagged Exception Gate (15%)',
-                              phase: 'Human-in-the-Loop Escalation',
-                              readiness: 'Review-by-Exception',
-                              desc: 'Only 15% of highly complex, risky, or ambiguous assets are flagged and escalated to human MLR review teams. Maximizes capacity and eliminates queue stagnation!'
-                            })}
-                            onMouseLeave={() => setHoveredFrameworkItem(null)}
-                          />
-                          
-                          {/* Center Cutout to make it a Donut Chart */}
-                          <circle cx="160" cy="110" r="30" fill="#f8fafc" />
-                          
-                          {/* Text indicators */}
-                          <text x="160" y="107" fill="#0f172a" fontSize="8" fontWeight="900" textAnchor="middle">85/15</text>
-                          <text x="160" y="116" fill="#475569" fontSize="4.5" fontWeight="bold" textAnchor="middle">Ratio</text>
-                          
-                          {/* Legend */}
-                          <rect x="230" y="75" width="6" height="6" fill="rgba(13, 148, 136, 0.85)" />
-                          <text x="240" y="80" fill="#0f172a" fontSize="5" fontWeight="bold">Automated Pass (85%)</text>
-                          
-                          <rect x="230" y="90" width="6" height="6" fill="rgba(239, 68, 68, 0.85)" />
-                          <text x="240" y="95" fill="#0f172a" fontSize="5" fontWeight="bold">Human Exceptions (15%)</text>
-
-                          <text x="160" y="25" fill="#475569" fontSize="6.5" fontWeight="bold" textAnchor="middle">WORKLOAD DISTRIBUTION FOR HUMAN REVIEWERS</text>
-                          <text x="160" y="195" fill="#94a3b8" fontSize="4.8" fontStyle="italic" textAnchor="middle">*Hover segments to audit compliance exception gates.*</text>
-                        </svg>
-                      )}
-
-                    </div>
-                  </div>
-
-                  {/* Right Column: Deep-Dive Strategic Analysis */}
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', height: '100%', minHeight: 0 }}>
-                    
-                    <div className="v12-card-glass" style={{ flex: 1.2, display: 'flex', flexDirection: 'column', gap: '0.55rem', background: '#ffffff', overflowY: 'auto' }} className="v12-scrollable">
-                      <span style={{ fontSize: '0.65rem', fontWeight: 900, color: colors.accentTeal, letterSpacing: '0.5px' }}>
-                        MCKINSEY-GARTNER ANNOTATIONS
-                      </span>
-
-                      {hoveredFrameworkItem ? (
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
-                          <div>
-                            <span style={{ fontSize: '0.52rem', color: '#475569', fontWeight: 800, textTransform: 'uppercase' }}>Selected Component</span>
-                            <h4 style={{ margin: '0.08rem 0', fontSize: '0.78rem', fontWeight: 900, color: '#0f172a' }}>{hoveredFrameworkItem.name}</h4>
-                          </div>
-
-                          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.35rem' }}>
-                            <div>
-                              <span style={{ fontSize: '0.52rem', color: '#475569', fontWeight: 800, textTransform: 'uppercase' }}>Classification</span>
-                              <span style={{ fontSize: '0.65rem', fontWeight: 700, color: colors.accentAmber, display: 'block' }}>{hoveredFrameworkItem.phase}</span>
-                            </div>
-                            <div>
-                              <span style={{ fontSize: '0.52rem', color: '#475569', fontWeight: 800, textTransform: 'uppercase' }}>GxP Readiness</span>
-                              <span style={{ fontSize: '0.65rem', fontWeight: 700, color: colors.accentTeal, display: 'block' }}>{hoveredFrameworkItem.readiness}</span>
-                            </div>
-                          </div>
-
-                          <div style={{ background: '#f8fafc', padding: '0.45rem', borderRadius: '4px', border: '1px solid rgba(15,23,42,0.08)', marginTop: '0.2rem' }}>
-                            <span style={{ fontSize: '0.52rem', color: '#475569', fontWeight: 800, display: 'block', marginBottom: '0.15rem' }}>STRATEGIC OUTLINE & RISK PROFILE</span>
-                            <p style={{ margin: 0, fontSize: '0.65rem', color: '#0f172a', lineHeight: 1.35 }}>{hoveredFrameworkItem.desc}</p>
-                          </div>
-                        </div>
-                      ) : (
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem', justifyContent: 'center', height: '100%', textAlign: 'center', color: '#94a3b8' }}>
-                          <TrendingUp size={24} style={{ margin: '0 auto', opacity: 0.5 }} />
-                          <span style={{ fontSize: '0.65rem', fontStyle: 'italic' }}>*Hover over any plotted node on the left canvas to unlock deep-dive board annotations.*</span>
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Value Matrix Card */}
-                    <div className="v12-card-glass" style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.45rem', background: 'rgba(13, 148, 136, 0.02)', border: `1.2px solid ${colors.accentTeal}` }}>
-                      <span style={{ fontSize: '0.65rem', fontWeight: 900, color: colors.accentTeal, letterSpacing: '0.5px' }}>
-                        THE PROCUREMENT CONCLUSION
-                      </span>
-                      <p style={{ margin: 0, fontSize: '0.62rem', color: '#475569', lineHeight: 1.45 }}>
-                        {activeFrameworkTab === 'hype' && "The Hype Cycle proves that deterministic Kong gateways and clinical RAG are ready for GxP production today. Standalone chatbots are highly volatile and must be restricted to prevent warnings."}
-                        {activeFrameworkTab === 'capabilities' && "The Capabilities matrix proves that while Veeva excels at FDA Part 11 auditing out-of-the-box, Google Cloud excels natively at cross-cloud Adobe GenStudio metadata injection and geofencing."}
-                        {activeFrameworkTab === 'horizons' && "The Growth timeline shows the board a clear, phased scale pathway. H1 delivers immediate MLR velocity; H2 automates supply chain sync; H3 introduces autonomous predictive campaigns."}
-                        {activeFrameworkTab === 'wave' && "The Forrester Wave visually justifies to procurement why choosing established mega-vendors (Google/AWS) reduces enterprise scale risk, whereas startup orchestrators introduce support debt."}
-                        {activeFrameworkTab === 'wardley' && "The Wardley Map proves to the CIO exactly where engineering hours should be spent. Do not spend SI budget custom-building utilities; spend it custom-building the GxP MLR routing logic that creates value."}
-                        {activeFrameworkTab === 'radar' && "The Future-Proofing Radar Chart highlights the massive operational contrast between the Google ARD composable mesh and the rigid, proprietary AWS/Veeva locked stack."}
-                      </p>
-                    </div>
-
-                  </div>
-
-                </div>
-
-              </div>
-            )}
-
-            {/* =========================================================================
-            // PAGE 8: COMPOSABLE WHAT-IF SANDBOX (AI ENTERPRISE ARCHITECTURE SIMULATOR)
-            // ========================================================================= */}
-            {reportPage === 'whatif' && (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', flex: 1, minHeight: 0 }}>
-                
-                {/* 🛡️ AGILE SCOPE GUARD DECISION FILTER & TOGGLE */}
-                <div className="v12-card-glass" style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem', background: '#ffffff', border: `1.2px solid ${colors.accentTeal}`, padding: '0.65rem' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.1rem' }}>
-                      <span style={{ fontSize: '0.72rem', fontWeight: 950, color: '#0f172a', letterSpacing: '0.5px' }}>🛡️ AGILE SCOPE GUARD DECISION FILTER</span>
-                      <span style={{ fontSize: '0.55rem', color: '#475569' }}>Draws a hard line between MVP delivery and downstream integration to avoid waterfall blockages.</span>
-                    </div>
-                    <div style={{ display: 'flex', background: '#f1f5f9', padding: '0.2rem', borderRadius: '8px', gap: '0.2rem', boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.06)' }}>
-                      <button
-                        onClick={() => setScopeConstraint('2026')}
-                        style={{
-                          background: scopeConstraint === '2026' ? colors.tealGradient : 'transparent',
-                          color: scopeConstraint === '2026' ? '#ffffff' : '#475569',
-                          border: 'none',
-                          borderRadius: '6px',
-                          padding: '0.35rem 0.65rem',
-                          fontSize: '0.62rem',
-                          fontWeight: 900,
-                          cursor: 'pointer',
-                          transition: 'all 0.2s ease',
-                          boxShadow: scopeConstraint === '2026' ? '0 2px 4px rgba(13,148,136,0.15)' : 'none'
-                        }}
-                      >
-                        2026 Scope (HCP Alert Narrow MVP)
-                      </button>
-                      <button
-                        onClick={() => setScopeConstraint('2027')}
-                        style={{
-                          background: scopeConstraint === '2027' ? colors.tealGradient : 'transparent',
-                          color: scopeConstraint === '2027' ? '#ffffff' : '#475569',
-                          border: 'none',
-                          borderRadius: '6px',
-                          padding: '0.35rem 0.65rem',
-                          fontSize: '0.62rem',
-                          fontWeight: 900,
-                          cursor: 'pointer',
-                          transition: 'all 0.2s ease',
-                          boxShadow: scopeConstraint === '2027' ? '0 2px 4px rgba(13,148,136,0.15)' : 'none'
-                        }}
-                      >
-                        Day-Two / 2027+ Scale
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Summit Filter Mapping Table */}
-                  <div style={{ overflowX: 'auto', border: '1px solid rgba(15,23,42,0.06)', borderRadius: '6px', marginTop: '0.15rem' }}>
-                    <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.58rem', textAlign: 'left' }}>
-                      <thead>
-                        <tr style={{ background: '#f8fafc', borderBottom: '1px solid rgba(15,23,42,0.06)', color: '#475569', fontWeight: 900 }}>
-                          <th style={{ padding: '0.3rem 0.45rem' }}>UI DIMENSION</th>
-                          <th style={{ padding: '0.3rem 0.45rem' }}>2026 IN-SCOPE MVP (ACTIVE)</th>
-                          <th style={{ padding: '0.3rem 0.45rem' }}>DAY-TWO SCALE (2027+)</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {[
-                          { dim: 'Channels', mvp: 'HCP Alert / Single PDF Template', dayTwo: 'SFMC Email Journeys, Veeva CLM, Full IVA' },
-                          { dim: 'Data Inputs', mvp: 'Static Dropdown Segment Selection', dayTwo: 'Live CDP Integration, Intelligent Target Lists' },
-                          { dim: 'Infrastructure', mvp: 'Core Agentic Logic', dayTwo: 'Disaster Recovery, High Availability, CI/CD' },
-                          { dim: 'Capabilities', mvp: 'Core Execution Loops', dayTwo: 'Rule-Authoring UI, Automated Model-Ops Loop' }
-                        ].map((row, i) => (
-                          <tr key={i} style={{ borderBottom: '1px solid rgba(15,23,42,0.04)', background: '#ffffff' }}>
-                            <td style={{ padding: '0.35rem 0.45rem', fontWeight: 900, color: '#0f172a' }}>{row.dim}</td>
-                            <td style={{ padding: '0.35rem 0.45rem', color: '#0d9488', fontWeight: 800 }}>✓ {row.mvp}</td>
-                            <td style={{ 
-                              padding: '0.35rem 0.45rem', 
-                              color: scopeConstraint === '2026' ? '#94a3b8' : '#e11d48', 
-                              fontWeight: 800,
-                              opacity: scopeConstraint === '2026' ? 0.6 : 1,
-                              background: scopeConstraint === '2026' ? '#fcfcfc' : 'transparent'
-                            }}>
-                              {scopeConstraint === '2026' ? `🔒 Hidden/Grayed: ${row.dayTwo}` : `⚡ Unlocked: ${row.dayTwo}`}
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-                
-                {/* Simulated Values Computation Block */}
-                {(() => {
-                  // Proportional Component Weights & Base Values for Expanded Composable Sandbox
-                  const vendors = {
-                    orch: {
-                      aws: { label: 'LangGraph + AWS AgentCore (Confirmed Foundation)', cost: 1.3, agility: 82, compliance: 88, gxp: 90 },
-                      kong: { label: 'Kong AI Gateway (Confirmed Foundation)', cost: 0.9, agility: 90, compliance: 82, gxp: 84 },
-                      google: { label: 'Google Vertex AI / Gemini Enterprise (Strategic Candidate)', cost: 1.1, agility: 95, compliance: 90, gxp: 92 }
-                    },
-                    identity: {
-                      entra: { label: 'Microsoft Entra ID (Azure AD)', cost: 0.4, agility: 85, compliance: 90, gxp: 90 },
-                      okta: { label: 'Okta Workforce Identity Cloud', cost: 0.5, agility: 92, compliance: 88, gxp: 89 },
-                      ping: { label: 'AWS IAM + Ping Identity (Day-1 Candidate)', cost: 0.6, agility: 90, compliance: 85, gxp: 88 },
-                      google_id: { label: 'Google Cloud Identity', cost: 0.3, agility: 88, compliance: 90, gxp: 91 }
-                    },
-                    federation: {
-                      databricks_data: { label: 'Databricks (Data Genie) (Confirmed Foundation)', cost: 0.7, agility: 88, compliance: 90, gxp: 92 },
-                      mcp: { label: 'Model Context Protocol (MCP) (Strategic Candidate)', cost: 0.3, agility: 98, compliance: 92, gxp: 94 },
-                      dynamodb: { label: 'Amazon DynamoDB (Manifest Store Candidate)', cost: 0.5, agility: 80, compliance: 85, gxp: 86 },
-                      webhooks: { label: 'Custom API Webhooks', cost: 0.9, agility: 70, compliance: 75, gxp: 80 },
-                      etl: { label: 'Scheduled Batch ETL', cost: 0.5, agility: 45, compliance: 80, gxp: 82 }
-                    },
-                    creative: {
-                      workfront: { label: 'Adobe Workfront (Intake Candidate)', cost: 0.5, agility: 80, compliance: 85, gxp: 85 },
-                      firefly: { label: 'Adobe Firefly + AEM Assets (DAM)', cost: 0.8, agility: 92, compliance: 88, gxp: 85 }
-                    },
-                    mlr: {
-                      veeva_promomats: { label: 'Veeva PromoMats (Claims/Registration Candidate)', cost: 1.1, agility: 70, compliance: 96, gxp: 98 },
-                      custom_mlr: { label: 'Bedrock + Custom MLR Rule Set', cost: 0.7, agility: 85, compliance: 80, gxp: 82 }
-                    }
-                  };
-
-                  const selOrch = vendors.orch[whatIfOrch] || vendors.orch.aws;
-                  const selId = vendors.identity[whatIfIdentity] || vendors.identity.entra;
-                  const selFed = vendors.federation[whatIfFederation] || vendors.federation.databricks_data;
-                  const selCreative = vendors.creative[whatIfCreative] || vendors.creative.firefly;
-                  const selMLR = vendors.mlr[whatIfMLR] || vendors.mlr.veeva_promomats;
-
-                  // Calculations
-                  let costSum = selOrch.cost + selId.cost + selFed.cost + selCreative.cost + selMLR.cost;
-                  let mvpBase = 6; // Base 6 months
-                  let gxpSum = (selOrch.gxp + selId.gxp + selFed.gxp + selCreative.gxp + selMLR.gxp) / 5;
-                  let agilitySum = (selOrch.agility + selId.agility + selFed.agility + selCreative.agility + selMLR.agility) / 5;
-
-                  let synergyDiscount = 0;
-                  let frictionPenalty = 0;
-                  let mvpAdjustment = 0;
-                  let activeWarnings = [];
-
-                  // 1. Confirmed Foundation Synergy: LangGraph + AWS AgentCore + Databricks
-                  if (whatIfOrch === 'aws' && whatIfFederation === 'databricks_data') {
-                    synergyDiscount = costSum * 0.20; 
-                    mvpAdjustment -= 3;
-                    activeWarnings.push({ 
-                      type: 'synergy', 
-                      text: '✓ Confirmed Foundation Synergy: Ensures standard routing, step advancement, and manifest spine tracking tied to a single trace ID out-of-the-box.' 
-                    });
-                  }
-
-                  // 2. Multimodal Blindspot Friction: Adobe Firefly + Text-Only LLM without Image Grounding
-                  if (whatIfCreative === 'firefly' && whatIfOrch === 'kong') {
-                    frictionPenalty += 0.7;
-                    mvpAdjustment += 2;
-                    activeWarnings.push({ 
-                      type: 'friction', 
-                      text: '⚠️ Multimodal Blindspot: Separate creative and copy workflows risk generating unapprovable implied claims (e.g., fishing attire mismatches or incorrect patient physical realities).' 
-                    });
-                  }
-
-                  // 3. Semantic Conflict Risk Friction: Any Custom MLR / Bedrock custom rules
-                  if (whatIfMLR === 'custom_mlr') {
-                    frictionPenalty += 0.5;
-                    activeWarnings.push({ 
-                      type: 'friction', 
-                      text: "⚠️ Semantic Conflict Risk: Linguistic data formatting show that weak phrasing ('should') overrides mandatory constraints ('must') in testing loops, extending validation sprints." 
-                    });
-                  }
-
-                  // Synergy: Google Vertex AI + MCP Data Mesh
-                  if (whatIfOrch === 'google' && whatIfFederation === 'mcp') {
-                    synergyDiscount += costSum * 0.12;
-                    mvpAdjustment -= 2;
-                    activeWarnings.push({ 
-                      type: 'synergy', 
-                      text: '✓ Google MCP Data Mesh Synergy: Shaves 2 months off MVP and reduces integration testing debt.' 
-                    });
-                  }
-
-                  // 2026 Google Agentic Specifications: MCP + OKF + ARD Slashes Build Threshold to $100K
-                  const isGoogleAgenticSpecActive = whatIfOrch === 'google' && whatIfFederation === 'mcp';
-                  const minBuildBudgetLimit = isGoogleAgenticSpecActive ? 100 : 220;
-
-                  const finalTCO = Math.round((costSum + frictionPenalty - synergyDiscount) * 10) / 10;
-                  const finalMonths = Math.max(3, mvpBase + mvpAdjustment);
-                  const finalGxP = Math.min(100, Math.round(gxpSum));
-                  const finalAgility = Math.min(100, Math.round(agilitySum));
-                  const finalCostEfficiency = Math.min(100, Math.round(100 - (finalTCO / 10.0) * 100));
-
-                  const handleSaveScenario = () => {
-                    if (!scenarioNameInput.trim()) {
-                      alert("⚠️ Please enter a scenario name!");
-                      return;
-                    }
-                    const newScen = {
-                      name: scenarioNameInput.trim(),
-                      orch: whatIfOrch,
-                      identity: whatIfIdentity,
-                      federation: whatIfFederation,
-                      storage: whatIfStorage,
-                      tco: `${finalTCO}M`,
-                      mvp: `${finalMonths}mo`,
-                      gxp: `${finalGxP}/100`,
-                      agility: finalAgility,
-                      compliance: finalGxP,
-                      costEfficiency: finalCostEfficiency
-                    };
-                    setSavedScenarios(prev => [...prev, newScen]);
-                    setScenarioNameInput('');
-                    alert(`✓ Scenario "${newScen.name}" saved to comparative ledger!`);
-                  };
-
-                  return (
-                    <>
-                      {/* Top Horizontal Bars Graph Matching Uploaded Visual Mockup */}
-                      <div className="v12-card-glass" style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', padding: '1rem 1.5rem', flexShrink: 0 }}>
-                        <h3 style={{ fontSize: '0.82rem', fontWeight: 900, color: '#0f172a', margin: 0, letterSpacing: '0.5px' }}>
-                          AI ENTERPRISE ARCHITECTURE SIMULATOR
-                        </h3>
-
-                        <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', gap: '0.65rem', margin: '0.5rem 0 0.8rem 0' }}>
-                          
-                          {/* Agility Bar */}
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
-                            <span style={{ fontSize: '0.68rem', color: '#475569', width: '90px', fontWeight: 800, textAlign: 'right' }}>Agility</span>
-                            <div style={{ flex: 1, height: '14px', background: 'rgba(15,23,42,0.03)', borderRadius: '100px', border: '1px solid rgba(15, 23, 42, 0.08)', overflow: 'hidden' }}>
-                              <div style={{ width: `${finalAgility}%`, height: '100%', background: '#15803d', borderRadius: '100px', boxShadow: '0 2px 4px rgba(21, 128, 61, 0.2)' }} />
-                            </div>
-                            <span style={{ fontSize: '0.74rem', fontWeight: 950, color: '#0f172a', width: '25px' }}>{finalAgility}</span>
-                          </div>
-
-                          {/* Compliance Bar */}
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
-                            <span style={{ fontSize: '0.68rem', color: '#475569', width: '90px', fontWeight: 800, textAlign: 'right' }}>Compliance</span>
-                            <div style={{ flex: 1, height: '14px', background: 'rgba(15,23,42,0.03)', borderRadius: '100px', border: '1px solid rgba(15, 23, 42, 0.08)', overflow: 'hidden' }}>
-                              <div style={{ width: `${finalGxP}%`, height: '100%', background: '#d97706', borderRadius: '100px', boxShadow: '0 2px 4px rgba(217, 119, 6, 0.2)' }} />
-                            </div>
-                            <span style={{ fontSize: '0.74rem', fontWeight: 950, color: '#0f172a', width: '25px' }}>{finalGxP}</span>
-                          </div>
-
-                          {/* Cost Efficiency Bar */}
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
-                            <span style={{ fontSize: '0.68rem', color: '#475569', width: '90px', fontWeight: 800, textAlign: 'right' }}>Cost Efficiency</span>
-                            <div style={{ flex: 1, height: '14px', background: 'rgba(15,23,42,0.03)', borderRadius: '100px', border: '1px solid rgba(15, 23, 42, 0.08)', overflow: 'hidden' }}>
-                              <div style={{ width: `${finalCostEfficiency}%`, height: '100%', background: '#1d4ed8', borderRadius: '100px', boxShadow: '0 2px 4px rgba(29, 78, 216, 0.2)' }} />
-                            </div>
-                            <span style={{ fontSize: '0.74rem', fontWeight: 950, color: '#0f172a', width: '25px' }}>{finalCostEfficiency}</span>
-                          </div>
-
-                          {/* Enterprise Target Dashed Line at 70% */}
-                          <div style={{ position: 'absolute', left: 'calc(90px + 0.85rem + (100% - 90px - 0.85rem - 25px - 0.85rem) * 0.7)', top: '-5px', bottom: '-5px', width: '1.5px', borderLeft: '1.5px dashed rgba(15, 23, 42, 0.3)', pointerEvents: 'none', zIndex: 5 }}>
-                            <span style={{ position: 'absolute', top: '102%', left: '-35px', fontSize: '0.52rem', color: '#475569', fontWeight: 800, whiteSpace: 'nowrap' }}>Enterprise Target (70)</span>
-                          </div>
-
-                        </div>
-
-                        {/* Symmetrical Dynamic Score Outputs Row 1 */}
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '0.45rem', borderTop: '1px solid rgba(15,23,42,0.08)', paddingTop: '0.65rem', textAlign: 'center' }}>
-                          <div>
-                            <span style={{ fontSize: '0.48rem', color: '#475569', fontWeight: 800, textTransform: 'uppercase', display: 'block' }}>3-Year TCO ($M)</span>
-                            <span style={{ fontSize: '1.05rem', fontWeight: 950, color: '#0f172a', display: 'block', marginTop: '0.1rem' }}>${finalTCO}M</span>
-                          </div>
-                          <div>
-                            <span style={{ fontSize: '0.48rem', color: '#475569', fontWeight: 800, textTransform: 'uppercase', display: 'block' }}>Months to MVP</span>
-                            <span style={{ fontSize: '1.05rem', fontWeight: 950, color: '#0f172a', display: 'block', marginTop: '0.1rem' }}>{finalMonths}mo</span>
-                          </div>
-                          <div>
-                            <span style={{ fontSize: '0.48rem', color: '#475569', fontWeight: 800, textTransform: 'uppercase', display: 'block' }}>GxP Score</span>
-                            <span style={{ fontSize: '1.05rem', fontWeight: 950, color: '#0f172a', display: 'block', marginTop: '0.1rem' }}>{finalGxP}/100</span>
-                          </div>
-                          <div>
-                            <span style={{ fontSize: '0.48rem', color: '#475569', fontWeight: 800, textTransform: 'uppercase', display: 'block' }}>Rule Codification</span>
-                            <span style={{ fontSize: '1.05rem', fontWeight: 950, color: whatIfMLR === 'veeva_promomats' ? '#0d9488' : '#ef4444', display: 'block', marginTop: '0.1rem' }}>
-                              {whatIfMLR === 'veeva_promomats' ? '92%' : '< 30%'}
-                            </span>
-                          </div>
-                          <div>
-                            <span style={{ fontSize: '0.48rem', color: '#475569', fontWeight: 800, textTransform: 'uppercase', display: 'block' }}>Watchdog Safety</span>
-                            <span style={{ fontSize: '1.05rem', fontWeight: 950, color: whatIfOrch === 'aws' || whatIfOrch === 'google' ? '#0d9488' : '#ef4444', display: 'block', marginTop: '0.1rem' }}>
-                              {whatIfOrch === 'aws' || whatIfOrch === 'google' ? '96/100' : whatIfOrch === 'kong' ? '82/100' : '35/100'}
-                            </span>
-                          </div>
-                        </div>
-
-                        {/* RACI & Operational Drag Warnings Banner */}
-                        <div style={{ background: whatIfMLR === 'custom_mlr' ? 'rgba(239, 68, 68, 0.04)' : 'rgba(13, 148, 136, 0.04)', border: `1px solid ${whatIfMLR === 'custom_mlr' ? '#ef4444' : '#0d9488'}`, borderRadius: '6px', padding: '0.45rem', marginTop: '0.55rem', display: 'flex', flexDirection: 'column', gap: '0.1rem', textAlign: 'left' }}>
-                          <span style={{ fontSize: '0.52rem', fontWeight: 950, color: whatIfMLR === 'custom_mlr' ? '#ef4444' : '#0d9488', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                            {whatIfMLR === 'custom_mlr' ? '⚠️ RACI & Capacity Impact Warning' : '✓ RACI Operational Efficiency'}
-                          </span>
-                          <p style={{ margin: 0, fontSize: '0.58rem', color: '#0f172a', lineHeight: 1.35 }}>
-                            {whatIfMLR === 'custom_mlr' 
-                              ? '⚠️ High Dependency: Requires dedicated capacity from reviewer functions, brand, and marketing ops to manually validate rules against historical context.'
-                              : '✓ Low Operational Drag: Automated exception gates minimize manual regulatory reviewer overhead and eliminate pipeline delays.'}
-                          </p>
-                        </div>
-
-                      </div>
-
-                      {/* Dropdown Composable Grid */}
-                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.85rem', flexShrink: 0 }}>
-                        
-                        <div className="v12-card-glass" style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem', background: '#ffffff' }}>
-                          
-                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid rgba(15,23,42,0.08)', paddingBottom: '0.3rem' }}>
-                            <span style={{ fontSize: '0.65rem', fontWeight: 900, color: colors.accentTeal, letterSpacing: '0.5px' }}>CORE PLATFORM COMPONENT SELECTION</span>
-                          </div>
-
-                          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.65rem', fontSize: '0.62rem' }}>
-                            
-                            {/* Dropdown 1: AI Orchestration & Gateway */}
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
-                              <span style={{ fontWeight: 800, color: '#475569' }}>AI Orchestration & Gateway</span>
-                              <select 
-                                value={whatIfOrch}
-                                onChange={e => setWhatIfOrch(e.target.value)}
-                                style={{ background: '#ffffff', border: '1px solid rgba(15,23,42,0.15)', color: '#0f172a', padding: '0.25rem', outline: 'none', cursor: 'pointer', fontWeight: 700, borderRadius: '4px' }}
-                              >
-                                <option value="aws">LangGraph + AWS AgentCore (Confirmed Foundation)</option>
-                                <option value="kong">Kong AI Gateway (Confirmed Foundation)</option>
-                                <option value="google">Google Vertex AI / Gemini Enterprise (Strategic Candidate)</option>
-                              </select>
-                            </div>
-
-                            {/* Dropdown 2: Zero-Trust Identity (IAM) */}
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
-                              <span style={{ fontWeight: 800, color: '#475569' }}>Zero-Trust Identity (IAM)</span>
-                              <select 
-                                value={whatIfIdentity}
-                                onChange={e => setWhatIfIdentity(e.target.value)}
-                                style={{ background: '#ffffff', border: '1px solid rgba(15,23,42,0.15)', color: '#0f172a', padding: '0.25rem', outline: 'none', cursor: 'pointer', fontWeight: 700, borderRadius: '4px' }}
-                              >
-                                <option value="entra">Microsoft Entra ID (Azure AD)</option>
-                                <option value="okta">Okta Workforce Identity Cloud</option>
-                                <option value="ping">AWS IAM + Ping Identity (Day-1 Candidate)</option>
-                                <option value="google_id">Google Cloud Identity</option>
-                              </select>
-                            </div>
-
-                            {/* Dropdown 3: Data Federation & Memory */}
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
-                              <span style={{ fontWeight: 800, color: '#475569' }}>Data Federation & Memory</span>
-                              <select 
-                                value={whatIfFederation}
-                                onChange={e => setWhatIfFederation(e.target.value)}
-                                style={{ background: '#ffffff', border: '1px solid rgba(15,23,42,0.15)', color: '#0f172a', padding: '0.25rem', outline: 'none', cursor: 'pointer', fontWeight: 700, borderRadius: '4px' }}
-                              >
-                                <option value="databricks_data">Databricks (Data Genie) (Confirmed Foundation)</option>
-                                <option value="mcp">Model Context Protocol (MCP) (Strategic Candidate)</option>
-                                <option value="dynamodb">Amazon DynamoDB (Manifest Store Candidate)</option>
-                                <option value="webhooks">Custom API Webhooks</option>
-                                <option value="etl">Scheduled Batch ETL</option>
-                              </select>
-                            </div>
-
-                            {/* Dropdown 4: Creative Intake (Grayed if 2026 Scope) */}
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem', opacity: scopeConstraint === '2026' ? 0.65 : 1 }}>
-                              <span style={{ fontWeight: 800, color: '#475569', display: 'flex', alignItems: 'center', gap: '0.15rem' }}>
-                                Creative Intake & DAM {scopeConstraint === '2026' && '🔒'}
-                              </span>
-                              <select 
-                                value={whatIfCreative}
-                                onChange={e => {
-                                  if (scopeConstraint === '2026') {
-                                    alert("⚠️ Locked: Advanced creative asset integrations are scheduled for Day-Two (2027+) scale!");
-                                  } else {
-                                    setWhatIfCreative(e.target.value);
-                                  }
-                                }}
-                                disabled={scopeConstraint === '2026'}
-                                style={{ background: scopeConstraint === '2026' ? '#f8fafc' : '#ffffff', border: '1px solid rgba(15,23,42,0.15)', color: '#0f172a', padding: '0.25rem', outline: 'none', cursor: scopeConstraint === '2026' ? 'not-allowed' : 'pointer', fontWeight: 700, borderRadius: '4px' }}
-                              >
-                                <option value="firefly">Adobe Firefly + AEM Assets (DAM)</option>
-                                <option value="workfront">Adobe Workfront (Intake Candidate)</option>
-                              </select>
-                            </div>
-
-                            {/* Dropdown 5: MLR Source of Record */}
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
-                              <span style={{ fontWeight: 800, color: '#475569' }}>MLR Source of Record & Guardrails</span>
-                              <select 
-                                value={whatIfMLR}
-                                onChange={e => setWhatIfMLR(e.target.value)}
-                                style={{ background: '#ffffff', border: '1px solid rgba(15,23,42,0.15)', color: '#0f172a', padding: '0.25rem', outline: 'none', cursor: 'pointer', fontWeight: 700, borderRadius: '4px' }}
-                              >
-                                <option value="veeva_promomats">Veeva PromoMats (Claims/Registration Candidate)</option>
-                                <option value="custom_mlr">Bedrock + Custom MLR Rule Set</option>
-                              </select>
-                            </div>
-
-                          </div>
-                        </div>
-
-                        {/* Dynamic Synergy & Friction Alert Feed */}
-                        <div className="v12-card-glass" style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem', background: '#ffffff', maxHeight: '120px' }}>
-                          <span style={{ fontSize: '0.62rem', fontWeight: 900, color: '#475569', letterSpacing: '0.5px' }}>ACTIVE SYNERGY & FRICTION COMPILER FEED</span>
-                          <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '0.3rem' }} className="v12-scrollable">
-                            {activeWarnings.length === 0 ? (
-                              <span style={{ fontSize: '0.62rem', color: '#94a3b8', fontStyle: 'italic' }}>*Stack is fully composable. No synergies or technical friction detected.*</span>
-                            ) : (
-                              activeWarnings.map((warn, i) => (
-                                <div 
-                                  key={i} 
-                                  style={{ 
-                                    padding: '0.25rem 0.45rem', 
-                                    borderRadius: '4px', 
-                                    fontSize: '0.62rem', 
-                                    background: warn.type === 'synergy' ? 'rgba(13, 148, 136, 0.05)' : 'rgba(217, 119, 6, 0.05)',
-                                    border: warn.type === 'synergy' ? `1px solid ${colors.accentTeal}` : `1px solid ${colors.accentAmber}`,
-                                    color: warn.type === 'synergy' ? colors.accentTeal : colors.accentAmber,
-                                    lineHeight: 1.3
-                                  }}
-                                >
-                                  {warn.text}
-                                </div>
-                              ))
-                            )}
-                          </div>
-                        </div>
-
-                      </div>
-
-                      {/* Save Scenario Bar */}
-                      <div className="v12-card-glass" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.5rem 1rem', flexShrink: 0, background: '#ffffff' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
-                          <span style={{ fontSize: '0.68rem', fontWeight: 800, color: '#475569' }}>Save Architecture Snapshot:</span>
-                          <input 
-                            type="text"
-                            placeholder="e.g. Scenario C: Composable GCP + Okta"
-                            value={scenarioNameInput}
-                            onChange={e => setScenarioNameInput(e.target.value)}
-                            style={{ background: '#ffffff', border: '1px solid rgba(15,23,42,0.15)', borderRadius: '4px', padding: '0.25rem 0.5rem', fontSize: '0.65rem', color: '#0f172a', outline: 'none', width: '220px' }}
-                          />
-                        </div>
-                        <button 
-                          onClick={handleSaveScenario}
-                          style={{ background: colors.purpleGradient, border: 'none', color: '#fff', padding: '0.35rem 1rem', borderRadius: '4px', fontSize: '0.65rem', fontWeight: 900, cursor: 'pointer' }}
-                        >
-                          Save Scenario As...
-                        </button>
-                      </div>
-
-                      {/* Comparative Saved Scenarios Table */}
-                      <div className="v12-card-glass" style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.45rem', minHeight: '120px' }}>
-                        <span style={{ fontSize: '0.62rem', fontWeight: 950, color: colors.accentTeal, letterSpacing: '0.5px' }}>STEERING COMMITTEE COMPARATIVE LEDGER</span>
-                        
-                        <div style={{ flex: 1, overflowY: 'auto' }} className="v12-scrollable">
-                          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.65rem', textAlign: 'left' }}>
-                            <thead>
-                              <tr style={{ borderBottom: '1px solid rgba(15,23,42,0.08)', color: '#475569', fontWeight: 800 }}>
-                                <th style={{ padding: '0.3rem 0.45rem' }}>SCENARIO RUN NAME</th>
-                                <th style={{ padding: '0.3rem 0.45rem' }}>ORCHESTRATION</th>
-                                <th style={{ padding: '0.3rem 0.45rem' }}>FEDERATION</th>
-                                <th style={{ padding: '0.3rem 0.45rem' }}>STORAGE</th>
-                                <th style={{ padding: '0.3rem 0.45rem', textAlign: 'center' }}>3-YEAR TCO</th>
-                                <th style={{ padding: '0.3rem 0.45rem', textAlign: 'center' }}>MONTHS MVP</th>
-                                <th style={{ padding: '0.3rem 0.45rem', textAlign: 'center' }}>GxP SCORE</th>
-                                <th style={{ padding: '0.3rem 0.45rem', textAlign: 'center' }}>AGILITY</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {savedScenarios.map((scen, i) => (
-                                <tr key={i} style={{ borderBottom: '1px solid rgba(15,23,42,0.04)' }} className="v12-table-row-hover">
-                                  <td style={{ padding: '0.35rem 0.45rem', fontWeight: 800, color: '#0f172a' }}>{scen.name}</td>
-                                  <td style={{ padding: '0.35rem 0.45rem', color: '#475569' }}>{scen.orch === 'google' ? 'Google Gemini' : scen.orch === 'aws' ? 'AWS Bedrock' : 'Veeva Native'}</td>
-                                  <td style={{ padding: '0.35rem 0.45rem', color: '#475569' }}>{scen.federation === 'mcp' ? 'MCP Data Mesh' : scen.federation === 'webhooks' ? 'Custom Webhooks' : 'Batch ETL'}</td>
-                                  <td style={{ padding: '0.35rem 0.45rem', color: '#475569' }}>{scen.storage === 'adobe' ? 'Adobe GenStudio' : scen.storage === 'veeva_promomats' ? 'Veeva PromoMats' : 'S3 Bucket'}</td>
-                                  <td style={{ padding: '0.35rem 0.45rem', textAlign: 'center', fontWeight: 900, color: colors.accentAmber }}>${scen.tco}</td>
-                                  <td style={{ padding: '0.35rem 0.45rem', textAlign: 'center', color: '#0f172a' }}>{scen.mvp}</td>
-                                  <td style={{ padding: '0.35rem 0.45rem', textAlign: 'center', color: colors.accentTeal, fontWeight: 800 }}>{scen.gxp}</td>
-                                  <td style={{ padding: '0.35rem 0.45rem', textAlign: 'center', color: '#0f172a' }}>{scen.agility}%</td>
-                                </tr>
-                              ))}
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                    </>
-                  );
-                })()}
-
-              </div>
-            )}
-
-            {/* =========================================================================
-            // PAGE 7: GAMP 5 CONTINUOUS GXP VALIDATION COMMAND CENTER
-            // ========================================================================= */}
-            {reportPage === 'gxp_validation' && (
-              <div style={{ display: 'grid', gridTemplateColumns: '1.3fr 1fr', gap: '0.85rem', flex: 1, minHeight: 0 }}>
-                
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', height: '100%', minHeight: 0 }}>
-                  
-                  {/* Symmetrical COU Speedometer Dials */}
-                  <div className="v12-card-glass" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.85rem', flexShrink: 0, height: '120px' }}>
-                    
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-                      <svg width="60" height="60" viewBox="0 0 60 60" style={{ transform: 'rotate(-90deg)', flexShrink: 0 }}>
-                        <circle cx="30" cy="30" r="24" fill="none" stroke="rgba(15,23,42,0.03)" strokeWidth="4" />
-                        <circle cx="30" cy="30" r="24" fill="none" stroke={colors.accentTeal} strokeWidth="4" strokeDasharray="150" strokeDashoffset="132" style={{ transition: 'stroke-dashoffset 0.3s' }} />
-                      </svg>
-                      <div>
-                        <span style={{ fontSize: '0.52rem', color: '#475569', fontWeight: 800, textTransform: 'uppercase', display: 'block' }}>Agent Actions Drift</span>
-                        <span style={{ fontSize: '1rem', fontWeight: 950, color: colors.accentTeal }}>0.12 <span style={{ fontSize: '0.65rem', color: '#94a3b8' }}>/ 5.0</span></span>
-                        <span style={{ fontSize: '0.48rem', color: '#16a34a', display: 'block', marginTop: '0.05rem' }}>✓ Within FDA Validated Boundary</span>
-                      </div>
-                    </div>
-
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-                      <svg width="60" height="60" viewBox="0 0 60 60" style={{ transform: 'rotate(-90deg)', flexShrink: 0 }}>
-                        <circle cx="30" cy="30" r="24" fill="none" stroke="rgba(15,23,42,0.03)" strokeWidth="4" />
-                        <circle cx="30" cy="30" r="24" fill="none" stroke={colors.accentAmber} strokeWidth="4" strokeDasharray="150" strokeDashoffset="25" />
-                      </svg>
-                      <div>
-                        <span style={{ fontSize: '0.52rem', color: '#475569', fontWeight: 800, textTransform: 'uppercase', display: 'block' }}>Validated Envelope</span>
-                        <span style={{ fontSize: '1rem', fontWeight: 950, color: colors.accentAmber }}>96.8%</span>
-                        <span style={{ fontSize: '0.48rem', color: '#475569', display: 'block', marginTop: '0.05rem' }}>FDA GAMP 5 Category 4 Shield</span>
-                      </div>
-                    </div>
-
-                  </div>
-
-                  {/* False Positive/Negative Trackers Line Graph */}
-                  <div className="v12-card-glass" style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.45rem', minHeight: '180px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(15, 23, 42, 0.08)', paddingBottom: '0.25rem', alignItems: 'center' }}>
-                      <span style={{ fontSize: '0.65rem', fontWeight: 950, color: '#0f172a', letterSpacing: '0.5px' }}>6-MONTH AUTOMATED MLR ACCURACY TREND</span>
-                      <span style={{ fontSize: '0.52rem', color: '#475569' }}>False Positives vs. False Negatives (%)</span>
-                    </div>
-
-                    <div style={{ flex: 1, position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                      <svg viewBox="0 0 300 130" style={{ width: '100%', height: '100%', background: '#f8fafc', borderRadius: '6px' }}>
-                        <line x1="25" y1="10" x2="290" y2="10" stroke="rgba(15,23,42,0.04)" />
-                        <line x1="25" y1="60" x2="290" y2="60" stroke="rgba(15,23,42,0.04)" />
-                        <line x1="25" y1="110" x2="290" y2="110" stroke="rgba(15,23,42,0.04)" />
-
-                        <path 
-                          d="M 25,20 L 75,30 L 125,50 L 175,80 L 225,95 L 290,105" 
-                          fill="none" 
-                          stroke={colors.accentTeal} 
-                          strokeWidth="2" 
-                          style={{ filter: 'drop-shadow(0 2px 4px rgba(13,148,136,0.2))' }}
-                        />
-                        <path 
-                          d="M 25,95 L 75,100 L 125,98 L 175,105 L 225,107 L 290,108" 
-                          fill="none" 
-                          stroke={colors.accentCoral} 
-                          strokeWidth="1.5" 
-                          strokeDasharray="2"
-                        />
-
-                        <text x="35" y="125" fill={colors.accentTeal} fontSize="6" fontWeight="bold">False Positives (Decreasing)</text>
-                        <text x="160" y="125" fill={colors.accentCoral} fontSize="6" fontWeight="bold">False Negatives (Stable &lt; 1%)</text>
-                      </svg>
-                    </div>
-                  </div>
-
-                </div>
-
-                {/* Symmetrical Right Panel: GAMP 5 Telemetry & Failover Mitigation */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', height: '100%', minHeight: 0 }}>
-                  
-                  {/* Sovereign Guardrails Comparison Panel */}
-                  <div className="v12-card-glass" style={{ flex: 1.2, display: 'flex', flexDirection: 'column', gap: '0.45rem', background: '#ffffff' }}>
-                    <span style={{ fontSize: '0.65rem', fontWeight: 900, color: colors.accentTeal, letterSpacing: '0.5px' }}>SOVEREIGN GUARDRAILS COMPARISON</span>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem', overflowY: 'auto' }} className="v12-scrollable">
-                      <div style={{ background: '#f8fafc', borderRadius: '6px', padding: '0.4rem', border: '1px solid rgba(15, 23, 42, 0.08)' }}>
-                        <h4 style={{ margin: 0, fontSize: '0.68rem', fontWeight: 900, color: colors.accentTeal }}>Google Vertex Model Armor</h4>
-                        <span style={{ fontSize: '0.58rem', color: '#475569', display: 'block', marginTop: '0.1rem', lineHeight: 1.3 }}>
-                          Natively scrubs PII/PHI and blocks off-label medical claims in under **22ms** before prompts ever route to core models.
-                        </span>
-                      </div>
-                      <div style={{ background: '#f8fafc', borderRadius: '6px', padding: '0.4rem', border: '1px solid rgba(15, 23, 42, 0.08)' }}>
-                        <h4 style={{ margin: 0, fontSize: '0.68rem', fontWeight: 900, color: colors.accentAmber }}>AWS Bedrock Guardrails</h4>
-                        <span style={{ fontSize: '0.58rem', color: '#475569', display: 'block', marginTop: '0.1rem', lineHeight: 1.3 }}>
-                          Rigid regex-based compliance scrubbing, lacking spatial/ontology-aware metadata tagging.
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Active-Active Failover Mitigation Strategy Card */}
-                  <div className="v12-card-glass" style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.45rem', background: 'rgba(13, 148, 136, 0.02)', border: `1.2px solid ${colors.accentTeal}` }}>
-                    <span style={{ fontSize: '0.65rem', fontWeight: 900, color: colors.accentTeal, letterSpacing: '0.5px' }}>ACTIVE-ACTIVE FAILOVER MITIGATION (GAMP 5)</span>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem', fontSize: '0.62rem', color: '#475569', lineHeight: 1.35 }}>
-                      <div>• <strong style={{ color: '#0f172a' }}>Primary Risk</strong>: Foundation model endpoint failure or regional cloud outage.</div>
-                      <div>• <strong style={{ color: '#0f172a' }}>Mitigation Action</strong>: Active-active cross-region failover between GCP US-East (Virginia) and GCP US-Central (Iowa).</div>
-                      <div>• <strong style={{ color: '#0f172a' }}>Success Metric</strong>: **RTO &lt; 4 minutes** with zero session data loss during active MLR reviews.</div>
-                    </div>
                   </div>
 
                 </div>
