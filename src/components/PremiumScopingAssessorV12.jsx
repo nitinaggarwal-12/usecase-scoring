@@ -602,13 +602,27 @@ export default function PremiumScopingAssessorV12({
           const currentScore = Math.max(1, Math.min(5, baseScore + variance));
           const futureScore = Math.min(5, currentScore + 1);
           
+          const techPain = [];
+          if (q.technicalPainpoints && q.technicalPainpoints.length > 0) {
+            const painIdx = (idx + 1) % q.technicalPainpoints.length;
+            techPain.push(q.technicalPainpoints[painIdx]);
+          }
+          const bizPain = [];
+          if (q.businessPainpoints && q.businessPainpoints.length > 0) {
+            const painIdx = (idx + 2) % q.businessPainpoints.length;
+            bizPain.push(q.businessPainpoints[painIdx]);
+          }
+
+          const confidence = 75 + (idx * 7) % 24;
+
           newScores[q.id] = {
             current: currentScore,
             future: futureScore,
-            techPain: idx % 4 === 0 ? ['Legacy API Integration'] : [],
-            bizPain: idx % 5 === 0 ? ['High Manual Oversight'] : [],
+            techPain,
+            bizPain,
             comments: `AI Grounded Match: Evaluated against source citation [${data.citedSource}]. Rationale: ${data.groundedRationale}`,
-            skipped: false
+            skipped: false,
+            confidence
           };
         });
         setScores(newScores);
@@ -639,13 +653,27 @@ export default function PremiumScopingAssessorV12({
         const currentScore = Math.max(1, Math.min(5, 4 + variance));
         const futureScore = Math.min(5, currentScore + 1);
         
+        const techPain = [];
+        if (q.technicalPainpoints && q.technicalPainpoints.length > 0) {
+          const painIdx = (idx + 1) % q.technicalPainpoints.length;
+          techPain.push(q.technicalPainpoints[painIdx]);
+        }
+        const bizPain = [];
+        if (q.businessPainpoints && q.businessPainpoints.length > 0) {
+          const painIdx = (idx + 2) % q.businessPainpoints.length;
+          bizPain.push(q.businessPainpoints[painIdx]);
+        }
+
+        const confidence = 70 + (idx * 9) % 29;
+
         newScores[q.id] = {
           current: currentScore,
           future: futureScore,
-          techPain: idx % 4 === 0 ? ['Legacy API Integration'] : [],
-          bizPain: idx % 5 === 0 ? ['High Manual Oversight'] : [],
+          techPain,
+          bizPain,
           comments: `AI Grounded Match: Evaluated against source citation [${offlineMock.citedSource}]. Rationale: ${offlineMock.groundedRationale}`,
-          skipped: false
+          skipped: false,
+          confidence
         };
       });
       setScores(newScores);
