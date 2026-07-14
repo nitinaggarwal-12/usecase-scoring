@@ -928,6 +928,8 @@ export default function PremiumScopingAssessorV12({
 
   // Page 5 Sovereignty Globe Region Selector
   const [selectedRegion, setSelectedRegion] = useState('germany'); // 'germany' | 'texas'
+  const [selectedMlrIdx, setSelectedMlrIdx] = useState(5); // Default Month 6
+  const [upskillTarget, setUpskillTarget] = useState(20); // Default 20%
 
   // Page 2 Matrix Filter
   const [matrixSearch, setMatrixSearch] = useState('');
@@ -1452,6 +1454,15 @@ export default function PremiumScopingAssessorV12({
         }
         .v12-table-row-hover:hover {
           background: rgba(13, 148, 136, 0.025) !important;
+        }
+
+        @keyframes pulseDot {
+          0% { r: 4px; opacity: 0.8; }
+          50% { r: 9px; opacity: 0.35; }
+          100% { r: 4px; opacity: 0.8; }
+        }
+        .v12-pulse-dot {
+          animation: pulseDot 2s infinite ease-in-out;
         }
 
         /* Laser Scanning and Spinner Animations */
@@ -3216,69 +3227,136 @@ export default function PremiumScopingAssessorV12({
             {reportPage === 'governance' && (
               <div className="v12-page-transition" style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '0.85rem', flex: 1, minHeight: 0 }}>
                 
-                {/* Left Column: GAMP 5 Telemetry & Talent Mapping */}
+                {/* Left Column: Drift, MLR Chart & Skill contrast */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', height: '100%', minHeight: 0, overflowY: 'auto' }} className="v12-scrollable">
                   
-                  {/* GxP Speedometers */}
-                  <div className="v12-card-glass" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.85rem', flexShrink: 0, padding: '0.65rem' }}>
-                    
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-                      <svg width="45" height="45" viewBox="0 0 60 60" style={{ transform: 'rotate(-90deg)', flexShrink: 0 }}>
-                        <circle cx="30" cy="30" r="24" fill="none" stroke="rgba(15,23,42,0.03)" strokeWidth="4" />
-                        <circle cx="30" cy="30" r="24" fill="none" stroke={colors.accentTeal} strokeWidth="4" strokeDasharray="150" strokeDashoffset="132" />
-                      </svg>
+                  {/* Speedometer telemetry row */}
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.65rem' }}>
+                    <div className="v12-card-glass" style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', padding: '0.55rem' }}>
+                      <div style={{ position: 'relative', width: '45px', height: '45px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <svg viewBox="0 0 36 36" style={{ width: '100%', height: '100%', transform: 'rotate(-90deg)' }}>
+                          <circle cx="18" cy="18" r="14" fill="none" stroke="rgba(255, 255, 255, 0.04)" strokeWidth="3" />
+                          <circle cx="18" cy="18" r="14" fill="none" stroke={colors.accentTeal} strokeWidth="3.2" strokeDasharray="88" strokeDashoffset="84" />
+                        </svg>
+                        <span style={{ position: 'absolute', fontSize: '0.68rem', fontWeight: 950, color: '#f8fafc' }}>0.12</span>
+                      </div>
                       <div>
                         <span style={{ fontSize: '0.5rem', color: '#cbd5e1', fontWeight: 800, textTransform: 'uppercase', display: 'block' }}>Agent Actions Drift</span>
-                        <span style={{ fontSize: '0.85rem', fontWeight: 950, color: colors.accentTeal }}>0.12 <span style={{ fontSize: '0.55rem', color: '#94a3b8' }}>/ 5.0</span></span>
-                        <span style={{ fontSize: '0.45rem', color: '#16a34a', display: 'block' }}>✓ FDA Boundary Ok</span>
+                        <span style={{ fontSize: '0.62rem', fontWeight: 950, color: colors.accentTeal }}>0.12 / 5.0</span>
+                        <span style={{ fontSize: '0.45rem', color: '#cbd5e1', display: 'block' }}>✓ FDA Boundary OK</span>
                       </div>
                     </div>
 
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-                      <svg width="45" height="45" viewBox="0 0 60 60" style={{ transform: 'rotate(-90deg)', flexShrink: 0 }}>
-                        <circle cx="30" cy="30" r="24" fill="none" stroke="rgba(15,23,42,0.03)" strokeWidth="4" />
-                        <circle cx="30" cy="30" r="24" fill="none" stroke={colors.accentAmber} strokeWidth="4" strokeDasharray="150" strokeDashoffset="25" />
-                      </svg>
+                    <div className="v12-card-glass" style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', padding: '0.55rem' }}>
+                      <div style={{ position: 'relative', width: '45px', height: '45px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <svg viewBox="0 0 36 36" style={{ width: '100%', height: '100%', transform: 'rotate(-90deg)' }}>
+                          <circle cx="18" cy="18" r="14" fill="none" stroke="rgba(255, 255, 255, 0.04)" strokeWidth="3" />
+                          <circle 
+                            cx="18" 
+                            cy="18" 
+                            r="14" 
+                            fill="none" 
+                            stroke={colors.accentAmber} 
+                            strokeWidth="3.2" 
+                            strokeDasharray="88" 
+                            strokeDashoffset={(88 - (88 * (91.0 + (upskillTarget * 0.088)) / 100)).toFixed(1)} 
+                          />
+                        </svg>
+                        <span style={{ position: 'absolute', fontSize: '0.62rem', fontWeight: 950, color: '#f8fafc' }}>
+                          {(91.0 + (upskillTarget * 0.088)).toFixed(1)}%
+                        </span>
+                      </div>
                       <div>
                         <span style={{ fontSize: '0.5rem', color: '#cbd5e1', fontWeight: 800, textTransform: 'uppercase', display: 'block' }}>Validated Envelope</span>
-                        <span style={{ fontSize: '0.85rem', fontWeight: 950, color: colors.accentAmber }}>96.8%</span>
+                        <span style={{ fontSize: '0.62rem', fontWeight: 950, color: colors.accentAmber }}>
+                          {(91.0 + (upskillTarget * 0.088)).toFixed(1)}%
+                        </span>
                         <span style={{ fontSize: '0.45rem', color: '#cbd5e1', display: 'block' }}>GAMP 5 Category 4</span>
                       </div>
                     </div>
-
                   </div>
 
                   {/* MLR Accuracy Chart */}
-                  <div className="v12-card-glass" style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', minHeight: '150px' }}>
+                  <div className="v12-card-glass" style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', minHeight: '175px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255, 255, 255, 0.06)', paddingBottom: '0.25rem', alignItems: 'center' }}>
                       <span style={{ fontSize: '0.62rem', fontWeight: 950, color: '#f8fafc', letterSpacing: '0.5px' }}>6-MONTH AUTOMATED MLR ACCURACY</span>
+                      <span style={{ fontSize: '0.52rem', color: '#94a3b8' }}>Click points to inspect</span>
                     </div>
-                    <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+
+                    <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
                       <svg viewBox="0 0 300 110" style={{ width: '100%', height: '100%', background: 'rgba(15, 23, 42, 0.25)', borderRadius: '6px' }}>
-                        <line x1="25" y1="10" x2="290" y2="10" stroke="rgba(15,23,42,0.04)" />
-                        <line x1="25" y1="50" x2="290" y2="50" stroke="rgba(15,23,42,0.04)" />
-                        <line x1="25" y1="90" x2="290" y2="90" stroke="rgba(15,23,42,0.04)" />
+                        <line x1="25" y1="10" x2="290" y2="10" stroke="rgba(255,255,255,0.03)" />
+                        <line x1="25" y1="50" x2="290" y2="50" stroke="rgba(255,255,255,0.03)" />
+                        <line x1="25" y1="90" x2="290" y2="90" stroke="rgba(255,255,255,0.03)" />
+                        
+                        {/* Paths */}
                         <path d="M 25,20 L 75,30 L 125,45 L 175,70 L 225,82 L 290,92" fill="none" stroke={colors.accentTeal} strokeWidth="2" />
                         <path d="M 25,82 L 75,85 L 125,84 L 175,88 L 225,89 L 290,90" fill="none" stroke={colors.accentCoral} strokeWidth="1.5" strokeDasharray="2" />
+                        
+                        {/* Interactive points */}
+                        {[
+                          { x: 25, y: 20 },
+                          { x: 75, y: 30 },
+                          { x: 125, y: 45 },
+                          { x: 175, y: 70 },
+                          { x: 225, y: 82 },
+                          { x: 290, y: 92 }
+                        ].map((pt, idx) => {
+                          const isSelected = idx === selectedMlrIdx;
+                          return (
+                            <g key={idx} style={{ cursor: 'pointer' }} onClick={() => setSelectedMlrIdx(idx)}>
+                              <circle cx={pt.x} cy={pt.y} r={isSelected ? 5 : 3.5} fill={isSelected ? '#ffffff' : colors.accentTeal} stroke={colors.accentTeal} strokeWidth={isSelected ? 2 : 1} className="v12-chart-point" />
+                              {isSelected && (
+                                <circle cx={pt.x} cy={pt.y} r="8" fill="none" stroke="#ffffff" strokeWidth="0.8" strokeDasharray="1.5" className="v12-spin" />
+                              )}
+                            </g>
+                          );
+                        })}
+
                         <text x="30" y="102" fill={colors.accentTeal} fontSize="6" fontWeight="bold">False Positives</text>
                         <text x="160" y="102" fill={colors.accentCoral} fontSize="6" fontWeight="bold">False Negatives (&lt; 1%)</text>
                       </svg>
                     </div>
+
+                    {/* MLR Point Info Box */}
+                    <div style={{ display: 'flex', justifyContent: 'space-between', background: 'rgba(15, 23, 42, 0.3)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '4px', padding: '0.3rem 0.5rem', fontSize: '0.58rem' }}>
+                      <div>
+                        <span style={{ color: '#cbd5e1' }}>Timeline: </span>
+                        <strong style={{ color: '#fff' }}>{[
+                          'Month 1', 'Month 2', 'Month 3', 'Month 4', 'Month 5', 'Month 6'
+                        ][selectedMlrIdx]}</strong>
+                      </div>
+                      <div>
+                        <span style={{ color: colors.accentTeal }}>FP: </span>
+                        <strong>{[
+                          '1.5%', '2.8%', '4.2%', '6.9%', '8.2%', '9.8%'
+                        ][selectedMlrIdx]}</strong>
+                      </div>
+                      <div>
+                        <span style={{ color: colors.accentCoral }}>FN (Safety Limit): </span>
+                        <strong>{[
+                          '0.1%', '0.2%', '0.15%', '0.3%', '0.25%', '0.4%'
+                        ][selectedMlrIdx]}</strong>
+                      </div>
+                    </div>
+
                   </div>
 
                   {/* Skills Mapping Bench Contrast */}
                   <div className="v12-card-glass" style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
                     <span style={{ fontSize: '0.65rem', fontWeight: 950, color: '#f8fafc', letterSpacing: '0.5px', borderBottom: '1px solid rgba(255, 255, 255, 0.06)', paddingBottom: '0.2rem' }}>ORGANIZATIONAL TALENT CONTRAST</span>
                     
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
                       <div>
                         <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.62rem', fontWeight: 800, marginBottom: '0.1rem' }}>
                           <span>Python & MCP Mesh Development</span>
-                          <span style={{ color: colors.accentAmber }}>80% Talent Gap</span>
+                          <span style={{ color: upskillTarget >= 80 ? '#16a34a' : colors.accentAmber }}>
+                            {upskillTarget >= 80 ? '✓ Ready' : `${100 - upskillTarget}% Talent Gap`}
+                          </span>
                         </div>
-                        <div style={{ display: 'flex', height: '8px', background: 'rgba(15,23,42,0.03)', borderRadius: '100px', border: '1px solid rgba(255, 255, 255, 0.04)', overflow: 'hidden' }}>
-                          <div style={{ width: '20%', background: colors.accentTeal }} />
-                          <div style={{ width: '80%', background: colors.accentAmber }} />
+                        <div style={{ display: 'flex', height: '8px', background: 'rgba(15,23,42,0.2)', borderRadius: '100px', border: '1px solid rgba(255, 255, 255, 0.05)', overflow: 'hidden' }}>
+                          <div style={{ width: `${upskillTarget}%`, background: colors.accentTeal }} />
+                          <div style={{ width: `${100 - upskillTarget}%`, background: colors.accentAmber }} />
                         </div>
                       </div>
                       <div>
@@ -3286,12 +3364,37 @@ export default function PremiumScopingAssessorV12({
                           <span>Veeva Admin Config</span>
                           <span style={{ color: '#16a34a' }}>✓ 100% Ready</span>
                         </div>
-                        <div style={{ display: 'flex', height: '8px', background: 'rgba(15,23,42,0.03)', borderRadius: '100px', border: '1px solid rgba(255, 255, 255, 0.04)', overflow: 'hidden' }}>
+                        <div style={{ display: 'flex', height: '8px', background: 'rgba(15,23,42,0.2)', borderRadius: '100px', border: '1px solid rgba(255, 255, 255, 0.05)', overflow: 'hidden' }}>
                           <div style={{ width: '85%', background: colors.accentTeal }} />
-                          <div style={{ width: '15%', background: '#94a3b8' }} />
+                          <div style={{ width: '15%', background: '#334155' }} />
                         </div>
                       </div>
                     </div>
+
+                    {/* Upskilling Interactive Slider Simulator */}
+                    <div style={{ marginTop: '0.35rem', display: 'flex', flexDirection: 'column', gap: '0.2rem', borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: '0.4rem' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <span style={{ fontSize: '0.52rem', fontWeight: 900, color: '#cbd5e1', letterSpacing: '0.3px' }}>SIMULATE UPSKILLING PROGRAM</span>
+                        <span style={{ fontSize: '0.56rem', fontWeight: 900, color: colors.accentTeal }}>{upskillTarget}% Upskilled</span>
+                      </div>
+                      <input 
+                        type="range" 
+                        min="20" 
+                        max="100" 
+                        value={upskillTarget} 
+                        onChange={e => setUpskillTarget(Number(e.target.value))}
+                        style={{
+                          width: '100%',
+                          accentColor: colors.accentTeal,
+                          background: 'rgba(255,255,255,0.08)',
+                          height: '3px',
+                          borderRadius: '100px',
+                          cursor: 'pointer',
+                          boxSizing: 'border-box'
+                        }}
+                      />
+                    </div>
+
                   </div>
 
                 </div>
@@ -3303,16 +3406,16 @@ export default function PremiumScopingAssessorV12({
                   <div className="v12-card-glass" style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem', minHeight: '220px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid rgba(255, 255, 255, 0.06)', paddingBottom: '0.25rem' }}>
                       <span style={{ fontSize: '0.65rem', fontWeight: 900, color: '#f8fafc' }}>DATA SOVEREIGNTY SCHEMAS</span>
-                      <div style={{ display: 'flex', gap: '0.2rem' }}>
+                      <div style={{ display: 'flex', gap: '0.25rem' }}>
                         <button 
                           onClick={() => setSelectedRegion('germany')}
-                          style={{ background: selectedRegion === 'germany' ? colors.accentTeal : '#f1f5f9', border: 'none', color: selectedRegion === 'germany' ? '#fff' : '#0f172a', borderRadius: '4px', padding: '0.1rem 0.35rem', fontSize: '0.55rem', fontWeight: 800, cursor: 'pointer' }}
+                          style={{ background: selectedRegion === 'germany' ? colors.accentTeal : 'rgba(255,255,255,0.05)', border: 'none', color: selectedRegion === 'germany' ? '#fff' : '#94a3b8', borderRadius: '4px', padding: '0.1rem 0.4rem', fontSize: '0.55rem', fontWeight: 800, cursor: 'pointer', transition: 'all 0.2s' }}
                         >
                           Germany (EU)
                         </button>
                         <button 
                           onClick={() => setSelectedRegion('texas')}
-                          style={{ background: selectedRegion === 'texas' ? colors.accentTeal : '#f1f5f9', border: 'none', color: selectedRegion === 'texas' ? '#fff' : '#0f172a', borderRadius: '4px', padding: '0.1rem 0.35rem', fontSize: '0.55rem', fontWeight: 800, cursor: 'pointer' }}
+                          style={{ background: selectedRegion === 'texas' ? colors.accentTeal : 'rgba(255,255,255,0.05)', border: 'none', color: selectedRegion === 'texas' ? '#fff' : '#94a3b8', borderRadius: '4px', padding: '0.1rem 0.4rem', fontSize: '0.55rem', fontWeight: 800, cursor: 'pointer', transition: 'all 0.2s' }}
                         >
                           Texas (US)
                         </button>
@@ -3320,32 +3423,41 @@ export default function PremiumScopingAssessorV12({
                     </div>
 
                     <div style={{ flex: 1, position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '110px' }}>
-                      <svg viewBox="0 0 300 160" style={{ width: '100%', height: '100%', background: 'rgba(15, 23, 42, 0.25)', borderRadius: '6px' }}>
-                        <path d="M 30,30 L 80,20 L 90,60 L 50,90 Z" fill="rgba(15,23,42,0.01)" stroke="rgba(15, 23, 42, 0.08)" />
-                        <path d="M 180,30 L 230,20 L 240,50 L 190,70 Z" fill="rgba(15,23,42,0.01)" stroke="rgba(15, 23, 42, 0.08)" />
+                      <svg viewBox="0 0 300 130" style={{ width: '100%', height: '100%', background: 'rgba(15, 23, 42, 0.25)', borderRadius: '6px' }}>
+                        {/* Futuristic Grid Overlay */}
+                        <circle cx="150" cy="65" r="55" fill="none" stroke="rgba(255, 255, 255, 0.025)" strokeWidth="1" strokeDasharray="3" />
+                        <circle cx="150" cy="65" r="30" fill="none" stroke="rgba(255, 255, 255, 0.025)" strokeWidth="1" strokeDasharray="3" />
+                        <line x1="150" y1="5" x2="150" y2="125" stroke="rgba(255, 255, 255, 0.025)" strokeWidth="1" strokeDasharray="3" />
+                        <line x1="10" y1="65" x2="290" y2="65" stroke="rgba(255, 255, 255, 0.025)" strokeWidth="1" strokeDasharray="3" />
+
+                        <path d="M 30,30 L 80,20 L 90,60 L 50,90 Z" fill="rgba(255,255,255,0.01)" stroke="rgba(255, 255, 255, 0.12)" />
+                        <path d="M 180,30 L 230,20 L 240,50 L 190,70 Z" fill="rgba(255,255,255,0.01)" stroke="rgba(255, 255, 255, 0.12)" />
+                        
                         {selectedRegion === 'germany' ? (
                           <>
                             <path d="M 90,30 Q 150,5 210,25" fill="none" stroke={colors.accentTeal} strokeWidth="1.5" strokeDasharray="3" />
-                            <circle cx="210" cy="25" r="4" fill={colors.accentTeal} />
+                            <circle cx="210" cy="25" r="6" fill={colors.accentTeal} className="v12-pulse-dot" />
+                            <circle cx="210" cy="25" r="2.5" fill="#ffffff" />
                           </>
                         ) : (
                           <>
                             <path d="M 90,30 Q 60,40 50,55" fill="none" stroke={colors.accentTeal} strokeWidth="1.5" strokeDasharray="3" />
-                            <circle cx="50" cy="55" r="4" fill={colors.accentTeal} />
+                            <circle cx="50" cy="55" r="6" fill={colors.accentTeal} className="v12-pulse-dot" />
+                            <circle cx="50" cy="55" r="2.5" fill="#ffffff" />
                           </>
                         )}
                       </svg>
                       
                       <div style={{ position: 'absolute', bottom: '4px', left: '4px', right: '4px' }}>
                         {selectedRegion === 'germany' ? (
-                          <div style={{ border: '1px solid rgba(225, 29, 72, 0.2)', background: 'rgba(225, 29, 72, 0.02)', padding: '0.35rem', borderRadius: '4px', fontSize: '0.55rem' }}>
+                          <div style={{ border: '1px solid rgba(244, 63, 94, 0.2)', background: 'rgba(244, 63, 94, 0.04)', padding: '0.35rem', borderRadius: '4px', fontSize: '0.55rem' }}>
                             <span style={{ color: colors.accentCoral, fontWeight: 900 }}>⚠️ 2026 EU AI ACT HIGH-RISK WARNING</span>
                             <span style={{ color: '#f8fafc', display: 'block', marginTop: '0.05rem', lineHeight: 1.25 }}>
                               Behavioral tracking disabled to avoid 6% global revenue penalty under EU Article 52.
                             </span>
                           </div>
                         ) : (
-                          <div style={{ border: '1px solid rgba(13, 148, 136, 0.2)', background: 'rgba(13, 148, 136, 0.02)', padding: '0.35rem', borderRadius: '4px', fontSize: '0.55rem' }}>
+                          <div style={{ border: '1px solid rgba(6, 182, 212, 0.2)', background: 'rgba(6, 182, 212, 0.04)', padding: '0.35rem', borderRadius: '4px', fontSize: '0.55rem' }}>
                             <span style={{ color: colors.accentTeal, fontWeight: 900 }}>✓ U.S. TRANSPARENCY ROUTING ACTIVE</span>
                             <span style={{ color: '#f8fafc', display: 'block', marginTop: '0.05rem', lineHeight: 1.25 }}>
                               Opt-out metadata programmatically appended per state-level rules.
@@ -3372,20 +3484,20 @@ export default function PremiumScopingAssessorV12({
                     </div>
 
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.65rem', padding: '0.2rem 0', alignItems: 'center' }}>
-                      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.15rem' }}>
+                      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.25rem' }}>
                         <span style={{ fontSize: '0.52rem', fontWeight: 900 }}>NJ S-1515 ADS BILL</span>
-                        <div style={{ width: '12px', height: '40px', background: '#e2e8f0', borderRadius: '100px', overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
-                          <div style={{ width: '100%', height: njAuditTrailEnabled ? '25%' : '90%', background: njAuditTrailEnabled ? colors.accentTeal : colors.accentCoral }} />
+                        <div style={{ width: '14px', height: '42px', background: 'rgba(15, 23, 42, 0.4)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '100px', overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: '1px' }}>
+                          <div style={{ width: '100%', height: njAuditTrailEnabled ? '25%' : '90%', background: njAuditTrailEnabled ? colors.accentTeal : colors.accentCoral, borderRadius: '100px', transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)' }} />
                         </div>
                         <span style={{ fontSize: '0.55rem', fontWeight: 900, color: njAuditTrailEnabled ? colors.accentTeal : colors.accentCoral }}>
                           {njAuditTrailEnabled ? "COMPLIANT" : "❌ HIGH RISK"}
                         </span>
                       </div>
 
-                      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.15rem' }}>
+                      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.25rem' }}>
                         <span style={{ fontSize: '0.52rem', fontWeight: 900 }}>EU AI ACT SEC 52</span>
-                        <div style={{ width: '12px', height: '40px', background: '#e2e8f0', borderRadius: '100px', overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
-                          <div style={{ width: '100%', height: '35%', background: colors.accentTeal }} />
+                        <div style={{ width: '14px', height: '42px', background: 'rgba(15, 23, 42, 0.4)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '100px', overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: '1px' }}>
+                          <div style={{ width: '100%', height: '35%', background: colors.accentTeal, borderRadius: '100px' }} />
                         </div>
                         <span style={{ fontSize: '0.55rem', fontWeight: 900, color: colors.accentTeal }}>COMPLIANT</span>
                       </div>

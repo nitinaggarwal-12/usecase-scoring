@@ -1597,7 +1597,7 @@ export default function App() {
         onFrameworkChange={(fw) => {
           setActiveFramework(fw);
           setActiveSessionId(null);
-          if (['option5', 'option6', 'option7', 'option8', 'option9', 'option10', 'intake'].includes(fw)) {
+          if (['option5', 'option6', 'option7', 'option8', 'option9', 'option10', 'option11', 'option12', 'intake'].includes(fw)) {
             setViewMode('landing');
             window.location.hash = `#landing-${fw}`;
           } else {
@@ -1619,7 +1619,7 @@ export default function App() {
           onFrameworkChange={(fw) => {
             setActiveFramework(fw);
             setActiveSessionId(null);
-            if (['option5', 'option6', 'option7', 'option8', 'option9', 'option10', 'intake'].includes(fw)) {
+            if (['option5', 'option6', 'option7', 'option8', 'option9', 'option10', 'option11', 'option12', 'intake'].includes(fw)) {
               setViewMode('landing');
               window.location.hash = `#landing-${fw}`;
             } else {
