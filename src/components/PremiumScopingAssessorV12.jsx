@@ -700,15 +700,15 @@ export default function PremiumScopingAssessorV12({
 
   // Premium McKinsey Light Theme Tokens (Stripe/Apple Clean Aesthetics)
   const colors = {
-    bgDark: '#f8fafc', // Slate 50
-    bgCard: '#ffffff', // Pure white cards
-    borderGrey: 'rgba(15, 23, 42, 0.08)', // Slate 900 at 8% opacity
-    textDark: '#0f172a', // Slate 900
-    textMuted: '#475569', // Slate 600
-    accentTeal: '#0d9488', // Teal 600 (High contrast green-teal)
-    accentAmber: '#d97706', // Amber 600 (High contrast amber)
-    accentCoral: '#e11d48', // Rose 600 (High contrast red-rose)
-    purpleGradient: 'linear-gradient(135deg, #2563eb, #7c3aed)' // Blue 600 to Purple 600
+    bgDark: '#0f172a', // Slate 900
+    bgCard: 'rgba(30, 41, 59, 0.4)', // Translucent glass slate
+    borderGrey: 'rgba(255, 255, 255, 0.06)', // Glass border
+    textDark: '#f8fafc', // Slate 50 bright text
+    textMuted: '#cbd5e1', // Slate 300 readable text
+    accentTeal: '#06b6d4', // Cyan 500 (Vibrant cyber teal)
+    accentAmber: '#fbbf24', // Amber 400 (Vibrant amber)
+    accentCoral: '#f43f5e', // Rose 500 (Vibrant coral)
+    purpleGradient: 'linear-gradient(135deg, #3b82f6, #8b5cf6)' // Indigo to Purple gradient
   };
 
   // C-Suite Mathematical Weight Scoring Engine
@@ -1183,8 +1183,8 @@ export default function PremiumScopingAssessorV12({
       <style>{`
         .premium-assessor-v12-container {
           display: flex;
-          background: #f4f6fa;
-          color: #1e293b;
+          background: #0b0f19;
+          color: #f1f5f9;
           font-family: 'Outfit', 'Inter', -apple-system, sans-serif;
           box-sizing: border-box;
           height: 100%;
@@ -1196,16 +1196,16 @@ export default function PremiumScopingAssessorV12({
 
         .v12-sidebar-premium {
           width: 260px;
-          background: rgba(255, 255, 255, 0.85);
+          background: rgba(15, 23, 42, 0.45);
           backdrop-filter: blur(20px);
           -webkit-backdrop-filter: blur(20px);
-          border-right: 1px solid rgba(15, 23, 42, 0.06);
+          border-right: 1px solid rgba(255, 255, 255, 0.06);
           display: flex;
           flex-direction: column;
           box-sizing: border-box;
           height: 100%;
           flex-shrink: 0;
-          box-shadow: 4px 0 24px rgba(15, 23, 42, 0.02);
+          box-shadow: 4px 0 24px rgba(0, 0, 0, 0.15);
         }
 
         .v12-sidebar-nav-item {
@@ -1217,22 +1217,22 @@ export default function PremiumScopingAssessorV12({
           cursor: pointer;
           font-size: 0.72rem;
           font-weight: 600;
-          color: #475569;
+          color: #94a3b8;
           border-radius: 8px;
           border-left: 3px solid transparent;
           transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .v12-sidebar-nav-item:hover {
-          background: rgba(13, 148, 136, 0.04);
-          color: #0f172a;
+          background: rgba(255, 255, 255, 0.03);
+          color: #f8fafc;
           transform: translateX(4px);
         }
         .v12-sidebar-nav-item.active {
-          background: rgba(13, 148, 136, 0.08);
-          color: #0d9488;
-          border-left-color: #0d9488;
+          background: rgba(255, 255, 255, 0.05);
+          color: #06b6d4;
+          border-left-color: #06b6d4;
           font-weight: 800;
-          box-shadow: 0 4px 12px rgba(13, 148, 136, 0.06);
+          box-shadow: 0 4px 12px rgba(6, 182, 212, 0.15);
         }
 
         .v12-main-area-premium {
@@ -1242,25 +1242,25 @@ export default function PremiumScopingAssessorV12({
           box-sizing: border-box;
           height: 100%;
           min-height: 0;
-          background: #f8fafc;
+          background: #090d16;
           background-image: 
-            radial-gradient(at 0% 0%, rgba(13, 148, 136, 0.04) 0px, transparent 55%), 
-            radial-gradient(at 100% 0%, rgba(99, 102, 241, 0.04) 0px, transparent 55%),
-            radial-gradient(at 50% 100%, rgba(236, 72, 153, 0.03) 0px, transparent 55%);
+            radial-gradient(at 0% 0%, rgba(6, 182, 212, 0.08) 0px, transparent 60%), 
+            radial-gradient(at 100% 0%, rgba(99, 102, 241, 0.08) 0px, transparent 60%),
+            radial-gradient(at 50% 100%, rgba(236, 72, 153, 0.05) 0px, transparent 60%);
           position: relative;
           overflow: hidden;
         }
 
         .v12-card-glass {
-          background: rgba(255, 255, 255, 0.75);
+          background: rgba(30, 41, 59, 0.35);
           backdrop-filter: blur(16px);
           -webkit-backdrop-filter: blur(16px);
-          border: 1px solid rgba(255, 255, 255, 0.6);
+          border: 1px solid rgba(255, 255, 255, 0.06);
           border-radius: 14px;
           box-shadow: 
-            0 10px 30px rgba(15, 23, 42, 0.02),
-            0 1px 3px rgba(15, 23, 42, 0.01),
-            inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            0 10px 30px rgba(0, 0, 0, 0.2),
+            0 1px 3px rgba(0, 0, 0, 0.1),
+            inset 0 1px 0 rgba(255, 255, 255, 0.05);
           padding: 0.95rem;
           box-sizing: border-box;
           transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.25s ease;
@@ -1270,7 +1270,7 @@ export default function PremiumScopingAssessorV12({
           box-shadow: 
             0 16px 36px rgba(15, 23, 42, 0.04),
             0 2px 6px rgba(15, 23, 42, 0.02);
-          border-color: rgba(13, 148, 136, 0.25);
+          border-color: rgba(6, 182, 212, 0.25);
         }
 
         .v12-kpi-val {
@@ -1351,11 +1351,11 @@ export default function PremiumScopingAssessorV12({
       // ========================================================================== */}
       <aside className="v12-sidebar-premium">
         
-        <div style={{ padding: '1rem', borderBottom: '1px solid rgba(15, 23, 42, 0.08)', display: 'flex', flexDirection: 'column', gap: '0.25rem', background: '#ffffff' }}>
-          <h2 style={{ fontSize: '0.78rem', fontWeight: 900, color: '#0f172a', margin: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+        <div style={{ padding: '1rem', borderBottom: '1px solid rgba(255, 255, 255, 0.06)', display: 'flex', flexDirection: 'column', gap: '0.25rem', background: 'rgba(30, 41, 59, 0.35)' }}>
+          <h2 style={{ fontSize: '0.78rem', fontWeight: 900, color: '#f8fafc', margin: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
             {customerInfo.company || 'ENTERPRISE AUDIT'}
           </h2>
-          <span style={{ fontSize: '0.62rem', color: '#475569', fontWeight: 600 }}>
+          <span style={{ fontSize: '0.62rem', color: '#cbd5e1', fontWeight: 600 }}>
             {activeTab === 'intake' ? 'WORKSHOP MATRIX' : 'EXECUTIVE DOSSIER'}
           </span>
         </div>
@@ -1478,7 +1478,7 @@ export default function PremiumScopingAssessorV12({
 
         </div>
 
-        <div style={{ padding: '0.65rem 0.85rem', borderTop: '1px solid rgba(15, 23, 42, 0.08)', display: 'flex', flexDirection: 'column', gap: '0.45rem', background: '#ffffff', flexShrink: 0 }}>
+        <div style={{ padding: '0.65rem 0.85rem', borderTop: '1px solid rgba(15, 23, 42, 0.08)', display: 'flex', flexDirection: 'column', gap: '0.45rem', background: 'rgba(30, 41, 59, 0.35)', flexShrink: 0 }}>
           {activeTab === 'intake' ? (
             <>
               <button
@@ -1510,7 +1510,7 @@ export default function PremiumScopingAssessorV12({
             <>
               <button
                 onClick={() => handleTabSwitch('intake')}
-                style={{ background: '#f1f5f9', border: '1px solid rgba(15, 23, 42, 0.08)', color: '#0f172a', borderRadius: '6px', padding: '0.45rem 0', fontSize: '0.68rem', fontWeight: 800, cursor: 'pointer' }}
+                style={{ background: 'rgba(255, 255, 255, 0.04)', border: '1px solid rgba(255, 255, 255, 0.06)', color: '#f8fafc', borderRadius: '6px', padding: '0.45rem 0', fontSize: '0.68rem', fontWeight: 800, cursor: 'pointer' }}
               >
                 ← Back to Scoping Matrix
               </button>
@@ -1524,7 +1524,7 @@ export default function PremiumScopingAssessorV12({
               </button>
               <button
                 onClick={onBackToLanding}
-                style={{ background: 'transparent', border: 'none', color: '#475569', fontSize: '0.62rem', fontWeight: 600, cursor: 'pointer', textAlign: 'center' }}
+                style={{ background: 'transparent', border: 'none', color: '#cbd5e1', fontSize: '0.62rem', fontWeight: 600, cursor: 'pointer', textAlign: 'center' }}
               >
                 Back to Portal Home
               </button>
@@ -1541,16 +1541,16 @@ export default function PremiumScopingAssessorV12({
         {geminiStreamingState.active && (
           <div style={{ position: 'absolute', inset: 0, background: 'rgba(248, 250, 252, 0.95)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', zIndex: 100, padding: '2rem' }}>
             <div className="v12-card-glass" style={{ width: '100%', maxWidth: '580px', display: 'flex', flexDirection: 'column', gap: '1rem', border: '1px solid rgba(13, 148, 136, 0.25)', boxShadow: '0 8px 32px rgba(13, 148, 136, 0.08)' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', borderBottom: '1px solid rgba(15, 23, 42, 0.08)', paddingBottom: '0.5rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.06)', paddingBottom: '0.5rem' }}>
                 <Activity size={20} className="v12-pulse-dot" style={{ color: colors.accentTeal }} />
-                <h3 style={{ margin: 0, fontSize: '0.95rem', fontWeight: 900, color: '#0f172a', letterSpacing: '0.5px' }}>VERTEX AI SOVEREIGN COMPLIANCE COMPILE</h3>
+                <h3 style={{ margin: 0, fontSize: '0.95rem', fontWeight: 900, color: '#f8fafc', letterSpacing: '0.5px' }}>VERTEX AI SOVEREIGN COMPLIANCE COMPILE</h3>
               </div>
-              <div style={{ height: '240px', background: '#f8fafc', border: '1px solid rgba(15, 23, 42, 0.08)', borderRadius: '6px', padding: '0.6rem', fontFamily: 'Courier, monospace', fontSize: '0.65rem', color: '#0d9488', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '0.25rem' }} className="v12-scrollable">
+              <div style={{ height: '240px', background: 'rgba(15, 23, 42, 0.25)', border: '1px solid rgba(255, 255, 255, 0.06)', borderRadius: '6px', padding: '0.6rem', fontFamily: 'Courier, monospace', fontSize: '0.65rem', color: '#0d9488', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '0.25rem' }} className="v12-scrollable">
                 {geminiStreamingState.logs.map((log, i) => (
                   <div key={i} style={{ lineBreak: 'anywhere' }}>{log}</div>
                 ))}
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.68rem', color: '#475569' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.68rem', color: '#cbd5e1' }}>
                 <span>Phase {geminiStreamingState.currentStep} of 6 compiled</span>
                 <span className="v12-pulse-dot" />
               </div>
@@ -1568,19 +1568,19 @@ export default function PremiumScopingAssessorV12({
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
                 <span style={{ fontSize: '1.2rem' }}>📊</span>
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
-                  <span style={{ fontSize: '0.74rem', fontWeight: 900, color: '#0f172a', lineHeight: 1.1 }}>
+                  <span style={{ fontSize: '0.74rem', fontWeight: 900, color: '#f8fafc', lineHeight: 1.1 }}>
                     {activeQuestion.pillarName.split('. ')[1]}
                   </span>
-                  <span style={{ fontSize: '0.58rem', color: '#475569' }}>
+                  <span style={{ fontSize: '0.58rem', color: '#cbd5e1' }}>
                     {activeQuestion.dimension}
                   </span>
                 </div>
               </div>
 
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-                <span style={{ fontSize: '0.58rem', background: '#f1f5f9', color: '#0f172a', padding: '0.1rem 0.4rem', borderRadius: '100px', fontWeight: 800 }}>ALL 25</span>
+                <span style={{ fontSize: '0.58rem', background: 'rgba(255, 255, 255, 0.04)', color: '#f8fafc', padding: '0.1rem 0.4rem', borderRadius: '100px', fontWeight: 800 }}>ALL 25</span>
                 <span style={{ fontSize: '0.58rem', background: 'rgba(13, 148, 136, 0.1)', color: colors.accentTeal, padding: '0.1rem 0.4rem', borderRadius: '100px', fontWeight: 800 }}>DONE {doneCount}</span>
-                <span style={{ fontSize: '0.58rem', background: '#f1f5f9', color: '#94a3b8', padding: '0.1rem 0.4rem', borderRadius: '100px', fontWeight: 800 }}>TODO {todoCount}</span>
+                <span style={{ fontSize: '0.58rem', background: 'rgba(255, 255, 255, 0.04)', color: '#94a3b8', padding: '0.1rem 0.4rem', borderRadius: '100px', fontWeight: 800 }}>TODO {todoCount}</span>
               </div>
 
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.12rem', overflowX: 'auto', maxWidth: '340px' }} className="v12-scrollable">
@@ -1621,21 +1621,21 @@ export default function PremiumScopingAssessorV12({
                     ✓ SAVED
                   </span>
                 )}
-                <span style={{ fontSize: '0.62rem', color: '#475569', fontWeight: 700 }}>Q {activeQuestion.id}</span>
+                <span style={{ fontSize: '0.62rem', color: '#cbd5e1', fontWeight: 700 }}>Q {activeQuestion.id}</span>
               </div>
             </div>
 
             <div className="v12-card-glass" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.45rem 0.85rem', flexShrink: 0 }}>
-              <h2 style={{ fontSize: '0.98rem', fontWeight: 850, color: '#0f172a', margin: 0, flex: 1, textAlign: 'center', lineHeight: 1.3 }}>
+              <h2 style={{ fontSize: '0.98rem', fontWeight: 850, color: '#f8fafc', margin: 0, flex: 1, textAlign: 'center', lineHeight: 1.3 }}>
                 {activeQuestion.topic.includes(':') ? activeQuestion.topic.split(':').slice(1).join(':').trim() : activeQuestion.topic}
               </h2>
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.35rem', flexShrink: 0, paddingBottom: '0.15rem' }}>
-              <div style={{ fontSize: '0.65rem', fontWeight: 800, color: '#475569', background: '#f1f5f9', padding: '0.3rem 0.5rem', borderRadius: '4px', border: '1px solid rgba(15,23,42,0.06)' }}>Current State</div>
-              <div style={{ fontSize: '0.65rem', fontWeight: 800, color: '#475569', background: '#f1f5f9', padding: '0.3rem 0.5rem', borderRadius: '4px', border: '1px solid rgba(15,23,42,0.06)' }}>Future State Vision</div>
-              <div style={{ fontSize: '0.65rem', fontWeight: 800, color: '#475569', background: '#f1f5f9', padding: '0.3rem 0.5rem', borderRadius: '4px', border: '1px solid rgba(15,23,42,0.06)' }}>Technical Pain Points</div>
-              <div style={{ fontSize: '0.65rem', fontWeight: 800, color: '#475569', background: '#f1f5f9', padding: '0.3rem 0.5rem', borderRadius: '4px', border: '1px solid rgba(15,23,42,0.06)' }}>Business Pain Points</div>
+              <div style={{ fontSize: '0.65rem', fontWeight: 800, color: '#cbd5e1', background: 'rgba(255, 255, 255, 0.04)', padding: '0.3rem 0.5rem', borderRadius: '4px', border: '1px solid rgba(255, 255, 255, 0.04)' }}>Current State</div>
+              <div style={{ fontSize: '0.65rem', fontWeight: 800, color: '#cbd5e1', background: 'rgba(255, 255, 255, 0.04)', padding: '0.3rem 0.5rem', borderRadius: '4px', border: '1px solid rgba(255, 255, 255, 0.04)' }}>Future State Vision</div>
+              <div style={{ fontSize: '0.65rem', fontWeight: 800, color: '#cbd5e1', background: 'rgba(255, 255, 255, 0.04)', padding: '0.3rem 0.5rem', borderRadius: '4px', border: '1px solid rgba(255, 255, 255, 0.04)' }}>Technical Pain Points</div>
+              <div style={{ fontSize: '0.65rem', fontWeight: 800, color: '#cbd5e1', background: 'rgba(255, 255, 255, 0.04)', padding: '0.3rem 0.5rem', borderRadius: '4px', border: '1px solid rgba(255, 255, 255, 0.04)' }}>Business Pain Points</div>
             </div>
 
             <div className="v12-grid-area" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gridTemplateRows: 'repeat(5, 1fr)', gap: '0.35rem', flex: 1, minHeight: 0 }}>
@@ -1756,7 +1756,7 @@ export default function PremiumScopingAssessorV12({
             </div>
 
             <div className="v12-card-glass" style={{ padding: '0.35rem 0.65rem 0.4rem 0.65rem', display: 'flex', flexDirection: 'column', gap: '0.05rem', flexShrink: 0 }}>
-              <span style={{ fontSize: '0.56rem', fontWeight: 900, color: '#475569', letterSpacing: '0.5px' }}>AUDITOR COMPLIANCE NOTES</span>
+              <span style={{ fontSize: '0.56rem', fontWeight: 900, color: '#cbd5e1', letterSpacing: '0.5px' }}>AUDITOR COMPLIANCE NOTES</span>
               <textarea
                 value={scores[activeQuestionId]?.comments || ''}
                 onChange={e => handleCommentChange(e.target.value)}
@@ -1767,7 +1767,7 @@ export default function PremiumScopingAssessorV12({
                   border: 'none',
                   outline: 'none',
                   fontSize: '0.72rem',
-                  color: '#0f172a',
+                  color: '#f8fafc',
                   background: 'transparent',
                   fontFamily: 'inherit',
                   lineHeight: 1.25,
@@ -1781,12 +1781,12 @@ export default function PremiumScopingAssessorV12({
               <button
                 onClick={handlePrevQuestion}
                 disabled={activeQuestionIdx === 0}
-                style={{ background: '#ffffff', color: colors.accentTeal, border: '1px solid rgba(15, 23, 42, 0.08)', borderRadius: '4px', padding: '0.35rem 0.85rem', fontSize: '0.7rem', fontWeight: 800, cursor: activeQuestionIdx === 0 ? 'default' : 'pointer', opacity: activeQuestionIdx === 0 ? 0.4 : 1, display: 'flex', alignItems: 'center', gap: '0.2rem' }}
+                style={{ background: 'rgba(30, 41, 59, 0.35)', color: colors.accentTeal, border: '1px solid rgba(255, 255, 255, 0.06)', borderRadius: '4px', padding: '0.35rem 0.85rem', fontSize: '0.7rem', fontWeight: 800, cursor: activeQuestionIdx === 0 ? 'default' : 'pointer', opacity: activeQuestionIdx === 0 ? 0.4 : 1, display: 'flex', alignItems: 'center', gap: '0.2rem' }}
               >
                 <ArrowLeft size={12} /> Back
               </button>
               
-              <span style={{ fontSize: '0.7rem', fontWeight: 800, color: '#475569' }}>
+              <span style={{ fontSize: '0.7rem', fontWeight: 800, color: '#cbd5e1' }}>
                 Completed: {Math.round((doneCount / 25) * 100)}% ({doneCount}/25 Topics)
               </span>
 
@@ -1813,7 +1813,7 @@ export default function PremiumScopingAssessorV12({
                 <span style={{ fontSize: '0.58rem', color: colors.accentTeal, fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.8px' }}>
                   Enterprise Diagnostic Report • Framework v12
                 </span>
-                <h1 style={{ fontSize: '1.15rem', fontWeight: 900, color: '#0f172a', margin: '0.1rem 0 0 0' }}>
+                <h1 style={{ fontSize: '1.15rem', fontWeight: 900, color: '#f8fafc', margin: '0.1rem 0 0 0' }}>
                   {reportPage === 'summary' && "Target Architecture Mitigates FDA Risk While Accelerating Jan 2027 MVP."}
                   {reportPage === 'matrix' && "Core Deficits in Legacy Infrastructure Require Agentic Remediation."}
                   {reportPage === 'blueprints' && "Federated Data Mesh & Zero-Trust Gateways Secure the Agentic Swarm."}
@@ -1825,7 +1825,7 @@ export default function PremiumScopingAssessorV12({
               <div style={{ display: 'flex', gap: '0.45rem', flexShrink: 0 }}>
                 <button 
                   onClick={() => alert("📥 Exporting C-Suite Briefing Ledger to PDF... Complete!")}
-                  style={{ background: '#ffffff', border: '1px solid rgba(15, 23, 42, 0.08)', color: '#0f172a', padding: '0.35rem 0.75rem', borderRadius: '6px', fontSize: '0.65rem', fontWeight: 800, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.25rem' }}
+                  style={{ background: 'rgba(30, 41, 59, 0.35)', border: '1px solid rgba(255, 255, 255, 0.06)', color: '#f8fafc', padding: '0.35rem 0.75rem', borderRadius: '6px', fontSize: '0.65rem', fontWeight: 800, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.25rem' }}
                 >
                   <FileText size={13} /> Export to PDF Brief
                 </button>
@@ -1855,12 +1855,12 @@ export default function PremiumScopingAssessorV12({
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.65rem' }}>
                   
                   {/* KPI 1: Readiness Score */}
-                  <div className="v12-card-glass" style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', background: '#ffffff' }}>
+                  <div className="v12-card-glass" style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', background: 'rgba(30, 41, 59, 0.35)' }}>
                     <div style={{ width: '42px', height: '42px', borderRadius: '50%', border: `3.5px solid ${colors.accentTeal}`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, boxShadow: `0 0 10px rgba(13, 148, 136, 0.1)` }}>
                       <span style={{ fontSize: '0.85rem', fontWeight: 900, color: colors.accentTeal }}>{scoringData.overallScore.toFixed(1)}</span>
                     </div>
                     <div>
-                      <span style={{ fontSize: '0.56rem', color: '#475569', fontWeight: 800, textTransform: 'uppercase', display: 'block' }}>Final Readiness Score</span>
+                      <span style={{ fontSize: '0.56rem', color: '#cbd5e1', fontWeight: 800, textTransform: 'uppercase', display: 'block' }}>Final Readiness Score</span>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', marginTop: '0.1rem' }}>
                         <span className="v12-kpi-val">{scoringData.overallScore.toFixed(1)} <span style={{ fontSize: '0.85rem', color: '#94a3b8' }}>/ 5.0</span></span>
                         <span style={{ fontSize: '0.58rem', background: 'rgba(13, 148, 136, 0.1)', color: colors.accentTeal, padding: '0.04rem 0.35rem', borderRadius: '3px', fontWeight: 900, display: 'inline-flex', alignItems: 'center', gap: '0.15rem' }}>
@@ -1871,61 +1871,61 @@ export default function PremiumScopingAssessorV12({
                   </div>
 
                   {/* KPI 2: Financial TCO Breakdown */}
-                  <div className="v12-card-glass" style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', background: '#ffffff' }}>
+                  <div className="v12-card-glass" style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', background: 'rgba(30, 41, 59, 0.35)' }}>
                     <div style={{ width: '42px', height: '42px', borderRadius: '50%', border: `3px solid ${colors.accentAmber}`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                       <span style={{ fontSize: '0.8rem' }}>💰</span>
                     </div>
                     <div>
-                      <span style={{ fontSize: '0.56rem', color: '#475569', fontWeight: 800, textTransform: 'uppercase', display: 'block' }}>Financials (3-Year TCO)</span>
+                      <span style={{ fontSize: '0.56rem', color: '#cbd5e1', fontWeight: 800, textTransform: 'uppercase', display: 'block' }}>Financials (3-Year TCO)</span>
                       <span className="v12-kpi-val" style={{ color: colors.accentAmber }}>
                         ${Math.round(financialMetrics.netTCO * 3 / 1000)}K
                       </span>
-                      <span style={{ fontSize: '0.52rem', color: '#475569', display: 'block', marginTop: '0.05rem' }}>
+                      <span style={{ fontSize: '0.52rem', color: '#cbd5e1', display: 'block', marginTop: '0.05rem' }}>
                         CapEx: ${Math.round(financialMetrics.totalCapEx/1000)}K | OpEx: ${Math.round(financialMetrics.totalOpEx/1000)}K/yr
                       </span>
                     </div>
                   </div>
 
                   {/* KPI 3: Time-To-Value */}
-                  <div className="v12-card-glass" style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', background: '#ffffff' }}>
+                  <div className="v12-card-glass" style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', background: 'rgba(30, 41, 59, 0.35)' }}>
                     <div style={{ width: '42px', height: '42px', borderRadius: '50%', border: `3px solid ${colors.accentTeal}`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                       <Calendar size={18} style={{ color: colors.accentTeal }} />
                     </div>
                     <div>
-                      <span style={{ fontSize: '0.56rem', color: '#475569', fontWeight: 800, textTransform: 'uppercase', display: 'block' }}>Time-to-Value & Validation</span>
+                      <span style={{ fontSize: '0.56rem', color: '#cbd5e1', fontWeight: 800, textTransform: 'uppercase', display: 'block' }}>Time-to-Value & Validation</span>
                       <span className="v12-kpi-val" style={{ color: colors.accentTeal }}>
                         Jan 2027 MVP
                       </span>
-                      <span style={{ fontSize: '0.52rem', color: '#475569', display: 'block', marginTop: '0.05rem' }}>
+                      <span style={{ fontSize: '0.52rem', color: '#cbd5e1', display: 'block', marginTop: '0.05rem' }}>
                         Countdown: 192 Days | GAMP 5 Validation: 6 Weeks
                       </span>
                     </div>
                   </div>
 
                   {/* KPI 4: Enterprise Scale Indicator */}
-                  <div className="v12-card-glass" style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', background: '#ffffff' }}>
+                  <div className="v12-card-glass" style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', background: 'rgba(30, 41, 59, 0.35)' }}>
                     <div style={{ width: '42px', height: '42px', borderRadius: '50%', border: `3px solid ${colors.accentTeal}`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                       <Users size={18} style={{ color: colors.accentTeal }} />
                     </div>
                     <div>
-                      <span style={{ fontSize: '0.56rem', color: '#475569', fontWeight: 800, textTransform: 'uppercase', display: 'block' }}>Enterprise Scale Indicator</span>
+                      <span style={{ fontSize: '0.56rem', color: '#cbd5e1', fontWeight: 800, textTransform: 'uppercase', display: 'block' }}>Enterprise Scale Indicator</span>
                       <span className="v12-kpi-val" style={{ color: colors.accentTeal }}>
                         85,000 Users
                       </span>
-                      <span style={{ fontSize: '0.52rem', color: '#475569', display: 'block', marginTop: '0.05rem' }}>
+                      <span style={{ fontSize: '0.52rem', color: '#cbd5e1', display: 'block', marginTop: '0.05rem' }}>
                         Peak Concurrency: 12,000 reqs/min threshold
                       </span>
                     </div>
                   </div>
 
                   {/* KPI 5: GxP Compliance */}
-                  <div className="v12-card-glass" style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', background: '#ffffff' }}>
+                  <div className="v12-card-glass" style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', background: 'rgba(30, 41, 59, 0.35)' }}>
                     <div style={{ width: '42px', height: '42px', borderRadius: '50%', border: `3px solid ${colors.accentTeal}`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                       <Shield size={18} style={{ color: colors.accentTeal }} />
                     </div>
                     <div>
-                      <span style={{ fontSize: '0.56rem', color: '#475569', fontWeight: 800, textTransform: 'uppercase', display: 'block' }}>GxP Compliance Status</span>
-                      <span className="v12-kpi-val" style={{ fontSize: '0.98rem', color: '#0f172a', display: 'flex', alignItems: 'center', gap: '0.2rem', marginTop: '0.15rem' }}>
+                      <span style={{ fontSize: '0.56rem', color: '#cbd5e1', fontWeight: 800, textTransform: 'uppercase', display: 'block' }}>GxP Compliance Status</span>
+                      <span className="v12-kpi-val" style={{ fontSize: '0.98rem', color: '#f8fafc', display: 'flex', alignItems: 'center', gap: '0.2rem', marginTop: '0.15rem' }}>
                         🛡️ Zero Blockers
                       </span>
                       <span style={{ fontSize: '0.52rem', color: '#16a34a', display: 'block', marginTop: '0.05rem' }}>
@@ -1935,16 +1935,16 @@ export default function PremiumScopingAssessorV12({
                   </div>
 
                   {/* KPI 6: Zero-Trust IAM Identity */}
-                  <div className="v12-card-glass" style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', background: '#ffffff' }}>
+                  <div className="v12-card-glass" style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', background: 'rgba(30, 41, 59, 0.35)' }}>
                     <div style={{ width: '42px', height: '42px', borderRadius: '50%', border: `3px solid ${colors.accentTeal}`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                       <Zap size={18} style={{ color: colors.accentTeal }} />
                     </div>
                     <div>
-                      <span style={{ fontSize: '0.56rem', color: '#475569', fontWeight: 800, textTransform: 'uppercase', display: 'block' }}>Zero-Trust Identity IAM</span>
-                      <span className="v12-kpi-val" style={{ fontSize: '0.98rem', color: '#0f172a', display: 'flex', alignItems: 'center', gap: '0.2rem', marginTop: '0.15rem' }}>
+                      <span style={{ fontSize: '0.56rem', color: '#cbd5e1', fontWeight: 800, textTransform: 'uppercase', display: 'block' }}>Zero-Trust Identity IAM</span>
+                      <span className="v12-kpi-val" style={{ fontSize: '0.98rem', color: '#f8fafc', display: 'flex', alignItems: 'center', gap: '0.2rem', marginTop: '0.15rem' }}>
                         🔒 Entra ID Active
                       </span>
-                      <span style={{ fontSize: '0.52rem', color: '#475569', display: 'block', marginTop: '0.05rem' }}>
+                      <span style={{ fontSize: '0.52rem', color: '#cbd5e1', display: 'block', marginTop: '0.05rem' }}>
                         RBAC Validation enforced per agent API call
                       </span>
                     </div>
@@ -1956,13 +1956,13 @@ export default function PremiumScopingAssessorV12({
                 <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: '0.85rem', flex: 1, minHeight: 0 }}>
                   
                   <div className="v12-card-glass" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', height: '100%', minHeight: '320px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid rgba(15,23,42,0.08)', paddingBottom: '0.35rem' }}>
-                      <span style={{ fontSize: '0.7rem', fontWeight: 900, color: '#0f172a', letterSpacing: '0.5px' }}>2x2 STRATEGIC SUITABILITY SCATTER PLOT</span>
-                      <span style={{ fontSize: '0.58rem', color: '#475569' }}>Hover dots for audit details</span>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid rgba(255, 255, 255, 0.06)', paddingBottom: '0.35rem' }}>
+                      <span style={{ fontSize: '0.7rem', fontWeight: 900, color: '#f8fafc', letterSpacing: '0.5px' }}>2x2 STRATEGIC SUITABILITY SCATTER PLOT</span>
+                      <span style={{ fontSize: '0.58rem', color: '#cbd5e1' }}>Hover dots for audit details</span>
                     </div>
                     
                     <div style={{ flex: 1, position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                      <svg viewBox="0 0 400 300" style={{ width: '100%', height: '100%', background: '#f8fafc', borderRadius: '6px', border: '1px solid rgba(15, 23, 42, 0.08)' }}>
+                      <svg viewBox="0 0 400 300" style={{ width: '100%', height: '100%', background: 'rgba(15, 23, 42, 0.25)', borderRadius: '6px', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
                         <rect x="0" y="0" width="200" height="150" fill="rgba(225, 29, 72, 0.01)" stroke="rgba(15,23,42,0.04)" />
                         <rect x="200" y="0" width="200" height="150" fill="rgba(217, 119, 6, 0.01)" stroke="rgba(15,23,42,0.04)" strokeWidth="1" />
                         <rect x="0" y="150" width="200" height="150" fill="rgba(217, 119, 6, 0.01)" stroke="rgba(15,23,42,0.04)" strokeWidth="1" />
@@ -2008,9 +2008,9 @@ export default function PremiumScopingAssessorV12({
                       </svg>
 
                       {hoveredArchBlock && (
-                        <div className="v12-card-glass" style={{ position: 'absolute', bottom: '10px', left: '10px', right: '10px', padding: '0.45rem', background: '#ffffff', border: '1px solid rgba(13, 148, 136, 0.3)', borderRadius: '6px', zIndex: 10 }}>
+                        <div className="v12-card-glass" style={{ position: 'absolute', bottom: '10px', left: '10px', right: '10px', padding: '0.45rem', background: 'rgba(30, 41, 59, 0.35)', border: '1px solid rgba(13, 148, 136, 0.3)', borderRadius: '6px', zIndex: 10 }}>
                           <span style={{ fontSize: '0.68rem', fontWeight: 900, color: colors.accentTeal, display: 'block' }}>{hoveredArchBlock.name}</span>
-                          <p style={{ fontSize: '0.62rem', color: '#0f172a', margin: '0.1rem 0 0 0', lineHeight: 1.35 }}>{hoveredArchBlock.desc}</p>
+                          <p style={{ fontSize: '0.62rem', color: '#f8fafc', margin: '0.1rem 0 0 0', lineHeight: 1.35 }}>{hoveredArchBlock.desc}</p>
                         </div>
                       )}
                     </div>
@@ -2018,9 +2018,9 @@ export default function PremiumScopingAssessorV12({
 
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
                     
-                    <div className="v12-card-glass" style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.45rem', background: '#ffffff' }}>
+                    <div className="v12-card-glass" style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.45rem', background: 'rgba(30, 41, 59, 0.35)' }}>
                       <span style={{ fontSize: '0.65rem', fontWeight: 900, color: colors.accentTeal, letterSpacing: '0.5px' }}>EXECUTIVE DIAGNOSTIC NARRATIVE</span>
-                      <p style={{ fontSize: '0.74rem', color: '#475569', lineHeight: 1.45, margin: 0 }}>
+                      <p style={{ fontSize: '0.74rem', color: '#cbd5e1', lineHeight: 1.45, margin: 0 }}>
                         <strong>By adopting Google's Agentic Resource Discovery (ARD) and MCP specifications, Merck is not "building a custom app." We are deploying a self-assembling AI mesh.</strong> The Gemini Managed Agents will dynamically discover and utilize Veeva and Adobe resources via A2A protocols, eliminating millions in custom integration costs while preventing vendor lock-in.
                       </p>
                     </div>
@@ -2029,7 +2029,7 @@ export default function PremiumScopingAssessorV12({
                       <ShieldAlert size={22} style={{ color: colors.accentCoral, flexShrink: 0 }} />
                       <div>
                         <span style={{ fontSize: '0.68rem', fontWeight: 950, color: colors.accentCoral, display: 'block' }}>CRITICAL SOVEREIGN RISK IDENTIFIED</span>
-                        <span style={{ fontSize: '0.62rem', color: '#475569', display: 'block', marginTop: '0.05rem' }}>
+                        <span style={{ fontSize: '0.62rem', color: '#cbd5e1', display: 'block', marginTop: '0.05rem' }}>
                           Model updates and prompts currently lack cryptographic Quality Unit signatures, violating FDA GxP perimeters.
                         </span>
                       </div>
@@ -2049,7 +2049,7 @@ export default function PremiumScopingAssessorV12({
               <div className="v12-page-transition" style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', flex: 1, minHeight: 0 }}>
                 
                 <div className="v12-card-glass" style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem', flexShrink: 0 }}>
-                  <span style={{ fontSize: '0.65rem', fontWeight: 900, color: '#0f172a', letterSpacing: '0.5px' }}>6-PILLAR COMPREHENSIVE CAPABILITY HEATMAP</span>
+                  <span style={{ fontSize: '0.65rem', fontWeight: 900, color: '#f8fafc', letterSpacing: '0.5px' }}>6-PILLAR COMPREHENSIVE CAPABILITY HEATMAP</span>
                   
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem', padding: '0.2rem 0' }}>
                     {V12_PILLARS.map((pillar, index) => {
@@ -2066,10 +2066,10 @@ export default function PremiumScopingAssessorV12({
                       
                       return (
                         <div key={pillar.id} style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-                          <span style={{ fontSize: '0.65rem', color: '#475569', width: '130px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', fontWeight: 700 }}>
+                          <span style={{ fontSize: '0.65rem', color: '#cbd5e1', width: '130px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', fontWeight: 700 }}>
                             {pillar.name.split('. ')[1]}
                           </span>
-                          <div style={{ flex: 1, height: '12px', background: 'rgba(15,23,42,0.03)', borderRadius: '100px', overflow: 'hidden', border: '1px solid rgba(15,23,42,0.06)', position: 'relative' }}>
+                          <div style={{ flex: 1, height: '12px', background: 'rgba(15,23,42,0.03)', borderRadius: '100px', overflow: 'hidden', border: '1px solid rgba(255, 255, 255, 0.04)', position: 'relative' }}>
                             <div 
                               style={{ 
                                 width: `${barWidthPct}%`, 
@@ -2093,13 +2093,13 @@ export default function PremiumScopingAssessorV12({
                   
                   <div className="v12-card-glass" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', height: '100%', minHeight: 0 }}>
                     
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.45rem', borderBottom: '1px solid rgba(15,23,42,0.08)', paddingBottom: '0.45rem', flexShrink: 0 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.45rem', borderBottom: '1px solid rgba(255, 255, 255, 0.06)', paddingBottom: '0.45rem', flexShrink: 0 }}>
                       
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                        <span style={{ fontSize: '0.68rem', fontWeight: 800, color: '#475569' }}>Filter Matrix:</span>
+                        <span style={{ fontSize: '0.68rem', fontWeight: 800, color: '#cbd5e1' }}>Filter Matrix:</span>
                         <button 
                           onClick={() => setMatrixFilter('all')}
-                          style={{ background: matrixFilter === 'all' ? 'rgba(15,23,42,0.06)' : 'transparent', border: '1px solid rgba(15, 23, 42, 0.08)', color: '#0f172a', borderRadius: '4px', padding: '0.2rem 0.5rem', fontSize: '0.62rem', fontWeight: 800, cursor: 'pointer' }}
+                          style={{ background: matrixFilter === 'all' ? 'rgba(15,23,42,0.06)' : 'transparent', border: '1px solid rgba(255, 255, 255, 0.06)', color: '#f8fafc', borderRadius: '4px', padding: '0.2rem 0.5rem', fontSize: '0.62rem', fontWeight: 800, cursor: 'pointer' }}
                         >
                           All ({filteredDimensions.length})
                         </button>
@@ -2122,7 +2122,7 @@ export default function PremiumScopingAssessorV12({
                         placeholder="Search dimensions or pillars..."
                         value={matrixSearch}
                         onChange={e => setMatrixSearch(e.target.value)}
-                        style={{ background: '#ffffff', border: '1px solid rgba(15, 23, 42, 0.15)', borderRadius: '4px', padding: '0.25rem 0.5rem', fontSize: '0.68rem', color: '#0f172a', outline: 'none', width: '180px' }}
+                        style={{ background: 'rgba(30, 41, 59, 0.35)', border: '1px solid rgba(15, 23, 42, 0.15)', borderRadius: '4px', padding: '0.25rem 0.5rem', fontSize: '0.68rem', color: '#f8fafc', outline: 'none', width: '180px' }}
                       />
 
                     </div>
@@ -2130,7 +2130,7 @@ export default function PremiumScopingAssessorV12({
                     <div style={{ flex: 1, overflowY: 'auto', minHeight: 0 }} className="v12-scrollable">
                       <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.68rem', textAlign: 'left' }}>
                         <thead>
-                          <tr style={{ borderBottom: '1px solid rgba(15, 23, 42, 0.08)', color: '#475569', fontWeight: 800 }}>
+                          <tr style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.06)', color: '#cbd5e1', fontWeight: 800 }}>
                             <th style={{ padding: '0.35rem 0.45rem' }}>DIMENSION NAME</th>
                             <th style={{ padding: '0.35rem 0.45rem' }}>PILLAR</th>
                             <th style={{ padding: '0.35rem 0.45rem', textAlign: 'center' }}>WEIGHT</th>
@@ -2160,8 +2160,8 @@ export default function PremiumScopingAssessorV12({
                                 }}
                                 className="v12-table-row-hover"
                               >
-                                <td style={{ padding: '0.45rem', fontWeight: 700, color: '#0f172a' }}>{q.dimension}</td>
-                                <td style={{ padding: '0.45rem', color: '#475569' }}>{q.pillarName.split('. ')[1]}</td>
+                                <td style={{ padding: '0.45rem', fontWeight: 700, color: '#f8fafc' }}>{q.dimension}</td>
+                                <td style={{ padding: '0.45rem', color: '#cbd5e1' }}>{q.pillarName.split('. ')[1]}</td>
                                 <td style={{ padding: '0.45rem', textAlign: 'center', color: isCritical ? colors.accentAmber : '#0f172a', fontWeight: isCritical ? 900 : 550 }}>
                                   {isCritical ? '★★★' : q.weight === 2 ? '★★' : '★'}
                                 </td>
@@ -2192,12 +2192,12 @@ export default function PremiumScopingAssessorV12({
                   </div>
 
                   {selectedMatrixRow && (
-                    <div className="v12-card-glass" style={{ position: 'absolute', top: 0, right: 0, bottom: 0, width: '320px', zIndex: 30, borderLeft: `2px solid ${colors.accentTeal}`, display: 'flex', flexDirection: 'column', gap: '0.65rem', background: '#ffffff', padding: '0.85rem', boxShadow: '-10px 0 30px rgba(15, 23, 42, 0.08)', border: '1px solid rgba(15,23,42,0.08)' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid rgba(15, 23, 42, 0.08)', paddingBottom: '0.35rem' }}>
+                    <div className="v12-card-glass" style={{ position: 'absolute', top: 0, right: 0, bottom: 0, width: '320px', zIndex: 30, borderLeft: `2px solid ${colors.accentTeal}`, display: 'flex', flexDirection: 'column', gap: '0.65rem', background: 'rgba(30, 41, 59, 0.35)', padding: '0.85rem', boxShadow: '-10px 0 30px rgba(15, 23, 42, 0.08)', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid rgba(255, 255, 255, 0.06)', paddingBottom: '0.35rem' }}>
                         <span style={{ fontSize: '0.68rem', fontWeight: 950, color: colors.accentTeal }}>RUBRIC SPECIFICATION</span>
                         <button 
                           onClick={() => setSelectedMatrixRow(null)}
-                          style={{ background: 'transparent', border: 'none', color: '#475569', fontSize: '0.78rem', cursor: 'pointer', fontWeight: 900 }}
+                          style={{ background: 'transparent', border: 'none', color: '#cbd5e1', fontSize: '0.78rem', cursor: 'pointer', fontWeight: 900 }}
                         >
                           ✕
                         </button>
@@ -2205,17 +2205,17 @@ export default function PremiumScopingAssessorV12({
 
                       <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '0.55rem' }} className="v12-scrollable">
                         <div>
-                          <span style={{ fontSize: '0.52rem', color: '#475569', fontWeight: 800, textTransform: 'uppercase' }}>Dimension</span>
-                          <h4 style={{ margin: '0.1rem 0', fontSize: '0.78rem', fontWeight: 900, color: '#0f172a' }}>{selectedMatrixRow.dimension}</h4>
+                          <span style={{ fontSize: '0.52rem', color: '#cbd5e1', fontWeight: 800, textTransform: 'uppercase' }}>Dimension</span>
+                          <h4 style={{ margin: '0.1rem 0', fontSize: '0.78rem', fontWeight: 900, color: '#f8fafc' }}>{selectedMatrixRow.dimension}</h4>
                         </div>
 
                         <div>
-                          <span style={{ fontSize: '0.52rem', color: '#475569', fontWeight: 800, textTransform: 'uppercase' }}>Topic Question</span>
-                          <p style={{ margin: '0.1rem 0', fontSize: '0.7rem', color: '#475569', lineHeight: 1.35 }}>{selectedMatrixRow.topic}</p>
+                          <span style={{ fontSize: '0.52rem', color: '#cbd5e1', fontWeight: 800, textTransform: 'uppercase' }}>Topic Question</span>
+                          <p style={{ margin: '0.1rem 0', fontSize: '0.7rem', color: '#cbd5e1', lineHeight: 1.35 }}>{selectedMatrixRow.topic}</p>
                         </div>
 
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem', margin: '0.25rem 0' }}>
-                          <span style={{ fontSize: '0.52rem', color: '#475569', fontWeight: 800, textTransform: 'uppercase' }}>Level Rubric Map</span>
+                          <span style={{ fontSize: '0.52rem', color: '#cbd5e1', fontWeight: 800, textTransform: 'uppercase' }}>Level Rubric Map</span>
                           {selectedMatrixRow.options.map(opt => {
                             const isCurrent = scores[selectedMatrixRow.id]?.current === opt.score;
                             const isFuture = scores[selectedMatrixRow.id]?.future === opt.score;
@@ -2240,9 +2240,9 @@ export default function PremiumScopingAssessorV12({
                         </div>
 
                         {scores[selectedMatrixRow.id]?.comments && (
-                          <div style={{ background: '#f8fafc', padding: '0.45rem', borderRadius: '4px', border: '1px solid rgba(15,23,42,0.08)' }}>
-                            <span style={{ fontSize: '0.52rem', color: '#475569', fontWeight: 800, display: 'block', marginBottom: '0.15rem' }}>AUDITOR REMARKS</span>
-                            <span style={{ fontSize: '0.65rem', color: '#0f172a', fontStyle: 'italic' }}>
+                          <div style={{ background: 'rgba(15, 23, 42, 0.25)', padding: '0.45rem', borderRadius: '4px', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
+                            <span style={{ fontSize: '0.52rem', color: '#cbd5e1', fontWeight: 800, display: 'block', marginBottom: '0.15rem' }}>AUDITOR REMARKS</span>
+                            <span style={{ fontSize: '0.65rem', color: '#f8fafc', fontStyle: 'italic' }}>
                               "{scores[selectedMatrixRow.id].comments}"
                             </span>
                           </div>
@@ -2266,9 +2266,9 @@ export default function PremiumScopingAssessorV12({
                   
                   {/* Layered Architecture Canvas Card */}
                   <div className="v12-card-glass" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', flex: 1, minHeight: '220px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid rgba(15,23,42,0.08)', paddingBottom: '0.35rem' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid rgba(255, 255, 255, 0.06)', paddingBottom: '0.35rem' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                        <span style={{ fontSize: '0.7rem', fontWeight: 900, color: '#0f172a', letterSpacing: '0.5px' }}>LAYERED ARCHITECTURE CANVAS</span>
+                        <span style={{ fontSize: '0.7rem', fontWeight: 900, color: '#f8fafc', letterSpacing: '0.5px' }}>LAYERED ARCHITECTURE CANVAS</span>
                         {editModeActive && (
                           <span style={{ fontSize: '0.52rem', background: 'rgba(225, 29, 72, 0.1)', color: colors.accentCoral, padding: '0.04rem 0.35rem', borderRadius: '3px', fontWeight: 900 }}>
                             EDIT MODE ACTIVE
@@ -2278,7 +2278,7 @@ export default function PremiumScopingAssessorV12({
                       
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
                         {editModeActive && (
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.15rem', background: '#f1f5f9', padding: '0.1rem 0.3rem', borderRadius: '4px', border: '1px solid rgba(15,23,42,0.08)', marginRight: '0.3rem' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.15rem', background: 'rgba(255, 255, 255, 0.04)', padding: '0.1rem 0.3rem', borderRadius: '4px', border: '1px solid rgba(255, 255, 255, 0.06)', marginRight: '0.3rem' }}>
                             <button onClick={() => setActiveTool('box')} style={{ background: activeTool === 'box' ? colors.accentTeal : 'transparent', border: 'none', color: activeTool === 'box' ? '#fff' : '#0f172a', fontSize: '0.55rem', padding: '0.1rem 0.3rem', borderRadius: '3px', cursor: 'pointer' }}>[Box]</button>
                             <button onClick={() => setActiveTool('circle')} style={{ background: activeTool === 'circle' ? colors.accentTeal : 'transparent', border: 'none', color: activeTool === 'circle' ? '#fff' : '#0f172a', fontSize: '0.55rem', padding: '0.1rem 0.3rem', borderRadius: '3px', cursor: 'pointer' }}>[Circle]</button>
                             <button onClick={() => setActiveTool('line')} style={{ background: activeTool === 'line' ? colors.accentTeal : 'transparent', border: 'none', color: activeTool === 'line' ? '#fff' : '#0f172a', fontSize: '0.55rem', padding: '0.1rem 0.3rem', borderRadius: '3px', cursor: 'pointer' }}>[Line]</button>
@@ -2295,7 +2295,7 @@ export default function PremiumScopingAssessorV12({
                             setEditModeActive(!editModeActive);
                             setActiveTool('box');
                           }}
-                          style={{ background: editModeActive ? colors.accentCoral : '#f1f5f9', border: '1px solid rgba(15, 23, 42, 0.08)', color: editModeActive ? '#fff' : '#0f172a', padding: '0.15rem 0.45rem', borderRadius: '4px', fontSize: '0.62rem', fontWeight: 800, cursor: 'pointer' }}
+                          style={{ background: editModeActive ? colors.accentCoral : '#f1f5f9', border: '1px solid rgba(255, 255, 255, 0.06)', color: editModeActive ? '#fff' : '#0f172a', padding: '0.15rem 0.45rem', borderRadius: '4px', fontSize: '0.62rem', fontWeight: 800, cursor: 'pointer' }}
                         >
                           {editModeActive ? 'Disable Edit Mode' : 'Enable Edit Mode'}
                         </button>
@@ -2303,7 +2303,7 @@ export default function PremiumScopingAssessorV12({
                     </div>
 
                     <div 
-                      style={{ flex: 1, position: 'relative', background: '#f8fafc', border: '1px solid rgba(15, 23, 42, 0.08)', borderRadius: '6px', overflow: 'hidden', cursor: editModeActive ? 'crosshair' : 'default' }}
+                      style={{ flex: 1, position: 'relative', background: 'rgba(15, 23, 42, 0.25)', border: '1px solid rgba(255, 255, 255, 0.06)', borderRadius: '6px', overflow: 'hidden', cursor: editModeActive ? 'crosshair' : 'default' }}
                       onClick={handleWhiteboardCanvasClick}
                     >
                       <svg viewBox="0 0 400 320" style={{ width: '100%', height: '100%' }}>
@@ -2435,9 +2435,9 @@ export default function PremiumScopingAssessorV12({
                       </svg>
 
                       {hoveredArchBlock && !editModeActive && (
-                        <div className="v12-card-glass" style={{ position: 'absolute', bottom: '8px', left: '8px', right: '8px', padding: '0.45rem', background: '#ffffff', border: `1.2px solid ${colors.accentTeal}` }}>
+                        <div className="v12-card-glass" style={{ position: 'absolute', bottom: '8px', left: '8px', right: '8px', padding: '0.45rem', background: 'rgba(30, 41, 59, 0.35)', border: `1.2px solid ${colors.accentTeal}` }}>
                           <span style={{ fontSize: '0.65rem', fontWeight: 950, color: colors.accentTeal, display: 'block' }}>{hoveredArchBlock.name}</span>
-                          <p style={{ fontSize: '0.6&', color: '#0f172a', margin: '0.08rem 0 0 0', lineHeight: 1.35 }}>{hoveredArchBlock.desc}</p>
+                          <p style={{ fontSize: '0.6&', color: '#f8fafc', margin: '0.08rem 0 0 0', lineHeight: 1.35 }}>{hoveredArchBlock.desc}</p>
                         </div>
                       )}
                     </div>
@@ -2447,20 +2447,20 @@ export default function PremiumScopingAssessorV12({
                   <div className="v12-card-glass" style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem', flexShrink: 0, height: '110px' }}>
                     <span style={{ fontSize: '0.65rem', fontWeight: 900, color: colors.accentTeal, letterSpacing: '0.5px' }}>ADOBE GENSTUDIO CONTENT SUPPLY CHAIN DAG</span>
                     
-                    <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 1rem', background: '#f8fafc', borderRadius: '6px', border: '1px solid rgba(15, 23, 42, 0.08)', relative: 'relative', overflow: 'hidden' }}>
+                    <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 1rem', background: 'rgba(15, 23, 42, 0.25)', borderRadius: '6px', border: '1px solid rgba(255, 255, 255, 0.06)', relative: 'relative', overflow: 'hidden' }}>
                       
-                      <div style={{ textAlign: 'center', background: '#ffffff', border: '1px solid rgba(15, 23, 42, 0.15)', borderRadius: '4px', padding: '0.25rem 0.45rem', cursor: 'pointer', zIndex: 5 }} onClick={() => alert("Workfront: Primary campaign intake and briefs mapped natively.")}>
-                        <span style={{ fontSize: '0.62rem', fontWeight: 800, color: '#0f172a', display: 'block' }}>Workfront</span>
-                        <span style={{ fontSize: '0.48rem', color: '#475569' }}>1. Campaign Brief</span>
+                      <div style={{ textAlign: 'center', background: 'rgba(30, 41, 59, 0.35)', border: '1px solid rgba(15, 23, 42, 0.15)', borderRadius: '4px', padding: '0.25rem 0.45rem', cursor: 'pointer', zIndex: 5 }} onClick={() => alert("Workfront: Primary campaign intake and briefs mapped natively.")}>
+                        <span style={{ fontSize: '0.62rem', fontWeight: 800, color: '#f8fafc', display: 'block' }}>Workfront</span>
+                        <span style={{ fontSize: '0.48rem', color: '#cbd5e1' }}>1. Campaign Brief</span>
                       </div>
 
                       <div style={{ flex: 1, height: '2px', background: 'rgba(15, 23, 42, 0.08)', relative: 'relative' }}>
                         <div style={{ width: '4px', height: '4px', borderRadius: '50%', background: colors.accentTeal, position: 'absolute', animation: 'floatPacket 2s infinite linear' }} />
                       </div>
 
-                      <div style={{ textAlign: 'center', background: '#ffffff', border: '1px solid rgba(15, 23, 42, 0.15)', borderRadius: '4px', padding: '0.25rem 0.45rem', cursor: 'pointer', zIndex: 5 }} onClick={() => alert("Firefly: Dynamic variant image and text generation based on brief briefs.")}>
-                        <span style={{ fontSize: '0.62rem', fontWeight: 800, color: '#0f172a', display: 'block' }}>Firefly</span>
-                        <span style={{ fontSize: '0.48rem', color: '#475569' }}>2. Variant Gen</span>
+                      <div style={{ textAlign: 'center', background: 'rgba(30, 41, 59, 0.35)', border: '1px solid rgba(15, 23, 42, 0.15)', borderRadius: '4px', padding: '0.25rem 0.45rem', cursor: 'pointer', zIndex: 5 }} onClick={() => alert("Firefly: Dynamic variant image and text generation based on brief briefs.")}>
+                        <span style={{ fontSize: '0.62rem', fontWeight: 800, color: '#f8fafc', display: 'block' }}>Firefly</span>
+                        <span style={{ fontSize: '0.48rem', color: '#cbd5e1' }}>2. Variant Gen</span>
                       </div>
 
                       <div style={{ flex: 1, height: '2px', background: 'rgba(15, 23, 42, 0.08)' }} />
@@ -2479,9 +2479,9 @@ export default function PremiumScopingAssessorV12({
 
                       <div style={{ flex: 1, height: '2px', background: 'rgba(15, 23, 42, 0.08)' }} />
 
-                      <div style={{ textAlign: 'center', background: '#ffffff', border: '1px solid rgba(15, 23, 42, 0.15)', borderRadius: '4px', padding: '0.25rem 0.45rem', cursor: 'pointer', zIndex: 5 }} onClick={() => alert("AEM Assets: Compliant, audited storage ready for omni-channel release.")}>
-                        <span style={{ fontSize: '0.62rem', fontWeight: 800, color: '#0f172a', display: 'block' }}>AEM Assets</span>
-                        <span style={{ fontSize: '0.48rem', color: '#475569' }}>4. Audited Storage</span>
+                      <div style={{ textAlign: 'center', background: 'rgba(30, 41, 59, 0.35)', border: '1px solid rgba(15, 23, 42, 0.15)', borderRadius: '4px', padding: '0.25rem 0.45rem', cursor: 'pointer', zIndex: 5 }} onClick={() => alert("AEM Assets: Compliant, audited storage ready for omni-channel release.")}>
+                        <span style={{ fontSize: '0.62rem', fontWeight: 800, color: '#f8fafc', display: 'block' }}>AEM Assets</span>
+                        <span style={{ fontSize: '0.48rem', color: '#cbd5e1' }}>4. Audited Storage</span>
                       </div>
 
                     </div>
@@ -2515,7 +2515,7 @@ export default function PremiumScopingAssessorV12({
                     ))}
                   </div>
 
-                  <div className="v12-card-glass" style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.65rem', background: '#ffffff' }}>
+                  <div className="v12-card-glass" style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.65rem', background: 'rgba(30, 41, 59, 0.35)' }}>
                     <span style={{ fontSize: '0.65rem', fontWeight: 900, color: colors.accentTeal, letterSpacing: '0.5px' }}>
                       METADATA TRANSLATION & ONTOLOGY CODES
                     </span>
@@ -2523,8 +2523,8 @@ export default function PremiumScopingAssessorV12({
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem', overflowY: 'auto' }} className="v12-scrollable">
                       
                       {/* Interactive code block showing dynamic XMP translation */}
-                      <div style={{ background: '#f8fafc', borderRadius: '4px', padding: '0.5rem', fontFamily: 'monospace', fontSize: '0.62rem', border: '1px solid rgba(15,23,42,0.08)' }}>
-                        <span style={{ color: '#64748b' }}>// Symmetrical XMP Metadata Mapping</span><br />
+                      <div style={{ background: 'rgba(15, 23, 42, 0.25)', borderRadius: '4px', padding: '0.5rem', fontFamily: 'monospace', fontSize: '0.62rem', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
+                        <span style={{ color: '#94a3b8' }}>// Symmetrical XMP Metadata Mapping</span><br />
                         <span style={{ color: '#7c3aed' }}>&lt;rdf:Description</span> rdf:about=""<br />
                         &nbsp;&nbsp;xmlns:novartis="http://ns.novartis.com/gxp/1.0/"&gt;<br />
                         &nbsp;&nbsp;&lt;novartis:Brand&gt;<strong style={{ color: '#0d9488' }}>"Novartis CMC Operations"</strong>&lt;/novartis:Brand&gt;<br />
@@ -2535,9 +2535,9 @@ export default function PremiumScopingAssessorV12({
                         <span style={{ color: '#7c3aed' }}>&lt;/rdf:Description&gt;</span>
                       </div>
 
-                      <div style={{ background: '#f8fafc', padding: '0.45rem', borderRadius: '4px', border: '1px solid rgba(15,23,42,0.08)' }}>
-                        <h4 style={{ margin: 0, fontSize: '0.7rem', fontWeight: 900, color: '#0f172a' }}>System Integration Hooks</h4>
-                        <p style={{ margin: '0.1rem 0 0 0', fontSize: '0.62rem', color: '#475569', lineHeight: 1.35 }}>
+                      <div style={{ background: 'rgba(15, 23, 42, 0.25)', padding: '0.45rem', borderRadius: '4px', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
+                        <h4 style={{ margin: 0, fontSize: '0.7rem', fontWeight: 900, color: '#f8fafc' }}>System Integration Hooks</h4>
+                        <p style={{ margin: '0.1rem 0 0 0', fontSize: '0.62rem', color: '#cbd5e1', lineHeight: 1.35 }}>
                           *Adobe Workfront* maps campaigns directly into Google Gemini subagent queues. Upon review, the finalized assets are programmatically tagged and stored in *Adobe Experience Manager (AEM) Assets* with zero manual intervention.
                         </p>
                       </div>
@@ -2667,14 +2667,14 @@ export default function PremiumScopingAssessorV12({
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
                         <Sliders size={15} style={{ color: colors.accentTeal }} />
-                        <span style={{ fontSize: '0.7rem', fontWeight: 900, color: '#0f172a', letterSpacing: '0.5px' }}>COMPOSABLE SANDBOX DESIGNER</span>
+                        <span style={{ fontSize: '0.7rem', fontWeight: 900, color: '#f8fafc', letterSpacing: '0.5px' }}>COMPOSABLE SANDBOX DESIGNER</span>
                       </div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-                        <span style={{ fontSize: '0.65rem', fontWeight: 800, color: '#0f172a' }}>Path Type:</span>
+                        <span style={{ fontSize: '0.65rem', fontWeight: 800, color: '#f8fafc' }}>Path Type:</span>
                         <select
                           value={buyVsBuildSelection}
                           onChange={e => setBuyVsBuildSelection(e.target.value)}
-                          style={{ background: '#ffffff', border: '1px solid rgba(15,23,42,0.15)', borderRadius: '4px', fontSize: '0.62rem', color: '#0f172a', padding: '0.15rem', outline: 'none', cursor: 'pointer', fontWeight: 800 }}
+                          style={{ background: 'rgba(30, 41, 59, 0.35)', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '4px', fontSize: '0.62rem', color: '#f8fafc', padding: '0.15rem', outline: 'none', cursor: 'pointer', fontWeight: 800 }}
                         >
                           <option value="buy">Veeva Native / AWS Bedrock [BUY]</option>
                           <option value="build">Google Custom Mesh [BUILD]</option>
@@ -2683,15 +2683,15 @@ export default function PremiumScopingAssessorV12({
                     </div>
 
                     {/* Symmetrical Grid of dropdowns and sliders */}
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.55rem', borderTop: '1px solid rgba(15,23,42,0.06)', paddingTop: '0.55rem' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.55rem', borderTop: '1px solid rgba(255, 255, 255, 0.04)', paddingTop: '0.55rem' }}>
                       
                       {/* Orchestration */}
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.15rem' }}>
-                        <label style={{ fontSize: '0.55rem', color: '#475569', fontWeight: 800 }}>ORCHESTRATION ENGINE</label>
+                        <label style={{ fontSize: '0.55rem', color: '#cbd5e1', fontWeight: 800 }}>ORCHESTRATION ENGINE</label>
                         <select 
                           value={whatIfOrch} 
                           onChange={e => setWhatIfOrch(e.target.value)}
-                          style={{ background: '#ffffff', border: '1px solid rgba(15,23,42,0.12)', borderRadius: '4px', fontSize: '0.62rem', color: '#0f172a', padding: '0.2rem', outline: 'none', fontWeight: 700 }}
+                          style={{ background: 'rgba(30, 41, 59, 0.35)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '4px', fontSize: '0.62rem', color: '#f8fafc', padding: '0.2rem', outline: 'none', fontWeight: 700 }}
                         >
                           <option value="google">Google Sentinel Mesh</option>
                           <option value="aws">AWS Step Functions</option>
@@ -2702,11 +2702,11 @@ export default function PremiumScopingAssessorV12({
 
                       {/* Identity */}
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.15rem' }}>
-                        <label style={{ fontSize: '0.55rem', color: '#475569', fontWeight: 800 }}>IDENTITY PROVIDER</label>
+                        <label style={{ fontSize: '0.55rem', color: '#cbd5e1', fontWeight: 800 }}>IDENTITY PROVIDER</label>
                         <select 
                           value={whatIfIdentity} 
                           onChange={e => setWhatIfIdentity(e.target.value)}
-                          style={{ background: '#ffffff', border: '1px solid rgba(15,23,42,0.12)', borderRadius: '4px', fontSize: '0.62rem', color: '#0f172a', padding: '0.2rem', outline: 'none', fontWeight: 700 }}
+                          style={{ background: 'rgba(30, 41, 59, 0.35)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '4px', fontSize: '0.62rem', color: '#f8fafc', padding: '0.2rem', outline: 'none', fontWeight: 700 }}
                         >
                           <option value="entra">Microsoft Entra ID</option>
                           <option value="google_id">Google Cloud Identity</option>
@@ -2717,11 +2717,11 @@ export default function PremiumScopingAssessorV12({
 
                       {/* Data Federation */}
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.15rem' }}>
-                        <label style={{ fontSize: '0.55rem', color: '#475569', fontWeight: 800 }}>DATA FEDERATION SCHEMAS</label>
+                        <label style={{ fontSize: '0.55rem', color: '#cbd5e1', fontWeight: 800 }}>DATA FEDERATION SCHEMAS</label>
                         <select 
                           value={whatIfFederation} 
                           onChange={e => setWhatIfFederation(e.target.value)}
-                          style={{ background: '#ffffff', border: '1px solid rgba(15,23,42,0.12)', borderRadius: '4px', fontSize: '0.62rem', color: '#0f172a', padding: '0.2rem', outline: 'none', fontWeight: 700 }}
+                          style={{ background: 'rgba(30, 41, 59, 0.35)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '4px', fontSize: '0.62rem', color: '#f8fafc', padding: '0.2rem', outline: 'none', fontWeight: 700 }}
                         >
                           <option value="mcp">Model Context Protocol (MCP)</option>
                           <option value="google_bq">BigQuery Zero-ETL</option>
@@ -2732,11 +2732,11 @@ export default function PremiumScopingAssessorV12({
 
                       {/* Storage */}
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.15rem' }}>
-                        <label style={{ fontSize: '0.55rem', color: '#475569', fontWeight: 800 }}>STORAGE SYSTEM</label>
+                        <label style={{ fontSize: '0.55rem', color: '#cbd5e1', fontWeight: 800 }}>STORAGE SYSTEM</label>
                         <select 
                           value={whatIfStorage} 
                           onChange={e => setWhatIfStorage(e.target.value)}
-                          style={{ background: '#ffffff', border: '1px solid rgba(15,23,42,0.12)', borderRadius: '4px', fontSize: '0.62rem', color: '#0f172a', padding: '0.2rem', outline: 'none', fontWeight: 700 }}
+                          style={{ background: 'rgba(30, 41, 59, 0.35)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '4px', fontSize: '0.62rem', color: '#f8fafc', padding: '0.2rem', outline: 'none', fontWeight: 700 }}
                         >
                           <option value="veeva_promomats">Veeva Vault PromoMats</option>
                           <option value="adobe">Adobe Experience Manager</option>
@@ -2748,8 +2748,8 @@ export default function PremiumScopingAssessorV12({
                     </div>
 
                     {/* Secondary Sliders Row */}
-                    <div style={{ display: 'flex', gap: '1.5rem', borderTop: '1px solid rgba(15,23,42,0.06)', paddingTop: '0.55rem', flexWrap: 'wrap' }}>
-                      <label style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.65rem', fontWeight: 800, color: '#0f172a', cursor: 'pointer' }}>
+                    <div style={{ display: 'flex', gap: '1.5rem', borderTop: '1px solid rgba(255, 255, 255, 0.04)', paddingTop: '0.55rem', flexWrap: 'wrap' }}>
+                      <label style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.65rem', fontWeight: 800, color: '#f8fafc', cursor: 'pointer' }}>
                         <input 
                           type="checkbox" 
                           checked={crossPlatformOrch}
@@ -2760,7 +2760,7 @@ export default function PremiumScopingAssessorV12({
                       </label>
 
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
-                        <span style={{ fontSize: '0.65rem', fontWeight: 800, color: '#0f172a' }}>SI Budget Cap:</span>
+                        <span style={{ fontSize: '0.65rem', fontWeight: 800, color: '#f8fafc' }}>SI Budget Cap:</span>
                         <input 
                           type="range" 
                           min="150" 
@@ -2780,20 +2780,20 @@ export default function PremiumScopingAssessorV12({
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.85rem', flex: 1, minHeight: 0 }}>
                     
                     {/* Left Pane: TCO & Capability Detail */}
-                    <div className="v12-card-glass" style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', background: '#ffffff' }}>
-                      <div style={{ borderBottom: '1px solid rgba(15,23,42,0.08)', paddingBottom: '0.35rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div className="v12-card-glass" style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', background: 'rgba(30, 41, 59, 0.35)' }}>
+                      <div style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.06)', paddingBottom: '0.35rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <span style={{ fontSize: '0.7rem', fontWeight: 950, color: colors.accentTeal }}>TCO & INTEGRATION METRICS</span>
                         <span style={{ fontSize: '0.52rem', background: 'rgba(13, 148, 136, 0.1)', color: colors.accentTeal, padding: '0.05rem 0.35rem', borderRadius: '3px', fontWeight: 800 }}>LIVE ANALYSIS</span>
                       </div>
 
                       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.55rem', overflowY: 'auto' }} className="v12-scrollable">
                         
-                        <div style={{ background: '#f8fafc', borderRadius: '6px', padding: '0.45rem', border: '1px solid rgba(15, 23, 42, 0.08)', fontSize: '0.65rem' }}>
+                        <div style={{ background: 'rgba(15, 23, 42, 0.25)', borderRadius: '6px', padding: '0.45rem', border: '1px solid rgba(255, 255, 255, 0.06)', fontSize: '0.65rem' }}>
                           <div style={{ fontWeight: 800, color: colors.accentTeal, marginBottom: '0.2rem' }}>Dynamic Stack Evaluation</div>
-                          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem', textAlign: 'left', color: '#475569' }}>
-                            <div>• Orchestrator API Latency: <strong style={{ color: '#0f172a' }}>{selectedOrch === 'google' ? '120ms' : selectedOrch === 'aws' ? '450ms' : '280ms'}</strong></div>
-                            <div>• Identity Handshake Security: <strong style={{ color: '#0f172a' }}>{selectedId === 'entra' || selectedId === 'google_id' ? '🔒 High-Security SSO' : '⚠️ Custom Token'}</strong></div>
-                            <div>• Data pipeline schema: <strong style={{ color: '#0f172a' }}>{selectedFed === 'mcp' ? 'Model Context Protocol (Open)' : 'Bespoke Wrappers'}</strong></div>
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem', textAlign: 'left', color: '#cbd5e1' }}>
+                            <div>• Orchestrator API Latency: <strong style={{ color: '#f8fafc' }}>{selectedOrch === 'google' ? '120ms' : selectedOrch === 'aws' ? '450ms' : '280ms'}</strong></div>
+                            <div>• Identity Handshake Security: <strong style={{ color: '#f8fafc' }}>{selectedId === 'entra' || selectedId === 'google_id' ? '🔒 High-Security SSO' : '⚠️ Custom Token'}</strong></div>
+                            <div>• Data pipeline schema: <strong style={{ color: '#f8fafc' }}>{selectedFed === 'mcp' ? 'Model Context Protocol (Open)' : 'Bespoke Wrappers'}</strong></div>
                           </div>
                         </div>
 
@@ -2803,7 +2803,7 @@ export default function PremiumScopingAssessorV12({
                             <ShieldAlert size={16} style={{ color: colors.accentCoral, flexShrink: 0 }} />
                             <div>
                               <span style={{ fontWeight: 900, color: colors.accentCoral, display: 'block' }}>❌ FAILURE: INSUFFICIENT BUDGET FOR BUILD</span>
-                              <span style={{ color: '#0f172a', display: 'block', marginTop: '0.1rem', lineHeight: 1.3 }}>
+                              <span style={{ color: '#f8fafc', display: 'block', marginTop: '0.1rem', lineHeight: 1.3 }}>
                                 Developing a custom federated orchestration mesh requires at least **$220K in SI build budget** to cover custom connectors and GxP validation. Drag SI Budget up to revive Google Custom Mesh.
                               </span>
                             </div>
@@ -2813,7 +2813,7 @@ export default function PremiumScopingAssessorV12({
                             <ShieldAlert size={16} style={{ color: colors.accentCoral, flexShrink: 0 }} />
                             <div>
                               <span style={{ fontWeight: 900, color: colors.accentCoral, display: 'block' }}>⚠️ SILOED LIMITATION DETECTED</span>
-                              <span style={{ color: '#0f172a', display: 'block', marginTop: '0.1rem', lineHeight: 1.3 }}>
+                              <span style={{ color: '#f8fafc', display: 'block', marginTop: '0.1rem', lineHeight: 1.3 }}>
                                 Veeva Native agents run strictly inside the Vault perimeter. Swapping models outside Bedrock is restricted, and pushing metadata to external Adobe supply chains is blocked without heavy bespoke middleware.
                               </span>
                             </div>
@@ -2821,20 +2821,20 @@ export default function PremiumScopingAssessorV12({
                         ) : (
                           <div style={{ background: 'rgba(13, 148, 136, 0.02)', border: `1.2px solid ${colors.accentTeal}`, borderRadius: '6px', padding: '0.45rem', fontSize: '0.62rem' }}>
                             <span style={{ fontWeight: 900, color: colors.accentTeal, display: 'block' }}>✓ VALID ARCHITECTURE COMBINATION</span>
-                            <span style={{ color: '#475569', display: 'block', marginTop: '0.08rem' }}>
+                            <span style={{ color: '#cbd5e1', display: 'block', marginTop: '0.08rem' }}>
                               All system interfaces are clear. Integration debt is estimated at **{buyVsBuildSelection === 'build' ? 'Low' : 'Minimal'}** with standard APIs.
                             </span>
                           </div>
                         )}
 
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.45rem' }}>
-                          <div style={{ background: '#f8fafc', padding: '0.45rem', borderRadius: '4px', border: '1px solid rgba(15,23,42,0.06)' }}>
-                            <span style={{ fontSize: '0.5rem', color: '#64748b', display: 'block' }}>CAPEX ESTIMATE</span>
-                            <span style={{ fontSize: '0.85rem', fontWeight: 950, color: '#0f172a' }}>${buyVsBuildSelection === 'build' ? '180K' : '65K'}</span>
+                          <div style={{ background: 'rgba(15, 23, 42, 0.25)', padding: '0.45rem', borderRadius: '4px', border: '1px solid rgba(255, 255, 255, 0.04)' }}>
+                            <span style={{ fontSize: '0.5rem', color: '#94a3b8', display: 'block' }}>CAPEX ESTIMATE</span>
+                            <span style={{ fontSize: '0.85rem', fontWeight: 950, color: '#f8fafc' }}>${buyVsBuildSelection === 'build' ? '180K' : '65K'}</span>
                           </div>
-                          <div style={{ background: '#f8fafc', padding: '0.45rem', borderRadius: '4px', border: '1px solid rgba(15,23,42,0.06)' }}>
-                            <span style={{ fontSize: '0.5rem', color: '#64748b', display: 'block' }}>OPEX ESTIMATE</span>
-                            <span style={{ fontSize: '0.85rem', fontWeight: 950, color: '#0f172a' }}>${buyVsBuildSelection === 'build' ? '45K/yr' : '110K/yr'}</span>
+                          <div style={{ background: 'rgba(15, 23, 42, 0.25)', padding: '0.45rem', borderRadius: '4px', border: '1px solid rgba(255, 255, 255, 0.04)' }}>
+                            <span style={{ fontSize: '0.5rem', color: '#94a3b8', display: 'block' }}>OPEX ESTIMATE</span>
+                            <span style={{ fontSize: '0.85rem', fontWeight: 950, color: '#f8fafc' }}>${buyVsBuildSelection === 'build' ? '45K/yr' : '110K/yr'}</span>
                           </div>
                         </div>
 
@@ -2842,29 +2842,29 @@ export default function PremiumScopingAssessorV12({
                     </div>
 
                     {/* Right Pane: Ecosystem Resilience Verdict */}
-                    <div className="v12-card-glass" style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', background: '#ffffff' }}>
-                      <div style={{ borderBottom: '1px solid rgba(15,23,42,0.08)', paddingBottom: '0.35rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div className="v12-card-glass" style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', background: 'rgba(30, 41, 59, 0.35)' }}>
+                      <div style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.06)', paddingBottom: '0.35rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <span style={{ fontSize: '0.7rem', fontWeight: 950, color: colors.accentTeal }}>ECOSYSTEM RESILIENCE AUDIT</span>
-                        <span style={{ fontSize: '0.52rem', color: '#475569' }}>McKinsey & Co. Standard</span>
+                        <span style={{ fontSize: '0.52rem', color: '#cbd5e1' }}>McKinsey & Co. Standard</span>
                       </div>
 
                       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.55rem', overflowY: 'auto' }} className="v12-scrollable">
-                        <div style={{ padding: '0.4rem', background: 'rgba(15, 23, 42, 0.02)', borderRadius: '4px', border: '1px solid rgba(15,23,42,0.06)' }}>
+                        <div style={{ padding: '0.4rem', background: 'rgba(15, 23, 42, 0.02)', borderRadius: '4px', border: '1px solid rgba(255, 255, 255, 0.04)' }}>
                           <span style={{ fontSize: '0.6rem', fontWeight: 900, color: colors.accentTeal, display: 'block' }}>{verdictTitle}</span>
-                          <p style={{ fontSize: '0.58rem', color: '#475569', margin: '0.1rem 0 0 0', lineHeight: 1.35 }}>{verdictText}</p>
+                          <p style={{ fontSize: '0.58rem', color: '#cbd5e1', margin: '0.1rem 0 0 0', lineHeight: 1.35 }}>{verdictText}</p>
                         </div>
 
                         {/* Three Pillars score summary */}
                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.35rem', margin: '0.15rem 0' }}>
-                          <div style={{ background: '#f8fafc', padding: '0.35rem', borderRadius: '4px', border: '1px solid rgba(15,23,42,0.06)', textAlign: 'center' }}>
-                            <span style={{ fontSize: '0.48rem', color: '#64748b', display: 'block' }}>BUSINESS SYNERGY</span>
+                          <div style={{ background: 'rgba(15, 23, 42, 0.25)', padding: '0.35rem', borderRadius: '4px', border: '1px solid rgba(255, 255, 255, 0.04)', textAlign: 'center' }}>
+                            <span style={{ fontSize: '0.48rem', color: '#94a3b8', display: 'block' }}>BUSINESS SYNERGY</span>
                             <span style={{ fontSize: '0.7rem', fontWeight: 900, color: busScore === 'High' ? '#16a34a' : '#d97706' }}>{busScore}</span>
                           </div>
-                          <div style={{ background: '#f8fafc', padding: '0.35rem', borderRadius: '4px', border: '1px solid rgba(15,23,42,0.06)', textAlign: 'center' }}>
-                            <span style={{ fontSize: '0.48rem', color: '#64748b', display: 'block' }}>WATCHDOG GOV</span>
+                          <div style={{ background: 'rgba(15, 23, 42, 0.25)', padding: '0.35rem', borderRadius: '4px', border: '1px solid rgba(255, 255, 255, 0.04)', textAlign: 'center' }}>
+                            <span style={{ fontSize: '0.48rem', color: '#94a3b8', display: 'block' }}>WATCHDOG GOV</span>
                             <span style={{ fontSize: '0.7rem', fontWeight: 900, color: watchdogScore === 'High' ? '#16a34a' : '#d97706' }}>{watchdogScore}</span>
                           </div>
-                          <div style={{ background: '#f8fafc', padding: '0.35rem', borderRadius: '4px', border: '1px solid rgba(15,23,42,0.06)', textAlign: 'center' }}>
+                          <div style={{ background: 'rgba(15, 23, 42, 0.25)', padding: '0.35rem', borderRadius: '4px', border: '1px solid rgba(255, 255, 255, 0.04)', textAlign: 'center' }}>
                             <span style={{ fontSize: '0.7rem', fontWeight: 900, color: magmaScore === 'High' ? '#16a34a' : '#d97706' }}>{magmaScore}</span>
                           </div>
                         </div>
@@ -2873,18 +2873,18 @@ export default function PremiumScopingAssessorV12({
                         <div style={{ fontSize: '0.58rem' }}>
                           <div style={{ fontWeight: 800, color: '#16a34a', marginBottom: '0.1rem' }}>✓ System Synergies</div>
                           {synergies.map((s, idx) => (
-                            <div key={idx} style={{ color: '#475569', marginBottom: '0.1rem' }}>• {s}</div>
+                            <div key={idx} style={{ color: '#cbd5e1', marginBottom: '0.1rem' }}>• {s}</div>
                           ))}
                         </div>
 
                         <div style={{ fontSize: '0.58rem' }}>
                           <div style={{ fontWeight: 800, color: colors.accentCoral, marginBottom: '0.1rem' }}>⚠️ Friction & Debt Flags</div>
                           {friction.map((f, idx) => (
-                            <div key={idx} style={{ color: '#475569', marginBottom: '0.1rem' }}>• {f}</div>
+                            <div key={idx} style={{ color: '#cbd5e1', marginBottom: '0.1rem' }}>• {f}</div>
                           ))}
                         </div>
 
-                        <div style={{ background: '#f8fafc', padding: '0.4rem', borderRadius: '4px', border: '1px solid rgba(15,23,42,0.08)', fontSize: '0.58rem', marginTop: '0.2rem' }}>
+                        <div style={{ background: 'rgba(15, 23, 42, 0.25)', padding: '0.4rem', borderRadius: '4px', border: '1px solid rgba(255, 255, 255, 0.06)', fontSize: '0.58rem', marginTop: '0.2rem' }}>
                           <strong>McKinsey Recommendation:</strong> {recommendation}
                         </div>
 
@@ -2915,7 +2915,7 @@ export default function PremiumScopingAssessorV12({
                         <circle cx="30" cy="30" r="24" fill="none" stroke={colors.accentTeal} strokeWidth="4" strokeDasharray="150" strokeDashoffset="132" />
                       </svg>
                       <div>
-                        <span style={{ fontSize: '0.5rem', color: '#475569', fontWeight: 800, textTransform: 'uppercase', display: 'block' }}>Agent Actions Drift</span>
+                        <span style={{ fontSize: '0.5rem', color: '#cbd5e1', fontWeight: 800, textTransform: 'uppercase', display: 'block' }}>Agent Actions Drift</span>
                         <span style={{ fontSize: '0.85rem', fontWeight: 950, color: colors.accentTeal }}>0.12 <span style={{ fontSize: '0.55rem', color: '#94a3b8' }}>/ 5.0</span></span>
                         <span style={{ fontSize: '0.45rem', color: '#16a34a', display: 'block' }}>✓ FDA Boundary Ok</span>
                       </div>
@@ -2927,9 +2927,9 @@ export default function PremiumScopingAssessorV12({
                         <circle cx="30" cy="30" r="24" fill="none" stroke={colors.accentAmber} strokeWidth="4" strokeDasharray="150" strokeDashoffset="25" />
                       </svg>
                       <div>
-                        <span style={{ fontSize: '0.5rem', color: '#475569', fontWeight: 800, textTransform: 'uppercase', display: 'block' }}>Validated Envelope</span>
+                        <span style={{ fontSize: '0.5rem', color: '#cbd5e1', fontWeight: 800, textTransform: 'uppercase', display: 'block' }}>Validated Envelope</span>
                         <span style={{ fontSize: '0.85rem', fontWeight: 950, color: colors.accentAmber }}>96.8%</span>
-                        <span style={{ fontSize: '0.45rem', color: '#475569', display: 'block' }}>GAMP 5 Category 4</span>
+                        <span style={{ fontSize: '0.45rem', color: '#cbd5e1', display: 'block' }}>GAMP 5 Category 4</span>
                       </div>
                     </div>
 
@@ -2937,11 +2937,11 @@ export default function PremiumScopingAssessorV12({
 
                   {/* MLR Accuracy Chart */}
                   <div className="v12-card-glass" style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', minHeight: '150px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(15, 23, 42, 0.08)', paddingBottom: '0.25rem', alignItems: 'center' }}>
-                      <span style={{ fontSize: '0.62rem', fontWeight: 950, color: '#0f172a', letterSpacing: '0.5px' }}>6-MONTH AUTOMATED MLR ACCURACY</span>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255, 255, 255, 0.06)', paddingBottom: '0.25rem', alignItems: 'center' }}>
+                      <span style={{ fontSize: '0.62rem', fontWeight: 950, color: '#f8fafc', letterSpacing: '0.5px' }}>6-MONTH AUTOMATED MLR ACCURACY</span>
                     </div>
                     <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                      <svg viewBox="0 0 300 110" style={{ width: '100%', height: '100%', background: '#f8fafc', borderRadius: '6px' }}>
+                      <svg viewBox="0 0 300 110" style={{ width: '100%', height: '100%', background: 'rgba(15, 23, 42, 0.25)', borderRadius: '6px' }}>
                         <line x1="25" y1="10" x2="290" y2="10" stroke="rgba(15,23,42,0.04)" />
                         <line x1="25" y1="50" x2="290" y2="50" stroke="rgba(15,23,42,0.04)" />
                         <line x1="25" y1="90" x2="290" y2="90" stroke="rgba(15,23,42,0.04)" />
@@ -2955,7 +2955,7 @@ export default function PremiumScopingAssessorV12({
 
                   {/* Skills Mapping Bench Contrast */}
                   <div className="v12-card-glass" style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
-                    <span style={{ fontSize: '0.65rem', fontWeight: 950, color: '#0f172a', letterSpacing: '0.5px', borderBottom: '1px solid rgba(15, 23, 42, 0.08)', paddingBottom: '0.2rem' }}>ORGANIZATIONAL TALENT CONTRAST</span>
+                    <span style={{ fontSize: '0.65rem', fontWeight: 950, color: '#f8fafc', letterSpacing: '0.5px', borderBottom: '1px solid rgba(255, 255, 255, 0.06)', paddingBottom: '0.2rem' }}>ORGANIZATIONAL TALENT CONTRAST</span>
                     
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
                       <div>
@@ -2963,7 +2963,7 @@ export default function PremiumScopingAssessorV12({
                           <span>Python & MCP Mesh Development</span>
                           <span style={{ color: colors.accentAmber }}>80% Talent Gap</span>
                         </div>
-                        <div style={{ display: 'flex', height: '8px', background: 'rgba(15,23,42,0.03)', borderRadius: '100px', border: '1px solid rgba(15,23,42,0.06)', overflow: 'hidden' }}>
+                        <div style={{ display: 'flex', height: '8px', background: 'rgba(15,23,42,0.03)', borderRadius: '100px', border: '1px solid rgba(255, 255, 255, 0.04)', overflow: 'hidden' }}>
                           <div style={{ width: '20%', background: colors.accentTeal }} />
                           <div style={{ width: '80%', background: colors.accentAmber }} />
                         </div>
@@ -2973,7 +2973,7 @@ export default function PremiumScopingAssessorV12({
                           <span>Veeva Admin Config</span>
                           <span style={{ color: '#16a34a' }}>✓ 100% Ready</span>
                         </div>
-                        <div style={{ display: 'flex', height: '8px', background: 'rgba(15,23,42,0.03)', borderRadius: '100px', border: '1px solid rgba(15,23,42,0.06)', overflow: 'hidden' }}>
+                        <div style={{ display: 'flex', height: '8px', background: 'rgba(15,23,42,0.03)', borderRadius: '100px', border: '1px solid rgba(255, 255, 255, 0.04)', overflow: 'hidden' }}>
                           <div style={{ width: '85%', background: colors.accentTeal }} />
                           <div style={{ width: '15%', background: '#94a3b8' }} />
                         </div>
@@ -2988,8 +2988,8 @@ export default function PremiumScopingAssessorV12({
                   
                   {/* Sovereignty Globe Card */}
                   <div className="v12-card-glass" style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem', minHeight: '220px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid rgba(15,23,42,0.08)', paddingBottom: '0.25rem' }}>
-                      <span style={{ fontSize: '0.65rem', fontWeight: 900, color: '#0f172a' }}>DATA SOVEREIGNTY SCHEMAS</span>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid rgba(255, 255, 255, 0.06)', paddingBottom: '0.25rem' }}>
+                      <span style={{ fontSize: '0.65rem', fontWeight: 900, color: '#f8fafc' }}>DATA SOVEREIGNTY SCHEMAS</span>
                       <div style={{ display: 'flex', gap: '0.2rem' }}>
                         <button 
                           onClick={() => setSelectedRegion('germany')}
@@ -3007,7 +3007,7 @@ export default function PremiumScopingAssessorV12({
                     </div>
 
                     <div style={{ flex: 1, position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '110px' }}>
-                      <svg viewBox="0 0 300 160" style={{ width: '100%', height: '100%', background: '#f8fafc', borderRadius: '6px' }}>
+                      <svg viewBox="0 0 300 160" style={{ width: '100%', height: '100%', background: 'rgba(15, 23, 42, 0.25)', borderRadius: '6px' }}>
                         <path d="M 30,30 L 80,20 L 90,60 L 50,90 Z" fill="rgba(15,23,42,0.01)" stroke="rgba(15, 23, 42, 0.08)" />
                         <path d="M 180,30 L 230,20 L 240,50 L 190,70 Z" fill="rgba(15,23,42,0.01)" stroke="rgba(15, 23, 42, 0.08)" />
                         {selectedRegion === 'germany' ? (
@@ -3027,14 +3027,14 @@ export default function PremiumScopingAssessorV12({
                         {selectedRegion === 'germany' ? (
                           <div style={{ border: '1px solid rgba(225, 29, 72, 0.2)', background: 'rgba(225, 29, 72, 0.02)', padding: '0.35rem', borderRadius: '4px', fontSize: '0.55rem' }}>
                             <span style={{ color: colors.accentCoral, fontWeight: 900 }}>⚠️ 2026 EU AI ACT HIGH-RISK WARNING</span>
-                            <span style={{ color: '#0f172a', display: 'block', marginTop: '0.05rem', lineHeight: 1.25 }}>
+                            <span style={{ color: '#f8fafc', display: 'block', marginTop: '0.05rem', lineHeight: 1.25 }}>
                               Behavioral tracking disabled to avoid 6% global revenue penalty under EU Article 52.
                             </span>
                           </div>
                         ) : (
                           <div style={{ border: '1px solid rgba(13, 148, 136, 0.2)', background: 'rgba(13, 148, 136, 0.02)', padding: '0.35rem', borderRadius: '4px', fontSize: '0.55rem' }}>
                             <span style={{ color: colors.accentTeal, fontWeight: 900 }}>✓ U.S. TRANSPARENCY ROUTING ACTIVE</span>
-                            <span style={{ color: '#0f172a', display: 'block', marginTop: '0.05rem', lineHeight: 1.25 }}>
+                            <span style={{ color: '#f8fafc', display: 'block', marginTop: '0.05rem', lineHeight: 1.25 }}>
                               Opt-out metadata programmatically appended per state-level rules.
                             </span>
                           </div>
@@ -3045,8 +3045,8 @@ export default function PremiumScopingAssessorV12({
 
                   {/* Privacy Risk Thermometer */}
                   <div className="v12-card-glass" style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(15, 23, 42, 0.08)', paddingBottom: '0.2rem', alignItems: 'center' }}>
-                      <span style={{ fontSize: '0.65rem', fontWeight: 950, color: '#0f172a' }}>PATIENT PRIVACY THERMOMETERS</span>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255, 255, 255, 0.06)', paddingBottom: '0.2rem', alignItems: 'center' }}>
+                      <span style={{ fontSize: '0.65rem', fontWeight: 950, color: '#f8fafc' }}>PATIENT PRIVACY THERMOMETERS</span>
                       <label style={{ display: 'flex', alignItems: 'center', gap: '0.2rem', fontSize: '0.55rem', fontWeight: 800, cursor: 'pointer' }}>
                         <input 
                           type="checkbox" 
@@ -3081,17 +3081,17 @@ export default function PremiumScopingAssessorV12({
 
                   {/* Peer Benchmarks */}
                   <div className="v12-card-glass" style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
-                    <span style={{ fontSize: '0.65rem', fontWeight: 950, color: '#0f172a', borderBottom: '1px solid rgba(15, 23, 42, 0.08)', paddingBottom: '0.2rem' }}>PHARMA PEER ADOPTION</span>
+                    <span style={{ fontSize: '0.65rem', fontWeight: 950, color: '#f8fafc', borderBottom: '1px solid rgba(255, 255, 255, 0.06)', paddingBottom: '0.2rem' }}>PHARMA PEER ADOPTION</span>
                     <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.58rem', textAlign: 'left' }}>
                       <tbody>
-                        <tr style={{ borderBottom: '1px solid rgba(15,23,42,0.04)' }}>
+                        <tr style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.04)' }}>
                           <td style={{ padding: '0.2rem', fontWeight: 800 }}>Pfizer Oncology</td>
-                          <td style={{ padding: '0.2rem', color: '#475569' }}>GCP Custom Mesh</td>
+                          <td style={{ padding: '0.2rem', color: '#cbd5e1' }}>GCP Custom Mesh</td>
                           <td style={{ padding: '0.2rem', color: '#16a34a', fontWeight: 700 }}>✓ GxP Validated</td>
                         </tr>
-                        <tr style={{ borderBottom: '1px solid rgba(15,23,42,0.04)' }}>
+                        <tr style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.04)' }}>
                           <td style={{ padding: '0.2rem', fontWeight: 800 }}>Novartis Commercial</td>
-                          <td style={{ padding: '0.2rem', color: '#475569' }}>AWS + Veeva</td>
+                          <td style={{ padding: '0.2rem', color: '#cbd5e1' }}>AWS + Veeva</td>
                           <td style={{ padding: '0.2rem', color: '#16a34a', fontWeight: 700 }}>✓ GxP Validated</td>
                         </tr>
                       </tbody>
@@ -3111,7 +3111,7 @@ export default function PremiumScopingAssessorV12({
                 
                 {/* Granular MLR Swimlane Parallel Router */}
                 <div className="v12-card-glass" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', flexShrink: 0, height: '150px' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(15, 23, 42, 0.08)', paddingBottom: '0.25rem', alignItems: 'center' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255, 255, 255, 0.06)', paddingBottom: '0.25rem', alignItems: 'center' }}>
                     <span style={{ fontSize: '0.65rem', fontWeight: 950, color: colors.accentTeal, letterSpacing: '0.5px' }}>GRANULAR MLR SWIMLANE PARALLEL ROUTER SIMULATOR</span>
                     
                     <div style={{ display: 'flex', gap: '0.25rem' }}>
@@ -3125,7 +3125,7 @@ export default function PremiumScopingAssessorV12({
                       {mlrSimActive && (
                         <button 
                           onClick={handleResetMlrSimulation}
-                          style={{ background: '#ffffff', border: '1px solid rgba(15, 23, 42, 0.08)', color: '#0f172a', borderRadius: '4px', padding: '0.15rem 0.45rem', fontSize: '0.58rem', fontWeight: 800, cursor: 'pointer' }}
+                          style={{ background: 'rgba(30, 41, 59, 0.35)', border: '1px solid rgba(255, 255, 255, 0.06)', color: '#f8fafc', borderRadius: '4px', padding: '0.15rem 0.45rem', fontSize: '0.58rem', fontWeight: 800, cursor: 'pointer' }}
                         >
                           Reset
                         </button>
@@ -3133,10 +3133,10 @@ export default function PremiumScopingAssessorV12({
                     </div>
                   </div>
 
-                  <div style={{ flex: 1, display: 'grid', gridTemplateRows: 'repeat(3, 1fr)', gap: '0.2rem', background: '#f8fafc', borderRadius: '6px', border: '1px solid rgba(15, 23, 42, 0.08)', padding: '0.35rem', relative: 'relative', overflow: 'hidden' }}>
+                  <div style={{ flex: 1, display: 'grid', gridTemplateRows: 'repeat(3, 1fr)', gap: '0.2rem', background: 'rgba(15, 23, 42, 0.25)', borderRadius: '6px', border: '1px solid rgba(255, 255, 255, 0.06)', padding: '0.35rem', relative: 'relative', overflow: 'hidden' }}>
                     
-                    <div style={{ display: 'flex', alignItems: 'center', borderBottom: '1px solid rgba(15,23,42,0.04)', paddingBottom: '0.1rem', relative: 'relative' }}>
-                      <span style={{ fontSize: '0.62rem', color: '#475569', width: '90px', fontWeight: 800 }}>Medical (Claims)</span>
+                    <div style={{ display: 'flex', alignItems: 'center', borderBottom: '1px solid rgba(255, 255, 255, 0.04)', paddingBottom: '0.1rem', relative: 'relative' }}>
+                      <span style={{ fontSize: '0.62rem', color: '#cbd5e1', width: '90px', fontWeight: 800 }}>Medical (Claims)</span>
                       <div style={{ flex: 1, height: '4px', background: 'rgba(15,23,42,0.03)', borderRadius: '2px', relative: 'relative' }}>
                         {mlrSimStep === 3 && (
                           <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: colors.accentTeal, position: 'absolute', top: '-1px', animation: 'floatPacket 1.5s infinite linear' }} />
@@ -3147,8 +3147,8 @@ export default function PremiumScopingAssessorV12({
                       </span>
                     </div>
 
-                    <div style={{ display: 'flex', alignItems: 'center', borderBottom: '1px solid rgba(15,23,42,0.04)', paddingBottom: '0.1rem', relative: 'relative' }}>
-                      <span style={{ fontSize: '0.62rem', color: '#475569', width: '90px', fontWeight: 800 }}>Legal (Rules)</span>
+                    <div style={{ display: 'flex', alignItems: 'center', borderBottom: '1px solid rgba(255, 255, 255, 0.04)', paddingBottom: '0.1rem', relative: 'relative' }}>
+                      <span style={{ fontSize: '0.62rem', color: '#cbd5e1', width: '90px', fontWeight: 800 }}>Legal (Rules)</span>
                       <div style={{ flex: 1, height: '4px', background: 'rgba(15,23,42,0.03)', borderRadius: '2px', relative: 'relative' }}>
                         {mlrSimStep === 3 && (
                           <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: colors.accentTeal, position: 'absolute', top: '-1px', animation: 'floatPacket 1.5s infinite linear', animationDelay: '0.2s' }} />
@@ -3160,7 +3160,7 @@ export default function PremiumScopingAssessorV12({
                     </div>
 
                     <div style={{ display: 'flex', alignItems: 'center', relative: 'relative' }}>
-                      <span style={{ fontSize: '0.62rem', color: '#475569', width: '90px', fontWeight: 800 }}>Regulatory (FDA)</span>
+                      <span style={{ fontSize: '0.62rem', color: '#cbd5e1', width: '90px', fontWeight: 800 }}>Regulatory (FDA)</span>
                       <div style={{ flex: 1, height: '4px', background: 'rgba(15,23,42,0.03)', borderRadius: '2px', relative: 'relative' }}>
                         {mlrSimStep === 3 && (
                           <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: colors.accentTeal, position: 'absolute', top: '-1px', animation: 'floatPacket 1.5s infinite linear', animationDelay: '0.4s' }} />
@@ -3172,10 +3172,10 @@ export default function PremiumScopingAssessorV12({
                     </div>
 
                     {mlrSimActive && (
-                      <div className="v12-card-glass" style={{ position: 'absolute', right: '65px', top: '25px', bottom: '10px', width: '150px', background: 'rgba(255,255,255,0.95)', border: `1.2px solid ${colors.accentTeal}`, padding: '0.35rem', display: 'flex', flexDirection: 'column', justifycontent: 'center', textAlign: 'center', gap: '0.15rem' }}>
-                        <span style={{ fontSize: '0.5rem', color: '#475569', fontWeight: 800 }}>PARALLEL AGENTIC VELOCITY</span>
+                      <div className="v12-card-glass" style={{ position: 'absolute', right: '65px', top: '25px', bottom: '10px', width: '150px', background: 'rgba(15, 23, 42, 0.95)', border: `1.2px solid ${colors.accentTeal}`, padding: '0.35rem', display: 'flex', flexDirection: 'column', justifycontent: 'center', textAlign: 'center', gap: '0.15rem' }}>
+                        <span style={{ fontSize: '0.5rem', color: '#cbd5e1', fontWeight: 800 }}>PARALLEL AGENTIC VELOCITY</span>
                         <span style={{ fontSize: '0.85rem', fontWeight: 950, color: colors.accentTeal }}>{mlrTimer > 0 ? `${mlrTimer}s` : "Shattering..."}</span>
-                        <span style={{ fontSize: '0.48rem', color: '#0f172a' }}>Human Manual: 14 Days</span>
+                        <span style={{ fontSize: '0.48rem', color: '#f8fafc' }}>Human Manual: 14 Days</span>
                       </div>
                     )}
 
@@ -3186,20 +3186,20 @@ export default function PremiumScopingAssessorV12({
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.85rem', flexShrink: 0 }}>
                   
                   {/* Workspace & Collaboration Layer */}
-                  <div className="v12-card-glass" style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem', background: '#ffffff' }}>
+                  <div className="v12-card-glass" style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem', background: 'rgba(30, 41, 59, 0.35)' }}>
                     <span style={{ fontSize: '0.65rem', fontWeight: 900, color: colors.accentTeal, letterSpacing: '0.5px' }}>WORKSPACE & COLLABORATION LAYER</span>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem', fontSize: '0.65rem', color: '#475569' }}>
-                      <div>• <strong style={{ color: '#0f172a' }}>Microsoft 365 SharePoint</strong>: Seamless injection of audited AI-reviewed drafts directly into SharePoint GxP repositories.</div>
-                      <div>• <strong style={{ color: '#0f172a' }}>Microsoft Teams Webhooks</strong>: Event-driven alerts and instant agent-to-human escalation channels when MLR exceptions are flagged.</div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem', fontSize: '0.65rem', color: '#cbd5e1' }}>
+                      <div>• <strong style={{ color: '#f8fafc' }}>Microsoft 365 SharePoint</strong>: Seamless injection of audited AI-reviewed drafts directly into SharePoint GxP repositories.</div>
+                      <div>• <strong style={{ color: '#f8fafc' }}>Microsoft Teams Webhooks</strong>: Event-driven alerts and instant agent-to-human escalation channels when MLR exceptions are flagged.</div>
                     </div>
                   </div>
 
                   {/* Zero-Trust IAM Security */}
-                  <div className="v12-card-glass" style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem', background: '#ffffff' }}>
+                  <div className="v12-card-glass" style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem', background: 'rgba(30, 41, 59, 0.35)' }}>
                     <span style={{ fontSize: '0.65rem', fontWeight: 900, color: colors.accentTeal, letterSpacing: '0.5px' }}>ZERO-TRUST IDENTITY ACCESS MANAGEMENT</span>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem', fontSize: '0.65rem', color: '#475569' }}>
-                      <div>• <strong style={{ color: '#0f172a' }}>Microsoft Entra ID SSO</strong>: Secure Azure AD token exchange managed natively via Kong AI security gateways.</div>
-                      <div>• <strong style={{ color: '#0f172a' }}>Granular RBAC Contracts</strong>: Cryptographic identity propagation verified on every single tool execution call.</div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem', fontSize: '0.65rem', color: '#cbd5e1' }}>
+                      <div>• <strong style={{ color: '#f8fafc' }}>Microsoft Entra ID SSO</strong>: Secure Azure AD token exchange managed natively via Kong AI security gateways.</div>
+                      <div>• <strong style={{ color: '#f8fafc' }}>Granular RBAC Contracts</strong>: Cryptographic identity propagation verified on every single tool execution call.</div>
                     </div>
                   </div>
 
@@ -3208,31 +3208,31 @@ export default function PremiumScopingAssessorV12({
                 {/* Bottom Row Checklist & Actions */}
                 <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '0.85rem', flex: 1, minHeight: 0 }}>
                   
-                  <div className="v12-card-glass" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', background: '#ffffff' }}>
+                  <div className="v12-card-glass" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', background: 'rgba(30, 41, 59, 0.35)' }}>
                     <span style={{ fontSize: '0.65rem', fontWeight: 900, color: colors.accentTeal, letterSpacing: '0.5px' }}>THE 90-DAY EXECUTION CHECKLIST</span>
                     
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
-                      <label style={{ display: 'flex', alignItems: 'flex-start', gap: '0.45rem', fontSize: '0.68rem', color: '#0f172a', cursor: 'pointer' }}>
+                      <label style={{ display: 'flex', alignItems: 'flex-start', gap: '0.45rem', fontSize: '0.68rem', color: '#f8fafc', cursor: 'pointer' }}>
                         <input type="checkbox" defaultChecked style={{ marginTop: '0.1rem', accentColor: colors.accentTeal }} />
                         <div>
                           <span style={{ fontWeight: 800, display: 'block' }}>1. Formalize Selection of Google Cloud Managed Platform</span>
-                          <span style={{ fontSize: '0.58rem', color: '#475569', display: 'block' }}>Kick off sovereign tenant setup and assign GCP billing accounts.</span>
+                          <span style={{ fontSize: '0.58rem', color: '#cbd5e1', display: 'block' }}>Kick off sovereign tenant setup and assign GCP billing accounts.</span>
                         </div>
                       </label>
 
-                      <label style={{ display: 'flex', alignItems: 'flex-start', gap: '0.45rem', fontSize: '0.68rem', color: '#0f172a', cursor: 'pointer' }}>
+                      <label style={{ display: 'flex', alignItems: 'flex-start', gap: '0.45rem', fontSize: '0.68rem', color: '#f8fafc', cursor: 'pointer' }}>
                         <input type="checkbox" style={{ marginTop: '0.1rem', accentColor: colors.accentTeal }} />
                         <div>
                           <span style={{ fontWeight: 800, display: 'block' }}>2. Initiate Agent-as-Code CI/CD Architecture</span>
-                          <span style={{ fontSize: '0.58rem', color: '#475569', display: 'block' }}>Configure private GitHub actions and provision GCP container registries.</span>
+                          <span style={{ fontSize: '0.58rem', color: '#cbd5e1', display: 'block' }}>Configure private GitHub actions and provision GCP container registries.</span>
                         </div>
                       </label>
 
-                      <label style={{ display: 'flex', alignItems: 'flex-start', gap: '0.45rem', fontSize: '0.68rem', color: '#0f172a', cursor: 'pointer' }}>
+                      <label style={{ display: 'flex', alignItems: 'flex-start', gap: '0.45rem', fontSize: '0.68rem', color: '#f8fafc', cursor: 'pointer' }}>
                         <input type="checkbox" style={{ marginTop: '0.1rem', accentColor: colors.accentTeal }} />
                         <div>
                           <span style={{ fontWeight: 800, display: 'block' }}>3. Schedule Day-0 GxP Quality Validation Meeting</span>
-                          <span style={{ fontSize: '0.58rem', color: '#475569', display: 'block' }}>Align with biopharma compliance leads on cryptographic consensus key rules.</span>
+                          <span style={{ fontSize: '0.58rem', color: '#cbd5e1', display: 'block' }}>Align with biopharma compliance leads on cryptographic consensus key rules.</span>
                         </div>
                       </label>
                     </div>
@@ -3241,14 +3241,14 @@ export default function PremiumScopingAssessorV12({
                   <div className="v12-card-glass" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', gap: '0.55rem' }}>
                     <Award size={28} style={{ color: colors.accentTeal }} />
                     <div>
-                      <h4 style={{ margin: 0, fontSize: '0.75rem', fontWeight: 900, color: '#0f172a' }}>Secure Your January 2027 MVP Delivery</h4>
-                      <p style={{ margin: '0.15rem 0 0 0', fontSize: '0.62rem', color: '#475569', lineHeight: 1.35 }}>
+                      <h4 style={{ margin: 0, fontSize: '0.75rem', fontWeight: 900, color: '#f8fafc' }}>Secure Your January 2027 MVP Delivery</h4>
+                      <p style={{ margin: '0.15rem 0 0 0', fontSize: '0.62rem', color: '#cbd5e1', lineHeight: 1.35 }}>
                         Authorize the FDE Technical Spike to build the initial mTLS gateway and Veeva Vault vector graph prototypes in Weeks 1-3.
                       </p>
                     </div>
                     <button
                       onClick={() => alert("📩 Scheduling Technical Spike... Request sent to Google CE Field Engineers!")}
-                      style={{ background: '#ffffff', border: `1.2px solid ${colors.accentTeal}`, color: colors.accentTeal, borderRadius: '6px', padding: '0.4rem 1.2rem', fontSize: '0.65rem', fontWeight: 900, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.25rem' }}
+                      style={{ background: 'rgba(30, 41, 59, 0.35)', border: `1.2px solid ${colors.accentTeal}`, color: colors.accentTeal, borderRadius: '6px', padding: '0.4rem 1.2rem', fontSize: '0.65rem', fontWeight: 900, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.25rem' }}
                     >
                       Request Technical Spike / PoC
                     </button>
@@ -3270,20 +3270,20 @@ export default function PremiumScopingAssessorV12({
       {activeDagNode && (
         <div style={{ position: 'absolute', inset: 0, background: 'rgba(248, 250, 252, 0.85)', display: 'flex', alignItems: 'center', justifycontent: 'center', zIndex: 120 }}>
           <div className="v12-card-glass" style={{ width: '100%', maxWidth: '420px', display: 'flex', flexDirection: 'column', gap: '0.85rem', border: `1.2px solid ${colors.accentTeal}`, boxShadow: '0 8px 32px rgba(13, 148, 136, 0.15)' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid rgba(15, 23, 42, 0.08)', paddingBottom: '0.45rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid rgba(255, 255, 255, 0.06)', paddingBottom: '0.45rem' }}>
               <span style={{ fontSize: '0.75rem', fontWeight: 950, color: colors.accentTeal }}>{activeDagNode.title}</span>
-              <button onClick={() => setActiveDagNode(null)} style={{ background: 'transparent', border: 'none', color: '#475569', fontSize: '0.78rem', cursor: 'pointer', fontWeight: 900 }}>✕</button>
+              <button onClick={() => setActiveDagNode(null)} style={{ background: 'transparent', border: 'none', color: '#cbd5e1', fontSize: '0.78rem', cursor: 'pointer', fontWeight: 900 }}>✕</button>
             </div>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
               <div>
-                <span style={{ fontSize: '0.52rem', color: '#475569', fontWeight: 800, textTransform: 'uppercase' }}>HOW GEMINI PROCESSES REVIEWS</span>
-                <p style={{ margin: '0.1rem 0 0 0', fontSize: '0.68rem', color: '#0f172a', lineHeight: 1.4 }}>{activeDagNode.desc}</p>
+                <span style={{ fontSize: '0.52rem', color: '#cbd5e1', fontWeight: 800, textTransform: 'uppercase' }}>HOW GEMINI PROCESSES REVIEWS</span>
+                <p style={{ margin: '0.1rem 0 0 0', fontSize: '0.68rem', color: '#f8fafc', lineHeight: 1.4 }}>{activeDagNode.desc}</p>
               </div>
 
-              <div style={{ background: '#f8fafc', padding: '0.45rem', borderRadius: '4px', border: '1px solid rgba(15, 23, 42, 0.08)' }}>
+              <div style={{ background: 'rgba(15, 23, 42, 0.25)', padding: '0.45rem', borderRadius: '4px', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
                 <span style={{ fontSize: '0.52rem', color: colors.accentTeal, fontWeight: 900, display: 'block', marginBottom: '0.15rem' }}>AWS VS. GOOGLE ARCHITECTURE CONTRAST</span>
-                <p style={{ margin: 0, fontSize: '0.65rem', color: '#0f172a', lineHeight: 1.4 }}>{activeDagNode.contrast}</p>
+                <p style={{ margin: 0, fontSize: '0.65rem', color: '#f8fafc', lineHeight: 1.4 }}>{activeDagNode.contrast}</p>
               </div>
             </div>
 
@@ -3305,30 +3305,30 @@ export default function PremiumScopingAssessorV12({
       {signOffModalActive && (
         <div style={{ position: 'absolute', inset: 0, background: 'rgba(248, 250, 252, 0.85)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 110 }}>
           <div className="v12-card-glass" style={{ width: '100%', maxWidth: '380px', display: 'flex', flexDirection: 'column', gap: '0.85rem', border: '1px solid rgba(13, 148, 136, 0.3)', boxShadow: '0 8px 32px rgba(13, 148, 136, 0.15)' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', borderBottom: '1px solid rgba(15, 23, 42, 0.08)', paddingBottom: '0.45rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', borderBottom: '1px solid rgba(255, 255, 255, 0.06)', paddingBottom: '0.45rem' }}>
               <Shield size={18} style={{ color: colors.accentTeal }} />
-              <h3 style={{ margin: 0, fontSize: '0.85rem', fontWeight: 900, color: '#0f172a', letterSpacing: '0.5px' }}>CRYPTOGRAPHIC QUALITY UNIT SIGN-OFF</h3>
+              <h3 style={{ margin: 0, fontSize: '0.85rem', fontWeight: 900, color: '#f8fafc', letterSpacing: '0.5px' }}>CRYPTOGRAPHIC QUALITY UNIT SIGN-OFF</h3>
             </div>
             
-            <p style={{ margin: 0, fontSize: '0.68rem', color: '#475569', lineHeight: 1.4 }}>
+            <p style={{ margin: 0, fontSize: '0.68rem', color: '#cbd5e1', lineHeight: 1.4 }}>
               To validate this architecture under **FDA GxP Part 11 perimeters**, please enter the name of the certifying C-Suite executive or Quality Manager below. This locks the assessment configuration in the database and assigns a secure cryptographic verification key.
             </p>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
-              <label style={{ fontSize: '0.58rem', color: '#475569', fontWeight: 800 }}>CERTIFYING SIGNATORY NAME</label>
+              <label style={{ fontSize: '0.58rem', color: '#cbd5e1', fontWeight: 800 }}>CERTIFYING SIGNATORY NAME</label>
               <input 
                 type="text"
                 value={customSignatory}
                 onChange={e => setCustomSignatory(e.target.value)}
                 placeholder="e.g. Dr. Arthur Pendelton, VP Quality Assurance"
-                style={{ background: '#ffffff', border: '1px solid rgba(15, 23, 42, 0.15)', borderRadius: '4px', padding: '0.35rem 0.5rem', fontSize: '0.7rem', color: '#0f172a', outline: 'none' }}
+                style={{ background: 'rgba(30, 41, 59, 0.35)', border: '1px solid rgba(15, 23, 42, 0.15)', borderRadius: '4px', padding: '0.35rem 0.5rem', fontSize: '0.7rem', color: '#f8fafc', outline: 'none' }}
               />
             </div>
 
             <div style={{ display: 'flex', gap: '0.35rem', justifyContent: 'flex-end', marginTop: '0.25rem' }}>
               <button 
                 onClick={() => setSignOffModalActive(false)}
-                style={{ background: 'transparent', border: 'none', color: '#475569', fontSize: '0.65rem', fontWeight: 800, cursor: 'pointer', padding: '0.3rem 0.65rem' }}
+                style={{ background: 'transparent', border: 'none', color: '#cbd5e1', fontSize: '0.65rem', fontWeight: 800, cursor: 'pointer', padding: '0.3rem 0.65rem' }}
               >
                 Cancel
               </button>
