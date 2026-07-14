@@ -1183,48 +1183,56 @@ export default function PremiumScopingAssessorV12({
       <style>{`
         .premium-assessor-v12-container {
           display: flex;
-          background: #f8fafc;
-          color: #0f172a;
-          font-family: 'Inter', -apple-system, sans-serif;
+          background: #f4f6fa;
+          color: #1e293b;
+          font-family: 'Outfit', 'Inter', -apple-system, sans-serif;
           box-sizing: border-box;
           height: 100%;
           width: 100%;
           overflow: hidden;
-          transition: background-color 0.2s, color 0.2s;
+          transition: background-color 0.3s ease, color 0.3s ease;
+          -webkit-font-smoothing: antialiased;
         }
 
         .v12-sidebar-premium {
-          width: 250px;
-          background: #ffffff;
-          border-right: 1px solid rgba(15, 23, 42, 0.08);
+          width: 260px;
+          background: rgba(255, 255, 255, 0.85);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border-right: 1px solid rgba(15, 23, 42, 0.06);
           display: flex;
           flex-direction: column;
           box-sizing: border-box;
           height: 100%;
           flex-shrink: 0;
+          box-shadow: 4px 0 24px rgba(15, 23, 42, 0.02);
         }
 
         .v12-sidebar-nav-item {
           display: flex;
           align-items: center;
-          gap: 0.65rem;
-          padding: 0.65rem 1rem;
+          gap: 0.75rem;
+          padding: 0.75rem 1.25rem;
+          margin: 0.15rem 0.5rem;
           cursor: pointer;
-          font-size: 0.74rem;
+          font-size: 0.72rem;
           font-weight: 600;
           color: #475569;
+          border-radius: 8px;
           border-left: 3px solid transparent;
-          transition: all 0.15s ease;
+          transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .v12-sidebar-nav-item:hover {
-          background: rgba(13, 148, 136, 0.03);
+          background: rgba(13, 148, 136, 0.04);
           color: #0f172a;
+          transform: translateX(4px);
         }
         .v12-sidebar-nav-item.active {
-          background: rgba(13, 148, 136, 0.06);
+          background: rgba(13, 148, 136, 0.08);
           color: #0d9488;
           border-left-color: #0d9488;
           font-weight: 800;
+          box-shadow: 0 4px 12px rgba(13, 148, 136, 0.06);
         }
 
         .v12-main-area-premium {
@@ -1235,67 +1243,106 @@ export default function PremiumScopingAssessorV12({
           height: 100%;
           min-height: 0;
           background: #f8fafc;
+          background-image: 
+            radial-gradient(at 0% 0%, rgba(13, 148, 136, 0.04) 0px, transparent 55%), 
+            radial-gradient(at 100% 0%, rgba(99, 102, 241, 0.04) 0px, transparent 55%),
+            radial-gradient(at 50% 100%, rgba(236, 72, 153, 0.03) 0px, transparent 55%);
           position: relative;
           overflow: hidden;
         }
 
         .v12-card-glass {
-          background: #ffffff;
-          border: 1px solid rgba(15, 23, 42, 0.08);
-          border-radius: 12px;
-          box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
-          padding: 0.85rem;
+          background: rgba(255, 255, 255, 0.75);
+          backdrop-filter: blur(16px);
+          -webkit-backdrop-filter: blur(16px);
+          border: 1px solid rgba(255, 255, 255, 0.6);
+          border-radius: 14px;
+          box-shadow: 
+            0 10px 30px rgba(15, 23, 42, 0.02),
+            0 1px 3px rgba(15, 23, 42, 0.01),
+            inset 0 1px 0 rgba(255, 255, 255, 0.8);
+          padding: 0.95rem;
           box-sizing: border-box;
+          transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+        .v12-card-glass:hover {
+          transform: translateY(-2px);
+          box-shadow: 
+            0 16px 36px rgba(15, 23, 42, 0.04),
+            0 2px 6px rgba(15, 23, 42, 0.02);
+          border-color: rgba(13, 148, 136, 0.25);
         }
 
         .v12-kpi-val {
-          font-size: 1.4rem;
+          font-size: 1.5rem;
           font-weight: 900;
-          line-height: 1.2;
-          letter-spacing: -0.5px;
+          line-height: 1.15;
+          letter-spacing: -0.75px;
           color: #0f172a;
+          background: linear-gradient(135deg, #0f172a 30%, #334155 90%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
         }
 
         .v12-pulse-dot {
-          width: 6px;
-          height: 6px;
+          width: 7px;
+          height: 7px;
           background: #0d9488;
           border-radius: 50%;
-          box-shadow: 0 0 8px #0d9488;
+          box-shadow: 0 0 10px rgba(13, 148, 136, 0.6);
           display: inline-block;
-          animation: pulse 1.5s infinite;
+          animation: pulse 1.6s infinite ease-in-out;
         }
 
         @keyframes pulse {
-          0% { transform: scale(1); opacity: 1; }
-          50% { transform: scale(1.3); opacity: 0.4; }
-          100% { transform: scale(1); opacity: 1; }
+          0% { transform: scale(0.9); opacity: 0.9; box-shadow: 0 0 4px rgba(13, 148, 136, 0.4); }
+          50% { transform: scale(1.25); opacity: 0.35; box-shadow: 0 0 12px rgba(13, 148, 136, 0.7); }
+          100% { transform: scale(0.9); opacity: 0.9; box-shadow: 0 0 4px rgba(13, 148, 136, 0.4); }
         }
 
         .v12-scrollable::-webkit-scrollbar {
-          width: 5px;
-          height: 5px;
+          width: 6px;
+          height: 6px;
         }
         .v12-scrollable::-webkit-scrollbar-track {
-          background: rgba(0,0,0,0.03);
+          background: rgba(0,0,0,0.01);
         }
         .v12-scrollable::-webkit-scrollbar-thumb {
-          background: rgba(15, 23, 42, 0.08);
-          border-radius: 4px;
+          background: rgba(15, 23, 42, 0.06);
+          border-radius: 10px;
         }
         .v12-scrollable::-webkit-scrollbar-thumb:hover {
-          background: rgba(13, 148, 136, 0.3);
+          background: rgba(13, 148, 136, 0.25);
         }
 
         @keyframes floatPacket {
           0% { transform: translate(0, 0); opacity: 0; }
-          10% { opacity: 1; }
-          90% { opacity: 1; }
+          15% { opacity: 1; }
+          85% { opacity: 1; }
           100% { transform: translate(100%, 0); opacity: 0; }
         }
 
+        .v12-table-row-hover {
+          transition: background-color 0.2s ease;
+        }
         .v12-table-row-hover:hover {
-          background: rgba(13, 148, 136, 0.02) !important;
+          background: rgba(13, 148, 136, 0.025) !important;
+        }
+
+        /* Premium Page Transitions */
+        .v12-page-transition {
+          animation: fadeInUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(12px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
         }
       `}</style>
 
@@ -1802,7 +1849,7 @@ export default function PremiumScopingAssessorV12({
             // PAGE 1: EXECUTIVE CONTROL TOWER (SUMMARY) (WITH NEW ENTERPRISE KPIs)
             // ========================================================================= */}
             {reportPage === 'summary' && (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', flex: 1 }}>
+              <div className="v12-page-transition" style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', flex: 1 }}>
                 
                 {/* 6 Global Executive Symmetrical KPIs Grid */}
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.65rem' }}>
@@ -1999,7 +2046,7 @@ export default function PremiumScopingAssessorV12({
             // PAGE 2: 25-DIMENSION ASSESSMENT MATRIX
             // ========================================================================= */}
             {reportPage === 'matrix' && (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', flex: 1, minHeight: 0 }}>
+              <div className="v12-page-transition" style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', flex: 1, minHeight: 0 }}>
                 
                 <div className="v12-card-glass" style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem', flexShrink: 0 }}>
                   <span style={{ fontSize: '0.65rem', fontWeight: 900, color: '#0f172a', letterSpacing: '0.5px' }}>6-PILLAR COMPREHENSIVE CAPABILITY HEATMAP</span>
@@ -2213,7 +2260,7 @@ export default function PremiumScopingAssessorV12({
             // PAGE 3: TECHNICAL BLUEPRINTS, DIAGRAMS & ADOBE CONTENT SUPPLY CHAIN
             // ========================================================================= */}
             {reportPage === 'blueprints' && (
-              <div style={{ display: 'grid', gridTemplateColumns: '1.35fr 1fr', gap: '0.85rem', flex: 1, minHeight: 0 }}>
+              <div className="v12-page-transition" style={{ display: 'grid', gridTemplateColumns: '1.35fr 1fr', gap: '0.85rem', flex: 1, minHeight: 0 }}>
                 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', height: '100%', minHeight: 0 }}>
                   
@@ -2613,7 +2660,7 @@ export default function PremiumScopingAssessorV12({
               }
 
               return (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', flex: 1, minHeight: 0 }}>
+                <div className="v12-page-transition" style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', flex: 1, minHeight: 0 }}>
                   
                   {/* Controls Card */}
                   <div className="v12-card-glass" style={{ padding: '0.65rem 1rem', display: 'flex', flexDirection: 'column', gap: '0.6rem', flexShrink: 0 }}>
@@ -2854,7 +2901,7 @@ export default function PremiumScopingAssessorV12({
             // PAGE 5: GOVERNANCE & OPERATIONS (GxP AND REGULATORY DEFENSES)
             // ========================================================================= */}
             {reportPage === 'governance' && (
-              <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '0.85rem', flex: 1, minHeight: 0 }}>
+              <div className="v12-page-transition" style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '0.85rem', flex: 1, minHeight: 0 }}>
                 
                 {/* Left Column: GAMP 5 Telemetry & Talent Mapping */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', height: '100%', minHeight: 0, overflowY: 'auto' }} className="v12-scrollable">
@@ -3060,7 +3107,7 @@ export default function PremiumScopingAssessorV12({
             // PAGE 6: THE 90-DAY EXECUTION ROADMAP
             // ========================================================================= */}
             {reportPage === 'roadmap' && (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', flex: 1, minHeight: 0 }}>
+              <div className="v12-page-transition" style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', flex: 1, minHeight: 0 }}>
                 
                 {/* Granular MLR Swimlane Parallel Router */}
                 <div className="v12-card-glass" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', flexShrink: 0, height: '150px' }}>
