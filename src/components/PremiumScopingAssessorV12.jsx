@@ -1739,6 +1739,11 @@ export default function PremiumScopingAssessorV12({
               </div>
 
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', flexShrink: 0 }}>
+                {scores[activeQuestion.id]?.confidence !== undefined && (
+                  <span style={{ fontSize: '0.55rem', background: 'rgba(6, 182, 212, 0.1)', color: colors.accentTeal, padding: '0.08rem 0.35rem', borderRadius: '3px', fontWeight: 900, display: 'flex', alignItems: 'center', gap: '0.15rem', border: '1px solid rgba(6, 182, 212, 0.2)' }}>
+                    🤖 AI CONFIDENCE: {scores[activeQuestion.id].confidence}%
+                  </span>
+                )}
                 {doneCount > 0 && (
                   <span style={{ fontSize: '0.55rem', background: 'rgba(22, 163, 74, 0.1)', color: '#16a34a', padding: '0.08rem 0.35rem', borderRadius: '3px', fontWeight: 900, display: 'flex', alignItems: 'center', gap: '0.15rem' }}>
                     ✓ SAVED
